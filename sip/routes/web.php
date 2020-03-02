@@ -19,6 +19,14 @@ Route::get('/', function () {
     return view('index');
 });
 
+Route::get('/teachers', function () {
+	return view('teachers');
+});
+
+Route::get('/subjects', function () {
+	return view('subjects');
+});
+
 Route::get('/profile', function () {
 	return view('user.profile');
 });

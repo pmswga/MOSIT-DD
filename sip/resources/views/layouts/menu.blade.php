@@ -4,10 +4,10 @@
         <a class="header item" href="{{ url('/') }}">
 			SIP
 		</a>
-		<a class="item" href="#">
+		<a class="item" href="{{ url('teachers') }}">
 			Преподаватели
 		</a>
-		<a class="item" href="#">
+		<a class="item" href="{{ url('subjects') }}">
 			Дисциплины
 		</a>
 		<a class="item" href="#">
