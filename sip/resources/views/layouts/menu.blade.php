@@ -17,6 +17,7 @@
 			Архив
 		</a>
         <div class="right menu">
+			<a class="item" href="{{ url('ip/add') }}">Добавить ИП</a>
             <div class="ui dropdown item">
                 <i class="user icon"></i>
 				Username

@@ -27,6 +27,10 @@ Route::get('/subjects', function () {
 	return view('subjects');
 });
 
+Route::get('/ip/add', function () {
+	return view('ip.add');
+});
+
 Route::get('/profile', function () {
 	return view('user.profile');
 });
