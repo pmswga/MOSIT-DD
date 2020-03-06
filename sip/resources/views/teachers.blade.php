@@ -15,37 +15,40 @@
 							<fieldset class="ui segment">
 								<legend><h3>Фильтр</h3></legend>
 								<form class="ui form">
+									<div class="three fields">
+										<div class="field">
+											<select>
+												<option>По ФИО</option>
+												<option></option>
+											</select>
+										</div>
+										<div class="field">
+											<input type="text" placeholder="Введите данные для поиска">
+										</div>
+										<div class="field">
+											<input type="button" class="ui fluid primary button" value="Найти">
+										</div>
+									</div>
 									<div class="field">
 										<label>По институту</label>
 										<select>
 											<option>ИТ</option>
 											<option>ИНТЕГУ</option>
-											<option>Физ</option>
+											<option>Физтех</option>
+											<option>ИК</option>
 										</select>
 									</div>
 								</form>
 							</fieldset>
 						</div>
-						<div class="column">
+						<div class="four wide column">
 							<fieldset class="ui segment">
 								<legend><h3>Сортировка</h3></legend>
 								<form class="ui form">
 									<div class="field">
 										<div class="ui checkbox">
 											<input type="checkbox">
-											<label>По преподавателю</label>
-										</div>
-									</div>
-									<div class="field">
-										<div class="ui checkbox">
-											<input type="checkbox">
-											<label>Заполненные ИП</label>
-										</div>
-									</div>
-									<div class="field">
-										<div class="ui checkbox">
-											<input type="checkbox">
-											<label>Незаполненные ИП</label>
+											<label>По ФИО (по убыванию)</label>
 										</div>
 									</div>
 								</form>
@@ -70,6 +73,8 @@
 									<th>Должность</th>
 									<th>Ставка</th>
 									<th>ТД</th>
+									<th>Телефон</th>
+									<th>Почта</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -84,14 +89,20 @@
 											<tbody>
 												<tr>
 													<td>Штатная</td>
+												</tr>
+												<tr>
 													<td>1.0</td>
 												</tr>
 												<tr>
-													<td>Штатная-совместителя</td>
+													<td>Внутренний совместитель</td>
+												</tr>
+												<tr>
 													<td>0.5</td>
 												</tr>
 												<tr>
-													<td>Внешняя-совместителя</td>
+													<td>Внешний совместитель</td>
+												</tr>
+												<tr>
 													<td>0.0</td>
 												</tr>
 											</tbody>
@@ -102,132 +113,21 @@
 											<tbody>
 												<tr>
 													<td>Начало ТД</td>
+												</tr>
+												<tr>
 													<td>01.01.1969</td>
 												</tr>
 												<tr>
 													<td>Окончание ТД</td>
+												</tr>
+												<tr>
 													<td>01.01.2024</td>
 												</tr>
 											</tbody>
 										</table>
 									</td>
-								</tr>
-								<tr>
-									<td>2</td>
-									<td>Фролов Константин Константинович</td>
-									<td>ИТ</td>
-									<td>МОСИТ</td>
-									<td>Профессор</td>
-									<td>
-										<table width="100%">
-											<tbody>
-												<tr>
-													<td>Штатная</td>
-													<td>1.0</td>
-												</tr>
-												<tr>
-													<td>Штатная-совместителя</td>
-													<td>0.5</td>
-												</tr>
-												<tr>
-													<td>Внешняя-совместителя</td>
-													<td>0.0</td>
-												</tr>
-											</tbody>
-										</table>
-									</td>
-									<td>
-										<table width="100%">
-											<tbody>
-												<tr>
-													<td>Начало ТД</td>
-													<td>01.01.1969</td>
-												</tr>
-												<tr>
-													<td>Окончание ТД</td>
-													<td>01.01.2024</td>
-												</tr>
-											</tbody>
-										</table>
-									</td>
-								</tr>
-								<tr>
-									<td>3</td>
-									<td>Кораблин Юрий Прокофьевич</td>
-									<td>ИТ</td>
-									<td>МОСИТ</td>
-									<td>Доцент</td>
-									<td>
-										<table width="100%">
-											<tbody>
-												<tr>
-													<td>Штатная</td>
-													<td>1.0</td>
-												</tr>
-												<tr>
-													<td>Штатная-совместителя</td>
-													<td>0.5</td>
-												</tr>
-												<tr>
-													<td>Внешняя-совместителя</td>
-													<td>0.0</td>
-												</tr>
-											</tbody>
-										</table>
-									</td>
-									<td>
-										<table width="100%">
-											<tbody>
-												<tr>
-													<td>Начало ТД</td>
-													<td>01.01.1969</td>
-												</tr>
-												<tr>
-													<td>Окончание ТД</td>
-													<td>01.01.2024</td>
-												</tr>
-											</tbody>
-										</table>
-									</td>
-								</tr>
-								<tr>
-									<td>4</td>
-									<td>Берков Николай Андреевич</td>
-									<td>ИТ</td>
-									<td>МОСИТ</td>
-									<td>Доцент</td>
-									<td>
-										<table width="100%">
-											<tbody>
-												<tr>
-													<td>Штатная</td>
-													<td>1.0</td>
-												</tr>
-												<tr>
-													<td>Штатная-совместителя</td>
-													<td>0.5</td>
-												</tr>
-												<tr>
-													<td>Внешняя-совместителя</td>
-													<td>0.0</td>
-												</tr>
-											</tbody>
-										</table>
-									</td>
-									<td>
-										<table width="100%">
-											<tbody>
-												<tr>
-													<td>Начало ТД</td>
-													<td>01.01.1969</td>
-												</tr>
-												<tr>
-													<td>Окончание ТД</td>
-													<td>01.01.2024</td>
-												</tr>
-											</tbody>
-										</table>
-									</td>
+									<td>+7 124 124 12-12</td>
+									<td>teacher@mail.ru</td>
 								</tr>
 							</tbody>
 						</table>
