@@ -1,0 +1,6 @@
+USE sip_db;
+
+CREATE TABLE IF NOT EXISTS `ListUserType` (
+	id_user_type INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    caption VARCHAR(255) NOT NULL
+);
