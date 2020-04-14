@@ -33,17 +33,18 @@
 	
 	try
 	{
-		$pdo = new PDO($dsn, $user, $password);
-		$pdo->exec("SET DEFAULTS `utf8`");
+		//$pdo = new PDO($dsn, $user, $password);
+		//$pdo->exec("SET NAMES `utf8`");
 		
 		
-		$recordList = $pdo->query("SELECT * FROM `IP`;");
-		$record = $recordList->fetchAll();
+		//$recordList = $pdo->query("SELECT * FROM `IP`;");
+		//$record = $recordList->fetchAll();
 		
-		$file = new IP($record[0]['excel_file']);
+		//$file = new IP($record[0]['excel_file']);
 		
 		
-		$spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($file->getFilename());
+		//$spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($file->getFilename());
+		$spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load("ИПП Аввакумов Г.Е..xlsx");
 		
 		$ip_config = [
 			0 => [
@@ -55,77 +56,88 @@
 			],
 			1 => [
 				"A6",
-				"A8",
-				"A10",
-				"A12",
-				"A14",
-				"A16",
-				"A18",
-				"A20",
-				"A22",
-				"A24"
 			],
 			2 => [
 				"A5",
-				"A7",
-				"A9",
-				"A11",
-				"A13",
-				"A15",
-				"A17",
-				"A29",
-				"A21",
-				"A23"
 			],
 			3 => [
-				"B24",
-				"D24",
-				"B25",
-				"D25",
-				"B26",
-				"D26",
-				"B27",
-				"D27",
-				"B28",
-				"D28"
+				"A24",
 			],
 			4 => [
-				"B4",
-				"C4",
-				"B5",
-				"C5",
-				"B6",
-				"C6",
-				"B7",
-				"C7",
-				"B8",
-				"C8",
-				"B14",
-				"C14",
-				"B15",
-				"C15",
-				"B16",
-				"C16",
-				"B17",
-				"C17",
-				"B18",
-				"C18",
-				"B19",
-				"C19"
+				"A4",
 			]
 		];
-		
-		
+        
 		
 		foreach ($ip_config as $sheet => $cells) {
 			foreach ($cells as $cell) {
-				echo $spreadsheet->getSheet($sheet)->getCell($cell);
-				echo ", ";
+                
+                switch ($sheet) {
+                    case 0: {
+                        echo $spreadsheet->getSheet($sheet)->getCell($cell);
+                        echo ", ";
+                        
+                        echo "<hr>";
+                        
+                    } break;
+                    case 1: {
+                        $cell_data = null;
+                        $current_cell = $cell;
+                        
+                        for ($i = (int)$cell[1]; strtolower($cell_data) != strtolower("ИТОГО ЗА ОСЕННИЙ СЕМЕСТР"); $i += 1) {
+                            echo $cell_data;
+                                                        
+                            $current_cell = $cell[0].$i;
+                            $cell_data =  $spreadsheet->getSheet($sheet)->getCell($current_cell);
+                        }
+                        
+                        echo "<hr>";
+                        
+                    } break;
+                    case 2: {
+                        $cell_data = null;
+                        $current_cell = $cell;
+                        
+                        for ($i = (int)$cell[1]; strtolower($cell_data) != strtolower("ИТОГО ЗА ВЕСЕННИЙ СЕМЕСТР"); $i += 1) {
+                            echo $cell_data;
+                            
+                            
+                            $current_cell = $cell[0].$i;
+                            $cell_data =  $spreadsheet->getSheet($sheet)->getCell($current_cell);
+                        }
+                        
+                        echo "<hr>";
+                        
+                    } break;
+                    case 3: {
+                        $cell_data = null;
+                        $current_cell = $cell;
+                        $caption_cell = "B".($cell[1].$cell[2]);
+                                                
+                        for ($i = (int)($cell[1].$cell[2]); strtolower($spreadsheet->getSheet($sheet)->getCell($current_cell)) != strtolower("ИТОГО"); $i += 1) {
+                            
+                            
+                            if (strtolower($cell_data) != strtolower("ИТОГО")) {
+                                
+                                echo $spreadsheet->getSheet($sheet)->getCell($current_cell)." ";
+                                echo $spreadsheet->getSheet($sheet)->getCell($caption_cell);
+                            }
+                            
+                            
+                            $current_cell = $cell[0].$i;
+                            $caption_cell = "B".$i;
+                        }
+                        
+                        echo "<hr>";
+                    }
+                }
+                
 			}
 			
 			echo "<br>";
 		}
-		
+        
+        
 		
 	} catch (PDOException $e) {
 		echo $e->getMessage();
