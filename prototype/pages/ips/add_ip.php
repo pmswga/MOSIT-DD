@@ -38,20 +38,19 @@
                                 <i class="ui inbox icon"></i>
                                 Поручения
                             </a>
-                        </div>
-                        <div class="ui dropdown item">
-                            Мой аккаунт
-                            <i class="dropdown icon"></i>
-                            <div class="menu">
-                                <a class="item" href="../metodist_profile.php">Мой кабинет</a>
-                                <a class="item" href="../../login.php">Выйти</a>
+                            <div class="ui dropdown item">
+                                Мой аккаунт
+                                <i class="dropdown icon"></i>
+                                <div class="menu">
+                                    <a class="item" href="../metodist_profile.php">Мой кабинет</a>
+                                    <a class="item" href="../../login.php">Выйти</a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    
         <div class="sixteen wide column">
             <div class="ui grid">
                 <div class="row">
@@ -153,13 +152,20 @@
                         </fieldset>
                         <fieldset class="ui segment">
                             <legend><h3>Учебно методическая работа</h3></legend>
-                            <table class="ui table">
+                            <table class="ui celled table" style="width: 100%;">
+                                <col width="1%">
+                                <col width="29%">
+                                <col width="10%">
+                                <col width="10%">
+                                <col width="20%">
+                                <col width="10%">
+                                <col width="10%">
                                 <thead>
                                     <tr>
                                         <th rowspan="2">№</th>
                                         <th rowspan="2">Наименование и вид работ</th>
                                         <th colspan="2">Трудоёмкость (час)</th>
-                                        <th rowspan="2">Форма завершения работ</th>
+                                        <th rowspan="2">Форма окончания работы</th>
                                         <th colspan="2">Срок выполнения (даты)</th>
                                     </tr>
                                     <tr>
@@ -169,11 +175,10 @@
                                         <th>Фактическая</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                
+                                <tbody class="ui form">
                                     <tr>
-                                        <td>{{ $i+1 }}</td>
-                                        <td class="ui form">
+                                        <td>1</td>
+                                        <td>
                                             <div class="field">
                                                 <select>
                                                     <option>Работа А</option>
@@ -182,29 +187,31 @@
                                                 </select>
                                             </div>
                                         </td>
-                                        <td class="ui form">
+                                        <td>
                                             <div class="field">
                                                 <input type="number">
                                             </div>
                                         </td>
-                                        <td class="ui form">
+                                        <td>
                                             <div class="field">
                                                 <input type="number">
                                             </div>
                                         </td>
-                                        <td class="ui form">
-                                                <select>
-                                                    <option>Завершение работы А</option>
-                                                    <option>Завершение работы Б</option>
-                                                    <option>Завершение работы В</option>
+                                        <td>
+                                            <div class="field">
+                                                <select name="" id="">
+                                                    <option value=""></option>
+                                                    <option value=""></option>
+                                                    <option value=""></option>
                                                 </select>
+                                            </div>
                                         </td>
-                                        <td class="ui form">
+                                        <td>
                                             <div class="field">
                                                 <input type="date">
                                             </div>
                                         </td>
-                                        <td class="ui form">
+                                        <td>
                                             <div class="field">
                                                 <input type="date">
                                             </div>
@@ -215,7 +222,13 @@
                         </fieldset>
                         <fieldset class="ui segment">
                             <legend><h3>Научно-исследовательская работа</h3></legend>
-                            <table class="ui table">
+                            <table class="ui celled table">
+                                <col width="1%">
+                                <col width="29%">
+                                <col width="10%">
+                                <col width="10%">
+                                <col width="25%">
+                                <col width="25%">
                                 <thead>
                                     <tr>
                                         <th rowspan="2">№</th>
@@ -230,10 +243,10 @@
                                         <th>Фактическая</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody class="ui form">
                                     <tr>
-                                        <td>{{ $i+1 }}</td>
-                                        <td class="ui form">
+                                        <td>1</td>
+                                        <td>
                                             <div class="field">
                                                 <select>
                                                     <option>Работа А</option>
@@ -242,22 +255,22 @@
                                                 </select>
                                             </div>
                                         </td>
-                                        <td class="ui form">
+                                        <td>
                                             <div class="field">
                                                 <input type="number">
                                             </div>
                                         </td>
-                                        <td class="ui form">
+                                        <td>
                                             <div class="field">
                                                 <input type="number">
                                             </div>
                                         </td>
-                                        <td class="ui form">
+                                        <td>
                                             <div class="field">
                                                 <input type="date">
                                             </div>
                                         </td>
-                                        <td class="ui form">
+                                        <td>
                                             <div class="field">
                                                 <input type="date">
                                             </div>
@@ -268,7 +281,13 @@
                         </fieldset>
                         <fieldset class="ui segment">
                             <legend><h3>Организационно-методическая и воспитательная работа</h3></legend>
-                            <table class="ui table">
+                            <table class="ui celled table">
+                                <col width="1%">
+                                <col width="29%">
+                                <col width="10%">
+                                <col width="10%">
+                                <col width="25%">
+                                <col width="25%">
                                 <thead>
                                     <tr>
                                         <th rowspan="2">№</th>
@@ -283,10 +302,10 @@
                                         <th>Фактическая</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody class="ui form">
                                     <tr>
-                                        <td>{{ $i+1 }}</td>
-                                        <td class="ui form">
+                                        <td>1</td>
+                                        <td>
                                             <div class="field">
                                                 <select>
                                                     <option>Работа А</option>
@@ -295,24 +314,22 @@
                                                 </select>
                                             </div>
                                         </td>
-                                        <td class="ui form">
+                                        <td>
                                             <div class="field">
                                                 <input type="number">
                                             </div>
                                         </td>
-                                        <td class="ui form">
-                                            <div class="field">
-                                                <input type="number">
-                                            </div>
+                                        <td>
+                                            <input type="number">
                                         </td>
-                                        <td class="ui form">
+                                        <td>
                                             <div class="field">
                                                 <select>
                                                     <option>В течении года</option>
                                                 </select>
                                             </div>
                                         </td>
-                                        <td class="ui form">
+                                        <td>
                                             <div class="field">
                                                 <select>
                                                     <option>В течении года</option>

@@ -16,37 +16,32 @@
                         <a class="header item" href="teacher.php">
                             MOSIT Digital Department
                         </a>
-                        <a>
-
-                        </a>
                         <div class="right menu">
                             <a class="item">
                                 <i class="ui inbox icon"></i>
                                 Поручения
                             </a>
-                            <div class="ui dropdown item">
-                                Аккаунт
-                                <i class="dropdown icon"></i>
-                                <div class="menu">
-                                    <a class="item" href="teacher_profile.php">Мой кабинет</a>
-                                    <a class="item" href="../login.php">Выйти</a>
-                                </div>
+                        </div>
+                        <div class="ui dropdown item">
+                            Аккаунт
+                            <i class="dropdown icon"></i>
+                            <div class="menu">
+                                <a class="item">Мой кабинет</a>
+                                <a class="item">Выйти</a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="two column row">
-                <div class="one wide column"></div>
                 <div class="nine wide column">
-                    <fieldset class="ui segment">
-                        <legend>Мои поручения</legend>
+                    <div class="ui segment">
 
-                    </fieldset>
+                    </div>
                 </div>
                 <div class="five wide column">
                     <fieldset class="ui segment">
-                        <legend>Дисциплины</legend>
+                        <legend>Мои поручения</legend>
 
                     </fieldset>
                 </div>
@@ -54,7 +49,9 @@
         </div>
 
         <script type="text/javascript">
+
             $(".ui.dropdown").dropdown();
+
         </script>
 
     </body>
