@@ -1,6 +1,3 @@
-<?php
-    require_once "../../prototype/start.php";
-?>
 <!DOCTYPE html>
 <html>
     <head>

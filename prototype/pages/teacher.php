@@ -7,7 +7,6 @@
         <link rel="stylesheet" type="text/css" href="../css/main.css">
         <script type="text/javascript" src="../vendor/components/jquery/jquery.js"></script>
         <script type="text/javascript" src="../css/semantic/semantic.js"></script>
-
     </head>
     <body>
         <div class="ui stackable grid">

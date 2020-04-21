@@ -43,7 +43,7 @@
                         Мой аккаунт
                         <i class="dropdown icon"></i>
                         <div class="menu">
-                            <a class="item" href="metodist_profile.php">Мой кабинет</a>
+                            <a class="item" href="../metodist_profile.php">Мой кабинет</a>
                             <a class="item" href="../../login.php">Выйти</a>
                         </div>
                     </div>
