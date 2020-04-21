@@ -1,0 +1,13 @@
+
+#login_grid {
+    min-height: 100%;
+}
+
+#center  {
+    height: 100%;
+}
+
+#footer {
+    padding-bottom: 0em;
+    border-radius: 0px;
+}
