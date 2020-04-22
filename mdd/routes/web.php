@@ -18,6 +18,15 @@ Route::get('/', "MainPageController@index")->name("index");
 Route::get('/login', "MainPageController@login")->name("login");
 Route::get('/about', "MainPageController@about")->name("about");
 
+Route::group(['prefix' => 'admin'], function () {
+   Route::get('/registerUser', function () {
+
+       return view("systems.service.admin.register", [
+           "employees" => \App\Models\Employee::all(),
+           "accountTypes" => \App\Models\Service\Accounts\AccountType::all()
+       ]);
+   })->name("admin.index");
+});
 
 Route::group(['prefix' => 'methodist'], function () {
 

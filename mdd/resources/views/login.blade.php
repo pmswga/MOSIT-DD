@@ -23,11 +23,11 @@
 
                                 <div class="field">
                                     <label>E-mail:</label>
-                                    <input type="email">
+                                    <input type="email" name="email">
                                 </div>
                                 <div class="field">
                                     <label>Пароль:</label>
-                                    <input type="password">
+                                    <input type="password" name="password">
                                 </div>
                                 <div class="field">
                                     <input type="submit" value="Войти" class="ui primary button">

@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\URL;
 
 class LoginController extends Controller
 {
@@ -41,9 +43,16 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
+        $credential = $request->only('email', 'password');
 
-        exit("Hello");
+//        var_dump($credential);
 
+        if (Auth::attempt($credential)) {
+
+            return redirect()->route("methodist.index");
+        }
+
+        return  redirect()->back()->withErrors(["errorAuth", "User doesn't exists"]);
     }
 
 }
