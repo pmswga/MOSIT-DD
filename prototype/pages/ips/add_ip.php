@@ -152,12 +152,12 @@
                         </fieldset>
                         <fieldset class="ui segment">
                             <legend><h3>Учебно методическая работа</h3></legend>
-                            <table class="ui celled table" style="width: 100%;">
+                            <table class="ui celled table">
                                 <col width="1%">
                                 <col width="29%">
                                 <col width="10%">
                                 <col width="10%">
-                                <col width="20%">
+                                <col width="25%">
                                 <col width="10%">
                                 <col width="10%">
                                 <thead>
