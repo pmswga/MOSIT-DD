@@ -11,6 +11,23 @@
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-})->name("/");
+use Illuminate\Support\Facades\Route;
+\Illuminate\Support\Facades\Auth::routes();
+
+Route::get('/', "MainPageController@index")->name("index");
+Route::get('/login', "MainPageController@login")->name("login");
+Route::get('/about', "MainPageController@about")->name("about");
+
+
+Route::group(['prefix' => 'methodist'], function () {
+
+    Route::get("/", "Services\Accounts\AccountPageController@methodistIndex")->name("methodist.index");
+
+});
+
+Route::group(["prefix" => 'teacher'], function () {
+
+    Route::get("/", "Services\Accounts\AccountPageController@teacherIndex")->name("teacher.index");
+
+});
+
