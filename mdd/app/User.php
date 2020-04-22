@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Models\Employee;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -39,4 +40,21 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function getEmail() {
+        return $this->email;
+    }
+
+    public function getEmployee() {
+        return "";
+    }
+
+    public function getAccountType() {
+        return "";
+    }
+
+    public function getIdAccountType() {
+        return $this->idAccountType;
+    }
+
 }

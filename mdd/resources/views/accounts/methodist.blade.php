@@ -4,7 +4,9 @@
 
 @section('content')
 
-
+    <div class="sixteen wide column">
+        
+    </div>
 
 @endsection
 

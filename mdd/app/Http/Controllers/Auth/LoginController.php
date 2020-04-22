@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
+use App\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -48,8 +49,19 @@ class LoginController extends Controller
 //        var_dump($credential);
 
         if (Auth::attempt($credential)) {
+            switch (User::all()->where("idAccount", Auth::id())->first()->getIdAccountType()) {
+                case "1": {
+                    $home = "teacher.index";
+                } break;
+                case 2: {
+                    $home = "methodist.index";
+                } break;
+                case 10: {
+                    $home = "admin.index";
+                } break;
+            }
 
-            return redirect()->route("methodist.index");
+            return redirect()->route($home);
         }
 
         return  redirect()->back()->withErrors(["errorAuth", "User doesn't exists"]);

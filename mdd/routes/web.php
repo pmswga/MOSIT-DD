@@ -28,7 +28,7 @@ Route::group(['prefix' => 'admin'], function () {
    })->name("admin.index");
 });
 
-Route::group(['prefix' => 'methodist'], function () {
+Route::group(['prefix' => 'methodist', 'middleware' => ['auth']], function () {
 
     Route::get("/", "Services\Accounts\AccountPageController@methodistIndex")->name("methodist.index");
 
