@@ -20,7 +20,6 @@ Route::get('/about', "MainPageController@about")->name("about");
 
 Route::group(['prefix' => 'admin'], function () {
    Route::get('/registerUser', function () {
-
        return view("systems.service.admin.register", [
            "employees" => \App\Models\Employee::all(),
            "accountTypes" => \App\Models\Service\Accounts\AccountType::all()
@@ -30,13 +29,14 @@ Route::group(['prefix' => 'admin'], function () {
 
 Route::group(['prefix' => 'methodist', 'middleware' => ['auth']], function () {
 
-    Route::get("/", "Services\Accounts\AccountPageController@methodistIndex")->name("methodist.index");
+    Route::get('/', 'Services\Accounts\AccountPageController@methodistIndex')->name('methodist.index');
+    Route::get('/profile', 'Services\Accounts\AccountPageController@profile')->name('profile');
 
 });
 
-Route::group(["prefix" => 'teacher'], function () {
+Route::group(['prefix' => 'teacher', 'middleware' => ['auth']], function () {
 
-    Route::get("/", "Services\Accounts\AccountPageController@teacherIndex")->name("teacher.index");
+    Route::get("/", "Services\Accounts\AccountPageController@teacherIndex")->name('teacher.index');
 
 });
 

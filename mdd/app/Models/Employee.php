@@ -17,6 +17,10 @@ class Employee extends Model
         return $this->firstName;
     }
 
+    public function getPatronymic() {
+        return $this->patronymic;
+    }
+
     public function getAccountId() {
         return $this->idEmployee;
     }

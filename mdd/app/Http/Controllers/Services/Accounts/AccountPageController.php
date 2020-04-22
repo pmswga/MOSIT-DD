@@ -8,12 +8,16 @@ use Illuminate\Http\Request;
 class AccountPageController extends Controller
 {
 
+    public function profile() {
+        return view('accounts.profile');
+    }
+
     public function methodistIndex() {
-        return view("accounts.methodist");
+        return view('accounts.methodist');
     }
 
     public function teacherIndex() {
-        return view("accounts.teacher");
+        return view('accounts.teacher');
     }
 
 }

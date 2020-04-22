@@ -17,5 +17,10 @@
                 @yield('content')
             </div>
         </div>
+
+        <script type="text/javascript">
+            $('.ui.dropdown').dropdown();
+        </script>
+
     </body>
 </html>

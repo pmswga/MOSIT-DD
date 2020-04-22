@@ -46,8 +46,6 @@ class LoginController extends Controller
     {
         $credential = $request->only('email', 'password');
 
-//        var_dump($credential);
-
         if (Auth::attempt($credential)) {
             switch (User::all()->where("idAccount", Auth::id())->first()->getIdAccountType()) {
                 case "1": {
