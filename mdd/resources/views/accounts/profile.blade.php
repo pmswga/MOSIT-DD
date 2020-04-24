@@ -2,6 +2,7 @@
 
 @section('title', 'Профиль')
 
+
 @section('content')
 
     <div class="centered fourteen wide column">
@@ -22,7 +23,7 @@
             </table>
         </fieldset>
         <fieldset class="ui segment">
-            <legend>Информация об сотруднике</legend>
+            <legend>Информация о сотруднике</legend>
             <table class="ui definition table">
                 <col width="35%">
                 <tbody>

@@ -11,7 +11,7 @@
     <body>
         <div class="ui grid">
             <div class="row">
-                @include('layouts.menu')
+                @yield('menu')
             </div>
             <div class="row">
                 @yield('content')

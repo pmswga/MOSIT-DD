@@ -2,6 +2,10 @@
 
 @section('title', "Главная")
 
+@section('menu')
+    @include('layouts.default_menu')
+@endsection
+
 @section('content')
 
     <div class="middle aligned centered aligned ten wide column" id="center">
