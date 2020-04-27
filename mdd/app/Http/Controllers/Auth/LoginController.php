@@ -8,7 +8,10 @@ use App\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\URL;
+use Symfony\Component\Console\Input\Input;
 
 class LoginController extends Controller
 {
@@ -42,27 +45,43 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
+    public function checkUser($email, $password) {
+        $user = DB::table('Accounts')->where([
+            ['email', '=', $email]
+        ])->get()->first();
+
+        if ($user) {
+            return Hash::check($password, $user->password);
+        }
+
+        return false;
+    }
+
     public function login(Request $request)
     {
         $credential = $request->only('email', 'password');
 
-        if (Auth::attempt($credential)) {
-            switch (User::all()->where("idAccount", Auth::id())->first()->getIdAccountType()) {
-                case "1": {
-                    $home = "teacher.index";
-                } break;
-                case 2: {
-                    $home = "methodist.index";
-                } break;
-                case 10: {
-                    $home = "admin.index";
-                } break;
+        if ($this->checkUser($credential['email'], $credential['password'])) {
+            if (Auth::attempt($credential)) {
+                switch (User::all()->where("idAccount", Auth::id())->first()->getIdAccountType()) {
+                    case "1": {
+                        $home = "teacher.index";
+                    } break;
+                    case 2: {
+                        $home = "methodist.index";
+                    } break;
+                    case 10: {
+                        $home = "admin.index";
+                    } break;
+                }
+
+                return redirect()->route($home);
+            } else {
+
             }
-
-            return redirect()->route($home);
+        } else {
+            return  back()->withErrors(['userNotFoundError' => "Пользователь не найден"]);
         }
-
-        return  redirect()->back()->withErrors(["errorAuth", "User doesn't exists"]);
     }
 
 }
