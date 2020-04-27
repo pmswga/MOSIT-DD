@@ -18,10 +18,10 @@
                 <div class="menu">
                     <a class="item" href="#add">Добавить</a>
                     <a class="item" href="#view">Просмотр</a>
-                    <a class="item" href="#protocols">Протоколы</a>
                     <a class="item" href="#archive">Архив</a>
                 </div>
             </div>
+            <a class="item" href="#protocols">Протоколы</a>
             <a class="item" href="#orders">Приказы</a>
         </div>
     </div>
