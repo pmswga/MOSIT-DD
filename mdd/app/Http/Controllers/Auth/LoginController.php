@@ -67,10 +67,31 @@ class LoginController extends Controller
                     case "1": {
                         $home = "teacher.index";
                     } break;
-                    case 2: {
+                    case '2': {
                         $home = "methodist.index";
                     } break;
-                    case 10: {
+                    case '3': {
+                        $home = "deputy-edu-work.index";
+                    } break;
+                    case '4': {
+                        $home = "deputy-science-work.index";
+                    } break;
+                    case '5': {
+                        $home = "deputy-edu-metho-work.index";
+                    } break;
+                    case '6': {
+                        $home = "deputy-mto.index";
+                    } break;
+                    case '7': {
+                        $home = "deputy-students.index";
+                    } break;
+                    case '8': {
+                        $home = "science-secretary.index";
+                    } break;
+                    case '9': {
+                        $home = "head-faculty.index";
+                    } break;
+                    case '10': {
                         $home = "admin.index";
                     } break;
                 }
