@@ -24,14 +24,14 @@ Route::get('/profile', 'Services\Accounts\AccountPageController@profile')->name(
 Route::group(['prefix' => 'admin'], function () {
 
     Route::get("/", function () {
-       return view("systems.service.admin.index");
+       return view("systems.Service.admin.index");
     })->name('admin.index');
 
     Route::group(['prefix' => 'users'], function () {
 
 
         Route::get('/addAccount', function () {
-            return view("systems.service.admin.register", [
+            return view("systems.Service.admin.register", [
                 "employees" => \App\Models\Employee::all(),
                 "accountTypes" => \App\Models\Service\Accounts\AccountType::all()
             ]);
