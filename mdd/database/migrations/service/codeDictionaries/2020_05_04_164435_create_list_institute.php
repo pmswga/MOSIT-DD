@@ -13,7 +13,7 @@ class CreateListInstitute extends Migration
      */
     public function up()
     {
-        Schema::table('ListInstitute', function (Blueprint $table) {
+        Schema::create('ListInstitute', function (Blueprint $table) {
             $table->bigIncrements('idInstitute');
             $table->string('caption')->unique();
         });

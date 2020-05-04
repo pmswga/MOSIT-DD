@@ -13,7 +13,7 @@ class CreateListAccountType extends Migration
      */
     public function up()
     {
-        Schema::table('ListAccountType', function (Blueprint $table) {
+        Schema::create('ListAccountType', function (Blueprint $table) {
             $table->bigIncrements('idAccountType');
             $table->string("caption", 255)->unique();
         });

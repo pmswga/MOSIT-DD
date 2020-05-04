@@ -13,7 +13,7 @@ class CreateListFaculty extends Migration
      */
     public function up()
     {
-        Schema::table('ListFaculty', function (Blueprint $table) {
+        Schema::create('ListFaculty', function (Blueprint $table) {
             $table->bigIncrements('idFaculty');
             $table->string('caption')->unique();
         });
