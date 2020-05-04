@@ -12,7 +12,7 @@ class ListFaculty extends Seeder
      */
     public function run()
     {
-        DB::table('ListAccountType')->insert([
+        DB::table('ListFaculty')->insert([
             [
                 'idFaculty' => 1,
                 'caption' => 'МОСИТ'
