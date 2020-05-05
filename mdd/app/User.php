@@ -7,6 +7,7 @@ use App\Models\Service\Accounts\AccountType;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\DB;
 
 class User extends Authenticatable
 {
@@ -51,11 +52,33 @@ class User extends Authenticatable
     }
 
     public function getAccountType() {
-        return $this->hasOne('App\Models\Service\Accounts\ListAccountType', 'idAccountType', 'idAccountType')->first()["caption"];
+        return $this->hasOne('App\Models\Service\Accounts\AccountType', 'idAccountType', 'idAccountType')->first()["caption"];
     }
 
     public function getIdAccountType() {
         return $this->idAccountType;
+    }
+
+    public function getAccountRights() {
+        $rights = DB::table('AccountRights')
+            ->select('AccountRights.idAccount', 'ListSubSystem.caption', 'ListSystemSection.caption as section')
+            ->join('ListSubSystem', 'AccountRights.idSubSystem', '=', 'ListSubSystem.idSubSystem')
+            ->join('ListSystemSection', 'ListSystemSection.idSystemSection', '=', 'ListSubSystem.idSystemSection')
+            ->where('idAccount', '=', $this->idAccount)
+            ->where( 'isAccess', '=', 1)
+            ->get();
+
+        $groupRights = [];
+
+        foreach ($rights as $right) {
+            $groupRights[$right->section][] = $right;
+        }
+
+        //echo "<pre>";
+        //print_r($groupRights);
+        //echo "</pre>";
+
+        return $groupRights;
     }
 
 }

@@ -26,6 +26,6 @@ class CreateListAccountType extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('AccountType');
+        Schema::dropIfExists('ListAccountType');
     }
 }

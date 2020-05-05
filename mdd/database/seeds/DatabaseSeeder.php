@@ -18,7 +18,10 @@ class DatabaseSeeder extends Seeder
 
 
             ListSystemSection::class,
-            ListSubSystem::class
+            ListSubSystem::class,
+
+            Employees::class,
+            Accounts::class
 
         ]);
     }

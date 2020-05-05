@@ -14,7 +14,7 @@ class CreateAccountRights extends Migration
     public function up()
     {
         Schema::create('AccountRights', function (Blueprint $table) {
-            $table->bigIncrements('idAccount');
+            $table->integer('idAccount');
             $table->integer('idSubSystem');
             $table->boolean('isAccess')->default(0);
         });

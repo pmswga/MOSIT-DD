@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class AccountType extends Model
 {
-    protected $table = "AccountType";
+    protected $table = "ListAccountType";
     protected $primaryKey = "idAccountType";
 
     public function getAccountTypeId() {
