@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAccountType extends Migration
+class CreateListSubSystem extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,10 @@ class CreateAccountType extends Migration
      */
     public function up()
     {
-        Schema::create('AccountType', function (Blueprint $table) {
-            $table->bigIncrements('idAccountType');
-            $table->string("caption", 255)->unique();
+        Schema::create('ListSubSystem', function (Blueprint $table) {
+            $table->bigIncrements('idSubSystem');
+            $table->integer('idSystemSection');
+            $table->string('caption', 255)->unique();
         });
     }
 
@@ -26,6 +27,6 @@ class CreateAccountType extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('AccountType');
+        Schema::dropIfExists('ListSubSystem');
     }
 }

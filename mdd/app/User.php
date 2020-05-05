@@ -51,7 +51,7 @@ class User extends Authenticatable
     }
 
     public function getAccountType() {
-        return $this->hasOne('App\Models\Service\Accounts\AccountType', 'idAccountType', 'idAccountType')->first()["caption"];
+        return $this->hasOne('App\Models\Service\Accounts\ListAccountType', 'idAccountType', 'idAccountType')->first()["caption"];
     }
 
     public function getIdAccountType() {
