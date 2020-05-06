@@ -12,6 +12,10 @@ class AccountPageController extends Controller
         return view('accounts.profile');
     }
 
+    public function admin() {
+        return view('accounts.admin');
+    }
+
     public function methodistIndex() {
         return view('accounts.methodist');
     }
