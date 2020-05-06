@@ -24,21 +24,11 @@ Route::get('/profile', 'Services\Accounts\AccountPageController@profile')->name(
 Route::group(['prefix' => 'admin'], function () {
 
     Route::get("/", function () {
-       return view("systems.Service.admin.index");
+       return view("accounts.admin");
     })->name('admin.index');
 
-    Route::group(['prefix' => 'users'], function () {
 
-
-        Route::get('/addAccount', function () {
-            return view("systems.Service.admin.register", [
-                "employees" => \App\Models\Employee::all(),
-                "accountTypes" => \App\Models\Service\Accounts\AccountType::all()
-            ]);
-        })->name('admin.users.add');
-
-
-    });
+    Route::resource('accounts', 'Services\Accounts\AccountResourceController');
 
 });
 

@@ -7,8 +7,8 @@
             <i class="user icon"></i>
             Пользователи
             <div class="menu">
-                <a class="item" href="{{ route('admin.users.add') }}">Добавить</a>
-                <a class="item" href="#view">Просмотр</a>
+                <a class="item" href="{{ route('accounts.create') }}">Добавить</a>
+                <a class="item" href="{{ route('accounts.index') }}">Просмотр</a>
             </div>
         </div>
         <div class="ui dropdown item">

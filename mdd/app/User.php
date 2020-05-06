@@ -2,7 +2,7 @@
 
 namespace App;
 
-use App\Models\Employee;
+use App\Models\Main\Employees\Employee;
 use App\Models\Service\Accounts\AccountType;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -48,7 +48,7 @@ class User extends Authenticatable
     }
 
     public function getEmployee() {
-        return $this->hasOne('App\Models\Employee', 'idEmployee', 'idEmployee')->first();
+        return $this->hasOne('App\Models\Main\Employees\Employee', 'idEmployee', 'idEmployee')->first();
     }
 
     public function getAccountType() {
