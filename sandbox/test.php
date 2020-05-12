@@ -44,27 +44,32 @@
 		
 		
 		//$spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($file->getFilename());
+        
+        $_cell = 'A26';
+        
+        $_cell++;
+        
+        print($_cell);
+        
+        exit();
+        
 		$spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load("ИПП Аввакумов Г.Е..xlsx");
-		
-		$ip_config = [
+	$ip_config = [
 			0 => [
-				"A26",
-				"CJ26",
-				"Q27",
-				"AH28",
-				"A29",
-			],
+                'A26',
+                'CJ26',
+                'Q27',
+                'AH28',
+                'A29'
+            ],
 			1 => [
-				"A6",
+				"A6"
 			],
 			2 => [
-				"A5",
+				"A5"
 			],
 			3 => [
-				"A24",
-			],
-			4 => [
-				"A4",
+				"B24"
 			]
 		];
         

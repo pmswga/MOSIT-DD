@@ -17,6 +17,7 @@ class CreateListSubSystem extends Migration
             $table->bigIncrements('idSubSystem');
             $table->integer('idSystemSection');
             $table->string('caption', 255)->unique();
+            $table->string('route', 255);
         });
     }
 

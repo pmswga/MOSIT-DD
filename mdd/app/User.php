@@ -61,7 +61,7 @@ class User extends Authenticatable
 
     public function getAccountRights() {
         $rights = DB::table('AccountRights')
-            ->select('AccountRights.idAccount', 'ListSubSystem.caption', 'ListSystemSection.caption as section')
+            ->select('AccountRights.idAccount', 'ListSubSystem.caption', 'ListSystemSection.caption as section', 'ListSubSystem.route')
             ->join('ListSubSystem', 'AccountRights.idSubSystem', '=', 'ListSubSystem.idSubSystem')
             ->join('ListSystemSection', 'ListSystemSection.idSystemSection', '=', 'ListSubSystem.idSystemSection')
             ->where('idAccount', '=', $this->idAccount)
@@ -73,10 +73,6 @@ class User extends Authenticatable
         foreach ($rights as $right) {
             $groupRights[$right->section][] = $right;
         }
-
-        //echo "<pre>";
-        //print_r($groupRights);
-        //echo "</pre>";
 
         return $groupRights;
     }

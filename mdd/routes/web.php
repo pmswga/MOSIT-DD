@@ -22,7 +22,7 @@ Route::get('/about', "MainPageController@about")->name('about');
 Route::get('/home', ['middleware' => 'auth', 'uses' => 'Services\Accounts\AccountPageController@home'])->name('home');
 Route::get('/profile', ['middleware' => 'auth', 'uses' => 'Services\Accounts\AccountPageController@profile'] )->name('profile');
 
-Route::resource('/ip', 'Main\IP\IPResourceController');
+Route::resource('/ips', 'Main\IP\IPResourceController');
 
 Route::group(['prefix' => 'admin'], function () {
     Route::get('/', 'Services\Accounts\AccountPageController@admin')->name('admin.index');

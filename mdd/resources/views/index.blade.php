@@ -2,9 +2,9 @@
 
 @section('title', "Главная")
 
-@section('menu')
-    @include('layouts.default_menu')
-@endsection
+@extends('layouts.default_menu')
+
+
 
 @section('content')
 

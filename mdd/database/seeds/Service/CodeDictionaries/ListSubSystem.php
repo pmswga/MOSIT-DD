@@ -15,23 +15,28 @@ class ListSubSystem extends Seeder
         DB::table('ListSubSystem')->insert([
             [
                 'idSystemSection' => 1,
-                'caption' => 'Индивидуальные планы'
+                'caption' => 'Индивидуальные планы',
+                'route' => 'ips'
             ],
             [
                 'idSystemSection' => 1,
-                'caption' => 'Приказы'
+                'caption' => 'Приказы',
+                'route' => 'orders',
             ],
             [
                 'idSystemSection' => 1,
-                'caption' => 'Протоколы'
+                'caption' => 'Протоколы',
+                'route' => 'protocols'
             ],
             [
                 'idSystemSection' => 6,
-                'caption' => 'Хранение материалов'
+                'caption' => 'Хранение материалов',
+                'route' => 'files'
             ],
             [
                 'idSystemSection' => 6,
-                'caption' => 'Поручения'
+                'caption' => 'Поручения',
+                'route' => 'tickets'
             ]
         ]);
     }
