@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\URL;
 use Symfony\Component\Console\Input\Input;
+use Illuminate\Support\Facades\Route;
 
 class LoginController extends Controller
 {
@@ -33,7 +34,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = 'home';
 
     /**
      * Create a new controller instance.
@@ -63,45 +64,12 @@ class LoginController extends Controller
 
         if ($this->checkUser($credential['email'], $credential['password'])) {
             if (Auth::attempt($credential)) {
-                switch (User::all()->where("idAccount", Auth::id())->first()->getIdAccountType()) {
-                    case "1": {
-                        $home = "teacher.index";
-                    } break;
-                    case '2': {
-                        $home = "methodist.index";
-                    } break;
-                    case '3': {
-                        $home = "deputy-edu-work.index";
-                    } break;
-                    case '4': {
-                        $home = "deputy-science-work.index";
-                    } break;
-                    case '5': {
-                        $home = "deputy-edu-metho-work.index";
-                    } break;
-                    case '6': {
-                        $home = "deputy-mto.index";
-                    } break;
-                    case '7': {
-                        $home = "deputy-students.index";
-                    } break;
-                    case '8': {
-                        $home = "science-secretary.index";
-                    } break;
-                    case '9': {
-                        $home = "head-faculty.index";
-                    } break;
-                    case '10': {
-                        $home = "admin.index";
-                    } break;
-                }
-
-                return redirect()->route($home);
+                return redirect()->route($this->redirectTo);
             } else {
-
+                return  back()->withErrors(['error' => "Произошла ошибка авторизации"]);
             }
         } else {
-            return  back()->withErrors(['userNotFoundError' => "Пользователь не найден"]);
+            return  back()->withErrors(['error' => "Пользователь не найден"]);
         }
     }
 

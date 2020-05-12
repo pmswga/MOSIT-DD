@@ -16,7 +16,6 @@ class DatabaseSeeder extends Seeder
             ListFaculty::class,
             ListInstitute::class,
 
-
             ListSystemSection::class,
             ListSubSystem::class,
 

@@ -5,7 +5,7 @@
 
 @extends('layouts.account_menu')
 
-@section('homeLink', route('methodist.index'))
+@section('homeLink', route('home'))
 
 @php $rights = \Illuminate\Support\Facades\Auth::user()->getAccountRights() @endphp
 @section('generatedMenu')

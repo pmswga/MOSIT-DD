@@ -13,7 +13,7 @@
             <div class="column">
                 <div class="ui stackable centered grid">
                     <div class="nine wide column">
-                        @error('userNotFoundError')
+                        @error('error')
                             <div class="ui negative icon message">
                                 <i class="exclamation icon"></i>
                                 <div class="content">
@@ -37,7 +37,7 @@
                     </div>
                     <div class="four wide middle aligned column">
                         <div class="ui left aligned segment">
-                            <form class="ui form" method="POST" action="{{ route('login')  }}">
+                            <form class="ui form" method="POST" action="{{ route('login') }}">
                                 @csrf
 
                                 <div class="field">

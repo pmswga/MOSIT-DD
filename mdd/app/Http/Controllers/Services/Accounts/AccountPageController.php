@@ -16,12 +16,8 @@ class AccountPageController extends Controller
         return view('accounts.admin');
     }
 
-    public function methodistIndex() {
-        return view('accounts.methodist');
-    }
-
-    public function teacherIndex() {
-        return view('accounts.teacher');
+    public function home() {
+        return view('home');
     }
 
 }

@@ -16,7 +16,7 @@ class Accounts extends Seeder
             [
                 'idAccount' => 1,
                 'idEmployee' => 1,
-                'idAccountType' => 1,
+                'idAccountType' => 2,
                 'email' => 'eudgin@mail.ru',
                 'email_verified_at' => NULL,
                 'password' => \Illuminate\Support\Facades\Hash::make('qwertyuiop'),
