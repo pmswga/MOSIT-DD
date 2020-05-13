@@ -60,10 +60,10 @@ class User extends Authenticatable
     }
 
     public function getAccountRights() {
-        $rights = DB::table('AccountRights')
-            ->select('AccountRights.idAccount', 'ListSubSystem.caption', 'ListSystemSection.caption as section', 'ListSubSystem.route')
-            ->join('ListSubSystem', 'AccountRights.idSubSystem', '=', 'ListSubSystem.idSubSystem')
-            ->join('ListSystemSection', 'ListSystemSection.idSystemSection', '=', 'ListSubSystem.idSystemSection')
+        $rights = DB::table('accounts_rights')
+            ->select('accounts_rights.idAccount', 'list_sub_system.caption', 'list_system_section.caption as section', 'list_sub_system.route')
+            ->join('list_sub_system', 'accounts_rights.idSubSystem', '=', 'list_sub_system.idSubSystem')
+            ->join('list_system_section', 'list_system_section.idSystemSection', '=', 'list_sub_system.idSystemSection')
             ->where('idAccount', '=', $this->idAccount)
             ->where( 'isAccess', '=', 1)
             ->get();

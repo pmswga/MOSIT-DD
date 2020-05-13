@@ -13,15 +13,21 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             ListAccountType::class,
-            ListFaculty::class,
+            ListEmployeePost::class,
+            ListTeacherPost::class,
+
             ListInstitute::class,
+            ListFaculty::class,
+
+            ListAcademicTitle::class,
+            ListDegree::class,
+            ListScienceType::class,
 
             ListSystemSection::class,
             ListSubSystem::class,
 
             Employees::class,
             Accounts::class
-
         ]);
     }
 }
