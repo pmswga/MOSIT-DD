@@ -41,15 +41,15 @@
                     </tr>
                     <tr>
                         <td>Телефон</td>
-                        <td>+7 (123) 456-78-90</td>
+                        <td>{{ Auth::user()->getEmployee()->getPersonalPhone() }}</td>
                     </tr>
                     <tr>
                         <td>Институт</td>
-                        <td>ИТ</td>
+                        <td>{{ Auth::user()->getEmployee()->getInstitute() }}</td>
                     </tr>
                     <tr>
                         <td>Кафедра</td>
-                        <td>МОСИТ</td>
+                        <td>{{ Auth::user()->getEmployee()->getFaculty() }}</td>
                     </tr>
                 </tbody>
             </table>
