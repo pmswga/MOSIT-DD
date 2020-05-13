@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateListFaculty extends Migration
+class CreateListDegree extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class CreateListFaculty extends Migration
      */
     public function up()
     {
-        Schema::create('ListFaculty', function (Blueprint $table) {
-            $table->bigIncrements('idFaculty');
-            $table->string('caption')->unique();
+        Schema::create('list_degree', function (Blueprint $table) {
+            $table->bigIncrements('idDegree');
+            $table->string('caption', 255)->unique();
         });
     }
 
@@ -26,6 +26,6 @@ class CreateListFaculty extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ListFaculty');
+        Schema::dropIfExists('list_degree');
     }
 }

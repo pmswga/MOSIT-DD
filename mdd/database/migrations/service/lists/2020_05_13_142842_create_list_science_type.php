@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateListAccountType extends Migration
+class CreateListScienceType extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class CreateListAccountType extends Migration
      */
     public function up()
     {
-        Schema::create('ListAccountType', function (Blueprint $table) {
-            $table->bigIncrements('idAccountType');
-            $table->string("caption", 255)->unique();
+        Schema::create('list_science_type', function (Blueprint $table) {
+            $table->bigIncrements('idScienceType');
+            $table->string('caption', 255)->unique();
         });
     }
 
@@ -26,6 +26,6 @@ class CreateListAccountType extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ListAccountType');
+        Schema::dropIfExists('list_science_type');
     }
 }

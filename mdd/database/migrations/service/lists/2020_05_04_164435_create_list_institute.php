@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAccountRights extends Migration
+class CreateListInstitute extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,9 @@ class CreateAccountRights extends Migration
      */
     public function up()
     {
-        Schema::create('accounts_rights', function (Blueprint $table) {
-            $table->integer('idAccount');
-            $table->integer('idSubSystem');
-            $table->boolean('isAccess')->default(0);
+        Schema::create('list_institute', function (Blueprint $table) {
+            $table->bigIncrements('idInstitute');
+            $table->string('caption')->unique();
         });
     }
 
@@ -27,6 +26,6 @@ class CreateAccountRights extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('accounts_rights');
+        Schema::dropIfExists('ListInstitute');
     }
 }

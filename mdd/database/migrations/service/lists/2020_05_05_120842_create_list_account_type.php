@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateListSystemSection extends Migration
+class CreateListAccountType extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class CreateListSystemSection extends Migration
      */
     public function up()
     {
-        Schema::create('ListSystemSection', function (Blueprint $table) {
-            $table->bigIncrements('idSystemSection');
-            $table->string('caption', 255)->unique();
+        Schema::create('list_account_type', function (Blueprint $table) {
+            $table->bigIncrements('idAccountType');
+            $table->string("caption", 255)->unique();
         });
     }
 
@@ -26,6 +26,6 @@ class CreateListSystemSection extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ListSystemSection');
+        Schema::dropIfExists('ListAccountType');
     }
 }

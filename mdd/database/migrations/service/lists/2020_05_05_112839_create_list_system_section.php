@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateListSubSystem extends Migration
+class CreateListSystemSection extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,9 @@ class CreateListSubSystem extends Migration
      */
     public function up()
     {
-        Schema::create('ListSubSystem', function (Blueprint $table) {
-            $table->bigIncrements('idSubSystem');
-            $table->integer('idSystemSection');
+        Schema::create('list_system_section', function (Blueprint $table) {
+            $table->bigIncrements('idSystemSection');
             $table->string('caption', 255)->unique();
-            $table->string('route', 255);
         });
     }
 
@@ -28,6 +26,6 @@ class CreateListSubSystem extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ListSubSystem');
+        Schema::dropIfExists('ListSystemSection');
     }
 }

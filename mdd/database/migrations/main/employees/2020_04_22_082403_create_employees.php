@@ -18,6 +18,10 @@ class CreateEmployees extends Migration
             $table->string("secondName", 255);
             $table->string("firstName", 255);
             $table->string("patronymic", 255)->nullable();
+            $table->string('personalPhone', 12);
+            $table->string('personalEmail', 255)->nullable();
+            $table->integer('idFaculty');
+            $table->integer('idEmployeePost');
         });
     }
 
