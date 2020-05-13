@@ -9,10 +9,8 @@
         <script type="text/javascript" src="{{ asset("js/semantic/semantic.js")  }}"></script>
     </head>
     <body>
-        <div class="ui grid">
-            <div class="row">
-                @yield('menu')
-            </div>
+        @yield('menu')
+        <div class="ui stackable grid">
             <div class="row">
                 @yield('content')
             </div>
