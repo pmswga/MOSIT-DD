@@ -14,7 +14,8 @@ class ListInstitute extends Seeder
     {
         DB::table('list_institute')->insert([
             [
-              'caption' => 'ИТ'
+                'idInstitute' => 1,
+                'caption' => 'ИТ'
             ],
         ]);
     }

@@ -15,6 +15,7 @@ class ListFaculty extends Seeder
         DB::table('list_faculty')->insert([
             [
                 'idFaculty' => 1,
+                'idInstitute' => 1,
                 'caption' => 'МОСИТ'
             ],
         ]);
