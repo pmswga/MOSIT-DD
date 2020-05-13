@@ -27,6 +27,6 @@ class CreateListFaculty extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ListFaculty');
+        Schema::dropIfExists('list_faculty');
     }
 }

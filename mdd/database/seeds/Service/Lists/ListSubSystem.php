@@ -12,7 +12,7 @@ class ListSubSystem extends Seeder
      */
     public function run()
     {
-        DB::table('ListSubSystem')->insert([
+        DB::table('list_sub_system')->insert([
             [
                 'idSystemSection' => 1,
                 'caption' => 'Индивидуальные планы',

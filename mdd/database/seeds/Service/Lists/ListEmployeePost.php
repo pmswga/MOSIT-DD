@@ -3,7 +3,7 @@
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class ListAccountType extends Seeder
+class ListEmployeePost extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,46 +12,42 @@ class ListAccountType extends Seeder
      */
     public function run()
     {
-        DB::table('list_account_type')->insert([
+        DB::table('list_employee_post')->insert([
             [
-                'idAccountType' => 1,
+                'idEmployeePost' => 1,
                 'caption' => 'Преподаватель'
             ],
             [
-                'idAccountType' => 2,
+                'idEmployeePost' => 2,
                 'caption' => 'Методист'
             ],
             [
-                'idAccountType' => 3,
+                'idEmployeePost' => 3,
                 'caption' => 'Зам. по учебной работе'
             ],
             [
-                'idAccountType' => 4,
+                'idEmployeePost' => 4,
                 'caption' => 'Зам. по научной работе'
             ],
             [
-                'idAccountType' => 5,
+                'idEmployeePost' => 5,
                 'caption' => 'Зам. по учебно-методической работе'
             ],
             [
-                'idAccountType' => 6,
+                'idEmployeePost' => 6,
                 'caption' => 'Отвественный за МТО'
             ],
             [
-                'idAccountType' => 7,
+                'idEmployeePost' => 7,
                 'caption' => 'Ответственный за работу со студентами'
             ],
             [
-                'idAccountType' => 8,
+                'idEmployeePost' => 8,
                 'caption' => 'Учёный секретарь'
             ],
             [
-                'idAccountType' => 9,
+                'idEmployeePost' => 9,
                 'caption' => 'Зав. кафедрой'
-            ],
-            [
-                'idAccountType' => 10,
-                'caption' => 'Администратор'
             ]
         ]);
     }

@@ -26,6 +26,6 @@ class CreateListInstitute extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ListInstitute');
+        Schema::dropIfExists('list_institute');
     }
 }

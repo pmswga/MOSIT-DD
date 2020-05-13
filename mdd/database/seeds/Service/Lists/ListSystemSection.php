@@ -12,7 +12,7 @@ class ListSystemSection extends Seeder
      */
     public function run()
     {
-        DB::table('ListSystemSection')->insert([
+        DB::table('list_system_section')->insert([
             [
                 'idSystemSection' => 1,
                 'caption' => 'Учебная работа'

@@ -28,6 +28,6 @@ class CreateListSubSystem extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ListSubSystem');
+        Schema::dropIfExists('list_sub_system');
     }
 }

@@ -26,6 +26,6 @@ class CreateListSystemSection extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ListSystemSection');
+        Schema::dropIfExists('list_system_section');
     }
 }
