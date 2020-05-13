@@ -41,7 +41,7 @@ class Employees extends Seeder
                 'personalPhone' => '+79151078294',
                 'personalEmail' => 'ivshin@mail.ru',
                 'idFaculty' => 1,
-                'idEmployeePost' => 2,
+                'idEmployeePost' => 4,
             ]
         ]);
     }

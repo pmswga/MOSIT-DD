@@ -19,11 +19,33 @@ class Accounts extends Seeder
                 'idAccountType' => 2,
                 'email' => 'eudgin@mail.ru',
                 'email_verified_at' => NULL,
-                'password' => \Illuminate\Support\Facades\Hash::make('qwertyuiop'),
+                'password' => \Illuminate\Support\Facades\Hash::make('qwerty'),
                 'remember_token' => NULL,
                 'created_at' => '2020-01-01',
                 'updated_at' => '2020-01-01'
-            ]
+            ],
+            [
+                'idAccount' => 2,
+                'idEmployee' => 2,
+                'idAccountType' => 2,
+                'email' => 'stepa@mail.ru',
+                'email_verified_at' => NULL,
+                'password' => \Illuminate\Support\Facades\Hash::make('qwerty'),
+                'remember_token' => NULL,
+                'created_at' => '2020-01-01',
+                'updated_at' => '2020-01-01'
+            ],
+            [
+                'idAccount' => 3,
+                'idEmployee' => 3,
+                'idAccountType' => 2,
+                'email' => 'ivshin@mail.ru',
+                'email_verified_at' => NULL,
+                'password' => \Illuminate\Support\Facades\Hash::make('qwerty'),
+                'remember_token' => NULL,
+                'created_at' => '2020-01-01',
+                'updated_at' => '2020-01-01'
+            ],
         ]);
     }
 }
