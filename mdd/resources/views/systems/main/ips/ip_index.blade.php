@@ -22,6 +22,7 @@
                     @endif
                 </div>
             </div>
+            <!--
 			<div class="row">
 				<div class="one wide column"></div>
 				<div class="fourteen wide column">
@@ -87,6 +88,7 @@
 					</div>
 				</div>
 			</div>
+            -->
 			<div class="row">
 				<div class="one wide column"></div>
 				<div class="fourteen wide column">
