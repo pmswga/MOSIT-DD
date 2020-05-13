@@ -16,27 +16,27 @@ class ListSubSystem extends Seeder
             [
                 'idSystemSection' => 1,
                 'caption' => 'Индивидуальные планы',
-                'route' => 'ips'
+                'route' => 'ips.index'
             ],
             [
                 'idSystemSection' => 1,
                 'caption' => 'Приказы',
-                'route' => 'orders',
+                'route' => 'orders.index',
             ],
             [
                 'idSystemSection' => 1,
                 'caption' => 'Протоколы',
-                'route' => 'protocols'
+                'route' => 'protocols.index'
             ],
             [
                 'idSystemSection' => 6,
                 'caption' => 'Хранение материалов',
-                'route' => 'files'
+                'route' => 'files.index'
             ],
             [
                 'idSystemSection' => 6,
                 'caption' => 'Поручения',
-                'route' => 'tickets'
+                'route' => 'tickets.index'
             ]
         ]);
     }
