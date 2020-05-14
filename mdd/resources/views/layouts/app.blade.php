@@ -19,6 +19,7 @@
         <script type="text/javascript">
             $('.ui.dropdown').dropdown();
             $('.ui.accordion').accordion();
+            $('.menu .item').tab();
         </script>
 
     </body>

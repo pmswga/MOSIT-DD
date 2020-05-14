@@ -69,10 +69,6 @@
                         <td>Учёная степень</td>
                         <td></td>
                     </tr>
-                    <tr>
-                        <td>Учёное звание</td>
-                        <td></td>
-                    </tr>
                     </tbody>
                 </table>
             </fieldset>
