@@ -23,6 +23,10 @@ class Employee extends Model
         return $this->patronymic;
     }
 
+    public function getFullInitials() {
+        return $this->secondName.' '.$this->firstName.' '.$this->patronymic;
+    }
+
     public function getPersonalPhone() {
         return $this->personalPhone;
     }
