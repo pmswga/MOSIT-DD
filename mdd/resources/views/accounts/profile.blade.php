@@ -7,7 +7,7 @@
 @section('content')
     <div class="centered fourteen wide column">
         <fieldset class="ui segment">
-            <legend>Информация об аккаунте</legend>
+            <legend><h3>Информация об аккаунте</h3></legend>
             <table class="ui definition table">
                 <col width="35%">
                 <tbody>
@@ -23,7 +23,7 @@
             </table>
         </fieldset>
         <fieldset class="ui segment">
-            <legend>Информация о сотруднике</legend>
+            <legend><h3>Информация о сотруднике</h3></legend>
             <table class="ui definition table">
                 <col width="35%">
                 <tbody>
@@ -57,7 +57,7 @@
 
         @if(Auth::user()->getEmployee()->getTeacher())
             <fieldset class="ui segment">
-                <legend>Информация о преподавателе</legend>
+                <legend><h3>Информация о преподавателе</h3></legend>
                 <table class="ui definition table">
                     <col width="35%">
                     <tbody>

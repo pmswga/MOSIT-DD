@@ -71,8 +71,27 @@ class IPResourceController extends Controller
     {
         $data = $request->only(['file', 'lastEmployee', 'lastUpdate']);
 
+        $ipFile = new IPExcelFile($data['file']->get());
+
+
+        #echo "<pre>";
+        #print_r($ipFile->getData());
+        #echo "</pre>";
+
+        $idTeacher = DB::table('employees as e')
+            ->select('t.idTeacher')
+            ->join('Teachers as t', 't.idEmployee', '=','e.idEmployee')
+            ->where('e.secondName', '=', $ipFile->getSheet(0)['secondName'])
+            ->where('e.firstName', '=', $ipFile->getSheet(0)['firstName'])
+            ->where('e.patronymic', '=', $ipFile->getSheet(0)['patronymic'])
+            ->get()->first()->idTeacher;
+
+
+
         $ip = new IP();
         $ip->file = $data['file']->get();
+        $ip->idTeacher = $idTeacher;
+        $ip->educationYear = $ipFile->getSheet(0)['educationYear'];
         $ip->lastEmployee = Auth::user()->getEmployee()->idEmployee;
         $ip->lastUpdate = date('Y-m-d');
         $ip->save();
@@ -104,6 +123,9 @@ class IPResourceController extends Controller
 
         $ipFile = new IPExcelFile($ip->file);
 
+        #echo "<pre>";
+        #print_r($ipFile->getData());
+        #echo "</pre>";
 
         $idTeacher = DB::table('employees as e')
             ->select('t.idTeacher')

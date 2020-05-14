@@ -30,32 +30,36 @@
                                 <h3>Информация о преподавателе</h3>
                             </div>
                             <div class="content">
-                                <table class="ui celled table">
+                                <table class="ui definition table">
                                     <tbody>
-                                    <tr>
-                                        <td>Институт</td>
-                                        <td>{{ $file[0]['institute'] }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Кафдера</td>
-                                        <td>{{ $file[0]['faculty'] }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>ФИО</td>
-                                        <td>{{ $file[0]['initials'] }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Должность</td>
-                                        <td>{{ $file[0]['teacherPost'] }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Вид ставки</td>
-                                        <td>{{ $file[0]['rateType'] }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Значение ставки</td>
-                                        <td>{{ $file[0]['rateValue'] }}</td>
-                                    </tr>
+                                        <tr>
+                                            <td>Учебный год</td>
+                                            <td>{{ $file[0]['educationYear'] }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Институт</td>
+                                            <td>{{ $file[0]['institute'] }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Кафедра</td>
+                                            <td>{{ $file[0]['faculty'] }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>ФИО</td>
+                                            <td>{{ $file[0]['initials'] }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Должность</td>
+                                            <td>{{ $file[0]['teacherPost'] }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Вид ставки</td>
+                                            <td>{{ $file[0]['rateType'] }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Значение ставки</td>
+                                            <td>{{ $file[0]['rateValue'] }}</td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -100,21 +104,20 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @empty($file[2])
-                                        <tr>
-                                            <td colspan="2">
-                                                <i class="massive frown icon"></i>
-                                            </td>
-                                        </tr>
-                                    @else
-                                        @foreach ($file[2]['subjects'] as $subject)
+                                        @empty($file[2])
                                             <tr>
-                                                <td>{{ $loop->iteration }}</td>
-                                                <td>{{ $subject }}</td>
+                                                <td colspan="2">
+                                                    <i class="massive frown icon"></i>
+                                                </td>
                                             </tr>
-                                        @endforeach
-                                    @endempty
-
+                                        @else
+                                            @foreach ($file[2]['subjects'] as $subject)
+                                                <tr>
+                                                    <td>{{ $loop->iteration }}</td>
+                                                    <td>{{ $subject }}</td>
+                                                </tr>
+                                            @endforeach
+                                        @endempty
                                     </tbody>
                                 </table>
                             </div>
@@ -127,64 +130,48 @@
                             <div class="content">
                                 <table class="ui table">
                                     <thead>
-                                    <tr>
-                                        <th rowspan="2">№</th>
-                                        <th rowspan="2">Наименование и вид работ</th>
-                                        <th colspan="2">Трудоёмкость (час)</th>
-                                        <th rowspan="2">Форма завершения работ</th>
-                                        <th colspan="2">Срок выполнения (даты)</th>
-                                    </tr>
-                                    <tr>
-                                        <th>Планируемая</th>
-                                        <th>Фактическая</th>
-                                        <th>Планируемая</th>
-                                        <th>Фактическая</th>
-                                    </tr>
+                                        <tr>
+                                            <th rowspan="2">№</th>
+                                            <th rowspan="2">Наименование и вид работ</th>
+                                            <th colspan="2">Трудоёмкость (час)</th>
+                                            <th rowspan="2">Форма завершения работ</th>
+                                            <th colspan="2">Срок выполнения (даты)</th>
+                                        </tr>
+                                        <tr>
+                                            <th>Планируемая</th>
+                                            <th>Фактическая</th>
+                                            <th>Планируемая</th>
+                                            <th>Фактическая</th>
+                                        </tr>
                                     </thead>
                                     <tbody>
-                                    @for ($i = 0; $i < 5; $i++)
-                                        <tr>
-                                            <td>{{ $i+1 }}</td>
-                                            <td class="ui form">
-                                                <div class="field">
+                                        @foreach($file[3]['work'] as $work)
+                                            <tr>
+                                                <td>{{ $loop->iteration }}</td>
+                                                <td>
                                                     <select>
-                                                        <option>Работа А</option>
-                                                        <option>Работа Б</option>
-                                                        <option>Работа В</option>
+                                                        <option>{{ $work['caption'] }}</option>
                                                     </select>
-                                                </div>
-                                            </td>
-                                            <td class="ui form">
-                                                <div class="field">
-                                                    <input type="number">
-                                                </div>
-                                            </td>
-                                            <td class="ui form">
-                                                <div class="field">
-                                                    <input type="number">
-                                                </div>
-                                            </td>
-                                            <td class="ui form">
-                                                <select>
-                                                    <option>Завершение работы А</option>
-                                                    <option>Завершение работы Б</option>
-                                                    <option>Завершение работы В</option>
-                                                </select>
-                                            </td>
-                                            <td class="ui form">
-                                                <div class="field">
-                                                    <input type="date">
-                                                </div>
-                                            </td>
-                                            <td class="ui form">
-                                                <div class="field">
-                                                    <input type="date">
-                                                </div>
-                                            </td>
-                                        </tr>
-
-                                    @endfor
-
+                                                </td>
+                                                <td>
+                                                    <input type="number" value="{{ $work['plan'] }}">
+                                                </td>
+                                                <td>
+                                                    <input type="number" value="{{ $work['real'] }}">
+                                                </td>
+                                                <td>
+                                                    <select>
+                                                        <option>{{ $work['finish'] }}</option>
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <input type="date" value="{{ $work['finishDatePlan'] }}">
+                                                </td>
+                                                <td>
+                                                    <input type="date" value="{{ $work['finishDateReal'] }}">
+                                                </td>
+                                            </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
@@ -197,56 +184,50 @@
                             <div class="content">
                                 <table class="ui table">
                                     <thead>
-                                    <tr>
-                                        <th rowspan="2">№</th>
-                                        <th rowspan="2">Наименование и вид работ</th>
-                                        <th colspan="2">Трудоёмкость (час)</th>
-                                        <th colspan="2">Срок выполнения (даты)</th>
-                                    </tr>
-                                    <tr>
-                                        <th>Планируемая</th>
-                                        <th>Фактическая</th>
-                                        <th>Планируемая</th>
-                                        <th>Фактическая</th>
-                                    </tr>
+                                        <tr>
+                                            <th rowspan="2">№</th>
+                                            <th rowspan="2">Наименование и вид работ</th>
+                                            <th colspan="2">Трудоёмкость (час)</th>
+                                            <th colspan="2">Срок выполнения (даты)</th>
+                                        </tr>
+                                        <tr>
+                                            <th>Планируемая</th>
+                                            <th>Фактическая</th>
+                                            <th>Планируемая</th>
+                                            <th>Фактическая</th>
+                                        </tr>
                                     </thead>
                                     <tbody>
-                                    @for ($i = 0; $i < 5; $i++)
-                                        <tr>
-                                            <td>{{ $i+1 }}</td>
-                                            <td class="ui form">
-                                                <div class="field">
+                                        @foreach($file[4]['work'] as $work)
+                                            <tr>
+                                                <td>{{ $loop->iteration }}</td>
+                                                <td>
                                                     <select>
-                                                        <option>Работа А</option>
-                                                        <option>Работа Б</option>
-                                                        <option>Работа В</option>
+                                                        <option>{{ $work['caption'] }}</option>
                                                     </select>
-                                                </div>
-                                            </td>
-                                            <td class="ui form">
-                                                <div class="field">
-                                                    <input type="number">
-                                                </div>
-                                            </td>
-                                            <td class="ui form">
-                                                <div class="field">
-                                                    <input type="number">
-                                                </div>
-                                            </td>
-                                            <td class="ui form">
-                                                <div class="field">
-                                                    <input type="date">
-                                                </div>
-                                            </td>
-                                            <td class="ui form">
-                                                <div class="field">
-                                                    <input type="date">
-                                                </div>
-                                            </td>
-                                        </tr>
-
-                                    @endfor
-
+                                                </td>
+                                                <td class="ui form">
+                                                    <div class="field">
+                                                        <input type="number" value="{{ $work['plan'] }}">
+                                                    </div>
+                                                </td>
+                                                <td class="ui form">
+                                                    <div class="field">
+                                                        <input type="number" value="{{ $work['real'] }}">
+                                                    </div>
+                                                </td>
+                                                <td class="ui form">
+                                                    <div class="field">
+                                                        <input type="date" value="{{ $work['finishDatePlan'] }}">
+                                                    </div>
+                                                </td>
+                                                <td class="ui form">
+                                                    <div class="field">
+                                                        <input type="date" value="{{ $work['finishDateReal'] }}">
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
@@ -259,60 +240,46 @@
                             <div class="content">
                                 <table class="ui table">
                                     <thead>
-                                    <tr>
-                                        <th rowspan="2">№</th>
-                                        <th rowspan="2">Наименование и вид работ</th>
-                                        <th colspan="2">Трудоёмкость (час)</th>
-                                        <th colspan="2">Срок выполнения (даты)</th>
-                                    </tr>
-                                    <tr>
-                                        <th>Планируемая</th>
-                                        <th>Фактическая</th>
-                                        <th>Планируемая</th>
-                                        <th>Фактическая</th>
-                                    </tr>
+                                        <tr>
+                                            <th rowspan="2">№</th>
+                                            <th rowspan="2">Наименование и вид работ</th>
+                                            <th colspan="2">Трудоёмкость (час)</th>
+                                            <th colspan="2">Срок выполнения (даты)</th>
+                                        </tr>
+                                        <tr>
+                                            <th>Планируемая</th>
+                                            <th>Фактическая</th>
+                                            <th>Планируемая</th>
+                                            <th>Фактическая</th>
+                                        </tr>
                                     </thead>
                                     <tbody>
-                                    @for ($i = 0; $i < 6; $i++)
-                                        <tr>
-                                            <td>{{ $i+1 }}</td>
-                                            <td class="ui form">
-                                                <div class="field">
+                                        @foreach($file[5]['work'] as $work)
+                                            <tr>
+                                                <td>{{ $loop->iteration }}</td>
+                                                <td>
                                                     <select>
-                                                        <option>Работа А</option>
-                                                        <option>Работа Б</option>
-                                                        <option>Работа В</option>
+                                                        <option>{{ $work['caption'] }}</option>
                                                     </select>
-                                                </div>
-                                            </td>
-                                            <td class="ui form">
-                                                <div class="field">
-                                                    <input type="number">
-                                                </div>
-                                            </td>
-                                            <td class="ui form">
-                                                <div class="field">
-                                                    <input type="number">
-                                                </div>
-                                            </td>
-                                            <td class="ui form">
-                                                <div class="field">
+                                                </td>
+                                                <td>
+                                                    <input type="number" value="{{ $work['plan'] }}">
+                                                </td>
+                                                <td>
+                                                    <input type="number" value="{{ $work['real'] }}">
+                                                </td>
+                                                <td>
                                                     <select>
-                                                        <option>В течении года</option>
+                                                        <option>{{ $work['finishPlan'] }}</option>
                                                     </select>
-                                                </div>
-                                            </td>
-                                            <td class="ui form">
-                                                <div class="field">
+                                                </td>
+                                                <td>
                                                     <select>
-                                                        <option>В течении года</option>
+                                                        <option>{{ $work['finishReal'] }}</option>
                                                     </select>
-                                                </div>
-                                            </td>
-                                        </tr>
-
-                                    @endfor
-
+                                                </td>
+                                            </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
@@ -332,27 +299,27 @@
                                 <tbody>
                                     <tr>
                                         <td>Учебная работа</td>
-                                        <td>220</td>
+                                        <td>{{ $file[6]['workSum1'] }}</td>
                                         <td></td>
                                     </tr>
                                     <tr>
                                         <td>Учебно методическая работа</td>
-                                        <td>100,5</td>
+                                        <td>{{ $file[6]['workSum2'] }}</td>
                                         <td></td>
                                     </tr>
                                     <tr>
                                         <td>Научно-исследовательская работа</td>
-                                        <td>25</td>
+                                        <td>{{ $file[6]['workSum3'] }}</td>
                                         <td></td>
                                     </tr>
                                     <tr>
                                         <td>Организационно-методическая и воспитательная работа</td>
-                                        <td>22</td>
+                                        <td>{{ $file[6]['workSum4'] }}</td>
                                         <td></td>
                                     </tr>
                                     <tr>
                                         <td>Итого</td>
-                                        <td>367.5</td>
+                                        <td>{{ $file[6]['sum'] }}</td>
                                         <td></td>
                                     </tr>
                                 </tbody>

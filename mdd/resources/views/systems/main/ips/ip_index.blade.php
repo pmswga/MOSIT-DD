@@ -108,45 +108,43 @@
                         @else
                             <table class="ui celled table">
                                 <col width="5%">
-                                <col width="15%">
-                                <col width="15%">
-                                <col width="5%">
-                                <col width="5%">
-                                <col width="5%">
+                                <col width="60%">
+                                <col width="20%">
+                                <col width="10%">
                                 <thead>
-                                    <tr>
+                                    <tr style="text-align: center">
                                         <th>№</th>
                                         <th>Преподаватель</th>
                                         <th>Учебный год</th>
-                                        <th>Excel</th>
-                                        <th colspan="2"></th>
+                                        <th colspan="2">Действия</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach($ips as $ip)
                                         <tr>
-                                            <td>{{ $loop->iteration }}</td>
-                                            <td></td>
+                                            <td style="text-align: center">{{ $loop->iteration }}</td>
+                                            <td>{{ $ip->getTeacherInitials() }}</td>
                                             <td>
-                                                2016/2017
+                                                {{ $ip->educationYear }}
                                             </td>
-                                            <td>
-                                                <i class="ui icon file excel"></i>
-                                            </td>
-                                            <td>
-                                                <a class="ui fluid basic button" href="{{ route('ips.edit', $ip) }}">
-                                                    <i class="orange edit icon"></i>
-                                                </a>
-                                            </td>
-                                            <td>
-                                                <form method="POST" action="{{ route('ips.destroy', $ip) }}" onsubmit="return confirm('Удалить?')">
-                                                    @method('DELETE')
-                                                    @csrf
-                                                    <input type="hidden" name="idIP" value="{{ $ip->idIP }}">
-                                                    <button type="submit"  class="ui basic fluid button">
-                                                        <i class="red trash icon"></i>
-                                                    </button>
-                                                </form>
+                                            <td colspan="2" style="text-align: center">
+                                                <div class="ui  basic icon buttons">
+                                                    <a class="ui button">
+                                                        <i style="color: rgb(31, 114, 70);" class="ui icon file excel"></i>
+                                                        Скачать
+                                                    </a>
+                                                    <a class="ui button" href="{{ route('ips.edit', $ip) }}">
+                                                        <i class="orange edit icon"></i>
+                                                    </a>
+                                                    <form method="POST" style="margin: 0px; padding: 0px;" action="{{ route('ips.destroy', $ip) }}" onsubmit="return confirm('Удалить?')">
+                                                        @method('DELETE')
+                                                        @csrf
+                                                        <input type="hidden" name="idIP" value="{{ $ip->idIP }}">
+                                                        <button type="submit"  class="ui button">
+                                                            <i class="red trash icon"></i>
+                                                        </button>
+                                                    </form>
+                                                </div>
                                             </td>
                                         </tr>
                                     @endforeach
