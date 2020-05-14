@@ -29,6 +29,8 @@ class DatabaseSeeder extends Seeder
             ListSubSystem::class,
 
             Employees::class,
+            Teachers::class,
+
             Accounts::class,
             AccountsRights::class
         ]);

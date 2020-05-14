@@ -54,5 +54,30 @@
                 </tbody>
             </table>
         </fieldset>
+
+        @if(Auth::user()->getEmployee()->getTeacher())
+            <fieldset class="ui segment">
+                <legend>Информация о преподавателе</legend>
+                <table class="ui definition table">
+                    <col width="35%">
+                    <tbody>
+                    <tr>
+                        <td>Учёное звание</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Учёная степень</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Учёное звание</td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </fieldset>
+        @endif
+
+
     </div>
 @endsection

@@ -12,15 +12,21 @@ class Teachers extends Seeder
      */
     public function run()
     {
-        DB::table('Teachers')->insert([
-            [
-                'idTeacher' => 1,
-                'idEmployee' => 0,
-                'idDegree' => 0,
-                'idAcademicTitle' => 0,
-                'idScienceType' => 0,
-                'idTeacherPost' => 0
-            ]
-        ]);
+        $teachers = [];
+
+        foreach (DataSeeder::$employees as $employee) {
+            if ($employee['idEmployeePost'] == 1) { // не учитывает заместителей, заведующего и учёного секретаря
+                $teachers[] = [
+                    'idTeacher' => $employee['idEmployee'],
+                    'idEmployee' => $employee['idEmployee'],
+                    'idDegree' => 0,
+                    'idAcademicTitle' => 0,
+                    'idScienceType' => 0,
+                    'idTeacherPost' => 0
+                ];
+            }
+        }
+
+        DB::table('Teachers')->insert($teachers);
     }
 }

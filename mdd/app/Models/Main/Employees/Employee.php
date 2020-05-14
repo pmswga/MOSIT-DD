@@ -4,6 +4,7 @@ namespace App\Models\Main\Employees;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use phpDocumentor\Reflection\Types\Null_;
 
 class Employee extends Model
 {
@@ -47,6 +48,17 @@ class Employee extends Model
 
     public function getAccountId() {
         return $this->idEmployee;
+    }
+
+    public function getTeacher() {
+        $teacher = $this->hasOne(Teacher::class, 'idEmployee', 'idEmployee')->first();
+
+
+        if ($teacher) {
+            return $teacher;
+        }
+
+        return null;
     }
 
 }
