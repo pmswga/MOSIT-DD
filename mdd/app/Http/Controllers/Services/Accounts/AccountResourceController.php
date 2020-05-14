@@ -34,7 +34,7 @@ class AccountResourceController extends Controller
     public function create()
     {
         return view('systems.service.accounts.account_add', [
-            "employees" => \App\Models\Main\Employees\Employee::all(),
+            "staff" => \App\Models\Main\Employees\Employee::all(),
             "accountTypes" => \App\Models\Service\Accounts\AccountType::all()
         ]);
     }

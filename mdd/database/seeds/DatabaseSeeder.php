@@ -16,6 +16,8 @@ class DatabaseSeeder extends Seeder
             ListEmployeePost::class,
             ListTeacherPost::class,
 
+            ListRateType::class,
+
             ListInstitute::class,
             ListFaculty::class,
 
