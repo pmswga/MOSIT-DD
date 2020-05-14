@@ -18,6 +18,7 @@
 
         <script type="text/javascript">
             $('.ui.dropdown').dropdown();
+            $('.ui.accordion').accordion();
         </script>
 
     </body>
