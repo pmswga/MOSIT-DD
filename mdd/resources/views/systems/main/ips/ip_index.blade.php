@@ -96,7 +96,15 @@
 						<legend><h3>Индивидуальные планы</h3></legend>
                         <a class="ui primary fluid button" href="{{ route('ips.create') }}">Добавить</a>
                         @empty($ips)
-                            <i class="big trash icon"></i>
+                            <div class="ui icon message">
+                                <i class="info icon"></i>
+                                <div class="content">
+                                    <div class="header">
+
+                                    </div>
+                                    <p>ИП не добавлены</p>
+                                </div>
+                            </div>
                         @else
                             <table class="ui celled table">
                                 <col width="5%">

@@ -25,10 +25,13 @@
                         @method('PUT')
                         @csrf
 
-                        <fieldset class="ui segment">
-                            <legend><h3>Информация о преподавателе</h3></legend>
-                            <table class="ui celled table">
-                                <tbody>
+                        <div class="ui styled fluid accordion">
+                            <div class="title">
+                                <h3>Информация о преподавателе</h3>
+                            </div>
+                            <div class="content">
+                                <table class="ui celled table">
+                                    <tbody>
                                     <tr>
                                         <td>Институт</td>
                                         <td>{{ $file[0]['institute'] }}</td>
@@ -43,7 +46,7 @@
                                     </tr>
                                     <tr>
                                         <td>Должность</td>
-                                        <td>{{ $file[0]['post'] }}</td>
+                                        <td>{{ $file[0]['teacherPost'] }}</td>
                                     </tr>
                                     <tr>
                                         <td>Вид ставки</td>
@@ -53,60 +56,77 @@
                                         <td>Значение ставки</td>
                                         <td>{{ $file[0]['rateValue'] }}</td>
                                     </tr>
-                                </tbody>
-                            </table>
-                        </fieldset>
-                        <fieldset class="ui segment">
-                            <legend><h3>Список дисциплин за 1-й семестр</h3></legend>
-                            <table class="ui table">
-                                <thead>
-                                    <tr>
-                                        <th>№</th>
-                                        <th>Наименование дисциплины</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($file[1]['subjects_a'] as $subject)
-                                        <tr>
-                                            <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $subject }}</td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </fieldset>
-                        <fieldset class="ui segment">
-                            <legend><h3>Список дисциплин за 2-й семестр</h3></legend>
-                            <table class="ui table">
-                                <thead>
-                                    <tr>
-                                        <th>№</th>
-                                        <th>Наименование дисциплины</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                @empty($file[2])
-                                    <tr>
-                                        <td colspan="2">
-                                            <i class="massive frown icon"></i>
-                                        </td>
-                                    </tr>
-                                @else
-                                    @foreach ($file[2]['subjects_b'] as $subject)
-                                        <tr>
-                                            <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $subject }}</td>
-                                        </tr>
-                                    @endforeach
-                                @endempty
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
 
-                                </tbody>
-                            </table>
-                        </fieldset>
-                        <fieldset class="ui segment">
-                            <legend><h3>Учебно методическая работа</h3></legend>
-                            <table class="ui table">
-                                <thead>
+                        <div class="ui styled fluid accordion">
+                            <div class="title">
+                                <h3>Список дисциплин за 1-й семестр</h3>
+                            </div>
+                            <div class="content">
+                                <table class="ui table">
+                                    <col width="5%">
+                                    <thead>
+                                        <tr>
+                                            <th>№</th>
+                                            <th>Наименование дисциплины</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($file[1]['subjects'] as $subject)
+                                            <tr>
+                                                <td>{{ $loop->iteration }}</td>
+                                                <td>{{ $subject }}</td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="ui styled fluid accordion">
+                            <div class="title">
+                                <h3>Список дисциплин за 2-й семестр</h3>
+                            </div>
+                            <div class="content">
+                                <table class="ui table">
+                                    <col width="5%">
+                                    <thead>
+                                    <tr>
+                                        <th>№</th>
+                                        <th>Наименование дисциплины</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @empty($file[2])
+                                        <tr>
+                                            <td colspan="2">
+                                                <i class="massive frown icon"></i>
+                                            </td>
+                                        </tr>
+                                    @else
+                                        @foreach ($file[2]['subjects'] as $subject)
+                                            <tr>
+                                                <td>{{ $loop->iteration }}</td>
+                                                <td>{{ $subject }}</td>
+                                            </tr>
+                                        @endforeach
+                                    @endempty
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="ui styled fluid accordion">
+                            <div class="title">
+                                <h3>Учебно методическая работа</h3>
+                            </div>
+                            <div class="content">
+                                <table class="ui table">
+                                    <thead>
                                     <tr>
                                         <th rowspan="2">№</th>
                                         <th rowspan="2">Наименование и вид работ</th>
@@ -120,58 +140,63 @@
                                         <th>Планируемая</th>
                                         <th>Фактическая</th>
                                     </tr>
-                                </thead>
-                                <tbody>
+                                    </thead>
+                                    <tbody>
                                     @for ($i = 0; $i < 5; $i++)
-                                    <tr>
-                                        <td>{{ $i+1 }}</td>
-                                        <td class="ui form">
-                                            <div class="field">
-                                                <select>
-                                                    <option>Работа А</option>
-                                                    <option>Работа Б</option>
-                                                    <option>Работа В</option>
-                                                </select>
-                                            </div>
-                                        </td>
-                                        <td class="ui form">
-                                            <div class="field">
-                                                <input type="number">
-                                            </div>
-                                        </td>
-                                        <td class="ui form">
-                                            <div class="field">
-                                                <input type="number">
-                                            </div>
-                                        </td>
-                                        <td class="ui form">
+                                        <tr>
+                                            <td>{{ $i+1 }}</td>
+                                            <td class="ui form">
+                                                <div class="field">
+                                                    <select>
+                                                        <option>Работа А</option>
+                                                        <option>Работа Б</option>
+                                                        <option>Работа В</option>
+                                                    </select>
+                                                </div>
+                                            </td>
+                                            <td class="ui form">
+                                                <div class="field">
+                                                    <input type="number">
+                                                </div>
+                                            </td>
+                                            <td class="ui form">
+                                                <div class="field">
+                                                    <input type="number">
+                                                </div>
+                                            </td>
+                                            <td class="ui form">
                                                 <select>
                                                     <option>Завершение работы А</option>
                                                     <option>Завершение работы Б</option>
                                                     <option>Завершение работы В</option>
                                                 </select>
-                                        </td>
-                                        <td class="ui form">
-                                            <div class="field">
-                                                <input type="date">
-                                            </div>
-                                        </td>
-                                        <td class="ui form">
-                                            <div class="field">
-                                                <input type="date">
-                                            </div>
-                                        </td>
-                                    </tr>
+                                            </td>
+                                            <td class="ui form">
+                                                <div class="field">
+                                                    <input type="date">
+                                                </div>
+                                            </td>
+                                            <td class="ui form">
+                                                <div class="field">
+                                                    <input type="date">
+                                                </div>
+                                            </td>
+                                        </tr>
 
                                     @endfor
 
-                                </tbody>
-                            </table>
-                        </fieldset>
-                        <fieldset class="ui segment">
-                            <legend><h3>Научно-исследовательская работа</h3></legend>
-                            <table class="ui table">
-                                <thead>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="ui styled fluid accordion">
+                            <div class="title">
+                                <h3>Научно-исследовательская работа</h3>
+                            </div>
+                            <div class="content">
+                                <table class="ui table">
+                                    <thead>
                                     <tr>
                                         <th rowspan="2">№</th>
                                         <th rowspan="2">Наименование и вид работ</th>
@@ -184,51 +209,56 @@
                                         <th>Планируемая</th>
                                         <th>Фактическая</th>
                                     </tr>
-                                </thead>
-                                <tbody>
+                                    </thead>
+                                    <tbody>
                                     @for ($i = 0; $i < 5; $i++)
-                                    <tr>
-                                        <td>{{ $i+1 }}</td>
-                                        <td class="ui form">
-                                            <div class="field">
-                                                <select>
-                                                    <option>Работа А</option>
-                                                    <option>Работа Б</option>
-                                                    <option>Работа В</option>
-                                                </select>
-                                            </div>
-                                        </td>
-                                        <td class="ui form">
-                                            <div class="field">
-                                                <input type="number">
-                                            </div>
-                                        </td>
-                                        <td class="ui form">
-                                            <div class="field">
-                                                <input type="number">
-                                            </div>
-                                        </td>
-                                        <td class="ui form">
-                                            <div class="field">
-                                                <input type="date">
-                                            </div>
-                                        </td>
-                                        <td class="ui form">
-                                            <div class="field">
-                                                <input type="date">
-                                            </div>
-                                        </td>
-                                    </tr>
+                                        <tr>
+                                            <td>{{ $i+1 }}</td>
+                                            <td class="ui form">
+                                                <div class="field">
+                                                    <select>
+                                                        <option>Работа А</option>
+                                                        <option>Работа Б</option>
+                                                        <option>Работа В</option>
+                                                    </select>
+                                                </div>
+                                            </td>
+                                            <td class="ui form">
+                                                <div class="field">
+                                                    <input type="number">
+                                                </div>
+                                            </td>
+                                            <td class="ui form">
+                                                <div class="field">
+                                                    <input type="number">
+                                                </div>
+                                            </td>
+                                            <td class="ui form">
+                                                <div class="field">
+                                                    <input type="date">
+                                                </div>
+                                            </td>
+                                            <td class="ui form">
+                                                <div class="field">
+                                                    <input type="date">
+                                                </div>
+                                            </td>
+                                        </tr>
 
                                     @endfor
 
-                                </tbody>
-                            </table>
-                        </fieldset>
-                        <fieldset class="ui segment">
-                            <legend><h3>Организационно-методическая и воспитательная работа</h3></legend>
-                            <table class="ui table">
-                                <thead>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="ui styled fluid accordion">
+                            <div class="title">
+                                <h3>Организационно-методическая и воспитательная работа</h3>
+                            </div>
+                            <div class="content">
+                                <table class="ui table">
+                                    <thead>
                                     <tr>
                                         <th rowspan="2">№</th>
                                         <th rowspan="2">Наименование и вид работ</th>
@@ -241,54 +271,57 @@
                                         <th>Планируемая</th>
                                         <th>Фактическая</th>
                                     </tr>
-                                </thead>
-                                <tbody>
+                                    </thead>
+                                    <tbody>
                                     @for ($i = 0; $i < 6; $i++)
-                                    <tr>
-                                        <td>{{ $i+1 }}</td>
-                                        <td class="ui form">
-                                            <div class="field">
-                                                <select>
-                                                    <option>Работа А</option>
-                                                    <option>Работа Б</option>
-                                                    <option>Работа В</option>
-                                                </select>
-                                            </div>
-                                        </td>
-                                        <td class="ui form">
-                                            <div class="field">
-                                                <input type="number">
-                                            </div>
-                                        </td>
-                                        <td class="ui form">
-                                            <div class="field">
-                                                <input type="number">
-                                            </div>
-                                        </td>
-                                        <td class="ui form">
-                                            <div class="field">
-                                                <select>
-                                                    <option>В течении года</option>
-                                                </select>
-                                            </div>
-                                        </td>
-                                        <td class="ui form">
-                                            <div class="field">
-                                                <select>
-                                                    <option>В течении года</option>
-                                                </select>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                        <tr>
+                                            <td>{{ $i+1 }}</td>
+                                            <td class="ui form">
+                                                <div class="field">
+                                                    <select>
+                                                        <option>Работа А</option>
+                                                        <option>Работа Б</option>
+                                                        <option>Работа В</option>
+                                                    </select>
+                                                </div>
+                                            </td>
+                                            <td class="ui form">
+                                                <div class="field">
+                                                    <input type="number">
+                                                </div>
+                                            </td>
+                                            <td class="ui form">
+                                                <div class="field">
+                                                    <input type="number">
+                                                </div>
+                                            </td>
+                                            <td class="ui form">
+                                                <div class="field">
+                                                    <select>
+                                                        <option>В течении года</option>
+                                                    </select>
+                                                </div>
+                                            </td>
+                                            <td class="ui form">
+                                                <div class="field">
+                                                    <select>
+                                                        <option>В течении года</option>
+                                                    </select>
+                                                </div>
+                                            </td>
+                                        </tr>
 
                                     @endfor
 
-                                </tbody>
-                            </table>
-                        </fieldset>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
                         <fieldset class="ui segment">
                             <legend><h3>Общая годовая нагрузка</h3></legend>
                             <table class="ui table">
+                                <col width="50%">
                                 <thead>
                                     <tr>
                                         <th>Виды работ</th>
@@ -325,15 +358,16 @@
                                 </tbody>
                             </table>
                         </fieldset>
+
                         <div class="field">
-                            <input type="submit" class="ui primary button" value="Сохранить">
+                            <input type="hidden" name="idTeacher" value="{{ $idTeacher }}">
+                            <input type="submit" class="ui orange fluid button" value="Сохранить">
                         </div>
+
                     </form>
 				</div>
 			</div>
 		</div>
 	</div>
-
-
 
 @endsection

@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Main\IP;
 
+use App\Core\ips\IPExcelFile;
 use App\Http\Controllers\Controller;
 use App\Models\Main\IP\IP;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use PhpOffice\PhpSpreadsheet\IOFactory;
@@ -27,9 +29,26 @@ class IPResourceController extends Controller
      */
     public function index()
     {
-        return view('systems.main.ips.ip_index', [
-            'ips' => IP::all()
-        ]);
+        switch (Auth::user()->getIdAccountType())
+        {
+            case 1:
+            {
+                $ips = IP::all()->where('idTeacher', '=', Auth::user()->getEmployee()->getTeacher()->idTeacher);
+
+                return view('systems.main.ips.ip_index', [
+                    'ips' => $ips
+                ]);
+            } break;
+            case 2:
+            {
+                $ips = IP::all();
+
+                return view('systems.main.ips.ip_index', [
+                    'ips' => $ips
+                ]);
+            } break;
+        }
+
     }
 
     /**
@@ -77,110 +96,30 @@ class IPResourceController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\Main\IP\IP  $iP
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function edit($id)
     {
         $ip = IP::all()->where('idIP', '=', $id)->first();
 
-        $fp = tmpfile();
-        $tmpFile = stream_get_meta_data($fp)['uri'];
-        fputs($fp, $ip->file);
-
-		$ip->file = IOFactory::load($tmpFile);
-
-        fclose($fp);
-
-        $data = [
-            0 => [],
-            1 => []
-        ];
-
-        $ip_config = [
-            0 => [
-                'institute' => 'A26',
-                'faculty' => 'CJ26',
-                'post' => 'Q27',
-                'degree' => 'AH28',
-                'initials' => 'A29'
-            ],
-            1 => [
-                'subjects_a' => '6'
-            ],
-            2 => [
-                'subjects_b' => '5'
-            ]
-        ];
-
-        foreach ($ip_config as $sheet => $cells) {
-            foreach ($cells as $cell) {
-                switch ($sheet) {
-                    case 0: {
-                        foreach ($ip_config[0] as $key => $value) {
-                            $data[0][$key] = $ip->file->getSheet(0)->getCell($value)->getValue();
-                        }
-                    } break;
-                    case 1: {
-                        $value = ' ';
-                        $_cell = $ip_config[1]['subjects_a'];
-
-                        while ($value) {
-                            $value = $ip->file->getSheet(1)->getCellByColumnAndRow(1, $_cell)->getValue();
-                            if ($value && $value != 'ИТОГО ЗА ВЕСЕННИЙ СЕМЕСТР') {
-                                $data[1]['subjects_a'][] = $value;
-                            }
+        $ipFile = new IPExcelFile($ip->file);
 
 
-                            $_cell += 2;
-                        }
-                    } break;
-                    case 2: {
-                        $value = ' ';
-                        $_cell = $ip_config[2]['subjects_b'];
-
-                        while ($value) {
-                            $value = $ip->file->getSheet(2)->getCellByColumnAndRow(1, $_cell)->getValue();
-                            if ($value && $value != 'ИТОГО ЗА ВЕСЕННИЙ СЕМЕСТР') {
-                                $data[2]['subjects_b'][] = $value;
-                            }
+        $idTeacher = DB::table('employees as e')
+            ->select('t.idTeacher')
+            ->join('Teachers as t', 't.idEmployee', '=','e.idEmployee')
+            ->where('e.secondName', '=', $ipFile->getSheet(0)['secondName'])
+            ->where('e.firstName', '=', $ipFile->getSheet(0)['firstName'])
+            ->where('e.patronymic', '=', $ipFile->getSheet(0)['patronymic'])
+            ->get()->first()->idTeacher;
 
 
-                            $_cell += 2;
-                        }
-                    } break;
-                }
-            }
-        }
-
-        $basePost = $data[0]['post'];
-        $rateValue = 0;
-        $rateType = '';
-
-        $matches = [];
-        preg_match('/Старший преподаватель|Ассистент|Преподаватель|Доцент|Профессор/i', $data[0]['post'], $matches);
-        if ($matches) {
-            $post = $matches[0];
-        }
-
-        $matches = [];
-        preg_match('/[0|1],[0-9][0|5]/', $data[0]['post'], $matches);
-        if ($matches) {
-            $rateValue = $matches[0];
-        }
-
-        preg_match('/штатный|внешний/', $data[0]['post'], $matches);
-        if ($matches) {
-            $rateType = $matches[0];
-        }
-
-        $data[0]['post'] = $post;
-        $data[0]['rateValue'] = $rateValue;
-        $data[0]['rateType'] = $rateType;
 
         if (!empty($ip)) {
             return view('systems.main.ips.ip_update', [
                 'ip' => $ip,
-                'file' => $data
+                'idTeacher' => $idTeacher,
+                'file' => $ipFile->getData()
             ]);
         }
 
@@ -195,9 +134,17 @@ class IPResourceController extends Controller
      * @param  \App\Models\Main\IP\IP  $iP
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, IP $iP)
+    public function update(Request $request, $id)
     {
-        //
+        $ip = IP::all()->where('idIP', '=', $id)->first();
+
+        $data = $request->only(['idTeacher']);
+
+        $ip->idTeacher = $data['idTeacher'];
+        $ip->update();
+
+        Session::flash('message', 'ИП обновлён');
+        return Redirect::route('ips.edit', $id);
     }
 
     /**
