@@ -2,7 +2,11 @@
 
 use Illuminate\Database\Seeder;
 
+
+
+
 class  DataSeeder {
+
     public static $employees = [
         //Учебно-вспомогательный персонал
         [
@@ -275,6 +279,19 @@ class  DataSeeder {
             'personalEmail' => 'mikalovtch@gmail.com',
             'idFaculty' => 1,
             'idEmployeePost' => 1,
+        ]
+    ];
+
+    public static $accountRights = [
+        [
+            'idAccount' => 1,
+            'idSubSystem' => 1,
+            'isAccess' => True,
+            'isViewAny' => True,
+            'isView' => True,
+            'isCreate' => True,
+            'isUpdate' => True,
+            'isDelete' => True
         ]
     ];
 

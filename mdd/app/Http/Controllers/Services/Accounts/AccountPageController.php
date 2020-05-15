@@ -10,7 +10,7 @@ class AccountPageController extends Controller
 {
 
     public function profile() {
-        return view('accounts.profile');
+        return view('profile');
     }
 
     public function admin() {
@@ -20,12 +20,16 @@ class AccountPageController extends Controller
     public function home() {
 
         switch (Auth::user()->getIdAccountType()) {
-            case 1: {
+            case \App\Core\Constants\ListAccountType::TEACHER: {
                 $ips = Auth::user()->getEmployee()->getTeacher()->getIPS();
 
                 return view('home', [
                     'ips' => $ips
                 ]);
+            } break;
+            case \App\Core\Constants\ListAccountType::METHODIST:
+            {
+                return view('home');
             } break;
         }
 

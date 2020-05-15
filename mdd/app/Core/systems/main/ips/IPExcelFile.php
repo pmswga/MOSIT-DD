@@ -1,8 +1,7 @@
 <?php
 
 
-namespace App\Core\ips;
-use Illuminate\Support\Facades\Date;
+namespace App\Core\Systems\Main\IPS;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 
 class IPExcelFile
