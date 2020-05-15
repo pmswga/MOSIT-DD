@@ -32,6 +32,9 @@
 @endsection
 
 @section('profileMenu')
+    <div class="item">
+        {{ Auth::user()->getEmail() }}
+    </div>
     <div class="ui dropdown item">
         <i class="wrench icon"></i>
         <div class="menu">
