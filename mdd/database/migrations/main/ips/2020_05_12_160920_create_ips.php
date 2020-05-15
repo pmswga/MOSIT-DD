@@ -15,7 +15,7 @@ class CreateIps extends Migration
     {
         Schema::create('ips', function (Blueprint $table) {
             $table->bigIncrements('idIP');
-            $table->integer('idTeacher')->nullable(); // #todo fix remove call nullable() method
+            $table->integer('idTeacher');
             $table->string('educationYear', 9);
             $table->binary('file');
             $table->integer('lastEmployee');
