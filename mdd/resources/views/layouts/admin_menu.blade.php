@@ -5,10 +5,11 @@
         </a>
         <div class="ui dropdown item">
             <i class="user icon"></i>
-            Пользователи
+            Аккаунты
             <div class="menu">
                 <a class="item" href="{{ route('accounts.create') }}">Добавить</a>
                 <a class="item" href="{{ route('accounts.index') }}">Просмотр</a>
+                <a class="item" href="{{ route('accounts.rights') }}">Права доступа</a>
             </div>
         </div>
         <div class="ui dropdown item">
