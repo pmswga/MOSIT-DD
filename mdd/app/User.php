@@ -77,4 +77,11 @@ class User extends Authenticatable
         return $groupRights;
     }
 
+    public function getAccountRightsBy($system) {
+        return DB::table('accounts_rights')
+            ->where('idAccount', '=', $this->idAccount)
+            ->where('idSubSystem', '=', $system)
+            ->get()->first();
+    }
+
 }

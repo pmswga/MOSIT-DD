@@ -17,6 +17,11 @@ class CreateAccountRights extends Migration
             $table->integer('idAccount');
             $table->integer('idSubSystem');
             $table->boolean('isAccess')->default(0);
+            $table->boolean('isViewAny')->default(0);
+            $table->boolean('isView')->default(0);
+            $table->boolean('isCreate')->default(0);
+            $table->boolean('isUpdate')->default(0);
+            $table->boolean('isDelete')->default(0);
         });
     }
 
