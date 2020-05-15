@@ -112,14 +112,18 @@
                         @else
                             <table class="ui celled table">
                                 <col width="5%">
-                                <col width="60%">
+                                <col width="25%">
                                 <col width="20%">
+                                <col width="15%">
+                                <col width="15%">
                                 <col width="10%">
                                 <thead>
                                 <tr style="text-align: center">
                                     <th>№</th>
                                     <th>Преподаватель</th>
                                     <th>Учебный год</th>
+                                    <th>Последнее изменение</th>
+                                    <th>Кто изменил</th>
                                     <th colspan="2">Действия</th>
                                 </tr>
                                 </thead>
@@ -130,6 +134,12 @@
                                         <td>{{ $ip->getTeacherInitials() }}</td>
                                         <td>
                                             {{ $ip->educationYear }}
+                                        </td>
+                                        <td>
+                                            {{ date_format(date_create($ip->lastUpdate), 'd.m.Y / H:i') }}
+                                        </td>
+                                        <td>
+                                            {{ \App\Models\Main\Employees\Employee::find($ip->lastEmployee)->getFullInitials()  }}
                                         </td>
                                         <td colspan="2" style="text-align: center">
                                             <div class="ui  basic icon buttons">

@@ -19,7 +19,7 @@ class CreateIps extends Migration
             $table->string('educationYear', 9);
             $table->binary('file');
             $table->integer('lastEmployee');
-            $table->date('lastUpdate');
+            $table->dateTime('lastUpdate');
         });
     }
 

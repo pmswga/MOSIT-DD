@@ -103,14 +103,14 @@ class IPResourceController extends Controller
 
         $path = Storage::putFileAs('ips', $data['file'], 'teacher_ip_'.$idTeacher.'_'.$countIps.'.xlsx');
 
+
         $ip = new IP();
         $ip->file = $path;
         $ip->idTeacher = $idTeacher;
         $ip->educationYear = $ipFile->getSheet(0)['educationYear'];
         $ip->lastEmployee = Auth::user()->getEmployee()->idEmployee;
-        $ip->lastUpdate = date('Y-m-d');
+        $ip->lastUpdate = date('Y-m-d H:i:s');
         $ip->save();
-
         Session::flash('message', 'ИП успешно добавлен');
         return back();
     }
@@ -169,17 +169,18 @@ class IPResourceController extends Controller
      * @param  \App\Models\Main\IP\IP  $iP
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, IP $ip)
     {
-        $ip = IP::all()->where('idIP', '=', $id)->first();
+        date_default_timezone_set('Europe/Moscow');
+        $ip->lastEmployee = Auth::user()->idEmployee;
+        $ip->lastUpdate = date('Y-m-d H:i:s');
+        if ($ip->update()) {
+            Session::flash('message', 'ИП обновлён');
+            return Redirect::route('ips.edit', $ip);
+        }
 
-        $data = $request->only(['idTeacher']);
-
-        $ip->idTeacher = $data['idTeacher'];
-        $ip->update();
-
-        Session::flash('message', 'ИП обновлён');
-        return Redirect::route('ips.edit', $id);
+        Session::flash('message', 'Не удалось сохранить ИП');
+        return Redirect::route('ips.index');
     }
 
     /**
