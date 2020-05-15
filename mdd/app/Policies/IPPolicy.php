@@ -5,6 +5,7 @@ namespace App\Policies;
 use App\Models\Main\IP\IP;
 use App\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Auth\Access\Response;
 
 class IPPolicy
 {
@@ -18,7 +19,9 @@ class IPPolicy
      */
     public function viewAny(User $user)
     {
-        return true;
+        return $user->getAccountRightsBy(\App\Core\Constants\ListSubSystems::IPS)->isViewAny
+            ? Response::allow()
+            : Response::deny('Недостаточно прав');
     }
 
     /**
@@ -30,7 +33,7 @@ class IPPolicy
      */
     public function view(User $user, IP $iP)
     {
-        return true;
+        return $user->getAccountRightsBy(\App\Core\Constants\ListSubSystems::IPS)->isView;
     }
 
     /**
@@ -41,7 +44,7 @@ class IPPolicy
      */
     public function create(User $user)
     {
-        return true;
+        return $user->getAccountRightsBy(\App\Core\Constants\ListSubSystems::IPS)->isCreate;
     }
 
     /**
@@ -53,7 +56,9 @@ class IPPolicy
      */
     public function update(User $user, IP $iP)
     {
-        //
+        return $user->getAccountRightsBy(\App\Core\Constants\ListSubSystems::IPS)->isUpdate
+            ? Response::allow()
+            : Response::deny('Недостаточно прав');
     }
 
     /**
@@ -65,7 +70,7 @@ class IPPolicy
      */
     public function delete(User $user, IP $iP)
     {
-        return true;
+        return $user->getAccountRightsBy(\App\Core\Constants\ListSubSystems::IPS)->isDelete;
     }
 
     /**
@@ -77,7 +82,8 @@ class IPPolicy
      */
     public function restore(User $user, IP $iP)
     {
-        //
+        return true;
+
     }
 
     /**

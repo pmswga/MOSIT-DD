@@ -12,12 +12,6 @@ class AccountsRights extends Seeder
      */
     public function run()
     {
-        DB::table('accounts_rights')->insert([
-            [
-                'idAccount' => 1,
-                'idSubSystem' => 1,
-                'isAccess' => 1
-            ]
-        ]);
+        DB::table('accounts_rights')->insert(DataSeeder::$accountRights);
     }
 }

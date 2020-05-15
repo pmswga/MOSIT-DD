@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Main\IP;
 
-use App\Core\ips\IPExcelFile;
+use App\Core\Systems\Main\IPS\IPExcelFile;
 use App\Http\Controllers\Controller;
 use App\Models\Main\IP\IP;
 use Illuminate\Http\Request;
@@ -10,16 +10,27 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
-use PhpOffice\PhpSpreadsheet\IOFactory;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use Illuminate\Support\Facades\Storage;
 
 
 class IPResourceController extends Controller
 {
     public function __construct()
     {
-        //$this->authorizeResource(IP::class, 'ip');
+        $this->authorizeResource(IP::class, 'ip');
+    }
+
+
+    public function downloadIP($ip)
+    {
+        $ip = IP::find($ip);
+
+        if (!empty($ip)) {
+            return Storage::download($ip->file, 'ИП.xlsx');
+        } else {
+            Session::flash('message', 'Не удалось скачать ИП');
+            return back();
+        }
     }
 
     /**
@@ -71,6 +82,7 @@ class IPResourceController extends Controller
     {
         $data = $request->only(['file', 'lastEmployee', 'lastUpdate']);
 
+
         $ipFile = new IPExcelFile($data['file']->get());
 
 
@@ -86,10 +98,13 @@ class IPResourceController extends Controller
             ->where('e.patronymic', '=', $ipFile->getSheet(0)['patronymic'])
             ->get()->first()->idTeacher;
 
+        $countIps = DB::table('ips')->where('idTeacher', '=', $idTeacher)->get()->count();
 
+
+        $path = Storage::putFileAs('ips', $data['file'], 'teacher_ip_'.$idTeacher.'_'.$countIps.'.xlsx');
 
         $ip = new IP();
-        $ip->file = $data['file']->get();
+        $ip->file = $path;
         $ip->idTeacher = $idTeacher;
         $ip->educationYear = $ipFile->getSheet(0)['educationYear'];
         $ip->lastEmployee = Auth::user()->getEmployee()->idEmployee;
@@ -97,7 +112,7 @@ class IPResourceController extends Controller
         $ip->save();
 
         Session::flash('message', 'ИП успешно добавлен');
-        return Redirect::route('ips.create');
+        return back();
     }
 
     /**
@@ -117,11 +132,9 @@ class IPResourceController extends Controller
      * @param  \App\Models\Main\IP\IP  $iP
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function edit($id)
+    public function edit(IP $ip)
     {
-        $ip = IP::all()->where('idIP', '=', $id)->first();
-
-        $ipFile = new IPExcelFile($ip->file);
+        $ipFile = new IPExcelFile(Storage::get($ip->file));
 
         #echo "<pre>";
         #print_r($ipFile->getData());
@@ -175,14 +188,12 @@ class IPResourceController extends Controller
      * @param  \App\Models\Main\IP\IP  $iP
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(IP $ip)
     {
-        $ip = IP::all()->where('idIP', '=', $id)->first();
-
-        if (!empty($ip)) {
+        if (Storage::delete($ip->file)) {
             if ($ip->delete()) {
                 Session::flash('message', 'ИП успешно удалён');
-                return Redirect::route('ips.index');
+                return back();
             }
         }
 
