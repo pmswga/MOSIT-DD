@@ -21,7 +21,7 @@
                             </div>
                         </div>
                     @endif
-                    <form class="ui form" method="POST" action="{{ route('ips.update', $ip) }}">
+                    <form name="updateIP" novalidate class="ui form" method="POST" action="{{ route('ips.update', $ip) }}">
                         @method('PUT')
                         @csrf
 
@@ -125,7 +125,7 @@
 
                         <div class="ui styled fluid accordion">
                             <div class="title">
-                                <h3>Учебно методическая работа</h3>
+                                <h3>Учебно-методическая работа</h3>
                             </div>
                             <div class="content">
                                 <table class="ui table">
@@ -154,10 +154,10 @@
                                                     </select>
                                                 </td>
                                                 <td>
-                                                    <input type="number" value="{{ $work['plan'] }}">
+                                                    <input class="workSum3Plan" type="number" value="{{ $work['plan'] }}">
                                                 </td>
                                                 <td>
-                                                    <input type="number" value="{{ $work['real'] }}">
+                                                    <input class="workSum3Real" type="number" value="{{ $work['real'] }}">
                                                 </td>
                                                 <td>
                                                     <select>
@@ -208,12 +208,12 @@
                                                 </td>
                                                 <td class="ui form">
                                                     <div class="field">
-                                                        <input type="number" value="{{ $work['plan'] }}">
+                                                        <input class="workSum4Plan" type="number" value="{{ $work['plan'] }}">
                                                     </div>
                                                 </td>
                                                 <td class="ui form">
                                                     <div class="field">
-                                                        <input type="number" value="{{ $work['real'] }}">
+                                                        <input class="workSum4Real" type="number" value="{{ $work['real'] }}">
                                                     </div>
                                                 </td>
                                                 <td class="ui form">
@@ -263,10 +263,10 @@
                                                     </select>
                                                 </td>
                                                 <td>
-                                                    <input type="number" value="{{ $work['plan'] }}">
+                                                    <input class="workSum5Plan" type="number" value="{{ $work['plan'] }}">
                                                 </td>
                                                 <td>
-                                                    <input type="number" value="{{ $work['real'] }}">
+                                                    <input class="workSum5Real" type="number" value="{{ $work['real'] }}">
                                                 </td>
                                                 <td>
                                                     <select>
@@ -299,28 +299,28 @@
                                 <tbody>
                                     <tr>
                                         <td>Учебная работа</td>
-                                        <td>{{ $file[6]['workSum1'] }}</td>
-                                        <td></td>
+                                        <td id="workSum1Plan">{{ $file[6]['workSum1'] }}</td>
+                                        <td id="workSum1Real"></td>
                                     </tr>
                                     <tr>
                                         <td>Учебно методическая работа</td>
-                                        <td>{{ $file[6]['workSum2'] }}</td>
-                                        <td></td>
+                                        <td id="workSum2Plan">{{ $file[6]['workSum2'] }}</td>
+                                        <td id="workSum2Real"></td>
                                     </tr>
                                     <tr>
                                         <td>Научно-исследовательская работа</td>
-                                        <td>{{ $file[6]['workSum3'] }}</td>
-                                        <td></td>
+                                        <td id="workSum3Plan">{{ $file[6]['workSum3'] }}</td>
+                                        <td id="workSum3Real"></td>
                                     </tr>
                                     <tr>
                                         <td>Организационно-методическая и воспитательная работа</td>
-                                        <td>{{ $file[6]['workSum4'] }}</td>
-                                        <td></td>
+                                        <td id="workSum4Plan">{{ $file[6]['workSum4'] }}</td>
+                                        <td id="workSum4Real"></td>
                                     </tr>
                                     <tr>
                                         <td>Итого</td>
-                                        <td>{{ $file[6]['sum'] }}</td>
-                                        <td></td>
+                                        <td id="workSumPlan">{{ $file[6]['sum'] }}</td>
+                                        <td id="workSumReal"></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -337,4 +337,50 @@
 		</div>
 	</div>
 
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $('[type=number]').attr('min', 0);
+        });
+
+        class IPCalculate
+        {
+            static calcualteSum(_class) {
+                let sum = 0;
+
+                $(_class).each(function (index, element) {
+                    sum += parseFloat($(element).val());
+                });
+
+                if (isNaN(sum)) {
+                    return 0;
+                } else {
+                    return sum;
+                }
+            }
+        }
+
+
+        $('[type=number]').on('change', function (element) {
+            let workSum3Plan = IPCalculate.calcualteSum('.workSum3Plan');
+            let workSum3Real = IPCalculate.calcualteSum('.workSum3Real');
+            let workSum4Plan = IPCalculate.calcualteSum('.workSum4Plan');
+            let workSum4Real = IPCalculate.calcualteSum('.workSum4Real');
+            let workSum5Plan = IPCalculate.calcualteSum('.workSum5Plan');
+            let workSum5Real = IPCalculate.calcualteSum('.workSum5Real');
+            let workSumPlan = workSum3Plan + workSum4Plan + workSum5Plan;
+            let workSumReal = workSum3Real + workSum4Real + workSum5Real;
+
+            $('#workSum2Plan').text(workSum3Plan.toString());
+            $('#workSum2Real').text(workSum3Real.toString());
+            $('#workSum3Plan').text(workSum4Plan.toString());
+            $('#workSum3Real').text(workSum4Real.toString());
+            $('#workSum4Plan').text(workSum5Plan.toString());
+            $('#workSum4Real').text(workSum5Real.toString());
+            $('#workSumPlan').text(workSumPlan.toString());
+            $('#workSumReal').text(workSumReal.toString());
+        });
+
+    </script>
 @endsection
