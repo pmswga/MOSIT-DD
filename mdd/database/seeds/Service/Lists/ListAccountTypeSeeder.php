@@ -3,7 +3,7 @@
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class ListAccountType extends Seeder
+class ListAccountTypeSeeder extends Seeder
 {
     /**
      * Run the database seeds.
