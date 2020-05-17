@@ -13,7 +13,7 @@ class CreateEmployees extends Migration
      */
     public function up()
     {
-        Schema::create('Employees', function (Blueprint $table) {
+        Schema::create('EmployeesSeeder', function (Blueprint $table) {
             $table->bigIncrements('idEmployee');
             $table->string("secondName", 255);
             $table->string("firstName", 255);
@@ -32,6 +32,6 @@ class CreateEmployees extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('Employees');
+        Schema::dropIfExists('EmployeesSeeder');
     }
 }

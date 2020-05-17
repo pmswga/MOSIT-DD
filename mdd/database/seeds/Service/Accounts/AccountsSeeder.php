@@ -3,7 +3,7 @@
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class Accounts extends Seeder
+class AccountsSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -28,6 +28,6 @@ class Accounts extends Seeder
             ];
         }
 
-        DB::table('Accounts')->insert($accounts);
+        DB::table('AccountsSeeder')->insert($accounts);
     }
 }

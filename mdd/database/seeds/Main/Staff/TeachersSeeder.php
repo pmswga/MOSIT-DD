@@ -3,7 +3,7 @@
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class Teachers extends Seeder
+class TeachersSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -27,6 +27,6 @@ class Teachers extends Seeder
             }
         }
 
-        DB::table('Teachers')->insert($teachers);
+        DB::table('TeachersSeeder')->insert($teachers);
     }
 }

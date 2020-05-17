@@ -13,26 +13,26 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             ListAccountTypeSeeder::class,
-            ListEmployeePost::class,
-            ListTeacherPost::class,
+            ListEmployeePostSeeder::class,
+            ListTeacherPostSeeder::class,
 
-            ListRateType::class,
+            ListRateTypeSeeder::class,
 
-            ListInstitute::class,
-            ListFaculty::class,
+            ListInstituteSeeder::class,
+            ListFacultySeeder::class,
 
-            ListAcademicTitle::class,
-            ListDegree::class,
-            ListScienceType::class,
+            ListAcademicTitleSeeder::class,
+            ListDegreeSeeder::class,
+            ListScienceTypeSeeder::class,
 
-            ListSystemSection::class,
-            ListSubSystem::class,
+            ListSystemSectionSeeder::class,
+            ListSubSystemSeeder::class,
 
-            Employees::class,
-            Teachers::class,
+            EmployeesSeeder::class,
+            TeachersSeeder::class,
 
-            Accounts::class,
-            AccountsRights::class
+            AccountsSeeder::class,
+            AccountsRightsSeeder::class
         ]);
     }
 }

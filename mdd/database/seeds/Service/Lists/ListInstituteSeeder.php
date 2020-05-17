@@ -3,7 +3,7 @@
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class ListFaculty extends Seeder
+class ListInstituteSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,11 +12,10 @@ class ListFaculty extends Seeder
      */
     public function run()
     {
-        DB::table('list_faculty')->insert([
+        DB::table('list_institute')->insert([
             [
-                'idFaculty' => 1,
                 'idInstitute' => 1,
-                'caption' => 'МОСИТ'
+                'caption' => 'ИТ'
             ],
         ]);
     }
