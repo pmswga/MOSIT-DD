@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Core\Constants\ListSubSystems;
 use App\Models\Main\Employees\Employee;
 use App\Models\Service\Accounts\AccountType;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -75,6 +76,20 @@ class User extends Authenticatable
         }
 
         return $groupRights;
+    }
+
+    public function isAccessOn(int $systemId) {
+        $result = DB::table('accounts_rights')
+            ->select('accounts_rights.isAccess')
+            ->where('idAccount', '=', $this->idAccount)
+            ->where('idSubSystem', '=', $systemId)
+            ->get()->first();
+
+        if ($result) {
+            return $result->isAccess;
+        }
+
+        return false;
     }
 
     public function getAccountRightsBy($system) {

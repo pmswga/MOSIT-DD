@@ -2,22 +2,22 @@
 
 @section('title', "Главная")
 
-@extends('layouts.default_menu')
-
-
-
 @section('content')
 
-    <div class="middle aligned centered aligned ten wide column" id="center">
-        <fieldset class="ui segment">
-            <legend style="text-align: center"><h3>Добро пожаловать</h3></legend>
-            <p style="text-align: center">
-                <img src="{{ asset('img/pepe.webp')  }}" width="150px">
-            </p>
-            <p>
-                Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?
-            </p>
-        </fieldset>
-    </div>
+    <fieldset class="ui segment">
+        <div class="ui fluid image">
+            <img src="img/back.png" alt="cat">
+        </div>
+        <div class="ui horizontal divider">
+            Powered by
+        </div>
+        <div class="ui five icons">
+            <i class="big icon laravel"></i>
+            <i class="big icon php"></i>
+            <i class="big icon html5"></i>
+            <i class="big icon css3"></i>
+            <i class="big icon github"></i>
+        </div>
+    </fieldset>
 
 @endsection

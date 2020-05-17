@@ -1,17 +1,4 @@
-<div class="one wide column"></div>
-<div class="two wide column">
-    <div class="ui vertical fluid tabular menu">
-        <a class="active item" data-tab="tickets">
-            Поручения
-        </a>
-        <a class=" item" data-tab="schedule">
-            Раписание
-        </a>
-        <a class="item" data-tab="ips">
-            Индивидуальные планы
-        </a>
-    </div>
-</div>
+
 <div class="twelve wide column">
     <div class="ui active tab" data-tab="tickets">
         <fieldset class="ui segment">
@@ -43,9 +30,6 @@
                 </div>
             </div>
         </fieldset>
-        <div class="ui segment">
-
-        </div>
     </div>
     <div class="ui fluid tab" data-tab="schedule">
         <div class="ui segment">

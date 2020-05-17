@@ -1,0 +1,27 @@
+
+body {
+
+}
+
+label {
+    font-size: 1.5em;
+}
+
+#grid {
+    min-height: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+#menu .ui.fluid.vertical.stackable.menu {
+    height: 100%;
+}
+
+#cat {
+    transition-property: all;
+    transition-duration: 0.3s;
+}
+
+#cat:hover {
+    transform: scale(1.1);
+}

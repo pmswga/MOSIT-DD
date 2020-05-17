@@ -9,10 +9,34 @@
         <script type="text/javascript" src="{{ asset("js/semantic/semantic.js")  }}"></script>
     </head>
     <body>
-        @yield('menu')
-        <div class="ui stackable grid">
-            <div class="row">
-                @yield('content')
+        <div id="grid" class="ui stackable grid">
+            <div class="two column row">
+                <div id="menu" class="three wide column">
+                    @include('layouts.menu')
+                </div>
+                <div id="content" class="thirteen wide column">
+                    @if(\Illuminate\Support\Facades\Session::has('message'))
+                        <div class="ui icon success message">
+                            <i class="check icon"></i>
+                            <div class="content">
+                                <div class="header">
+                                    {{ \Illuminate\Support\Facades\Session::get('message') }}
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+                    @if(\Illuminate\Support\Facades\Session::has('error'))
+                        <div class="ui icon red message">
+                            <i class="close icon"></i>
+                            <div class="content">
+                                <div class="header">
+                                    {{ \Illuminate\Support\Facades\Session::get('error') }}
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+                    @yield('content')
+                </div>
             </div>
         </div>
 
