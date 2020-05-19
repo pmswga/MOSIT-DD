@@ -20,7 +20,7 @@
             </div>
         </div>
 
-        @if (\Illuminate\Support\Facades\Auth::user()->isAccessOn(\App\Core\Constants\ListSubSystems::Storage))
+        @if (\Illuminate\Support\Facades\Auth::user()->isAccessOn(\App\Core\Constants\ListSubSystem::Storage))
             <a class="item">Мои файлы</a>
         @endif
 

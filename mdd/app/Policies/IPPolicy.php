@@ -19,7 +19,7 @@ class IPPolicy
      */
     public function viewAny(User $user)
     {
-        return $user->getAccountRightsBy(\App\Core\Constants\ListSubSystems::IPS)->isViewAny
+        return $user->getAccountRightsBy(\App\Core\Constants\ListSubSystem::IPS)->isViewAny
             ? Response::allow()
             : Response::deny('Недостаточно прав');
     }
@@ -33,7 +33,7 @@ class IPPolicy
      */
     public function view(User $user, IP $iP)
     {
-        return $user->getAccountRightsBy(\App\Core\Constants\ListSubSystems::IPS)->isView;
+        return $user->getAccountRightsBy(\App\Core\Constants\ListSubSystem::IPS)->isView;
     }
 
     /**
@@ -44,7 +44,7 @@ class IPPolicy
      */
     public function create(User $user)
     {
-        return $user->getAccountRightsBy(\App\Core\Constants\ListSubSystems::IPS)->isCreate;
+        return $user->getAccountRightsBy(\App\Core\Constants\ListSubSystem::IPS)->isCreate;
     }
 
     /**
@@ -56,7 +56,7 @@ class IPPolicy
      */
     public function update(User $user, IP $iP)
     {
-        return $user->getAccountRightsBy(\App\Core\Constants\ListSubSystems::IPS)->isUpdate
+        return $user->getAccountRightsBy(\App\Core\Constants\ListSubSystem::IPS)->isUpdate
             ? Response::allow()
             : Response::deny('Недостаточно прав');
     }
@@ -70,7 +70,7 @@ class IPPolicy
      */
     public function delete(User $user, IP $iP)
     {
-        return $user->getAccountRightsBy(\App\Core\Constants\ListSubSystems::IPS)->isDelete;
+        return $user->getAccountRightsBy(\App\Core\Constants\ListSubSystem::IPS)->isDelete;
     }
 
     /**

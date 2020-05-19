@@ -2,7 +2,7 @@
 
 namespace App;
 
-use App\Core\Constants\ListSubSystems;
+use App\Core\Constants\ListSubSystem;
 use App\Models\Main\Employees\Employee;
 use App\Models\Service\Accounts\AccountType;
 use Illuminate\Contracts\Auth\MustVerifyEmail;

@@ -4,8 +4,22 @@
 namespace App\Core\Systems\Main\IPS;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 
+// #todo Переписать документацию
+// #fixme Переписать парсер документа и подумать, как реализовать более компактно и проще в реализации
+// #fixme следует разработать в виде паттерна Builder
+
+
+/**
+ * @class IPExcelFile
+ * @brief Реализует обработку файлов ИП в формате Excel для получения данных
+ *
+ * @package App\Core\Systems\Main\IPS
+ */
 class IPExcelFile
 {
+    /**
+     * @var array $ipExcelConfig - содержит набор Excel-адресов клеток на данные в ИП
+     */
     private $ipExcelConfig = [
         0 => [
             'startYearA' => 'BW12',
@@ -41,9 +55,24 @@ class IPExcelFile
             'sum' => 0
         ]
     ];
+
+    /**
+     * @var \PhpOffice\PhpSpreadsheet\Spreadsheet|null $file - является текущим файлом Excel документа
+     */
     private $file;
+
+    /**
+     * @var array $data - содержит полученные данные из Excel документа
+     */
     private $data;
 
+    /**
+     * По содержимому Excel файла загружает из него листы для дальнейшего парсинга
+     *
+     * @param $file
+     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     * @throws \PhpOffice\PhpSpreadsheet\Reader\Exception
+     */
     public function __construct($file)
     {
         $this->file = $this->loadFile($file);
@@ -61,6 +90,13 @@ class IPExcelFile
         $this->calculateResult();
     }
 
+    /**
+     * Возвращает текущий файл Excel доступный для чтения
+     *
+     * @param $file - содержимое файла Excel документа
+     * @return \PhpOffice\PhpSpreadsheet\Spreadsheet|null
+     * @throws \PhpOffice\PhpSpreadsheet\Reader\Exception
+     */
     private function loadFile($file) {
         $tmpFile = null;
 
@@ -72,6 +108,28 @@ class IPExcelFile
         return $tmpFile;
     }
 
+    private function parseSheet1($sheet, $cellKey, $stopText) {
+
+        $value = ' ';
+        $_cell = $this->ipExcelConfig[$sheet][$cellKey];
+
+        while (!preg_match('/ИТОГО/i', $value)) {
+            $value = $this->file->getSheet($sheet)->getCellByColumnAndRow(1, $_cell)->getValue();
+            if (!empty($value) && $value != $stopText) {
+                $this->data[$sheet][$cellKey][] = $value;
+            }
+
+            $_cell += 2;
+        }
+
+        $this->data[$sheet]['sum'] = $this->file->getSheet($sheet)->getCell('X'.($_cell-2))->getCalculatedValue();
+    }
+
+    /**
+     * Получает данные из каждого листа Excel документа
+     *
+     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     */
     private function parseData() {
         foreach ($this->ipExcelConfig as $sheet => $cells) {
             foreach ($cells as $cellKey => $cell) {
@@ -82,37 +140,13 @@ class IPExcelFile
                     } break;
                     case 1:
                     {
-                        $value = ' ';
-                        $_cell = $this->ipExcelConfig[$sheet][$cellKey];
                         $this->data[$sheet][$cellKey] = [];
-
-                        while (!preg_match('/ИТОГО/i', $value)) {
-                            $value = $this->file->getSheet($sheet)->getCellByColumnAndRow(1, $_cell)->getValue();
-                            if (!empty($value) && $value != 'ИТОГО ЗА ОСЕННИЙ СЕМЕСТР') {
-                                $this->data[$sheet][$cellKey][] = $value;
-                            }
-
-                            $_cell += 2;
-                        }
-
-                        $this->data[$sheet]['sum'] = $this->file->getSheet($sheet)->getCell('X'.($_cell-2))->getCalculatedValue();
+                        $this->parseSheet1($sheet, $cellKey, 'ИТОГО ЗА ОСЕННИЙ СЕМЕСТР');
                     } break;
                     case 2:
                     {
-                        $value = ' ';
-                        $_cell = $this->ipExcelConfig[$sheet][$cellKey];
                         $this->data[$sheet][$cellKey] = [];
-
-                        while (!preg_match('/ИТОГО/i', $value)) {
-                            $value = $this->file->getSheet($sheet)->getCellByColumnAndRow(1, $_cell)->getValue();
-                            if (!empty($value) && $value != 'ИТОГО ЗА ВЕСЕННИЙ СЕМЕСТР') {
-                                $this->data[$sheet][$cellKey][] = $value;
-                            }
-
-                            $_cell += 2;
-                        }
-
-                        $this->data[$sheet]['sum'] = $this->file->getSheet($sheet)->getCell('X'.($_cell-2))->getCalculatedValue();
+                        $this->parseSheet1($sheet, $cellKey, 'ИТОГО ЗА ВЕСЕННИЙ СЕМЕСТР');
                     } break;
                     case 3:
                     {
@@ -207,6 +241,12 @@ class IPExcelFile
         }
     }
 
+
+    /**
+     * Подготовка данных после парсинга Excel файла
+     *
+     * @return void
+     */
     private function prepareData() {
         $basePost = $this->data[0]['teacherPost'];
 
@@ -267,6 +307,11 @@ class IPExcelFile
         return $sum;
     }
 
+    /**
+     * Подсчёт часов для каждого из разделов Excel документа
+     *
+     * @return void
+     */
     private function calculateResult() {
         $workSum1 = $this->data[1]['sum'] + $this->data[2]['sum'];
         $workSum2 = $this->calculateSum($this->data[3]['work']);
@@ -284,12 +329,23 @@ class IPExcelFile
     }
 
 
+    /**
+     * Возвращает лист с ранее полученными данными из Excel документа
+     *
+     * @param $sheet
+     * @return mixed
+     */
     public function getSheet($sheet) {
         if ($sheet < count($this->data)) {
             return $this->data[$sheet];
         }
     }
 
+    /**
+     * Возвращает массив полученных данных из Excel документа
+     *
+     * @return array
+     */
     public function getData() {
         return $this->data;
     }

@@ -15,31 +15,31 @@ class ListSubSystemSeeder extends Seeder
         DB::table('list_sub_system')->insert([
             [
                 'idSystemSection' => 1,
-                'idSubSystem' => \App\Core\Constants\ListSubSystems::IPS,
+                'idSubSystem' => \App\Core\Constants\ListSubSystem::IPS,
                 'caption' => 'Индивидуальные планы',
                 'route' => 'ips.index'
             ],
             [
                 'idSystemSection' => 1,
-                'idSubSystem' => \App\Core\Constants\ListSubSystems::Orders,
+                'idSubSystem' => \App\Core\Constants\ListSubSystem::Orders,
                 'caption' => 'Приказы',
                 'route' => 'orders.index',
             ],
             [
                 'idSystemSection' => 1,
-                'idSubSystem' => \App\Core\Constants\ListSubSystems::Protocols,
+                'idSubSystem' => \App\Core\Constants\ListSubSystem::Protocols,
                 'caption' => 'Протоколы',
                 'route' => 'protocols.index'
             ],
             [
                 'idSystemSection' => 6,
-                'idSubSystem' => \App\Core\Constants\ListSubSystems::Storage,
+                'idSubSystem' => \App\Core\Constants\ListSubSystem::Storage,
                 'caption' => 'Хранение материалов',
                 'route' => 'files.index'
             ],
             [
                 'idSystemSection' => 6,
-                'idSubSystem' => \App\Core\Constants\ListSubSystems::Tickets,
+                'idSubSystem' => \App\Core\Constants\ListSubSystem::Tickets,
                 'caption' => 'Поручения',
                 'route' => 'tickets.index'
             ]

@@ -1,0 +1,144 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.18"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>MOSIT Digital Department: Исходный файл app/Http/Controllers/Auth/RegisterController.php</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="owl.png"/></td>
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">MOSIT Digital Department
+   &#160;<span id="projectnumber">1.0</span>
+   </div>
+   <div id="projectbrief">Лучшая система в мире</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Создано системой Doxygen 1.8.18 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'Поиск');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','Поиск');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_d422163b96683743ed3963d4aac17747.html">app</a></li><li class="navelem"><a class="el" href="dir_0c4ee04d587063ecca91a7f35642b9f3.html">Http</a></li><li class="navelem"><a class="el" href="dir_27ba1f74dc73f44d4e9ca42f2dd266ec.html">Controllers</a></li><li class="navelem"><a class="el" href="dir_88a4777cc813fc77c471bd7c38dc0c56.html">Auth</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle">
+<div class="title">RegisterController.php</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="_register_controller_8php.html">См. документацию.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;&lt;?php</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespace_app_1_1_http_1_1_controllers_1_1_auth.html">App\Http\Controllers\Auth</a>;</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;use <a class="code" href="class_app_1_1_http_1_1_controllers_1_1_controller.html">App\Http\Controllers\Controller</a>;</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;use <a class="code" href="class_app_1_1_providers_1_1_route_service_provider.html">App\Providers\RouteServiceProvider</a>;</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;use <a class="code" href="class_app_1_1_user.html">App\User</a>;</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;use Illuminate\Foundation\Auth\RegistersUsers;</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;use Illuminate\Support\Facades\Hash;</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;use Illuminate\Support\Facades\Validator;</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
+<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="class_app_1_1_http_1_1_controllers_1_1_auth_1_1_register_controller.html">   12</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_app_1_1_http_1_1_controllers_1_1_auth_1_1_register_controller.html">RegisterController</a> <span class="keyword">extends</span> <a class="code" href="class_app_1_1_http_1_1_controllers_1_1_controller.html">Controller</a></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;{</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    <span class="comment">/*</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment">    |--------------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment">    | Register Controller</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment">    |--------------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">    |</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">    | This controller handles the registration of new users as well as their</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">    | validation and creation. By default this controller uses a trait to</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">    | provide this functionality without requiring any additional code.</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment">    |</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment">    */</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    use RegistersUsers;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
+<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="class_app_1_1_http_1_1_controllers_1_1_auth_1_1_register_controller.html#a1d19101ee5de7186666ce86a530cd501">   32</a></span>&#160;    <span class="keyword">protected</span> <a class="code" href="class_app_1_1_http_1_1_controllers_1_1_auth_1_1_register_controller.html#a1d19101ee5de7186666ce86a530cd501">$redirectTo</a> = <a class="code" href="class_app_1_1_providers_1_1_route_service_provider.html#ad5937d1b8a0dcaa1c2ffdca45ec67bf2">RouteServiceProvider::HOME</a>;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
+<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="class_app_1_1_http_1_1_controllers_1_1_auth_1_1_register_controller.html#a095c5d389db211932136b53f25f39685">   39</a></span>&#160;    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="class_app_1_1_http_1_1_controllers_1_1_auth_1_1_register_controller.html#a095c5d389db211932136b53f25f39685">__construct</a>()</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    {</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        $this-&gt;middleware(<span class="stringliteral">&#39;guest&#39;</span>);</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    }</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
+<div class="line"><a name="l00050"></a><span class="lineno"><a class="line" href="class_app_1_1_http_1_1_controllers_1_1_auth_1_1_register_controller.html#aa47350de63ea5295d9c9718e3d09135c">   50</a></span>&#160;    <span class="keyword">protected</span> <span class="keyword">function</span> <a class="code" href="class_app_1_1_http_1_1_controllers_1_1_auth_1_1_register_controller.html#aa47350de63ea5295d9c9718e3d09135c">validator</a>(array $data)</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    {</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        <span class="keywordflow">return</span> Validator::make($data, [</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;            <span class="stringliteral">&#39;email&#39;</span> =&gt; [<span class="stringliteral">&#39;required&#39;</span>, <span class="stringliteral">&#39;string&#39;</span>, <span class="stringliteral">&#39;email&#39;</span>, <span class="stringliteral">&#39;max:255&#39;</span>, <span class="stringliteral">&#39;unique:accounts&#39;</span>],</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;            <span class="stringliteral">&#39;password&#39;</span> =&gt; [<span class="stringliteral">&#39;required&#39;</span>, <span class="stringliteral">&#39;string&#39;</span>, <span class="stringliteral">&#39;min:8&#39;</span>],</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        ]);</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    }</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
+<div class="line"><a name="l00064"></a><span class="lineno"><a class="line" href="class_app_1_1_http_1_1_controllers_1_1_auth_1_1_register_controller.html#a791ba6c150a0a3047c7d8735e62cad02">   64</a></span>&#160;    <span class="keyword">protected</span> <span class="keyword">function</span> <a class="code" href="class_app_1_1_http_1_1_controllers_1_1_auth_1_1_register_controller.html#a791ba6c150a0a3047c7d8735e62cad02">create</a>(array $data)</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    {</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        <span class="keywordflow">return</span> User::create([</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;            <span class="stringliteral">&#39;idAccountType&#39;</span> =&gt; $data[<span class="stringliteral">&#39;accountType&#39;</span>],</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;            <span class="stringliteral">&#39;idEmployee&#39;</span> =&gt; $data[<span class="stringliteral">&#39;employeeId&#39;</span>],</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;            <span class="stringliteral">&#39;email&#39;</span> =&gt; $data[<span class="stringliteral">&#39;email&#39;</span>],</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;            <span class="stringliteral">&#39;password&#39;</span> =&gt; Hash::make($data[<span class="stringliteral">&#39;password&#39;</span>]),</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        ]);</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    }</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;}</div>
+</div><!-- fragment --></div><!-- contents -->
+<div class="ttc" id="aclass_app_1_1_providers_1_1_route_service_provider_html"><div class="ttname"><a href="class_app_1_1_providers_1_1_route_service_provider.html">App\Providers\RouteServiceProvider</a></div><div class="ttdef"><b>Definition:</b> <a href="_route_service_provider_8php_source.html#l00008">RouteServiceProvider.php:9</a></div></div>
+<div class="ttc" id="aclass_app_1_1_http_1_1_controllers_1_1_auth_1_1_register_controller_html_a095c5d389db211932136b53f25f39685"><div class="ttname"><a href="class_app_1_1_http_1_1_controllers_1_1_auth_1_1_register_controller.html#a095c5d389db211932136b53f25f39685">App\Http\Controllers\Auth\RegisterController\__construct</a></div><div class="ttdeci">__construct()</div><div class="ttdef"><b>Definition:</b> <a href="_register_controller_8php_source.html#l00039">RegisterController.php:39</a></div></div>
+<div class="ttc" id="anamespace_app_1_1_http_1_1_controllers_1_1_auth_html"><div class="ttname"><a href="namespace_app_1_1_http_1_1_controllers_1_1_auth.html">App\Http\Controllers\Auth</a></div><div class="ttdef"><b>Definition:</b> <a href="_confirm_password_controller_8php_source.html#l00003">ConfirmPasswordController.php:3</a></div></div>
+<div class="ttc" id="aclass_app_1_1_providers_1_1_route_service_provider_html_ad5937d1b8a0dcaa1c2ffdca45ec67bf2"><div class="ttname"><a href="class_app_1_1_providers_1_1_route_service_provider.html#ad5937d1b8a0dcaa1c2ffdca45ec67bf2">App\Providers\RouteServiceProvider\HOME</a></div><div class="ttdeci">const HOME</div><div class="ttdef"><b>Definition:</b> <a href="_route_service_provider_8php_source.html#l00024">RouteServiceProvider.php:24</a></div></div>
+<div class="ttc" id="aclass_app_1_1_http_1_1_controllers_1_1_auth_1_1_register_controller_html"><div class="ttname"><a href="class_app_1_1_http_1_1_controllers_1_1_auth_1_1_register_controller.html">App\Http\Controllers\Auth\RegisterController</a></div><div class="ttdef"><b>Definition:</b> <a href="_register_controller_8php_source.html#l00012">RegisterController.php:13</a></div></div>
+<div class="ttc" id="aclass_app_1_1_http_1_1_controllers_1_1_controller_html"><div class="ttname"><a href="class_app_1_1_http_1_1_controllers_1_1_controller.html">App\Http\Controllers\Controller</a></div><div class="ttdef"><b>Definition:</b> <a href="_controller_8php_source.html#l00010">Controller.php:11</a></div></div>
+<div class="ttc" id="aclass_app_1_1_user_html"><div class="ttname"><a href="class_app_1_1_user.html">App\User</a></div><div class="ttdef"><b>Definition:</b> <a href="_user_8php_source.html#l00013">User.php:14</a></div></div>
+<div class="ttc" id="aclass_app_1_1_http_1_1_controllers_1_1_auth_1_1_register_controller_html_a1d19101ee5de7186666ce86a530cd501"><div class="ttname"><a href="class_app_1_1_http_1_1_controllers_1_1_auth_1_1_register_controller.html#a1d19101ee5de7186666ce86a530cd501">App\Http\Controllers\Auth\RegisterController\$redirectTo</a></div><div class="ttdeci">$redirectTo</div><div class="ttdef"><b>Definition:</b> <a href="_register_controller_8php_source.html#l00032">RegisterController.php:32</a></div></div>
+<div class="ttc" id="aclass_app_1_1_http_1_1_controllers_1_1_auth_1_1_register_controller_html_aa47350de63ea5295d9c9718e3d09135c"><div class="ttname"><a href="class_app_1_1_http_1_1_controllers_1_1_auth_1_1_register_controller.html#aa47350de63ea5295d9c9718e3d09135c">App\Http\Controllers\Auth\RegisterController\validator</a></div><div class="ttdeci">validator(array $data)</div><div class="ttdef"><b>Definition:</b> <a href="_register_controller_8php_source.html#l00050">RegisterController.php:50</a></div></div>
+<div class="ttc" id="aclass_app_1_1_http_1_1_controllers_1_1_auth_1_1_register_controller_html_a791ba6c150a0a3047c7d8735e62cad02"><div class="ttname"><a href="class_app_1_1_http_1_1_controllers_1_1_auth_1_1_register_controller.html#a791ba6c150a0a3047c7d8735e62cad02">App\Http\Controllers\Auth\RegisterController\create</a></div><div class="ttdeci">create(array $data)</div><div class="ttdef"><b>Definition:</b> <a href="_register_controller_8php_source.html#l00064">RegisterController.php:64</a></div></div>
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Создано системой &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.18
+</small></address>
+</body>
+</html>
