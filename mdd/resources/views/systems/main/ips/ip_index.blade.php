@@ -15,16 +15,11 @@
     <fieldset class="ui segment">
         <legend><h3>Индивидуальные планы</h3></legend>
 
-        @empty($ips)
-            <div class="ui icon message">
-                <i class="info icon"></i>
-                <div class="content">
-                    <div class="header">
-
-                    </div>
-                    <p>ИП не добавлены</p>
-                </div>
-            </div>
+        @isset($ips)
+            @component('components.message')
+                @slot('type', 'message')
+                @slot('message', 'Вы не добавили файлы, с которыми будете работать')
+            @endcomponent
         @else
             <table class="ui celled table">
                 <col width="5%">
@@ -84,7 +79,7 @@
                 @endforeach
                 </tbody>
             </table>
-        @endempty
+        @endisset
     </fieldset>
 
 @endsection

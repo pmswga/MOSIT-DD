@@ -1,6 +1,6 @@
 <a onclick="$('#addIPModal').modal('show')" class="ui primary fluid button">Добавить</a>
 <div id="addIPModal" class="ui modal">
-    <div class="header">Выбирете файлы для дальнейшей работы</div>
+    <div class="header">Выберете файлы для дальнейшей работы</div>
     <div class="content">
         <div class="description">
             <form class="ui form" method="POST" action="{{ route('ips.store') }}" enctype="multipart/form-data">
