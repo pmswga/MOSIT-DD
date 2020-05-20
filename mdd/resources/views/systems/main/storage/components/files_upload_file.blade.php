@@ -9,7 +9,7 @@
                 <input type="file" name="file" required>
             </div>
             <div class="field">
-                <input type="hidden" name="currentPath" value="{{ $currentPath }}">
+                <input type="hidden" name="currentDirectory" value="{{ $currentDirectory }}">
                 <input type="submit" value="Загрузить" class="ui fluid primary button">
             </div>
         </form>

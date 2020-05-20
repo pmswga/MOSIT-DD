@@ -36,10 +36,10 @@ class EmployeeFileResourceController extends Controller
     }
 
     public function createDirectory(Request $request) {
-        $data = $request->only(['currentPath', 'directoryName']);
+        $data = $request->only(['currentDirectory', 'directoryName']);
 
-        if (Storage::exists($data['currentPath'])) {
-            $path = $data['currentPath']. '/' .$data['directoryName'];
+        if (Storage::exists($data['currentDirectory'])) {
+            $path = $data['currentDirectory']. '/' .$data['directoryName'];
 
             if (!Storage::exists($path)) {
                 if (Storage::makeDirectory($path)) {
@@ -57,12 +57,12 @@ class EmployeeFileResourceController extends Controller
     }
 
     public function destroyDirectory(Request $request) {
-        $data = $request->only(['currentPath', 'directoryName']);
+        $data = $request->only(['currentDirectory', 'directoryName']);
 
         try
         {
-            if (Storage::exists($data['currentPath'])) {
-                $path = $data['currentPath']. '/' .$data['directoryName'];
+            if (Storage::exists($data['currentDirectory'])) {
+                $path = $data['currentDirectory']. '/' .$data['directoryName'];
 
                 if (EmployeeFileModel::all()->where('directory', '=', $path)->count() == 0) {
                     if (Storage::exists($path)) {
@@ -117,8 +117,8 @@ class EmployeeFileResourceController extends Controller
 
 
         return view('systems.main.storage.files_index', [
-            'currentPath' => $path,
-            'parentDirectory' => $parentDirectory,
+            'currentDirectory' => $path,
+            'parentDirectory'  => $parentDirectory,
             'folders' => $allDirectories,
             'files' => $files
         ]);
@@ -143,10 +143,10 @@ class EmployeeFileResourceController extends Controller
     public function store(Request $request)
     {
         $file = $request->file;
-        $currentPath = $request->currentPath;
+        $currentDirectory = $request->currentDirectory;
 
-        if (Storage::exists($currentPath)) {
-            $path = Storage::putFileAs($currentPath, $file, $file->getClientOriginalName());
+        if (Storage::exists($currentDirectory)) {
+            $path = Storage::putFileAs($currentDirectory, $file, $file->getClientOriginalName());
 
             if ($path) {
                 #$pathInfo = pathInfo( str_replace('/', '\\',App::storagePath() . $path) );
@@ -155,7 +155,7 @@ class EmployeeFileResourceController extends Controller
                 $fileModel = new EmployeeFileModel([
                     'idEmployee' => Auth::user()->idEmployee,
                     'path' => $pathInfo['dirname'] . '/' . $pathInfo['basename'],
-                    'directory' => $currentPath,
+                    'directory' => $currentDirectory,
                     'filename' => $pathInfo['filename'],
                     'extension' => $pathInfo['extension']
                 ]);

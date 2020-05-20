@@ -10,7 +10,7 @@
                 <input type="text" name="directoryName" required>
             </div>
             <div class="field">
-                <input type="hidden" name="currentPath" value="{{ $currentPath }}">
+                <input type="hidden" name="currentDirectory" value="{{ $currentDirectory }}">
                 <input type="submit" value="Создать" class="ui fluid primary button">
             </div>
         </form>

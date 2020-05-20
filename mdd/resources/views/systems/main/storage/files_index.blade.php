@@ -23,12 +23,17 @@
 
     <fieldset class="ui segment">
         <legend><h3>Файлы</h3></legend>
-        @component('systems/main/storage/components/files_table', ['folders' => $folders, 'files' => $files, 'parentDirectory' => $parentDirectory, 'currentDirectory' => $currentPath])
-        @endcomponent
+        @if(count($folders) > 0 or count($files) > 0)
+            @include('systems.main.storage.components.files_table')
+        @else
+            @component('components.message')
+                @slot('type', 'message')
+                @slot('message', 'Начните работу с вашими файлами прямо сейчас')
+            @endcomponent
+        @endif
     </fieldset>
 
     @include('systems.main.storage.components.files_create_directory')
-    @component('systems.main.storage.components.files_upload_file', ['currentPath' => $currentPath])
-    @endcomponent
+    @include('systems.main.storage.components.files_upload_file')
 
 @endsection

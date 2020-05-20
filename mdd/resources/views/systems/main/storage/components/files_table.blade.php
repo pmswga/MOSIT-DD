@@ -25,7 +25,7 @@
                     <form style="margin: 0px; padding: 0px;" method="POST" action="{{ route('files.destroyDirectory', ['directoryName' => basename($folder)]) }}" onsubmit="return confirm('Удалить?')">
                         @method('DELETE')
                         @csrf
-                        <input type="hidden" name="currentPath" value="{{ $currentDirectory }}">
+                        <input type="hidden" name="currentDirectory" value="{{ $currentDirectory }}">
                         <button type="submit" class="ui basic icon fluid button">
                             <i class="red trash icon"></i>
                         </button>
@@ -56,7 +56,7 @@
                         <form style="margin: 0px; padding: 0px;" method="POST" action="{{ route('files.destroy', $file) }}" onsubmit="return confirm('Удалить?')">
                             @method('DELETE')
                             @csrf
-                            <input type="hidden" name="currentPath" value="{{ $currentDirectory }}">
+                            <input type="hidden" name="currentDirectory" value="{{ $currentDirectory }}">
                             <button type="submit" class="ui basic icon fluid button">
                                 <i class="red trash icon"></i>
                             </button>
