@@ -6,11 +6,6 @@
             <form class="ui form" method="POST" action="{{ route('ips.store') }}" enctype="multipart/form-data">
                 @csrf
                 @isset($files)
-                    @component('components.message')
-                        @slot('type', 'message')
-                        @slot('message', 'В вашем хранилище нет подходящих файлов')
-                    @endcomponent
-                @else
                     <table class="ui table">
                         <thead>
                         <tr>
@@ -32,6 +27,11 @@
                         @endforeach
                         </tbody>
                     </table>
+                @else
+                    @component('components.message')
+                        @slot('type', 'message')
+                        @slot('message', 'В вашем хранилище нет подходящих файлов')
+                    @endcomponent
                 @endisset
                 <div class="field">
                     <input type="submit" class="ui primary fluid button" value="Выбрать">

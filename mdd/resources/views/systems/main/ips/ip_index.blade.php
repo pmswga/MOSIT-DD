@@ -16,11 +16,6 @@
         <legend><h3>Индивидуальные планы</h3></legend>
 
         @isset($ips)
-            @component('components.message')
-                @slot('type', 'message')
-                @slot('message', 'Вы не добавили файлы, с которыми будете работать')
-            @endcomponent
-        @else
             <table class="ui celled table">
                 <col width="5%">
                 <col width="25%">
@@ -59,19 +54,19 @@
                                     Скачать
                                 </a>
                                 @can('update', $ip)
-                                <a class="ui button" href="{{ route('ips.edit', $ip) }}">
-                                    <i class="orange edit icon"></i>
-                                </a>
+                                    <a class="ui button" href="{{ route('ips.edit', $ip) }}">
+                                        <i class="orange edit icon"></i>
+                                    </a>
                                 @endcan
                                 @can('delete', $ip)
-                                <form method="POST" style="margin: 0px; padding: 0px;" action="{{ route('ips.destroy', $ip) }}" onsubmit="return confirm('Удалить?')">
-                                    @method('DELETE')
-                                    @csrf
-                                    <input type="hidden" name="idIP" value="{{ $ip->idIP }}">
-                                    <button type="submit"  class="ui button">
-                                        <i class="red trash icon"></i>
-                                    </button>
-                                </form>
+                                    <form method="POST" style="margin: 0px; padding: 0px;" action="{{ route('ips.destroy', $ip) }}" onsubmit="return confirm('Удалить?')">
+                                        @method('DELETE')
+                                        @csrf
+                                        <input type="hidden" name="idIP" value="{{ $ip->idIP }}">
+                                        <button type="submit"  class="ui button">
+                                            <i class="red trash icon"></i>
+                                        </button>
+                                    </form>
                                 @endcan
                             </div>
                         </td>
@@ -79,6 +74,12 @@
                 @endforeach
                 </tbody>
             </table>
+        @else
+            @component('components.message')
+                @slot('type', 'message')
+                @slot('message', 'Вы не добавили файлы, с которыми будете работать')
+            @endcomponent
+
         @endisset
     </fieldset>
 
