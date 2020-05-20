@@ -20,10 +20,6 @@
             </div>
         </div>
 
-        @if (\Illuminate\Support\Facades\Auth::user()->isAccessOn(\App\Core\Constants\ListSubSystem::Storage))
-            <a class="item">Мои файлы</a>
-        @endif
-
         @php $rights = \Illuminate\Support\Facades\Auth::user()->getAccountRights() @endphp
         @if($rights)
             @foreach($rights as $section => $menu)
@@ -31,7 +27,9 @@
                     <b>{{ $section }}</b>
                     <div class="menu">
                         @foreach($menu as $menuItem)
-                            <a class="item" href={{ route($menuItem->route) }}>{{ $menuItem->caption }}</a>
+                            @if (\Route::has($menuItem->route))
+                                <a class="item" href={{ route($menuItem->route) }}>{{ $menuItem->caption }}</a>
+                            @endif
                         @endforeach
                     </div>
                 </div>

@@ -15,6 +15,29 @@
                     @include('layouts.menu')
                 </div>
                 <div id="content" class="thirteen wide column">
+
+                    @if(\Illuminate\Support\Facades\Session::has('successMessage'))
+                        <div class="ui icon success message">
+                            <i class="info circle icon"></i>
+                            <div class="content">
+                                <div class="header">
+                                    {{ \Illuminate\Support\Facades\Session::get('successMessage') }}
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+
+                    @if(\Illuminate\Support\Facades\Session::has('errorMessage'))
+                        <div class="ui icon red message">
+                            <i class="exclamation circle icon"></i>
+                            <div class="content">
+                                <div class="header">
+                                    {{ \Illuminate\Support\Facades\Session::get('errorMessage') }}
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+
                     @if(\Illuminate\Support\Facades\Session::has('message'))
                         <div class="ui icon success message">
                             <i class="check icon"></i>
