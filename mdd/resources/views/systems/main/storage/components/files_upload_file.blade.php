@@ -1,4 +1,4 @@
-<div id="filesUploadFileModal" class="ui medium modal">
+<div id="filesUploadFileModal" class="ui mini modal">
     <div class="header">
         Загрузка файла
     </div>

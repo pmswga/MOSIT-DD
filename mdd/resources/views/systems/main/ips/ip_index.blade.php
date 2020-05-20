@@ -6,10 +6,14 @@
 @section('content')
 
     <fieldset class="ui segment">
-        <legend><h3>Индивидуальные планы</h3></legend>
+        <legend><h3>Панель инструментов</h3></legend>
         @can('create', \App\Models\Main\IP\IP::class)
-            @include('systems.main.ips.ip_add')
+            @include('systems.main.ips.components.ip_add')
         @endcan
+    </fieldset>
+
+    <fieldset class="ui segment">
+        <legend><h3>Индивидуальные планы</h3></legend>
 
         @empty($ips)
             <div class="ui icon message">

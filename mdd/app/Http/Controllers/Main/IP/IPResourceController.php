@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Main\IP;
 use App\Core\Systems\Main\IPS\IPExcelFile;
 use App\Http\Controllers\Controller;
 use App\Models\Main\IP\IP;
+use App\Models\Main\Storage\EmployeeFileModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -54,7 +55,14 @@ class IPResourceController extends Controller
             {
                 $ips = IP::all();
 
+                $files = DB::table('ips')
+                    ->select('ips.idIP', 'ef.idEmployeeFile', 'ef.filename')
+                    ->rightJoin('employee_files as ef', 'ef.idEmployeeFile', '=', 'ips.idEmployeeFile')
+                    ->whereNull('ips.idIP')
+                    ->get();
+
                 return view('systems.main.ips.ip_index', [
+                    'files' => $files,
                     'ips' => $ips
                 ]);
             } break;
@@ -80,38 +88,36 @@ class IPResourceController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->only(['file', 'lastEmployee', 'lastUpdate']);
+        $data = $request->only(['files', 'lastEmployee', 'lastUpdate']);
 
 
-        $ipFile = new IPExcelFile($data['file']->get());
+        $result = true;
+        foreach ($data['files'] as $file) {
+            $ipFile = new IPExcelFile(Storage::get(EmployeeFileModel::all()->where('idEmployeeFile', '=', $file)->first()->path));
 
+            $idTeacher = DB::table('employees as e')
+                ->select('t.idTeacher')
+                ->join('Teachers as t', 't.idEmployee', '=','e.idEmployee')
+                ->where('e.secondName', '=', $ipFile->getSheet(0)['secondName'])
+                ->where('e.firstName', '=', $ipFile->getSheet(0)['firstName'])
+                ->where('e.patronymic', '=', $ipFile->getSheet(0)['patronymic'])
+                ->get()->first()->idTeacher;
 
-        #echo "<pre>";
-        #print_r($ipFile->getData());
-        #echo "</pre>";
+            $ip = new IP();
+            $ip->idEmployeeFile = $file;
+            $ip->idTeacher = $idTeacher;
+            $ip->educationYear = $ipFile->getSheet(0)['educationYear'];
+            $ip->lastEmployee = Auth::user()->getEmployee()->idEmployee;
+            $ip->lastUpdate = date('Y-m-d H:i:s');
+            $result *= $ip->save();
+        }
 
-        $idTeacher = DB::table('employees as e')
-            ->select('t.idTeacher')
-            ->join('Teachers as t', 't.idEmployee', '=','e.idEmployee')
-            ->where('e.secondName', '=', $ipFile->getSheet(0)['secondName'])
-            ->where('e.firstName', '=', $ipFile->getSheet(0)['firstName'])
-            ->where('e.patronymic', '=', $ipFile->getSheet(0)['patronymic'])
-            ->get()->first()->idTeacher;
+        if ($result) {
+            Session::flash('successMessage', 'ИП успешно добавлен');
+            return back();
+        }
 
-        $countIps = DB::table('ips')->where('idTeacher', '=', $idTeacher)->get()->count();
-
-
-        $path = Storage::putFileAs('ips', $data['file'], 'teacher_ip_'.$idTeacher.'_'.$countIps.'.xlsx');
-
-
-        $ip = new IP();
-        $ip->file = $path;
-        $ip->idTeacher = $idTeacher;
-        $ip->educationYear = $ipFile->getSheet(0)['educationYear'];
-        $ip->lastEmployee = Auth::user()->getEmployee()->idEmployee;
-        $ip->lastUpdate = date('Y-m-d H:i:s');
-        $ip->save();
-        Session::flash('message', 'ИП успешно добавлен');
+        Session::flash('errorMessage', 'ИП успешно добавлен');
         return back();
     }
 
@@ -134,7 +140,7 @@ class IPResourceController extends Controller
      */
     public function edit(IP $ip)
     {
-        $ipFile = new IPExcelFile(Storage::get($ip->file));
+        $ipFile = new IPExcelFile($ip->getFileContent());
 
         #echo "<pre>";
         #print_r($ipFile->getData());
@@ -191,14 +197,12 @@ class IPResourceController extends Controller
      */
     public function destroy(IP $ip)
     {
-        if (Storage::delete($ip->file)) {
-            if ($ip->delete()) {
-                Session::flash('message', 'ИП успешно удалён');
-                return back();
-            }
+        if ($ip->delete()) {
+            Session::flash('successMessage', 'ИП больше не отслеживается');
+            return back();
         }
 
-        Session::flash('message', 'Ошибка удаления');
+        Session::flash('errorMessage', 'Ошибка удаления');
         return Redirect::route('ips.index');
     }
 }

@@ -17,7 +17,7 @@ class CreateIps extends Migration
             $table->bigIncrements('idIP');
             $table->integer('idTeacher');
             $table->string('educationYear', 9);
-            $table->binary('file');
+            $table->integer('idEmployeeFile');
             $table->integer('lastEmployee');
             $table->dateTime('lastUpdate');
         });
