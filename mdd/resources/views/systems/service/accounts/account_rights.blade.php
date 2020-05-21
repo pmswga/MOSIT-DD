@@ -1,12 +1,85 @@
-@extends('layout.app')
+@extends('layout.app_admin')
 @section('title', 'Права доступа')
-@section('homeLink', route('admin.index'))
-
-@include('layout.admin_menu')
 
 @section('content')
 
-    <div class="centered fourteen wide column">
+    <fieldset class="ui segment">
+        <legend><h3>Панель управления</h3></legend>
+        <form class="ui form">
+            <div class="three fields">
+                <div class="field">
+                    <label>Пользователь</label>
+                    <select multiple>
+                        @foreach(\App\User::all() as $user)
+                            <option>{{$user->email}}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="field">
+                    <label>Подсистема</label>
+                    <select multiple>
+                        @foreach(\App\Models\Service\Lists\ListSubSystemModel::all() as $system)
+                            <option>{{$system->caption}}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="field">
+                    <label>Права</label>
+                    <table class="ui table">
+                        <thead>
+                            <tr>
+                                <th><i class="lock open icon"></i></th>
+                                <th><i class="list icon"></i></th>
+                                <th><i class="add icon"></i></th>
+                                <th><i class="edit icon"></i></th>
+                                <th><i class="delete icon"></i></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="ui checkbox">
+                                        <input type="checkbox" name="example">
+                                        <label></label>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="ui checkbox">
+                                        <input type="checkbox" name="example">
+                                        <label></label>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="ui checkbox">
+                                        <input type="checkbox" name="example">
+                                        <label></label>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="ui checkbox">
+                                        <input type="checkbox" name="example">
+                                        <label></label>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="ui checkbox">
+                                        <input type="checkbox" name="example">
+                                        <label></label>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="field">
+                <input type="submit" value="Выдать" class="ui fluid primary button">
+            </div>
+        </form>
+    </fieldset>
+
+    <fieldset class="ui segment">
+        <legend><h3>Выданные права</h3></legend>
         <table class="ui table">
             <thead>
                 <tr>
@@ -72,6 +145,6 @@
                 @endforeach
             </tbody>
         </table>
-    </div>
+    </fieldset>
 
 @endsection

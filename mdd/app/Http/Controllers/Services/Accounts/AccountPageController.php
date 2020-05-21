@@ -14,7 +14,7 @@ class AccountPageController extends Controller
     }
 
     public function admin() {
-        return view('accounts.admin');
+        return view('admin.index');
     }
 
     public function home() {
