@@ -1,8 +1,8 @@
-@extends('layouts.app')
+@extends('layout.app')
 @section('title', 'Добавление пользователя')
 @section('homeLink', route('admin.index'))
 
-@include('layouts.admin_menu')
+@include('layout.admin_menu')
 
 @section('content')
 

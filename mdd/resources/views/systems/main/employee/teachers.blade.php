@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layout.app')
 
 @section('title') Преподаватели @endsection
 
@@ -137,6 +137,6 @@
 		</div>
 	</div>
 
-	
+
 
 @endsection

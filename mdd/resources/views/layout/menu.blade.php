@@ -1,10 +1,23 @@
-<div class="ui fluid vertical stackable menu">
+<div class="ui fluid vertical stackable menu" style="position: relative">
     @guest
         <div class="ui horizontal divider">
             MOSIT Digital Department
         </div>
-        <a class="item" href="{{ route('index') }}">Главная</a>
-        <a class="item" onclick="$('#loginModal').modal('show')">Войти</a>
+        <a class="item" href="{{ route('index') }}">
+            Главная
+            <i class="compass icon"></i>
+        </a>
+        <a class="item" href="{{ route('manual') }}">
+            Руководство
+            <i class="book icon"></i>
+        </a>
+        <a class="item" onclick="$('#loginModal').modal('show')">
+            Войти
+            <i class="sign-in icon"></i>
+        </a>
+        <div class="right menu" style="position: absolute; bottom: 0px; width: 100%; text-align: center">
+            <a class="item" >Copyright © 2020. Все права защищены</a>
+        </div>
     @else
         <div class="header item" style="text-align: center">
             {{ Auth::user()->getEmployee()->getFullInitials() }}

@@ -1,7 +1,7 @@
-@extends('layouts.app')
+@extends('layout.app')
 @section('title', 'Панель администратора')
 
-@extends('layouts.admin_menu')
+@extends('layout.admin_menu')
 @section('homeLink', 'admin.index')
 
 @section('content')

@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layout.app')
 
 @section('title') Преподаватели @endsection
 
@@ -17,7 +17,7 @@
 								<form class="ui form">
 									<div class="field">
 										<label>По учебному году</label>
-										
+
 										<select>
 											<option>2019/2020</option>
 											<option>2018/2019</option>
@@ -96,6 +96,6 @@
 		</div>
 	</div>
 
-	
+
 
 @endsection

@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
  * Маргруты главным страниц
  */
 Route::get('/', 'MainPageController@index')->name('index');
+Route::get('/manual', 'MainPageController@manual')->name('manual');
 Route::get('/home', ['middleware' => 'auth', 'uses' => 'Services\Accounts\AccountPageController@home'])->name('home');
 Route::get('/profile', ['middleware' => 'auth', 'uses' => 'Services\Accounts\AccountPageController@profile'] )->name('profile');
 
