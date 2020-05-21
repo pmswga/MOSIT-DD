@@ -27,6 +27,6 @@ class TeachersSeeder extends Seeder
             }
         }
 
-        DB::table('TeachersSeeder')->insert($teachers);
+        DB::table('teachers')->insert($teachers);
     }
 }

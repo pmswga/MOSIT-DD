@@ -39,6 +39,8 @@ Route::post('/logout', '\App\Http\Controllers\Auth\LoginController@logout')->nam
 Route::group(['prefix' => 'admin'], function () {
     Route::get('/', 'Services\Accounts\AccountPageController@admin')->name('admin.index');
 
+    Route::resource('employees', 'Main\Employees\EmployeeResourceController');
+
     Route::resource('accounts', 'Services\Accounts\AccountResourceController');
     Route::get( 'rights', function () { // #fixme Исправить
         $rawRights = \Illuminate\Support\Facades\DB::table('accounts as ac')

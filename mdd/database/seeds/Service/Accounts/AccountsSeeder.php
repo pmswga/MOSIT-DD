@@ -28,6 +28,6 @@ class AccountsSeeder extends Seeder
             ];
         }
 
-        DB::table('AccountsSeeder')->insert($accounts);
+        DB::table('accounts')->insert($accounts);
     }
 }

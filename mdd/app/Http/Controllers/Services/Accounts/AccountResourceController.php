@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Services\Accounts;
 use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
@@ -29,12 +30,15 @@ class AccountResourceController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|View
      */
     public function create()
     {
         return view('systems.service.accounts.account_add', [
-            "staff" => \App\Models\Main\Employees\Employee::all(),
+            'employees' => DB::table('accounts as a')
+                            ->select('a.idAccount', 'e.idEmployee', 'e.secondName', 'e.firstName', 'e.patronymic')
+                            ->rightJoin('employees as e', 'e.idEmployee', '=', 'a.idEmployee')
+                            ->whereNull('a.idAccount')->get(),
             "accountTypes" => \App\Models\Service\Accounts\AccountType::all()
         ]);
     }

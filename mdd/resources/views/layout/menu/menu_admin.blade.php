@@ -16,7 +16,7 @@
         <i class="outline user icon"></i>
         <b>Сотрудники</b>
         <div class="menu">
-            <a class="item" href="#view">Просмотр</a>
+            <a class="item" href="{{ route('employees.index') }}">Просмотр</a>
         </div>
     </div>
 

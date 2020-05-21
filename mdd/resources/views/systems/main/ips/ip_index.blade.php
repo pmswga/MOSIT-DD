@@ -45,7 +45,7 @@
                             {{ date_format(date_create($ip->lastUpdate), 'd.m.Y / H:i') }}
                         </td>
                         <td>
-                            {{ \App\Models\Main\Employees\Employee::find($ip->lastEmployee)->getFullInitials()  }}
+                            {{ \App\Models\Main\Employees\EmployeeModel::find($ip->lastEmployee)->getFullInitials()  }}
                         </td>
                         <td colspan="2" style="text-align: center">
                             <div class="ui  basic icon buttons">

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use phpDocumentor\Reflection\Types\Null_;
 
-class Employee extends Model
+class EmployeeModel extends Model
 {
     protected $table = "Employees";
     protected $primaryKey = "idEmployee";

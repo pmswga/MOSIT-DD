@@ -2,7 +2,7 @@
 
 namespace App\Models\Main\IP;
 
-use App\Models\Main\Employees\Employee;
+use App\Models\Main\Employees\EmployeeModel;
 use App\Models\Main\Employees\Teacher;
 use App\Models\Main\Storage\EmployeeFileModel;
 use Illuminate\Database\Eloquent\Model;
@@ -24,7 +24,7 @@ class IP extends Model
                 ->where('idTeacher', '=', $this->idTeacher)->get()->first();
 
         if ($teacher) {
-            $employee = $teacher->hasOne(Employee::class, 'idEmployee', 'idEmployee')->get()->first();
+            $employee = $teacher->hasOne(EmployeeModel::class, 'idEmployee', 'idEmployee')->get()->first();
 
             if ($employee) {
                 return $employee->getFullInitials();

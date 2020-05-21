@@ -13,7 +13,7 @@ class CreateAccounts extends Migration
      */
     public function up()
     {
-        Schema::create('AccountsSeeder', function (Blueprint $table) {
+        Schema::create('accounts', function (Blueprint $table) {
             $table->bigIncrements('idAccount');
             $table->integer("idEmployee");
             $table->integer("idAccountType");
@@ -32,6 +32,6 @@ class CreateAccounts extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('AccountsSeeder');
+        Schema::dropIfExists('accounts');
     }
 }
