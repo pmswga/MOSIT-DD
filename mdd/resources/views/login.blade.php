@@ -1,4 +1,4 @@
-<div id="loginModal" class="ui medium modal">
+<div id="loginModal" class="ui mini modal">
     <div class="content">
         <div class="ui centered medium image">
             <img id="cat" src="img/cat.png" alt="cat">
