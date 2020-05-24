@@ -23,16 +23,6 @@
             {{ Auth::user()->getEmployee()->getFullInitials() }}
         </div>
 
-        <div class="item">
-            <b>Поручения</b>
-            <div class="menu">
-                <a class="item" data-tab="tickets">
-                    Входящие
-                    <div class="ui teal left pointing label">1</div>
-                </a>
-            </div>
-        </div>
-
         @php $rights = \Illuminate\Support\Facades\Auth::user()->getAccountRights() @endphp
         @if($rights)
             @foreach($rights as $section => $menu)
