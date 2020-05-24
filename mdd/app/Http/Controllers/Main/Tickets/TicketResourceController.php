@@ -28,7 +28,8 @@ class TicketResourceController extends Controller
         return view('systems.main.tickets.tickets_index', [
             'ticketTypes' => ListTicketTypeModel::all(),
             'employees' => Auth::user()->getEmployee()->getSubordinateEmployees(),
-            'tickets' => Auth::user()->getEmployee()->getAssignedTickets()
+            'assignedTickets' => Auth::user()->getEmployee()->getAssignedTickets(),
+            'createdTickets' => Auth::user()->getEmployee()->getCreatedTickets()
         ]);
     }
 
@@ -85,9 +86,11 @@ class TicketResourceController extends Controller
      * @param  \App\Models\Main\Tickets\TicketModel  $ticketModel
      * @return \Illuminate\Http\Response
      */
-    public function show(TicketModel $ticketModel)
+    public function show(TicketModel $ticket)
     {
-        //
+        return view('systems.main.tickets.ticket_show', [
+            'ticket' => $ticket
+        ]);
     }
 
     /**

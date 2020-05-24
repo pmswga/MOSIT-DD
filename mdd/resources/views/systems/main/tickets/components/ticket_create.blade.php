@@ -34,7 +34,7 @@
             <div class="field">
                 <label>Ответственные</label>
                 @isset($employees)
-                <select name="ticketEmployees[]">
+                <select name="ticketEmployees[]" multiple>
                     @foreach($employees as $employee)
                         <option value="{{ $employee->idEmployee }}"> {{ $employee->getFullInitials() }}</option>
                     @endforeach
@@ -42,7 +42,7 @@
                 @endisset
             </div>
             <div class="field">
-                <input type="submit" class="ui primary fluid button">
+                <input type="submit" value="Создать" class="ui primary fluid button">
             </div>
         </form>
     </div>

@@ -79,6 +79,30 @@ class EmployeeModel extends Model
         return new EmployeeModel();
     }
 
+    public function getSubordinateEmployees() {
+        $employeeList = $this->hasOne(EmployeeHierarchyModel::class, 'idEmployeeSuper', 'idEmployee')->get();
+        $employees = [];
+        foreach ($employeeList as $employee) {
+            $employees[] = EmployeeModel::all()->where('idEmployee', $employee->idEmployeeSub)->first();
+        }
+
+        if ($employees) {
+            return $employees;
+        }
+
+        return null;
+    }
+
+    public function getCreatedTickets() {
+        $createdTicketList = $this->hasOne(TicketModel::class, 'idAuthor', 'idEmployee')->get();
+
+        if ($createdTicketList) {
+            return $createdTicketList;
+        }
+
+        return null;
+    }
+
     public function getAssignedTickets() {
         $assignedTicketList = $this->hasOne(TicketEmployeeModel::class,'idEmployee', 'idEmployee')->get();
 
@@ -95,18 +119,5 @@ class EmployeeModel extends Model
     }
 
 
-    public function getSubordinateEmployees() {
-        $employeeList = $this->hasOne(EmployeeHierarchyModel::class, 'idEmployeeSuper', 'idEmployee')->get();
-        $employees = [];
-        foreach ($employeeList as $employee) {
-            $employees[] = EmployeeModel::all()->where('idEmployee', $employee->idEmployeeSub)->first();
-        }
-
-        if ($employees) {
-            return $employees;
-        }
-
-        return null;
-    }
 
 }

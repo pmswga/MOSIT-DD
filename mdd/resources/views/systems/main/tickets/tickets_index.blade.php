@@ -6,90 +6,82 @@
     <fieldset class="ui segment">
         <legend><h3>Панель инструментов</h3></legend>
         <div class="ui fluid buttons">
-            <div class="ui primary icon button" onclick="$('#createTicketModal').modal('show')">
-                <i class=""></i>
-                Создать поручение
-                @include('systems.main.tickets.components.ticket_create')
-            </div>
+            @if(\Illuminate\Support\Facades\Auth::user()->getEmployee()->getSubordinateEmployees())
+                <div class="ui primary icon button" onclick="$('#createTicketModal').modal('show')">
+                    <i class=""></i>
+                    Создать поручение
+                    @include('systems.main.tickets.components.ticket_create')
+                </div>
+            @endif
 
         </div>
     </fieldset>
 
-    <fieldset class="ui segment">
-        <legend><h3>Сводка</h3></legend>
-        <div class="ui three statistics">
-            <div class="statistic">
-                <div class="value">
+    @empty($createdTickets)
 
-                </div>
-                <div class="label">
-                    Новых поручений
-                </div>
-            </div>
-            <div class="statistic">
-                <div class="value">
+    @else
+        <fieldset class="ui segment">
+            <legend><h3>Назначенные мною поручения</h3></legend>
+            <table class="ui table">
+                <thead>
+                    <tr>
+                        <th>№</th>
+                        <th>Тип</th>
+                        <th>Название</th>
+                        <th>Дата начала</th>
+                        <th>Дата окончания</th>
+                        <th>Дата создания</th>
+                        <th>Последнее обновление</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($createdTickets as $ticket)
+                        <tr>
+                            <td>{{ $ticket->idTicket }}</td>
+                            <td><a href="{{ route('tickets.show', $ticket) }}">{{ $ticket->getTicketType()->caption }}</a></td>
+                            <td>{{ $ticket->caption }}</td>
+                            <td>{{ $ticket->startDate }}</td>
+                            <td>{{ $ticket->endDate }}</td>
+                            <td>{{ $ticket->created_at }}</td>
+                            <td>{{ $ticket->updated_at }}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </fieldset>
+    @endempty
 
-                </div>
-                <div class="label">
-                    Истекает срок
-                </div>
-            </div>
-            <div class="statistic">
-                <div class="value">
-
-                </div>
-                <div class="label">
-                    Просрочено
-                </div>
-            </div>
-        </div>
-    </fieldset>
-
+    @isset($assignedTickets)
     <fieldset class="ui definition table">
-        <legend><h3>Поручения</h3></legend>
+        <legend><h3>Назначенные вам поручения</h3></legend>
+
         <table class="ui table">
-            <col width="20%">
+            <thead>
+            <tr>
+                <th>№</th>
+                <th>Тип</th>
+                <th>Название</th>
+                <th>Дата начала</th>
+                <th>Дата окончания</th>
+                <th>Дата создания</th>
+                <th>Последнее обновление</th>
+            </tr>
+            </thead>
             <tbody>
-                @foreach($tickets as $ticket)
-                    <tr>
-                        <td>№</td>
-                        <td>{{ $ticket->idTicket }}</td>
-                    </tr>
-                    <tr>
-                        <td>Кем выдано</td>
-                        <td>{{ $ticket->getAuthor()->getFullInitials() }}</td>
-                    </tr>
-                    <tr>
-                        <td>Тип</td>
-                        <td>{{ $ticket->getTicketType()->caption }}</td>
-                    </tr>
-                    <tr>
-                        <td>Название</td>
-                        <td>{{ $ticket->caption }}</td>
-                    </tr>
-                    <tr>
-                        <td>Описание</td>
-                        <td>{{ $ticket->description }}</td>
-                    </tr>
-                    <tr>
-                        <td>Дата начала</td>
-                        <td>{{ $ticket->startDate }}</td>
-                    </tr>
-                    <tr>
-                        <td>Дата окончания</td>
-                        <td>{{ $ticket->endDate   }}</td>
-                    </tr>
-                    <tr>
-                        <td>Дата создания</td>
-                        <td>{{ $ticket->created_at }}</td>
-                    </tr>
-                    <tr>
-                        <td>Последнее обновление</td>
-                        <td>{{ $ticket->updated_at }}</td>
-                    </tr>
-                @endforeach
+            @foreach($assignedTickets as $ticket)
+                <tr>
+                    <td>{{ $ticket->idTicket }}</td>
+                    <td><a href="{{ route('tickets.show', $ticket) }}">{{ $ticket->getTicketType()->caption }}</a></td>
+                    <td>{{ $ticket->caption }}</td>
+                    <td>{{ $ticket->startDate }}</td>
+                    <td>{{ $ticket->endDate }}</td>
+                    <td>{{ $ticket->created_at }}</td>
+                    <td>{{ $ticket->updated_at }}</td>
+                </tr>
+            @endforeach
             </tbody>
         </table>
     </fieldset>
+    @endisset
 
 @endsection

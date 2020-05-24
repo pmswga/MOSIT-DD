@@ -16,6 +16,21 @@ class TicketModel extends Model
         return $this->hasOne(EmployeeModel::class, 'idEmployee', 'idAuthor')->get()->first();
     }
 
+    public function getResponsibleEmployees () {
+        $responsibleEmployeeList = $this->hasOne(TicketEmployeeModel::class, 'idTicket', 'idTicket')->get();
+
+        $employees = [];
+        foreach ($responsibleEmployeeList as $responsibleEmployee) {
+            $employees[] = EmployeeModel::all()->where('idEmployee', $responsibleEmployee->idEmployee)->first();
+        }
+
+        if ($employees) {
+            return $employees;
+        }
+
+        return null;
+    }
+
     public function getTicketType() {
         return $this->hasOne(ListTicketTypeModel::class, 'idTicketType', 'idTicketType')->get()->first();
     }
