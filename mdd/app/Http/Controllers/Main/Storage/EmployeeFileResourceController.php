@@ -23,7 +23,7 @@ class EmployeeFileResourceController extends Controller
 
     public function __construct()
     {
-        //$this->authorizeResource(EmployeeFileModel::class, 'file');
+        $this->authorizeResource(EmployeeFileModel::class, 'file');
         $this->baseAccountPath = 'storage/';
     }
 
