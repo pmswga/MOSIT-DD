@@ -15,11 +15,12 @@ class CreateTickets extends Migration
     {
         Schema::create('tickets', function (Blueprint $table) {
             $table->bigIncrements('idTicket');
-            $table->integer('idEmployee');
             $table->integer('idAuthor');
             $table->integer('idTicketType');
             $table->string('caption', 255);
             $table->text('description');
+            $table->dateTime('startDate');
+            $table->dateTime('endDate');
             $table->timestamps();
         });
     }

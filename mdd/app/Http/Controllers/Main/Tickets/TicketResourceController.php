@@ -20,7 +20,9 @@ class TicketResourceController extends Controller
      */
     public function index()
     {
-        //
+        return view('systems.main.tickets.tickets_index', [
+            'tickets' => []
+        ]);
     }
 
     /**
