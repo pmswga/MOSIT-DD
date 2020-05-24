@@ -282,20 +282,4 @@ class  DataSeeder {
         ]
     ];
 
-    public static $accountRights = [
-        [
-            'idAccount' => 1,
-            'idSubSystem' => 1,
-            'isAccess' => True,
-            'isViewAny' => True,
-            'isView' => True,
-            'isCreate' => True,
-            'isUpdate' => True,
-            'isDelete' => True
-        ]
-    ];
-
 }
-
-
-

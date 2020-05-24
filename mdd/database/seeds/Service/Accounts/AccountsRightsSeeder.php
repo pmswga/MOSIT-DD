@@ -12,6 +12,31 @@ class AccountsRightsSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('accounts_rights')->insert(DataSeeder::$accountRights);
+        $accountRights = [];
+
+        foreach (DataSeeder::$employees as $employee) {
+            $accountRights[] = [
+                'idAccount' => $employee['idEmployee'],
+                'idSubSystem' => \App\Core\Constants\ListSubSystem::Tickets,
+                'isAccess' => True,
+                'isViewAny' => True,
+                'isView' => True,
+                'isCreate' => True,
+                'isUpdate' => True,
+                'isDelete' => True
+            ];
+            $accountRights[] = [
+                'idAccount' => $employee['idEmployee'],
+                'idSubSystem' => \App\Core\Constants\ListSubSystem::Storage,
+                'isAccess' => True,
+                'isViewAny' => True,
+                'isView' => True,
+                'isCreate' => True,
+                'isUpdate' => True,
+                'isDelete' => True
+            ];
+        }
+
+        DB::table('accounts_rights')->insert($accountRights);
     }
 }
