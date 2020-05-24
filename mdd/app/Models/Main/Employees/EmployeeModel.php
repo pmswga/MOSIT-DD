@@ -2,6 +2,8 @@
 
 namespace App\Models\Main\Employees;
 
+use App\Models\Main\Tickets\TicketEmployeeModel;
+use App\Models\Main\Tickets\TicketModel;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use phpDocumentor\Reflection\Types\Null_;
@@ -75,6 +77,36 @@ class EmployeeModel extends Model
         }
 
         return new EmployeeModel();
+    }
+
+    public function getAssignedTickets() {
+        $assignedTicketList = $this->hasOne(TicketEmployeeModel::class,'idEmployee', 'idEmployee')->get();
+
+        $tickets = [];
+        foreach ($assignedTicketList as $assignedTicket) {
+            $tickets[] = TicketModel::all()->where('idTicket', $assignedTicket->idTicket)->first();
+        }
+
+        if ($tickets) {
+            return $tickets;
+        }
+
+        return null;
+    }
+
+
+    public function getSubordinateEmployees() {
+        $employeeList = $this->hasOne(EmployeeHierarchyModel::class, 'idEmployeeSuper', 'idEmployee')->get();
+        $employees = [];
+        foreach ($employeeList as $employee) {
+            $employees[] = EmployeeModel::all()->where('idEmployee', $employee->idEmployeeSub)->first();
+        }
+
+        if ($employees) {
+            return $employees;
+        }
+
+        return null;
     }
 
 }

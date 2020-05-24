@@ -3,8 +3,12 @@
 namespace App\Http\Controllers\Main\Tickets;
 
 use App\Http\Controllers\Controller;
+use App\Models\Main\Tickets\TicketEmployeeModel;
 use App\Models\Main\Tickets\TicketModel;
+use App\Models\Service\Lists\ListTicketTypeModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class TicketResourceController extends Controller
 {
@@ -20,8 +24,11 @@ class TicketResourceController extends Controller
      */
     public function index()
     {
+        //#fixme Разграничить передаваемые данные в зависимости от типа пользователя
         return view('systems.main.tickets.tickets_index', [
-            'tickets' => []
+            'ticketTypes' => ListTicketTypeModel::all(),
+            'employees' => Auth::user()->getEmployee()->getSubordinateEmployees(),
+            'tickets' => Auth::user()->getEmployee()->getAssignedTickets()
         ]);
     }
 
@@ -43,7 +50,33 @@ class TicketResourceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $ticket = new TicketModel();
+        $ticket->idAuthor = Auth::user()->idEmployee;
+        $ticket->idTicketType = $request->ticketType;
+        $ticket->caption = $request->ticketCaption;
+        $ticket->description = $request->ticketDescription;
+        $ticket->startDate = $request->ticketStartDate;
+        $ticket->endDate = $request->ticketEndDate;
+
+        $result = true;//#fixme add exception handler
+        if ($ticket->save()) {
+
+            foreach ($request->ticketEmployees as $employee) {
+                $ticketEmployee = new TicketEmployeeModel();
+                $ticketEmployee->idEmployee = $employee;
+                $ticketEmployee->idTicket = $ticket->idTicket;
+                $result *= $ticketEmployee->save();
+            }
+
+            if ($result) {
+                Session::flash('successMessage', 'Поручение успешно создано');
+                return back();
+            }
+
+        }
+
+        Session::flash('successMessage', 'Не удалось создать поручение');
+        return back();
     }
 
     /**

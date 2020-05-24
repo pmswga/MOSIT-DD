@@ -23,21 +23,7 @@ class AccountPageController extends Controller
     }
 
     public function home() {
-
-        switch (Auth::user()->getIdAccountType()) {
-            case \App\Core\Constants\ListAccountType::TEACHER: {
-                $ips = Auth::user()->getEmployee()->getTeacher()->getIPS();
-
-                return view('home', [
-                    'ips' => $ips
-                ]);
-            } break;
-            case \App\Core\Constants\ListAccountType::METHODIST:
-            {
-                return view('home');
-            } break;
-        }
-
+        return view('home');
     }
 
 }
