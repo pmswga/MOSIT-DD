@@ -28,6 +28,8 @@ class DatabaseSeeder extends Seeder
             ListSystemSectionSeeder::class,
             ListSubSystemSeeder::class,
 
+            ListTicketTypeSeeder::class,
+
             EmployeesSeeder::class,
             TeachersSeeder::class,
 
