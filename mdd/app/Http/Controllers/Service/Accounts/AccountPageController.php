@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Services\Accounts;
+namespace App\Http\Controllers\Service\Accounts;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -8,6 +8,11 @@ use Illuminate\Support\Facades\Auth;
 
 class AccountPageController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 
     public function profile() {
         return view('profile');

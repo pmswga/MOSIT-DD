@@ -8,8 +8,8 @@ use Illuminate\Support\Facades\Route;
  */
 Route::get('/', 'MainPageController@index')->name('index');
 Route::get('/manual', 'MainPageController@manual')->name('manual');
-Route::get('/home', ['middleware' => 'auth', 'uses' => 'Services\Accounts\AccountPageController@home'])->name('home');
-Route::get('/profile', ['middleware' => 'auth', 'uses' => 'Services\Accounts\AccountPageController@profile'] )->name('profile');
+Route::get('/home', 'Service\Accounts\AccountPageController@home')->name('home');
+Route::get('/profile','Service\Accounts\AccountPageController@profile')->name('profile');
 
 Route::get('/login', function () { // #fixme Настроить класс LoginController или иной для автоматического редиректа на главную страницу
     return redirect()->route('index');
@@ -37,7 +37,7 @@ Route::post('/logout', '\App\Http\Controllers\Auth\LoginController@logout')->nam
  * Маршруты связанные с панелью администратора
  */
 Route::group(['prefix' => 'admin'], function () {
-    Route::get('/', 'Services\Accounts\AccountPageController@admin')->name('admin.index');
+    Route::get('/', 'Service\Accounts\AccountPageController@admin')->name('admin.index');
 
     Route::resource('employees', 'Main\Employees\EmployeeResourceController');
 
