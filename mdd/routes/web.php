@@ -18,7 +18,7 @@ Route::get('/login', function () { // #fixme Настроить класс Login
 /**
  * Маршруты связанные с подсистемами
  */
-Route::resource('/ips', 'Main\IP\IPResourceController')->middleware('auth');
+Route::resource('/ips', 'Main\IP\IPResourceController');
 Route::get('/ips/download/{ip}', 'Main\IP\IPResourceController@downloadIP')->name('ips.download');
 
 Route::resource('/files', 'Main\Storage\EmployeeFileResourceController');
@@ -26,6 +26,7 @@ Route::get('/files/download/{file}', 'Main\Storage\EmployeeFileResourceControlle
 Route::post('/files_createDirectory', 'Main\Storage\EmployeeFileResourceController@createDirectory')->name('files.createDirectory');
 Route::delete('/files_destroyDirectory', 'Main\Storage\EmployeeFileResourceController@destroyDirectory')->name('files.destroyDirectory');
 
+Route::resource('/tickets', 'Main\Tickets\TicketResourceController');
 
 /**
  * Маршруты связанные с аутентификацией/авторизацией и выходом
@@ -41,7 +42,7 @@ Route::group(['prefix' => 'admin'], function () {
 
     Route::resource('employees', 'Main\Employees\EmployeeResourceController');
 
-    Route::resource('accounts', 'Services\Accounts\AccountResourceController');
+    Route::resource('accounts', 'Service\Accounts\AccountResourceController');
     Route::get( 'rights', function () { // #fixme Исправить
         $rawRights = \Illuminate\Support\Facades\DB::table('accounts as ac')
             ->select('ac.idAccount', 'ac.email', 'lss.idSubSystem', 'lss.caption', 'ar.isAccess', 'ar.isViewAny', 'ar.isView', 'ar.isCreate', 'ar.isUpdate', 'ar.isDelete')
