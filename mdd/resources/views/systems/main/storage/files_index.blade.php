@@ -23,14 +23,7 @@
 
     <fieldset class="ui segment">
         <legend><h3>Файлы</h3></legend>
-        @if(count($folders) > 0 or count($files) > 0)
-            @include('systems.main.storage.components.files_table')
-        @else
-            @component('components.message')
-                @slot('type', 'message')
-                @slot('message', 'Начните работу с вашими файлами прямо сейчас')
-            @endcomponent
-        @endif
+        @include('systems.main.storage.components.files_table')
     </fieldset>
 
     @include('systems.main.storage.components.files_create_directory')
