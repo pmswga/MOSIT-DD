@@ -65,4 +65,16 @@ class EmployeeModel extends Model
         return null;
     }
 
+    public function getChief() {
+        $chiefId = $this->hasOne(EmployeeHierarchyModel::class, 'idEmployeeSub', 'idEmployee')->get()->first();
+        $chief = null;
+
+        if ($chiefId) {
+            $chief = EmployeeModel::all()->where('idEmployee', $chiefId->idEmployeeSuper)->first();
+            return $chief;
+        }
+
+        return new EmployeeModel();
+    }
+
 }

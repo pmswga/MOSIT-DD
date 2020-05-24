@@ -21,6 +21,38 @@
         </table>
     </fieldset>
     <fieldset class="ui segment">
+        <legend><h3>Информация о начальнике</h3></legend>
+        <table class="ui definition table">
+            <col width="35%">
+            <tbody>
+                <tr>
+                    <td>Фамилия</td>
+                    <td>{{ Auth::user()->getEmployee()->getChief()->getSecondName() }}</td>
+                </tr>
+                <tr>
+                    <td>Имя</td>
+                    <td>{{ Auth::user()->getEmployee()->getChief()->getFirstName() }}</td>
+                </tr>
+                <tr>
+                    <td>Отчество</td>
+                    <td>{{ Auth::user()->getEmployee()->getChief()->getPatronymic() }}</td>
+                </tr>
+                <tr>
+                    <td>Телефон</td>
+                    <td>{{ Auth::user()->getEmployee()->getChief()->getPersonalPhone() }}</td>
+                </tr>
+                <tr>
+                    <td>Институт</td>
+                    <td>{{ Auth::user()->getEmployee()->getChief()->getInstitute() }}</td>
+                </tr>
+                <tr>
+                    <td>Кафедра</td>
+                    <td>{{ Auth::user()->getEmployee()->getChief()->getFaculty() }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </fieldset>
+    <fieldset class="ui segment">
         <legend><h3>Информация о сотруднике</h3></legend>
         <table class="ui definition table">
             <col width="35%">
