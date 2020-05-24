@@ -18,7 +18,7 @@ class CreateTickets extends Migration
             $table->integer('idEmployee');
             $table->integer('idAuthor');
             $table->integer('idTicketType');
-            $table->integer('caption', 255);
+            $table->string('caption', 255);
             $table->text('description');
             $table->timestamps();
         });
