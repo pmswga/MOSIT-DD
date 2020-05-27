@@ -13,12 +13,16 @@
                     <td>{{ $ticket->idTicket }}</td>
                 </tr>
                 <tr>
-                    <td>Кем выдано</td>
+                    <td>Кем назначено</td>
                     <td>{{ $ticket->getAuthor()->getFullInitials() }}</td>
                 </tr>
                 <tr>
                     <td>Тип</td>
                     <td>{{ $ticket->getTicketType()->caption }}</td>
+                </tr>
+                <tr>
+                    <td>Статус</td>
+                    <td>{{ $ticket->getTicketStatus() }}</td>
                 </tr>
                 <tr>
                     <td>Название</td>
@@ -30,22 +34,35 @@
                 </tr>
                 <tr>
                     <td>Дата начала</td>
-                    <td>{{ $ticket->startDate }}</td>
+                    <td>{{ $ticket->getStartDate() }}</td>
                 </tr>
-                <tr>
-                    <td>Дата окончания</td>
-                    <td>{{ $ticket->endDate   }}</td>
-                </tr>
+
+                @if($ticket->isExpired())
+                    <tr class="error">
+                        <td>Дата окончания</td>
+                        <td>{{ $ticket->getEndDate() }}</td>
+                    </tr>
+                @else
+                    <tr>
+                        <td>Дата окончания</td>
+                        <td>{{ $ticket->getEndDate() }}</td>
+                    </tr>
+                @endif
                 <tr>
                     <td>Дата создания</td>
-                    <td>{{ $ticket->created_at }}</td>
+                    <td>{{ $ticket->getCreatedDate() }}</td>
                 </tr>
                 <tr>
                     <td>Последнее обновление</td>
-                    <td>{{ $ticket->updated_at }}</td>
+                    <td>{{ $ticket->getUpdatedDate() }}</td>
                 </tr>
             </tbody>
         </table>
+    </fieldset>
+
+    <fieldset class="ui segment">
+        <legend><h3>Прикреплённые файлы</h3></legend>
+
     </fieldset>
 
     <fieldset class="ui segment">
@@ -53,20 +70,19 @@
         <table class="ui compact celled table">
             <thead class="full-width">
                 <tr>
-                    <th>Фамилия</th>
-                    <th>Имя</th>
-                    <th>Отчество</th>
+                    <th>ФИО</th>
+                    <th>Должность</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach($ticket->getResponsibleEmployees() as $employee)
                     <tr>
-                        <td>{{ $employee->getSecondName() }}</td>
-                        <td>{{ $employee->getFirstName() }}</td>
-                        <td>{{ $employee->getPatronymic() }}</td>
+                        <td>{{ $employee->getFullInitials() }}</td>
+                        <td>{{ $employee->getPost() }}</td>
                     </tr>
                 @endforeach
             </tbody>
+            {{--
             <tfoot class="full-width">
                 <tr>
                     <th colspan="3">
@@ -77,6 +93,7 @@
                     </th>
                 </tr>
             </tfoot>
+            --}}
         </table>
     </fieldset>
 

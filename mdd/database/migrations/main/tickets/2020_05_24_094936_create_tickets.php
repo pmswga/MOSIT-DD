@@ -21,6 +21,7 @@ class CreateTickets extends Migration
             $table->text('description');
             $table->dateTime('startDate');
             $table->dateTime('endDate');
+            $table->integer('idTicketStatus');
             $table->timestamps();
         });
     }

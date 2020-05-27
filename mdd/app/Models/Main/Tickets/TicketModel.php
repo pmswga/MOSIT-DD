@@ -3,8 +3,10 @@
 namespace App\Models\Main\Tickets;
 
 use App\Models\Main\Employees\EmployeeModel;
+use App\Models\Service\Lists\ListTicketStatus;
 use App\Models\Service\Lists\ListTicketTypeModel;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 class TicketModel extends Model
 {
@@ -17,7 +19,6 @@ class TicketModel extends Model
         parent::__construct($attributes);
         $this->date_format = 'd.m.Y / H:i:s';
     }
-
 
     public function getAuthor() {
         return $this->hasOne(EmployeeModel::class, 'idEmployee', 'idAuthor')->get()->first();
@@ -42,6 +43,10 @@ class TicketModel extends Model
         return $this->hasOne(ListTicketTypeModel::class, 'idTicketType', 'idTicketType')->get()->first();
     }
 
+    public function getTicketStatus() {
+        return $this->hasOne(ListTicketStatus::class, 'idTicketStatus', 'idTicketStatus')->get()->first()->getCaption();
+    }
+
     public function getStartDate() {
         return date_format(date_create($this->startDate), $this->date_format);
     }
@@ -56,6 +61,13 @@ class TicketModel extends Model
 
     public function getUpdatedDate() {
         return date_format(date_create($this->updated_at), $this->date_format);
+    }
+
+    public function isExpired() {
+        $endDate = Carbon::instance( date_create($this->endDate) );
+        $nowDate = Carbon::today();
+
+        return $nowDate > $endDate;
     }
 
 }

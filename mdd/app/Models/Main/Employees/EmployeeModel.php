@@ -5,6 +5,7 @@ namespace App\Models\Main\Employees;
 use App\Models\Main\Tickets\TicketEmployeeModel;
 use App\Models\Main\Tickets\TicketModel;
 use App\Models\Service\Lists\ListEmployeePostModel;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use phpDocumentor\Reflection\Types\Null_;
@@ -32,6 +33,10 @@ class EmployeeModel extends Model
 
     public function getPersonalPhone() {
         return $this->personalPhone;
+    }
+
+    public function getPersonalEmail() {
+        return $this->personalEmail;
     }
 
     public function getFaculty() {
@@ -125,6 +130,28 @@ class EmployeeModel extends Model
     public function getUnseenTicketsCount() {
         return $this->hasOne(TicketEmployeeModel::class,'idEmployee', 'idEmployee')
             ->where('isSeen', '0')
+            ->get()
+            ->count();
+    }
+
+    public function getExpiredTickets() {
+        $expiredTicketList = $this->hasOne(TicketEmployeeModel::class,'idEmployee', 'idEmployee')
+            ->join('Tickets as t', 't.idTicket', '=', 'ticket_employee.idTicket')
+            ->whereDate('t.endDate', '<=', Carbon::today()->toDateString())
+            ->get();
+
+        $tickets = [];
+        foreach ($expiredTicketList as $ticket) {
+            $tickets[] = TicketModel::all()->where('idTicket', $ticket->idTicket)->first();
+        }
+
+        return $tickets;
+    }
+
+    public function getExpiredTicketsCount() {
+        return $this->hasOne(TicketEmployeeModel::class,'idEmployee', 'idEmployee')
+            ->join('Tickets as t', 't.idTicket', '=', 'ticket_employee.idTicket')
+            ->whereDate('t.endDate', '<=', Carbon::today()->toDateString())
             ->get()
             ->count();
     }

@@ -31,6 +31,10 @@
                         Входящие
                         <div class="ui teal left pointing label">{{ Auth::user()->getEmployee()->getUnseenTicketsCount() }}</div>
                     </a>
+                    <a class="item" href="{{ route('tickets.expired') }}">
+                        Просроченные
+                        <div class="ui red left pointing label">{{ Auth::user()->getEmployee()->getExpiredTicketsCount()  }}</div>
+                    </a>
                     <a class="item" href="{{ route('tickets.index') }}">
                         Все поручения
                     </a>

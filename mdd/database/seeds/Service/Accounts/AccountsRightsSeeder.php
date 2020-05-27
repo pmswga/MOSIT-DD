@@ -37,6 +37,17 @@ class AccountsRightsSeeder extends Seeder
             ];
         }
 
+        $accountRights[] = [
+            'idAccount' => DataSeeder::$employees[0]['idEmployee'],
+            'idSubSystem' => \App\Core\Constants\ListSubSystem::IPS,
+            'isAccess' => True,
+            'isViewAny' => True,
+            'isView' => True,
+            'isCreate' => True,
+            'isUpdate' => True,
+            'isDelete' => True
+        ];
+
         DB::table('accounts_rights')->insert($accountRights);
     }
 }

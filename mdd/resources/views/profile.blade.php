@@ -95,8 +95,16 @@
                     <td>{{ Auth::user()->getEmployee()->getChief()->getPatronymic() }}</td>
                 </tr>
                 <tr>
+                    <td>Должность</td>
+                    <td>{{ Auth::user()->getEmployee()->getChief()->getPost() }}</td>
+                </tr>
+                <tr>
                     <td>Телефон</td>
                     <td>{{ Auth::user()->getEmployee()->getChief()->getPersonalPhone() }}</td>
+                </tr>
+                <tr>
+                    <td>Почта</td>
+                    <td><a href="mailto:{{ Auth::user()->getEmployee()->getChief()->getPersonalEmail() }}">{{ Auth::user()->getEmployee()->getChief()->getPersonalEmail() }}</a></td>
                 </tr>
                 <tr>
                     <td>Институт</td>

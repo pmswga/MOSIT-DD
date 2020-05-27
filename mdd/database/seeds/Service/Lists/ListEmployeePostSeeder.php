@@ -19,7 +19,7 @@ class ListEmployeePostSeeder extends Seeder
             ],
             [
                 'idEmployeePost' => 2,
-                'caption' => 'Методист'
+                'caption' => 'Оператор ЭВМ'
             ],
             [
                 'idEmployeePost' => 3,

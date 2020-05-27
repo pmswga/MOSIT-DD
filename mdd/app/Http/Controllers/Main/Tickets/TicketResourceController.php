@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Main\Tickets;
 
+use App\Core\Constants\ListTicketStatusConstants;
 use App\Http\Controllers\Controller;
 use App\Models\Main\Tickets\TicketEmployeeModel;
 use App\Models\Main\Tickets\TicketModel;
@@ -40,6 +41,13 @@ class TicketResourceController extends Controller
         ]);
     }
 
+    public function expired()
+    {
+        return view('systems.main.tickets.ticket_inbox ', [
+            'inboxTicketList' => Auth::user()->getEmployee()->getExpiredTickets()
+        ]);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -65,6 +73,7 @@ class TicketResourceController extends Controller
         $ticket->description = $request->ticketDescription;
         $ticket->startDate = $request->ticketStartDate;
         $ticket->endDate = $request->ticketEndDate;
+        $ticket->idTicketStatus = ListTicketStatusConstants::CREATE;
 
         $result = true;//#fixme add exception handler
         if ($ticket->save()) {
