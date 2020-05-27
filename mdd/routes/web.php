@@ -27,6 +27,7 @@ Route::post('/files_createDirectory', 'Main\Storage\EmployeeFileResourceControll
 Route::delete('/files_destroyDirectory', 'Main\Storage\EmployeeFileResourceController@destroyDirectory')->name('files.destroyDirectory');
 
 Route::resource('/tickets', 'Main\Tickets\TicketResourceController');
+Route::get('/tickets_inbox', 'Main\Tickets\TicketResourceController@inbox')->name('tickets.inbox');
 
 /**
  * Маршруты связанные с аутентификацией/авторизацией и выходом

@@ -17,6 +17,7 @@ class CreateTicketEmployee extends Migration
             $table->bigIncrements('idTicketEmployee');
             $table->integer('idEmployee');
             $table->integer('idTicket');
+            $table->boolean('isSeen')->default(False);
         });
     }
 

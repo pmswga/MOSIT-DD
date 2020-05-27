@@ -25,11 +25,18 @@ class TicketResourceController extends Controller
     public function index()
     {
         //#fixme Разграничить передаваемые данные в зависимости от типа пользователя
-        return view('systems.main.tickets.tickets_index', [
+        return view('systems.main.tickets.ticket_index', [
             'ticketTypes' => ListTicketTypeModel::all(),
             'employees' => Auth::user()->getEmployee()->getSubordinateEmployees(),
             'assignedTickets' => Auth::user()->getEmployee()->getAssignedTickets(),
             'createdTickets' => Auth::user()->getEmployee()->getCreatedTickets()
+        ]);
+    }
+
+    public function inbox()
+    {
+        return view('systems.main.tickets.ticket_inbox ', [
+            'inboxTicketList' => Auth::user()->getEmployee()->getUnseenTickets()
         ]);
     }
 
@@ -88,6 +95,20 @@ class TicketResourceController extends Controller
      */
     public function show(TicketModel $ticket)
     {
+        $employeeTicket = $ticket->hasOne(TicketEmployeeModel::class, 'idTicket', 'idTicket')
+            ->where('idEmployee', '=', Auth::user()->getEmployee()->idEmployee)
+            ->get()->first();
+
+
+        if ($employeeTicket) {
+            if (!$employeeTicket->isSeen) {
+                Session::flash('successMessage', 'Вы просмотрели поручение');
+                $employeeTicket->isSeen = true;
+                $employeeTicket->save();
+            }
+        }
+
+
         return view('systems.main.tickets.ticket_show', [
             'ticket' => $ticket
         ]);

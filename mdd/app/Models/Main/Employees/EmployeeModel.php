@@ -4,6 +4,7 @@ namespace App\Models\Main\Employees;
 
 use App\Models\Main\Tickets\TicketEmployeeModel;
 use App\Models\Main\Tickets\TicketModel;
+use App\Models\Service\Lists\ListEmployeePostModel;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use phpDocumentor\Reflection\Types\Null_;
@@ -34,7 +35,7 @@ class EmployeeModel extends Model
     }
 
     public function getFaculty() {
-        $faculty = DB::table('list_faculty')
+        $faculty = DB::table('list_faculty') // #todo create model for this join
             ->select('list_faculty.caption as faculty')
             ->where('list_faculty.idFaculty', '=', $this->idFaculty)
             ->get()->first();
@@ -50,6 +51,10 @@ class EmployeeModel extends Model
             ->get()->first();
 
         return $institute->institute; // #todo add error handler
+    }
+
+    public function getPost() {
+        return $this->hasOne(ListEmployeePostModel::class, 'idEmployeePost', 'idEmployeePost')->first()->getCaption();
     }
 
     public function getAccountId() {
@@ -79,6 +84,7 @@ class EmployeeModel extends Model
         return new EmployeeModel();
     }
 
+
     public function getSubordinateEmployees() {
         $employeeList = $this->hasOne(EmployeeHierarchyModel::class, 'idEmployeeSuper', 'idEmployee')->get();
         $employees = [];
@@ -101,6 +107,26 @@ class EmployeeModel extends Model
         }
 
         return null;
+    }
+
+    public function getUnseenTickets() {
+        $inboxTicketList = $this->hasOne(TicketEmployeeModel::class,'idEmployee', 'idEmployee')
+            ->where('isSeen', '0')
+            ->get();
+
+        $tickets = [];
+        foreach ($inboxTicketList as $ticket) {
+            $tickets[] = TicketModel::all()->where('idTicket', $ticket->idTicket)->first();
+        }
+
+        return $tickets;
+    }
+
+    public function getUnseenTicketsCount() {
+        return $this->hasOne(TicketEmployeeModel::class,'idEmployee', 'idEmployee')
+            ->where('isSeen', '0')
+            ->get()
+            ->count();
     }
 
     public function getAssignedTickets() {

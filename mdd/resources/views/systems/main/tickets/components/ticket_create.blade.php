@@ -34,7 +34,7 @@
             <div class="field">
                 <label>Ответственные</label>
                 @isset($employees)
-                <select name="ticketEmployees[]" multiple>
+                <select class="ui dropdown" name="ticketEmployees[]" multiple>
                     @foreach($employees as $employee)
                         <option value="{{ $employee->idEmployee }}"> {{ $employee->getFullInitials() }}</option>
                     @endforeach

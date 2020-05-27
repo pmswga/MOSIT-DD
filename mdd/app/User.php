@@ -67,6 +67,10 @@ class User extends Authenticatable
             ->join('list_system_section', 'list_system_section.idSystemSection', '=', 'list_sub_system.idSystemSection')
             ->where('idAccount', '=', $this->idAccount)
             ->where( 'isAccess', '=', 1)
+            ->whereNotIn('list_sub_system.idSubSystem', [
+                ListSubSystem::Storage,
+                ListSubSystem::Tickets
+            ])
             ->get();
 
         $groupRights = [];
@@ -92,10 +96,10 @@ class User extends Authenticatable
         return false;
     }
 
-    public function getAccountRightsBy($system) {
+    public function getAccountRightsBy(int $systemId) {
         return DB::table('accounts_rights')
             ->where('idAccount', '=', $this->idAccount)
-            ->where('idSubSystem', '=', $system)
+            ->where('idSubSystem', '=', $systemId)
             ->get()->first();
     }
 

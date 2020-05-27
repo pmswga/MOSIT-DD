@@ -17,11 +17,9 @@
         </div>
     </fieldset>
 
-    @empty($createdTickets)
-
-    @else
+    @if( count($createdTickets) > 0)
         <fieldset class="ui segment">
-            <legend><h3>Назначенные мною поручения</h3></legend>
+            <legend><h3>Назначенные мною</h3></legend>
             <table class="ui table">
                 <thead>
                     <tr>
@@ -49,11 +47,11 @@
                 </tbody>
             </table>
         </fieldset>
-    @endempty
+    @endif
 
     @isset($assignedTickets)
-    <fieldset class="ui definition table">
-        <legend><h3>Назначенные вам поручения</h3></legend>
+    <fieldset class="ui table">
+        <legend><h3>Назначенные вам</h3></legend>
 
         <table class="ui table">
             <thead>
@@ -73,10 +71,10 @@
                     <td>{{ $ticket->idTicket }}</td>
                     <td><a href="{{ route('tickets.show', $ticket) }}">{{ $ticket->getTicketType()->caption }}</a></td>
                     <td>{{ $ticket->caption }}</td>
-                    <td>{{ $ticket->startDate }}</td>
-                    <td>{{ $ticket->endDate }}</td>
-                    <td>{{ $ticket->created_at }}</td>
-                    <td>{{ $ticket->updated_at }}</td>
+                    <td>{{ $ticket->getStartDate() }}</td>
+                    <td>{{ $ticket->getEndDate() }}</td>
+                    <td>{{ $ticket->getCreatedDate() }}</td>
+                    <td>{{ $ticket->getUpdatedDate() }}</td>
                 </tr>
             @endforeach
             </tbody>

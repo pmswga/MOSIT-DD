@@ -23,6 +23,37 @@
             {{ Auth::user()->getEmployee()->getFullInitials() }}
         </div>
 
+        @if(\Illuminate\Support\Facades\Auth::user()->getAccountRightsBy(\App\Core\Constants\ListSubSystem::Tickets))
+            <div class="item">
+                <b>Поручения</b>
+                <div class="menu">
+                    <a class="item" href="{{ route('tickets.inbox') }}">
+                        Входящие
+                        <div class="ui teal left pointing label">{{ Auth::user()->getEmployee()->getUnseenTicketsCount() }}</div>
+                    </a>
+                    <a class="item" href="{{ route('tickets.index') }}">
+                        Все поручения
+                    </a>
+                </div>
+            </div>
+        @endif
+
+        @if(\Illuminate\Support\Facades\Auth::user()->getAccountRightsBy(\App\Core\Constants\ListSubSystem::Tickets))
+            <div class="item">
+                <b>Мои файлы</b>
+                <div class="menu">
+                    <a class="item" href="{{ route('files.index') }}">
+                        Файлы
+                    </a>
+                    <a class="item">
+                        Корзина
+                        <div class="ui grey left pointing label">0</div>
+                    </a>
+                </div>
+            </div>
+        @endif
+
+
         @php $rights = \Illuminate\Support\Facades\Auth::user()->getAccountRights() @endphp
         @if($rights)
             @foreach($rights as $section => $menu)

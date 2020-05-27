@@ -10,6 +10,13 @@ class TicketModel extends Model
 {
     protected $table = 'tickets';
     protected $primaryKey = 'idTicket';
+    protected $date_format;
+
+    public function __construct(array $attributes = [])
+    {
+        parent::__construct($attributes);
+        $this->date_format = 'd.m.Y / H:i:s';
+    }
 
 
     public function getAuthor() {
@@ -33,6 +40,22 @@ class TicketModel extends Model
 
     public function getTicketType() {
         return $this->hasOne(ListTicketTypeModel::class, 'idTicketType', 'idTicketType')->get()->first();
+    }
+
+    public function getStartDate() {
+        return date_format(date_create($this->startDate), $this->date_format);
+    }
+
+    public function getEndDate() {
+        return date_format(date_create($this->endDate), $this->date_format);
+    }
+
+    public function getCreatedDate() {
+        return date_format(date_create($this->created_at), $this->date_format);
+    }
+
+    public function getUpdatedDate() {
+        return date_format(date_create($this->updated_at), $this->date_format);
     }
 
 }
