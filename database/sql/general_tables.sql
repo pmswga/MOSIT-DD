@@ -1,8 +1,0 @@
-USE sip_db;
-
-CREATE TABLE IF NOT EXISTS `User` (
-	id_user INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    email VARCHAR(255) NOT NULL UNIQUE,
-    passwd VARCHAR(255) NOT NULL,
-    id_user_type INT NOT NULL
-);
