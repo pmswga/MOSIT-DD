@@ -99,6 +99,127 @@
 
     <fieldset class="ui segment">
         <legend><h3>История поручения</h3></legend>
+        
+        
+        
+<div class="ui large feed">
+  <div class="event">
+    <div class="label">
+        <i class="blue plus icon"></i>
+    </div>
+    <div class="content">
+      <div class="summary">
+        <a class="user">
+            Сергей Головин
+        </a>
+        создал поручение
+        <div class="date">
+          01.01.2020 / 10:47
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="event">
+    <div class="label">
+        <i class="comment icon"></i>
+    </div>
+    <div class="content">
+      <div class="summary">
+        <a class="user">
+          Кирилл Гусев
+        </a> 
+        прокомментировал
+        <div class="date">
+          01.01.2020 / 12:03
+        </div>
+      </div>
+      <div class="extra text">
+        Ох, было бы неплохо
+      </div>
+    </div>
+  </div>
+  
+  <div class="event">
+    <div class="label">
+        <i class="red exclamation icon"></i>
+    </div>
+    <div class="content">
+      <div class="summary">
+        Истёк срок выполнения поручения
+        <div class="date">
+          01.01.2020 / 12:03
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+  <div class="event">
+    <div class="label">
+        <i class="paperclip icon"></i>
+    </div>
+    <div class="content">
+      <div class="summary">
+        <a class="user">
+          Евгения Михайлова
+        </a> 
+        прикрепила файлы
+        <div class="date">
+          01.01.2020 / 13:05
+        </div>
+      </div>
+      <div class="extra text">
+        Прикладываю файлы
+        <div class="ui selection list">
+          <div class="item">
+            <i class="file word icon"></i>
+            <div class="content">
+              <div class="header">Отчёт</div>
+            </div>
+          </div>
+          <div class="item">
+            <i class="file excel icon"></i>
+            <div class="content">
+              <div class="header">Таблицы</div>
+            </div>
+          </div>
+          <div class="item">
+            <i class="file powerpoint icon"></i>
+            <div class="content">
+              <div class="header">Презентация</div>
+            </div>
+          </div>
+          <div class="item">
+            <i class="file pdf icon"></i>
+            <div class="content">
+              <div class="header">Приказ</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+  <div class="event">
+    <div class="label">
+        <i class="green check icon"></i>
+    </div>
+    <div class="content">
+      <div class="summary">
+        <a class="user">
+          Сергей Головин
+        </a> 
+        закрыл поручение
+        <div class="date">
+          01.01.2020 / 12:03
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        
     </fieldset>
+
 
 @endsection
