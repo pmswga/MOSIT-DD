@@ -29,11 +29,11 @@
                 <div class="menu">
                     <a class="item" href="{{ route('tickets.inbox') }}">
                         Входящие
-                        <div class="ui teal left pointing label">{{ Auth::user()->getEmployee()->getUnseenTicketsCount() }}</div>
+                        <div class="ui blue label">{{ Auth::user()->getEmployee()->getUnseenTicketsCount() }}</div>
                     </a>
                     <a class="item" href="{{ route('tickets.expired') }}">
                         Просроченные
-                        <div class="ui red left pointing label">{{ Auth::user()->getEmployee()->getExpiredTicketsCount()  }}</div>
+                        <div class="ui red label">{{ Auth::user()->getEmployee()->getExpiredTicketsCount()  }}</div>
                     </a>
                     <a class="item" href="{{ route('tickets.index') }}">
                         Все поручения
@@ -51,7 +51,7 @@
                     </a>
                     <a class="item">
                         Корзина
-                        <div class="ui grey left pointing label">0</div>
+                        <div class="ui grey label">0</div>
                     </a>
                 </div>
             </div>
@@ -78,7 +78,26 @@
             <b>Настройки</b>
             <div class="menu">
                 <a class="item" href="{{ route('profile') }}">Профиль</a>
-                <a class="item" href="#logout" onclick="$('#logoutForm').submit()">Выйти</a>
+                <a class="item" href="#reset">
+                    Сменить пароль
+                </a>
+            </div>
+        </div>
+        
+        <div class="item">
+            <b>Справка</b>
+            <div class="menu">
+                <a class="item" href="{{ route('manual') }}">
+                    Руководство
+                </a>
+            </div>
+        </div>
+        <div class="item" style="padding-top: 5px"> <!-- #fixme fix css -->        
+            <div class="menu">
+                <a class="item" href="#logout" onclick="$('#logoutForm').submit()">
+                    Выйти
+                    <i class="logout icon"></i>
+                </a>
             </div>
         </div>
     @endguest
