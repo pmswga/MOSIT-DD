@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Main\IP;
 
 use App\Core\Systems\Main\IPS\IPExcelFile;
+use App\Core\systems\main\ips\IPExcelFileReader;
 use App\Http\Controllers\Controller;
 use App\Models\Main\IP\IP;
 use App\Models\Main\Storage\EmployeeFileModel;
@@ -141,31 +142,29 @@ class IPResourceController extends Controller
      */
     public function edit(IP $ip)
     {
-        $ipFile = new IPExcelFile($ip->getFileContent());
+        $ipExcelFileStreamer = new IPExcelFileReader($ip->getFullFilePath());
 
-        #echo "<pre>";
-        #print_r($ipFile->getData());
-        #echo "</pre>";
+        $ipFile = $ipExcelFileStreamer->getResult();
+
+        #dd($ipFile);
 
         $idTeacher = DB::table('employees as e')
             ->select('t.idTeacher')
             ->join('Teachers as t', 't.idEmployee', '=','e.idEmployee')
-            ->where('e.secondName', '=', $ipFile->getSheet(0)['secondName'])
-            ->where('e.firstName', '=', $ipFile->getSheet(0)['firstName'])
-            ->where('e.patronymic', '=', $ipFile->getSheet(0)['patronymic'])
+            ->where('e.secondName', '=', $ipFile[0]['secondName'])
+            ->where('e.firstName', '=', $ipFile[0]['firstName'])
+            ->where('e.patronymic', '=', $ipFile[0]['patronymic'])
             ->get()->first()->idTeacher;
-
-
 
         if (!empty($ip)) {
             return view('systems.main.ips.ip_update', [
                 'ip' => $ip,
                 'idTeacher' => $idTeacher,
-                'file' => $ipFile->getData()
+                'file' => $ipFile
             ]);
         }
 
-        Session::flash('message', 'Произошла ошибка ');
+        Session::flash('message', 'Произошла ошибка');
         return Redirect::route('ips.index');
     }
 

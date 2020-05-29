@@ -32,11 +32,11 @@ class EmployeeFileModel extends Model
     }
 
     public function getCreatedDate() {
-        return $this->created_at;
+        return date_format(date_create($this->created_at), 'd.m.Y / H:i');
     }
 
     public function getUpdatedDate() {
-        return $this->updated_at;
+        return date_format(date_create($this->updated_at), 'd.m.Y / H:i');
     }
 
 }

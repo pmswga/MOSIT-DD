@@ -4,6 +4,7 @@
         <th>Расширение</th>
         <th>Размер</th>
         <th>Дата добавления</th>
+        <th>Дата изменения</th>
         <th>Действия</th>
     </thead>
     <tbody>
@@ -48,6 +49,9 @@
                     </td>
                     <td>
                         {{ $file->getCreatedDate() }}
+                    </td>
+                    <td>
+                        {{ $file->getUpdatedDate() }}
                     </td>
                     <td>
                         <div class="ui mini basic icon fluid buttons">

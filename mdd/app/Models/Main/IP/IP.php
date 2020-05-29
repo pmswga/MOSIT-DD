@@ -14,9 +14,18 @@ class IP extends Model
     protected $primaryKey = 'idIP';
     public $timestamps = false;
 
+    public function getFilePath() {
+        $file = $this->hasOne(EmployeeFileModel::class, 'idEmployeeFile', 'idEmployeeFile')->first();
+        return $file->path;
+    }
+
+    public function getFullFilePath() {
+        return str_replace('/', '\\' , storage_path() . '/app/' . $this->getFilePath());
+    }
+
     public function getFileContent() {
         $file = $this->hasOne(EmployeeFileModel::class, 'idEmployeeFile', 'idEmployeeFile')->first();
-        return Storage::get( $file->path);
+        return Storage::get($file->path);
     }
 
     public function getTeacherInitials() {

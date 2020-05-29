@@ -37,6 +37,7 @@
                     </a>
                     <a class="item" href="{{ route('tickets.index') }}">
                         Все поручения
+                        <div class="ui grey label">{{ 0 }}</div>
                     </a>
                 </div>
             </div>

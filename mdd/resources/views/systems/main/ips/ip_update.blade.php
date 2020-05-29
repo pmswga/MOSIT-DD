@@ -132,7 +132,7 @@
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>
-                                    <select>
+                                    <select class="">
                                         <option>{{ $work['caption'] }}</option>
                                     </select>
                                 </td>
@@ -143,7 +143,7 @@
                                     <input class="workSum3Real" type="number" value="{{ $work['real'] }}">
                                 </td>
                                 <td>
-                                    <select>
+                                    <select class="">
                                         <option>{{ $work['finish'] }}</option>
                                     </select>
                                 </td>
@@ -181,11 +181,11 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($file[4]['work'] as $work)
+                        @foreach($file[4]['work_1'] as $work)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>
-                                    <select>
+                                    <select class="">
                                         <option>{{ $work['caption'] }}</option>
                                     </select>
                                 </td>
@@ -237,11 +237,11 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($file[5]['work'] as $work)
+                        @foreach($file[4]['work_2'] as $work)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>
-                                    <select>
+                                    <select class="">
                                         <option>{{ $work['caption'] }}</option>
                                     </select>
                                 </td>
@@ -252,13 +252,13 @@
                                     <input class="workSum5Real" type="number" value="{{ $work['real'] }}">
                                 </td>
                                 <td>
-                                    <select>
-                                        <option>{{ $work['finishPlan'] }}</option>
+                                    <select class="">
+                                        <option>{{ $work['finishDatePlan'] }}</option>
                                     </select>
                                 </td>
                                 <td>
-                                    <select>
-                                        <option>{{ $work['finishReal'] }}</option>
+                                    <select class="">
+                                        <option>{{ $work['finishDateReal'] }}</option>
                                     </select>
                                 </td>
                             </tr>
@@ -282,27 +282,27 @@
                 <tbody>
                     <tr>
                         <td>Учебная работа</td>
-                        <td id="workSum1Plan">{{ $file[6]['workSum1'] }}</td>
+                        <td id="workSum1Plan">{{ $file[4]['workSum1'] }}</td>
                         <td id="workSum1Real"></td>
                     </tr>
                     <tr>
                         <td>Учебно методическая работа</td>
-                        <td id="workSum2Plan">{{ $file[6]['workSum2'] }}</td>
+                        <td id="workSum2Plan">{{ $file[4]['workSum2'] }}</td>
                         <td id="workSum2Real"></td>
                     </tr>
                     <tr>
                         <td>Научно-исследовательская работа</td>
-                        <td id="workSum3Plan">{{ $file[6]['workSum3'] }}</td>
+                        <td id="workSum3Plan">{{ $file[4]['workSum3'] }}</td>
                         <td id="workSum3Real"></td>
                     </tr>
                     <tr>
                         <td>Организационно-методическая и воспитательная работа</td>
-                        <td id="workSum4Plan">{{ $file[6]['workSum4'] }}</td>
+                        <td id="workSum4Plan">{{ $file[4]['workSum4'] }}</td>
                         <td id="workSum4Real"></td>
                     </tr>
                     <tr>
                         <td>Итого</td>
-                        <td id="workSumPlan">{{ $file[6]['sum'] }}</td>
+                        <td id="workSumPlan">{{ $file[4]['sum'] }}</td>
                         <td id="workSumReal"></td>
                     </tr>
                 </tbody>

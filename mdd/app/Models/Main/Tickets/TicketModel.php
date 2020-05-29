@@ -17,7 +17,7 @@ class TicketModel extends Model
     public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);
-        $this->date_format = 'd.m.Y / H:i:s';
+        $this->date_format = 'd.m.Y / H:i';
     }
 
     public function getAuthor() {

@@ -4,7 +4,7 @@
 
 @section('content')
 
-    <fieldset class="ui segment">
+    <fieldset class="ui red segment">
         <legend><h3>Информация об аккаунте</h3></legend>
         <table class="ui definition table">
             <col width="35%">
@@ -20,7 +20,7 @@
             </tbody>
         </table>
     </fieldset>
-    <fieldset class="ui segment">
+    <fieldset class="ui orange segment">
         <legend><h3>Информация о сотруднике</h3></legend>
         <table class="ui definition table">
             <col width="35%">
@@ -77,7 +77,7 @@
     @endif
 
     @if(Auth::user()->getEmployee()->getChief())
-        <fieldset class="ui segment">
+        <fieldset class="ui blue segment">
             <legend><h3>Информация о начальнике</h3></legend>
             <table class="ui definition table">
                 <col width="35%">
