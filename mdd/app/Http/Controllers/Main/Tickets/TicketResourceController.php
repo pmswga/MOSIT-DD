@@ -80,8 +80,8 @@ class TicketResourceController extends Controller
         $ticket->idTicketType = $request->ticketType;
         $ticket->caption = $request->ticketCaption;
         $ticket->description = $request->ticketDescription;
-        $ticket->startDate = $request->ticketStartDate;
-        $ticket->endDate = $request->ticketEndDate;
+        $ticket->startDate = date_format( date_create( $request->ticketStartDate ), 'Y.m.d H:i:s');
+        $ticket->endDate = date_format( date_create( $request->ticketEndDate ), 'Y.m.d H:i:s');
         $ticket->idTicketStatus = ListTicketStatusConstants::CREATE;
 
         $result = true;//#fixme add exception handler

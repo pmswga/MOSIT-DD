@@ -24,11 +24,11 @@
             <div class="two fields">
                 <div class="field">
                     <label>Начало</label>
-                    <input type="date" name="ticketStartDate" required>
+                    <input type="datetime-local" name="ticketStartDate" required>
                 </div>
                 <div class="field">
                     <label>Окончание</label>
-                    <input type="date" name="ticketEndDate" required>
+                    <input type="datetime-local" name="ticketEndDate" required>
                 </div>
             </div>
             <div class="field">
