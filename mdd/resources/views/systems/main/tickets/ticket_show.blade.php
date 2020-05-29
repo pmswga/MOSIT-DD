@@ -75,35 +75,25 @@
     </fieldset>
 
     <fieldset class="ui segment">
-        <legend><h3>Ответственные лица</h3></legend>
-        <table class="ui compact celled table">
-            <thead class="full-width">
-                <tr>
-                    <th>ФИО</th>
-                    <th>Должность</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($ticket->getResponsibleEmployees() as $employee)
-                    <tr>
-                        <td>{{ $employee->getFullInitials() }}</td>
-                        <td>{{ $employee->getPost() }}</td>
-                    </tr>
-                @endforeach
-            </tbody>
-            {{--
-            <tfoot class="full-width">
-                <tr>
-                    <th colspan="3">
-                        <div class="ui right floated small primary labeled icon button">
+        <legend><h2>Ответственные лица</h2></legend>
+
+        <div class="ui cards">
+            @foreach($ticket->getResponsibleEmployees() as $employee)
+                <div class="card">
+                    <div class="content">
+                        <div class="right floated ui image">
                             <i class="user icon"></i>
-                            Добавить
                         </div>
-                    </th>
-                </tr>
-            </tfoot>
-            --}}
-        </table>
+                        <div class="header">
+                            {{ $employee->getFullInitials() }}
+                        </div>
+                        <div class="description">
+                            {{ $employee->getPost() }}
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+        </div>
     </fieldset>
 
     <fieldset class="ui segment">

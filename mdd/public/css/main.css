@@ -1,12 +1,4 @@
 
-body * {
-    font-size: 16px;
-}
-
-label {
-    font-size: 1.5em;
-}
-
 #grid {
     min-height: 100%;
     padding: 0;
@@ -26,12 +18,14 @@ label {
     transform: scale(1.1);
 }
 
+/* История поручения */
+
 .ui.large.feed  {
-    margin: 0px;
-    padding: 0px;
+    margin: 0;
+    padding: 0;
     margin-left: 15px;
     margin-bottom: 15px;
-    
+
     border-left: 1px solid #D3D3D3;
 }
 
@@ -48,15 +42,15 @@ label {
     display: flex;
     position: absolute;
     line-height: 35px;
-    
+
     background-color: white;
     border: 1px solid #D3D3D3;
     border-radius: 100%;
     width: 50px;
     height: 50px;
-    
+
     left: 5px;
-    
+
     padding: 0em;
     margin: 0em;
 }
