@@ -156,6 +156,13 @@ class EmployeeModel extends Model
             ->count();
     }
 
+    public function getAssignedTicketsCount() {
+        return $this->hasOne(TicketEmployeeModel::class,'idEmployee', 'idEmployee')
+            ->join('Tickets as t', 't.idTicket', '=', 'ticket_employee.idTicket')
+            ->get()
+            ->count();
+    }
+
     public function getAssignedTickets() {
         $assignedTicketList = $this->hasOne(TicketEmployeeModel::class,'idEmployee', 'idEmployee')->get();
 

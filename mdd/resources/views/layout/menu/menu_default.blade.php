@@ -37,7 +37,7 @@
                     </a>
                     <a class="item" href="{{ route('tickets.index') }}">
                         Все поручения
-                        <div class="ui grey label">{{ 0 }}</div>
+                        <div class="ui grey label">{{ Auth::user()->getEmployee()->getAssignedTicketsCount()  }}</div>
                     </a>
                 </div>
             </div>
@@ -84,7 +84,7 @@
                 </a>
             </div>
         </div>
-        
+
         <div class="item">
             <b>Справка</b>
             <div class="menu">
@@ -93,7 +93,7 @@
                 </a>
             </div>
         </div>
-        <div class="item" style="padding-top: 5px"> <!-- #fixme fix css -->        
+        <div class="item" style="padding-top: 5px"> <!-- #fixme fix css -->
             <div class="menu">
                 <a class="item" href="#logout" onclick="$('#logoutForm').submit()">
                     Выйти
