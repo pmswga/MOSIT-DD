@@ -5,17 +5,26 @@ namespace App\Http\Controllers\Main\Tickets;
 use App\Core\Constants\ListTicketStatusConstants;
 use App\Http\Controllers\Controller;
 use App\Models\Main\Tickets\TicketEmployeeModel;
+use App\Models\Main\Tickets\TicketFileModel;
 use App\Models\Main\Tickets\TicketModel;
 use App\Models\Service\Lists\ListTicketTypeModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
 
 class TicketResourceController extends Controller
 {
+    private $ticketsPath;
+
     public function __construct()
     {
         $this->middleware('auth');
+        $this->ticketsPath = 'tickets/';
+    }
+
+    public function downloadFile(TicketFileModel $file) {
+        return Storage::download($file->getPath());
     }
 
     /**
@@ -83,6 +92,21 @@ class TicketResourceController extends Controller
                 $ticketEmployee->idEmployee = $employee;
                 $ticketEmployee->idTicket = $ticket->idTicket;
                 $result *= $ticketEmployee->save();
+            }
+
+            foreach ($request->file('files') as $file) {
+
+                $path = Storage::putFileAs(
+                    $this->ticketsPath . 'ticket_'.$ticket->idTicket,
+                    $file,
+                    $file->getClientOriginalName()
+                );
+
+                $ticketFile = new TicketFileModel();
+                $ticketFile->idTicket = $ticket->idTicket;
+                $ticketFile->path = $path;
+
+                $ticketFile->save();
             }
 
             if ($result) {

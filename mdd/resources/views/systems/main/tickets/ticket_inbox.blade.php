@@ -13,7 +13,7 @@
         </div>
     </fieldset>
 
-    @isset($inboxTicketList)
+    @if(count($inboxTicketList) > 0)
         <fieldset class="ui table">
             <legend><h3>Назначенные вам</h3></legend>
             <table class="ui table">
@@ -43,6 +43,6 @@
                 </tbody>
             </table>
         </fieldset>
-    @endisset
+    @endif
 
 @endsection

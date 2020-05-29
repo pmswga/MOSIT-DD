@@ -70,4 +70,8 @@ class TicketModel extends Model
         return $nowDate > $endDate;
     }
 
+    public function getAttachedFiles() {
+        return $this->hasOne(TicketFileModel::class,'idTicket', 'idTicket')->get();
+    }
+
 }

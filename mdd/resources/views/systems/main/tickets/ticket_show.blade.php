@@ -62,7 +62,16 @@
 
     <fieldset class="ui segment">
         <legend><h3>Прикреплённые файлы</h3></legend>
-
+        @if($ticket->getAttachedFiles()->count() > 0)
+            <div class="ui divided selection list">
+                @foreach($ticket->getAttachedFiles() as $file)
+                    <a class="item" href="{{ route('tickets.downloadFile', $file) }}">
+                        <i class=" file icon"></i>
+                        {{ basename($file->path) }}
+                    </a>
+                @endforeach
+            </div>
+        @endif
     </fieldset>
 
     <fieldset class="ui segment">
@@ -99,9 +108,9 @@
 
     <fieldset class="ui segment">
         <legend><h3>История поручения</h3></legend>
-        
-        
-        
+
+
+
 <div class="ui large feed">
   <div class="event">
     <div class="label">
@@ -127,7 +136,7 @@
       <div class="summary">
         <a class="user">
           Кирилл Гусев
-        </a> 
+        </a>
         прокомментировал
         <div class="date">
           01.01.2020 / 12:03
@@ -138,7 +147,7 @@
       </div>
     </div>
   </div>
-  
+
   <div class="event">
     <div class="label">
         <i class="red exclamation icon"></i>
@@ -152,8 +161,8 @@
       </div>
     </div>
   </div>
-  
-  
+
+
   <div class="event">
     <div class="label">
         <i class="paperclip icon"></i>
@@ -162,7 +171,7 @@
       <div class="summary">
         <a class="user">
           Евгения Михайлова
-        </a> 
+        </a>
         прикрепила файлы
         <div class="date">
           01.01.2020 / 13:05
@@ -199,8 +208,8 @@
       </div>
     </div>
   </div>
-  
-  
+
+
   <div class="event">
     <div class="label">
         <i class="green check icon"></i>
@@ -209,7 +218,7 @@
       <div class="summary">
         <a class="user">
           Сергей Головин
-        </a> 
+        </a>
         закрыл поручение
         <div class="date">
           01.01.2020 / 12:03
@@ -218,7 +227,7 @@
     </div>
   </div>
 </div>
-        
+
     </fieldset>
 
 
