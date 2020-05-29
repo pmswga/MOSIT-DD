@@ -74,4 +74,8 @@ class TicketModel extends Model
         return $this->hasOne(TicketFileModel::class,'idTicket', 'idTicket')->get();
     }
 
+    public function getHistory() {
+        return $this->hasOne(TicketHistoryModel::class, 'idTicket', 'idTicket')->get();
+    }
+
 }

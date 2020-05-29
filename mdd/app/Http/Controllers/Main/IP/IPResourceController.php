@@ -95,20 +95,24 @@ class IPResourceController extends Controller
 
         $result = true;
         foreach ($data['files'] as $file) {
-            $ipFile = new IPExcelFile(Storage::get(EmployeeFileModel::all()->where('idEmployeeFile', '=', $file)->first()->path));
+            $ipFile = new IPExcelFileReader(
+                str_replace('/', '\\' , storage_path() . '/app/' . EmployeeFileModel::all()->where('idEmployeeFile', '=', $file)->first()->path)
+                );
+
+            $ipFile = $ipFile->getResult();
 
             $idTeacher = DB::table('employees as e')
                 ->select('t.idTeacher')
                 ->join('Teachers as t', 't.idEmployee', '=','e.idEmployee')
-                ->where('e.secondName', '=', $ipFile->getSheet(0)['secondName'])
-                ->where('e.firstName', '=', $ipFile->getSheet(0)['firstName'])
-                ->where('e.patronymic', '=', $ipFile->getSheet(0)['patronymic'])
+                ->where('e.secondName', '=', $ipFile[0]['secondName'])
+                ->where('e.firstName', '=', $ipFile[0]['firstName'])
+                ->where('e.patronymic', '=', $ipFile[0]['patronymic'])
                 ->get()->first()->idTeacher;
 
             $ip = new IP();
             $ip->idEmployeeFile = $file;
             $ip->idTeacher = $idTeacher;
-            $ip->educationYear = $ipFile->getSheet(0)['educationYear'];
+            $ip->educationYear = $ipFile[0]['educationYear'];
             $ip->lastEmployee = Auth::user()->getEmployee()->idEmployee;
             $ip->lastUpdate = date('Y-m-d H:i:s');
             $result *= $ip->save();

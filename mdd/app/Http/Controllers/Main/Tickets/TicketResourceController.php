@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Main\Tickets;
 
+use App\Core\Constants\ListTicketHistoryTypeConstants;
 use App\Core\Constants\ListTicketStatusConstants;
 use App\Http\Controllers\Controller;
 use App\Models\Main\Tickets\TicketEmployeeModel;
 use App\Models\Main\Tickets\TicketFileModel;
+use App\Models\Main\Tickets\TicketHistoryModel;
 use App\Models\Main\Tickets\TicketModel;
 use App\Models\Service\Lists\ListTicketTypeModel;
 use Illuminate\Http\Request;
@@ -87,6 +89,13 @@ class TicketResourceController extends Controller
         $result = true;//#fixme add exception handler
         if ($ticket->save()) {
 
+            $ticketHistory = new TicketHistoryModel();
+            $ticketHistory->idTicket = $ticket->idTicket;
+            $ticketHistory->idTicketHistoryType = ListTicketHistoryTypeConstants::CREATE;
+            $ticketHistory->idEmployee = Auth::user()->idEmployee;
+
+            $ticketHistory->save();
+
             foreach ($request->ticketEmployees as $employee) {
                 $ticketEmployee = new TicketEmployeeModel();
                 $ticketEmployee->idEmployee = $employee;
@@ -104,9 +113,21 @@ class TicketResourceController extends Controller
 
                 $ticketFile = new TicketFileModel();
                 $ticketFile->idTicket = $ticket->idTicket;
+                $ticketFile->filename = basename($path);
+                $ticketFile->extension = $file->extension();
+                $ticketFile->size = round((($file->getSize() / 1024 ) / 1024), 2);
                 $ticketFile->path = $path;
 
                 $ticketFile->save();
+            }
+
+            if ( count($request->file('files')) > 0 ) {
+                $ticketHistory = new TicketHistoryModel();
+                $ticketHistory->idTicket = $ticket->idTicket;
+                $ticketHistory->idTicketHistoryType = ListTicketHistoryTypeConstants::ATTACH_FILE;
+                $ticketHistory->idEmployee = Auth::user()->idEmployee;
+
+                $ticketHistory->save();
             }
 
             if ($result) {

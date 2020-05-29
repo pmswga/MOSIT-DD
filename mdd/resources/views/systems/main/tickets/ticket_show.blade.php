@@ -63,19 +63,24 @@
     <fieldset class="ui segment">
         <legend><h3>Прикреплённые файлы</h3></legend>
         @if($ticket->getAttachedFiles()->count() > 0)
-            <div class="ui divided selection list">
+            <div class="ui divided selection list" style="margin: 0;"> <!-- #fixme fix css -->
                 @foreach($ticket->getAttachedFiles() as $file)
-                    <a class="item" href="{{ route('tickets.downloadFile', $file) }}">
-                        <i class=" file icon"></i>
-                        {{ basename($file->path) }}
-                    </a>
+                    <div class="item">
+                        <div class="right floated content">
+                            {{ $file->extension }} , {{ $file->size }} Мб
+                        </div>
+                        <i class="file big icon"></i>
+                        <div class="content">
+                            <a href="{{ route('tickets.downloadFile', $file) }}">{{ basename($file->path) }}</a>
+                        </div>
+                    </div>
                 @endforeach
             </div>
         @endif
     </fieldset>
 
     <fieldset class="ui segment">
-        <legend><h2>Ответственные лица</h2></legend>
+        <legend><h3>Ответственные лица</h3></legend>
 
         <div class="ui cards">
             @foreach($ticket->getResponsibleEmployees() as $employee)
@@ -99,7 +104,69 @@
     <fieldset class="ui segment">
         <legend><h3>История поручения</h3></legend>
 
+        <div class="ui large feed">
+            @foreach($ticket->getHistory() as $history)
+                <div class="event">
+                    <div class="label">
+                    @switch($history->idTicketHistoryType)
+                        @case(\App\Core\Constants\ListTicketHistoryTypeConstants::CREATE)
+                            <i class="blue plus icon"></i>
+                        @break
+                        @case(\App\Core\Constants\ListTicketHistoryTypeConstants::COMMENT)
+                            <i class="comment icon"></i>
+                        @break
+                        @case(\App\Core\Constants\ListTicketHistoryTypeConstants::ATTACH_FILE)
+                            <i class="paperclip icon"></i>
+                        @break
+                        @case(\App\Core\Constants\ListTicketHistoryTypeConstants::DELETE)
+                            <i class="delete icon"></i>
+                        @break
+                        @case(\App\Core\Constants\ListTicketHistoryTypeConstants::COMMENT)
+                            <i class="close icon"></i>
+                        @break
+                    @endswitch
+                    </div>
+                    <div class="content">
+                        <div class="summary">
 
+                            <a class="user">
+                                {{ $history->getEmployeeInitials() }}
+                            </a>
+                            {{ $history->getTicketHistoryType()->message }}
+                            @switch($history->idTicketHistoryType)
+                                @case(\App\Core\Constants\ListTicketHistoryTypeConstants::COMMENT)
+                                @break
+                                @case(\App\Core\Constants\ListTicketHistoryTypeConstants::ATTACH_FILE)
+                                    {{--
+                                    <div class="ui selection list">
+                                        @foreach($history->getAttachedFiles() as $file)
+                                        <div class="item">
+                                            <i class="file word icon"></i>
+                                            <div class="content">
+                                                <div class="header">Отчёт</div>
+                                            </div>
+                                        </div>
+                                        @endforeach
+                                    </div>
+                                    --}}
+                                @break
+                            @endswitch
+
+
+                            <div class="date">
+                                {{ $history->getCreatedDate() }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            @endforeach
+        </div>
+
+        <br>
+        <br>
+{{--
 
 <div class="ui large feed">
   <div class="event">
@@ -217,6 +284,7 @@
     </div>
   </div>
 </div>
+--}}
 
     </fieldset>
 
