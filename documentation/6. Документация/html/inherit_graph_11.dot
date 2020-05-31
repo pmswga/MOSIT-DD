@@ -1,0 +1,42 @@
+digraph "Иерархия классов. Графический вид."
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node75 [label="Model",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled",tooltip=" "];
+  Node75 -> Node0 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node0 [label="IPModel",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_app_1_1_models_1_1_main_1_1_i_p_1_1_i_p_model.html",tooltip=" "];
+  Node75 -> Node77 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node77 [label="EmployeeHierarchyModel",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_app_1_1_models_1_1_main_1_1_staff_1_1_employee_hierarchy_model.html",tooltip=" "];
+  Node75 -> Node78 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node78 [label="EmployeeModel",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_app_1_1_models_1_1_main_1_1_staff_1_1_employee_model.html",tooltip=" "];
+  Node75 -> Node79 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node79 [label="TeacherModel",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_app_1_1_models_1_1_main_1_1_staff_1_1_teacher_model.html",tooltip=" "];
+  Node75 -> Node80 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node80 [label="EmployeeFileModel",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_app_1_1_models_1_1_main_1_1_storage_1_1_employee_file_model.html",tooltip=" "];
+  Node75 -> Node81 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node81 [label="EmployeeTicketModel",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_app_1_1_models_1_1_main_1_1_tickets_1_1_employee_ticket_model.html",tooltip=" "];
+  Node75 -> Node82 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node82 [label="TicketFileModel",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_app_1_1_models_1_1_main_1_1_tickets_1_1_ticket_file_model.html",tooltip=" "];
+  Node75 -> Node83 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node83 [label="TicketHistoryModel",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_app_1_1_models_1_1_main_1_1_tickets_1_1_ticket_history_model.html",tooltip=" "];
+  Node75 -> Node84 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node84 [label="TicketModel",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_app_1_1_models_1_1_main_1_1_tickets_1_1_ticket_model.html",tooltip=" "];
+  Node75 -> Node85 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node85 [label="AccountRightsModel",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_app_1_1_models_1_1_service_1_1_accounts_1_1_account_rights_model.html",tooltip=" "];
+  Node75 -> Node86 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node86 [label="ListAccountTypeModel",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_app_1_1_models_1_1_service_1_1_accounts_1_1_list_account_type_model.html",tooltip=" "];
+  Node75 -> Node87 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node87 [label="ListSystemSectionModel",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_app_1_1_models_1_1_service_1_1_accounts_1_1_list_system_section_model.html",tooltip=" "];
+  Node75 -> Node88 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node88 [label="ListEmployeePostModel",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_app_1_1_models_1_1_service_1_1_lists_1_1_list_employee_post_model.html",tooltip=" "];
+  Node75 -> Node89 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node89 [label="ListSubSystemModel",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_app_1_1_models_1_1_service_1_1_lists_1_1_list_sub_system_model.html",tooltip=" "];
+  Node75 -> Node90 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node90 [label="ListTicketHistoryTypeModel",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_app_1_1_models_1_1_service_1_1_lists_1_1_list_ticket_history_type_model.html",tooltip=" "];
+  Node75 -> Node91 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node91 [label="ListTicketStatusModel",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_app_1_1_models_1_1_service_1_1_lists_1_1_list_ticket_status_model.html",tooltip=" "];
+  Node75 -> Node92 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node92 [label="ListTicketTypeModel",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_app_1_1_models_1_1_service_1_1_lists_1_1_list_ticket_type_model.html",tooltip=" "];
+}

@@ -84,7 +84,7 @@ $(function() {
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;                &lt;div <span class="keyword">class</span>=<span class="stringliteral">&quot;field&quot;</span>&gt;</div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;                    &lt;label&gt;Пользователь&lt;/label&gt;</div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;                    &lt;select multiple&gt;</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;                        @<span class="keywordflow">foreach</span>(\<a class="code" href="namespace_app.html">App</a>\User::all() as $user)</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;                        @<span class="keywordflow">foreach</span>(\<a class="code" href="namespace_app.html">App</a>\AccountModel::all() as $user)</div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;                            &lt;option&gt;{{$user-&gt;email}}&lt;/option&gt;</div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;                        <span class="keyword">@end</span><span class="keywordflow">foreach</span></div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;                    &lt;/select&gt;</div>

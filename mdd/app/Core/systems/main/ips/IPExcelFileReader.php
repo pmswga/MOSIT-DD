@@ -1,12 +1,25 @@
 <?php
 
-namespace App\Core\systems\main\ips;
+namespace App\Core\Systems\Main\IPS;
 
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
+use PhpOffice\PhpSpreadsheet\Exception;
 
+/**
+ * @class IPExcelFileReader
+ * @brief Класс реализующий методы обработки EXCEL-файла индивидуального плана из системы Тандем для чтения.
+ * Считывает данные из EXCEL-файла
+ *
+ * @package App\Core\Systems\Main\IPS;
+ */
 class IPExcelFileReader extends IPExcelFileStreamer
 {
 
+    /**
+     * Конструктор.
+     * @param $excelFilename - путь к файлу
+     * @throws \PhpOffice\PhpSpreadsheet\Reader\Exception
+     */
     public function __construct($excelFilename)
     {
         if (isset($excelFilename) && !empty($excelFilename)) {
@@ -52,6 +65,11 @@ class IPExcelFileReader extends IPExcelFileStreamer
 
     }
 
+    /**
+     * Обрабатывает первый лист ИП
+     * @return void
+     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     */
     public function streamSheet1()
     {
         $this->excelFile->setActiveSheetIndex(0);
@@ -97,6 +115,11 @@ class IPExcelFileReader extends IPExcelFileStreamer
         }
     }
 
+    /**
+     * Обрабатывает второй лист ИП
+     * @return void
+     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     */
     public function streamSheet2()
     {
         $this->excelFile->setActiveSheetIndex(1);
@@ -115,6 +138,11 @@ class IPExcelFileReader extends IPExcelFileStreamer
 
     }
 
+    /**
+     * Обрабатывает третий лист ИП
+     * @return void
+     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     */
     public function streamSheet3()
     {
         $this->excelFile->setActiveSheetIndex(2);
@@ -132,6 +160,11 @@ class IPExcelFileReader extends IPExcelFileStreamer
         }
     }
 
+    /**
+     * Обрабатывает четвёртый лист ИП
+     * @return void
+     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     */
     public function streamSheet4()
     {
         $this->excelFile->setActiveSheetIndex(3);
@@ -165,6 +198,11 @@ class IPExcelFileReader extends IPExcelFileStreamer
         $this->streamData[3]['work'] = $works;
     }
 
+    /**
+     * Обрабатывает пяттый лист ИП
+     * @return void
+     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     */
     public function streamSheet5()
     {
         $this->excelFile->setActiveSheetIndex(4);
@@ -173,7 +211,6 @@ class IPExcelFileReader extends IPExcelFileStreamer
 
         $works = [];
         for ($row = 4, $column = $row, $i = 0; $row < $highestRow; $row++, $column++) {
-
             $work = [];
 
             $work['num'] = $this->excelFile->getActiveSheet()->getCellByColumnAndRow(1, $column)->getValue();
@@ -200,6 +237,21 @@ class IPExcelFileReader extends IPExcelFileStreamer
             }
         }
 
+    }
+
+    /**
+     * Вызывает методы для чтения содержимого из файла
+     * @return array
+     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     */
+    public function getResult()
+    {
+        $this->streamSheet2();
+        $this->streamSheet1();
+        $this->streamSheet3();
+        $this->streamSheet4();
+        $this->streamSheet5();
+
         $this->streamData[4]['workSum1'] = $this->streamData[3]['eduWorkSum'];
         $this->streamData[4]['workSum2'] = $this->streamData[3]['eduMetWorkSum'];
         $this->streamData[4]['workSum3'] = $this->streamData[4]['sciWorkSum'];
@@ -207,16 +259,6 @@ class IPExcelFileReader extends IPExcelFileStreamer
         $this->streamData[4]['sum'] =
             $this->streamData[3]['eduWorkSum'] + $this->streamData[3]['eduMetWorkSum'] +
             $this->streamData[4]['sciWorkSum'] + $this->streamData[4]['orgWorkSum'];
-
-    }
-
-    public function getResult()
-    {
-        $this->streamSheet1();
-        $this->streamSheet2();
-        $this->streamSheet3();
-        $this->streamSheet4();
-        $this->streamSheet5();
 
         return $this->streamData;
     }

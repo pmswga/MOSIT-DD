@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
+use PhpOffice\PhpSpreadsheet\Exception;
 
 
 class IPResourceController extends Controller
@@ -99,7 +100,14 @@ class IPResourceController extends Controller
                 str_replace('/', '\\' , storage_path() . '/app/' . EmployeeFileModel::all()->where('idEmployeeFile', '=', $file)->first()->path)
                 );
 
-            $ipFile = $ipFile->getResult();
+            try
+            {
+                $ipFile = $ipFile->getResult();
+            } catch (Exception $e) {
+                Session::flash('errorMessage', 'Произошла ошибка при добавлении');
+                return back();
+            }
+
 
             $idTeacher = DB::table('employees as e')
                 ->select('t.idTeacher')
@@ -123,7 +131,7 @@ class IPResourceController extends Controller
             return back();
         }
 
-        Session::flash('errorMessage', 'ИП успешно добавлен');
+        Session::flash('errorMessage', 'Произошла ошибка при добавлении');
         return back();
     }
 

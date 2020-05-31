@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['accountmodel_547',['AccountModel',['../class_app_1_1_account_model.html',1,'App']]],
   ['accountpagecontroller_548',['AccountPageController',['../class_app_1_1_http_1_1_controllers_1_1_service_1_1_accounts_1_1_account_page_controller.html',1,'App::Http::Controllers::Service::Accounts']]],
   ['accountresourcecontroller_549',['AccountResourceController',['../class_app_1_1_http_1_1_controllers_1_1_service_1_1_accounts_1_1_account_resource_controller.html',1,'App::Http::Controllers::Service::Accounts']]],
   ['accountrightsmodel_550',['AccountRightsModel',['../class_app_1_1_models_1_1_service_1_1_accounts_1_1_account_rights_model.html',1,'App::Models::Service::Accounts']]],

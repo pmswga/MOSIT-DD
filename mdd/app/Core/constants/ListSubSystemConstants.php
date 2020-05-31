@@ -4,8 +4,8 @@ namespace App\Core\Constants;
 
 /**
  * @class ListSubSystemConstants
- * @brief Содержит список констант идентификаторов подсистем
- * Далее используется в классах ListSubSystemSeeder
+ * @brief Содержит список констант идентификаторов подсистем.
+ * Далее используется в классе ListSubSystemSeeder
  *
  * @package App\Core\Constants
  */

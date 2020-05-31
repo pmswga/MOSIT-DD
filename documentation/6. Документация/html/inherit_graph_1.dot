@@ -1,0 +1,48 @@
+digraph "Иерархия классов. Графический вид."
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node54 [label="Seeder",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled",tooltip=" "];
+  Node54 -> Node0 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node0 [label="AccountRightsSeeder",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_account_rights_seeder.html",tooltip=" "];
+  Node54 -> Node56 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node56 [label="AccountsSeeder",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_accounts_seeder.html",tooltip=" "];
+  Node54 -> Node57 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node57 [label="DatabaseSeeder",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_database_seeder.html",tooltip=" "];
+  Node54 -> Node58 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node58 [label="EmployeeHierarchySeeder",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_employee_hierarchy_seeder.html",tooltip=" "];
+  Node54 -> Node59 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node59 [label="EmployeesSeeder",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_employees_seeder.html",tooltip=" "];
+  Node54 -> Node60 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node60 [label="ListAcademicTitleSeeder",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_list_academic_title_seeder.html",tooltip=" "];
+  Node54 -> Node61 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node61 [label="ListAccountTypeSeeder",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_list_account_type_seeder.html",tooltip=" "];
+  Node54 -> Node62 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node62 [label="ListDegreeSeeder",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_list_degree_seeder.html",tooltip=" "];
+  Node54 -> Node63 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node63 [label="ListEmployeePostSeeder",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_list_employee_post_seeder.html",tooltip=" "];
+  Node54 -> Node64 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node64 [label="ListFacultySeeder",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_list_faculty_seeder.html",tooltip=" "];
+  Node54 -> Node65 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node65 [label="ListInstituteSeeder",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_list_institute_seeder.html",tooltip=" "];
+  Node54 -> Node66 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node66 [label="ListRateTypeSeeder",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_list_rate_type_seeder.html",tooltip=" "];
+  Node54 -> Node67 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node67 [label="ListScienceTypeSeeder",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_list_science_type_seeder.html",tooltip=" "];
+  Node54 -> Node68 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node68 [label="ListSubSystemSeeder",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_list_sub_system_seeder.html",tooltip=" "];
+  Node54 -> Node69 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node69 [label="ListSystemSectionSeeder",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_list_system_section_seeder.html",tooltip=" "];
+  Node54 -> Node70 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node70 [label="ListTeacherPostSeeder",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_list_teacher_post_seeder.html",tooltip=" "];
+  Node54 -> Node71 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node71 [label="ListTicketHistoryTypeSeeder",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_list_ticket_history_type_seeder.html",tooltip=" "];
+  Node54 -> Node72 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node72 [label="ListTicketStatusSeeder",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_list_ticket_status_seeder.html",tooltip=" "];
+  Node54 -> Node73 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node73 [label="ListTicketTypeSeeder",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_list_ticket_type_seeder.html",tooltip=" "];
+  Node54 -> Node74 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node74 [label="TeachersSeeder",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_teachers_seeder.html",tooltip=" "];
+}

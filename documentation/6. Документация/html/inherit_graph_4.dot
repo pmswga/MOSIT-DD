@@ -1,0 +1,38 @@
+digraph "Иерархия классов. Графический вид."
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node28 [label="BaseController",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled",tooltip=" "];
+  Node28 -> Node0 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node0 [label="Controller",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_app_1_1_http_1_1_controllers_1_1_controller.html",tooltip=" "];
+  Node0 -> Node1 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node1 [label="ConfirmPasswordController",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_app_1_1_http_1_1_controllers_1_1_auth_1_1_confirm_password_controller.html",tooltip=" "];
+  Node0 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="ForgotPasswordController",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_app_1_1_http_1_1_controllers_1_1_auth_1_1_forgot_password_controller.html",tooltip=" "];
+  Node0 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="LoginController",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_app_1_1_http_1_1_controllers_1_1_auth_1_1_login_controller.html",tooltip=" "];
+  Node0 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="RegisterController",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_app_1_1_http_1_1_controllers_1_1_auth_1_1_register_controller.html",tooltip=" "];
+  Node0 -> Node5 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="ResetPasswordController",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_app_1_1_http_1_1_controllers_1_1_auth_1_1_reset_password_controller.html",tooltip=" "];
+  Node0 -> Node6 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 [label="VerificationController",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_app_1_1_http_1_1_controllers_1_1_auth_1_1_verification_controller.html",tooltip=" "];
+  Node0 -> Node7 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node7 [label="EmployeeResourceController",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_app_1_1_http_1_1_controllers_1_1_main_1_1_employees_1_1_employee_resource_controller.html",tooltip=" "];
+  Node0 -> Node8 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node8 [label="IPResourceController",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_app_1_1_http_1_1_controllers_1_1_main_1_1_i_p_1_1_i_p_resource_controller.html",tooltip=" "];
+  Node0 -> Node9 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node9 [label="EmployeeFileResourceController",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_app_1_1_http_1_1_controllers_1_1_main_1_1_storage_1_1_employee_file_resource_controller.html",tooltip=" "];
+  Node0 -> Node10 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node10 [label="EmployeeFileTagResourceController",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_app_1_1_http_1_1_controllers_1_1_main_1_1_storage_1_1_employee_file_tag_resource_controller.html",tooltip=" "];
+  Node0 -> Node11 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node11 [label="TicketResourceController",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_app_1_1_http_1_1_controllers_1_1_main_1_1_tickets_1_1_ticket_resource_controller.html",tooltip=" "];
+  Node0 -> Node12 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node12 [label="MainPageController",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_app_1_1_http_1_1_controllers_1_1_main_page_controller.html",tooltip=" "];
+  Node0 -> Node13 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node13 [label="AccountPageController",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_app_1_1_http_1_1_controllers_1_1_service_1_1_accounts_1_1_account_page_controller.html",tooltip=" "];
+  Node0 -> Node14 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node14 [label="AccountResourceController",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_app_1_1_http_1_1_controllers_1_1_service_1_1_accounts_1_1_account_resource_controller.html",tooltip=" "];
+}
