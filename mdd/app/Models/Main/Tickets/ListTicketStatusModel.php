@@ -4,7 +4,7 @@ namespace App\Models\Service\Lists;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ListTicketStatus extends Model
+class ListTicketStatusModel extends Model
 {
     protected $table = 'list_ticket_status';
     protected $primaryKey = 'idTicketStatus';

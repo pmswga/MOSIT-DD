@@ -2,8 +2,8 @@
 
 namespace App\Models\Main\Tickets;
 
-use App\Models\Main\Employees\EmployeeModel;
-use App\Models\Service\Lists\ListTicketStatus;
+use App\Models\Main\Staff\EmployeeModel;
+use App\Models\Service\Lists\ListTicketStatusModel;
 use App\Models\Service\Lists\ListTicketTypeModel;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
@@ -25,7 +25,7 @@ class TicketModel extends Model
     }
 
     public function getResponsibleEmployees () {
-        $responsibleEmployeeList = $this->hasOne(TicketEmployeeModel::class, 'idTicket', 'idTicket')->get();
+        $responsibleEmployeeList = $this->hasOne(EmployeeTicketModel::class, 'idTicket', 'idTicket')->get();
 
         $employees = [];
         foreach ($responsibleEmployeeList as $responsibleEmployee) {
@@ -44,7 +44,7 @@ class TicketModel extends Model
     }
 
     public function getTicketStatus() {
-        return $this->hasOne(ListTicketStatus::class, 'idTicketStatus', 'idTicketStatus')->get()->first()->getCaption();
+        return $this->hasOne(ListTicketStatusModel::class, 'idTicketStatus', 'idTicketStatus')->get()->first()->getCaption();
     }
 
     public function getStartDate() {

@@ -39,7 +39,7 @@ class AccountResourceController extends Controller
                             ->select('a.idAccount', 'e.idEmployee', 'e.secondName', 'e.firstName', 'e.patronymic')
                             ->rightJoin('employees as e', 'e.idEmployee', '=', 'a.idEmployee')
                             ->whereNull('a.idAccount')->get(),
-            "accountTypes" => \App\Models\Service\Accounts\AccountType::all()
+            "accountTypes" => \App\Models\Service\Accounts\ListAccountTypeModel::all()
         ]);
     }
 

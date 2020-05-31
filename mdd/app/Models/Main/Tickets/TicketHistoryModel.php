@@ -2,7 +2,7 @@
 
 namespace App\Models\Main\Tickets;
 
-use App\Models\Main\Employees\EmployeeModel;
+use App\Models\Main\Staff\EmployeeModel;
 use App\Models\Service\Lists\ListTicketHistoryTypeModel;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;

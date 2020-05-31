@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Main\Employees;
 
 use App\Http\Controllers\Controller;
-use App\Models\Main\Employees\EmployeeModel;
+use App\Models\Main\Staff\EmployeeModel;
 use Illuminate\Http\Request;
 
 class EmployeeResourceController extends Controller
@@ -44,7 +44,7 @@ class EmployeeResourceController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Main\Employees\EmployeeModel  $employeeModel
+     * @param  \App\Models\Main\Staff\EmployeeModel  $employeeModel
      * @return \Illuminate\Http\Response
      */
     public function show(EmployeeModel $employeeModel)
@@ -55,7 +55,7 @@ class EmployeeResourceController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Main\Employees\EmployeeModel  $employeeModel
+     * @param  \App\Models\Main\Staff\EmployeeModel  $employeeModel
      * @return \Illuminate\Http\Response
      */
     public function edit(EmployeeModel $employeeModel)
@@ -67,7 +67,7 @@ class EmployeeResourceController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Main\Employees\EmployeeModel  $employeeModel
+     * @param  \App\Models\Main\Staff\EmployeeModel  $employeeModel
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, EmployeeModel $employeeModel)
@@ -78,7 +78,7 @@ class EmployeeResourceController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Main\Employees\EmployeeModel  $employeeModel
+     * @param  \App\Models\Main\Staff\EmployeeModel  $employeeModel
      * @return \Illuminate\Http\Response
      */
     public function destroy(EmployeeModel $employeeModel)

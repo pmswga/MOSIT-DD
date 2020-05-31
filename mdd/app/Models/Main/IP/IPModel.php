@@ -2,13 +2,13 @@
 
 namespace App\Models\Main\IP;
 
-use App\Models\Main\Employees\EmployeeModel;
-use App\Models\Main\Employees\Teacher;
+use App\Models\Main\Staff\EmployeeModel;
+use App\Models\Main\Staff\TeacherModel;
 use App\Models\Main\Storage\EmployeeFileModel;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 
-class IP extends Model
+class IPModel extends Model
 {
     protected $table = 'ips';
     protected $primaryKey = 'idIP';
@@ -29,7 +29,7 @@ class IP extends Model
     }
 
     public function getTeacherInitials() {
-        $teacher = $this->hasOne(Teacher::class, 'idTeacher', 'idTeacher')
+        $teacher = $this->hasOne(TeacherModel::class, 'idTeacher', 'idTeacher')
                 ->where('idTeacher', '=', $this->idTeacher)->get()->first();
 
         if ($teacher) {

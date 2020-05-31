@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Models\Main\IP\IP;
+use App\Models\Main\IP\IPModel;
 use App\Models\Main\Storage\EmployeeFileModel;
 use App\Policies\IPPolicy;
 use App\Policies\main\storage\EmployeeFilePolicy;
@@ -17,7 +17,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        IP::class => IPPolicy::class,
+        IPModel::class => IPPolicy::class,
         EmployeeFileModel::class => EmployeeFilePolicy::class
     ];
 

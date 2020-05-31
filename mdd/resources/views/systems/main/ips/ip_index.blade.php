@@ -7,7 +7,7 @@
 
     <fieldset class="ui segment">
         <legend><h3>Панель инструментов</h3></legend>
-        @can('create', \App\Models\Main\IP\IP::class)
+        @can('create', \App\Models\Main\IP\IPModel::class)
             @include('systems.main.ips.components.ip_add')
         @endcan
     </fieldset>
@@ -45,7 +45,7 @@
                             {{ date_format(date_create($ip->lastUpdate), 'd.m.Y / H:i') }}
                         </td>
                         <td>
-                            {{ \App\Models\Main\Employees\EmployeeModel::find($ip->lastEmployee)->getFullInitials()  }}
+                            {{ \App\Models\Main\Staff\EmployeeModel::find($ip->lastEmployee)->getFullInitials()  }}
                         </td>
                         <td colspan="2" style="text-align: center">
                             <div class="ui  basic icon buttons">

@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Main\IP;
 use App\Core\Systems\Main\IPS\IPExcelFile;
 use App\Core\systems\main\ips\IPExcelFileReader;
 use App\Http\Controllers\Controller;
-use App\Models\Main\IP\IP;
+use App\Models\Main\IP\IPModel;
 use App\Models\Main\Storage\EmployeeFileModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -20,13 +20,13 @@ class IPResourceController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->authorizeResource(IP::class, 'ip');
+        $this->authorizeResource(IPModel::class, 'ip');
     }
 
 
     public function downloadIP($ip)
     {
-        $ip = IP::find($ip);
+        $ip = IPModel::find($ip);
 
         if (!empty($ip)) {
             return Storage::download($ip->file, 'ИП.xlsx');
@@ -47,7 +47,7 @@ class IPResourceController extends Controller
         {
             case 1:
             {
-                $ips = IP::all()->where('idTeacher', '=', Auth::user()->getEmployee()->getTeacher()->idTeacher);
+                $ips = IPModel::all()->where('idTeacher', '=', Auth::user()->getEmployee()->getTeacher()->idTeacher);
 
                 return view('systems.main.ips.ip_index', [
                     'ips' => $ips
@@ -55,7 +55,7 @@ class IPResourceController extends Controller
             } break;
             case 2:
             {
-                $ips = IP::all();
+                $ips = IPModel::all();
 
                 $files = DB::table('ips')
                     ->select('ips.idIP', 'ef.idEmployeeFile', 'ef.filename')
@@ -109,7 +109,7 @@ class IPResourceController extends Controller
                 ->where('e.patronymic', '=', $ipFile[0]['patronymic'])
                 ->get()->first()->idTeacher;
 
-            $ip = new IP();
+            $ip = new IPModel();
             $ip->idEmployeeFile = $file;
             $ip->idTeacher = $idTeacher;
             $ip->educationYear = $ipFile[0]['educationYear'];
@@ -130,10 +130,10 @@ class IPResourceController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Main\IP\IP  $iP
+     * @param  \App\Models\Main\IP\IPModel  $iP
      * @return \Illuminate\Http\Response
      */
-    public function show(IP $iP)
+    public function show(IPModel $iP)
     {
         //
     }
@@ -141,10 +141,10 @@ class IPResourceController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Main\IP\IP  $iP
+     * @param  \App\Models\Main\IP\IPModel  $iP
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function edit(IP $ip)
+    public function edit(IPModel $ip)
     {
         $ipExcelFileStreamer = new IPExcelFileReader($ip->getFullFilePath());
 
@@ -176,10 +176,10 @@ class IPResourceController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Main\IP\IP  $iP
+     * @param  \App\Models\Main\IP\IPModel  $iP
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, IP $ip)
+    public function update(Request $request, IPModel $ip)
     {
         date_default_timezone_set('Europe/Moscow');
         $ip->lastEmployee = Auth::user()->idEmployee;
@@ -196,10 +196,10 @@ class IPResourceController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Main\IP\IP  $iP
+     * @param  \App\Models\Main\IP\IPModel  $iP
      * @return \Illuminate\Http\Response
      */
-    public function destroy(IP $ip)
+    public function destroy(IPModel $ip)
     {
         if ($ip->delete()) {
             Session::flash('successMessage', 'ИП больше не отслеживается');

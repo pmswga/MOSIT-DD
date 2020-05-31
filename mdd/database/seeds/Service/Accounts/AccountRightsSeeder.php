@@ -3,7 +3,7 @@
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class AccountsRightsSeeder extends Seeder
+class AccountRightsSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -48,6 +48,6 @@ class AccountsRightsSeeder extends Seeder
             'isDelete' => True
         ];
 
-        DB::table('accounts_rights')->insert($accountRights);
+        DB::table('account_rights')->insert($accountRights);
     }
 }

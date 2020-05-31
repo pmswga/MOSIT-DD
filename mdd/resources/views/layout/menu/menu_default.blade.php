@@ -23,7 +23,7 @@
             {{ Auth::user()->getEmployee()->getFullInitials() }}
         </div>
 
-        @if(\Illuminate\Support\Facades\Auth::user()->getAccountRightsBy(\App\Core\Constants\ListSubSystem::Tickets))
+        @if(\Illuminate\Support\Facades\Auth::user()->getAccountRightsOn(\App\Core\Constants\ListSubSystem::Tickets)->isAccess())
             <div class="item">
                 <b>Поручения</b>
                 <div class="menu">
@@ -43,7 +43,7 @@
             </div>
         @endif
 
-        @if(\Illuminate\Support\Facades\Auth::user()->getAccountRightsBy(\App\Core\Constants\ListSubSystem::Tickets))
+        @if(\Illuminate\Support\Facades\Auth::user()->getAccountRightsOn(\App\Core\Constants\ListSubSystem::Tickets)->isAccess())
             <div class="item">
                 <b>Мои файлы</b>
                 <div class="menu">
@@ -58,7 +58,6 @@
             </div>
         @endif
 
-
         @php $rights = \Illuminate\Support\Facades\Auth::user()->getAccountRights() @endphp
         @if($rights)
             @foreach($rights as $section => $menu)
@@ -66,8 +65,8 @@
                     <b>{{ $section }}</b>
                     <div class="menu">
                         @foreach($menu as $menuItem)
-                            @if (\Route::has($menuItem->route))
-                                <a class="item" href={{ route($menuItem->route) }}>{{ $menuItem->caption }}</a>
+                            @if (\Route::has($menuItem->getSubSystem()->getRoute()))
+                                <a class="item" href={{ route($menuItem->getSubSystem()->getRoute()) }}>{{ $menuItem->getSubSystem()->getCaption() }}</a>
                             @endif
                         @endforeach
                     </div>

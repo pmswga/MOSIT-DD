@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Main\Tickets;
 use App\Core\Constants\ListTicketHistoryTypeConstants;
 use App\Core\Constants\ListTicketStatusConstants;
 use App\Http\Controllers\Controller;
-use App\Models\Main\Tickets\TicketEmployeeModel;
+use App\Models\Main\Tickets\EmployeeTicketModel;
 use App\Models\Main\Tickets\TicketFileModel;
 use App\Models\Main\Tickets\TicketHistoryModel;
 use App\Models\Main\Tickets\TicketModel;
@@ -97,7 +97,7 @@ class TicketResourceController extends Controller
             $ticketHistory->save();
 
             foreach ($request->ticketEmployees as $employee) {
-                $ticketEmployee = new TicketEmployeeModel();
+                $ticketEmployee = new EmployeeTicketModel();
                 $ticketEmployee->idEmployee = $employee;
                 $ticketEmployee->idTicket = $ticket->idTicket;
                 $result *= $ticketEmployee->save();
@@ -149,7 +149,7 @@ class TicketResourceController extends Controller
      */
     public function show(TicketModel $ticket)
     {
-        $employeeTicket = $ticket->hasOne(TicketEmployeeModel::class, 'idTicket', 'idTicket')
+        $employeeTicket = $ticket->hasOne(EmployeeTicketModel::class, 'idTicket', 'idTicket')
             ->where('idEmployee', '=', Auth::user()->getEmployee()->idEmployee)
             ->get()->first();
 

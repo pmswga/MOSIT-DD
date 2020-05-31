@@ -2,7 +2,7 @@
 
 namespace App\Policies;
 
-use App\Models\Main\IP\IP;
+use App\Models\Main\IP\IPModel;
 use App\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Auth\Access\Response;
@@ -19,7 +19,7 @@ class IPPolicy
      */
     public function viewAny(User $user)
     {
-        return $user->getAccountRightsBy(\App\Core\Constants\ListSubSystem::IPS)->isViewAny
+        return $user->getAccountRightsOn(\App\Core\Constants\ListSubSystem::IPS)->isViewAny
             ? Response::allow()
             : Response::deny('Недостаточно прав');
     }
@@ -31,9 +31,9 @@ class IPPolicy
      * @param  \App\IP  $iP
      * @return mixed
      */
-    public function view(User $user, IP $iP)
+    public function view(User $user, IPModel $iP)
     {
-        return $user->getAccountRightsBy(\App\Core\Constants\ListSubSystem::IPS)->isView;
+        return $user->getAccountRightsOn(\App\Core\Constants\ListSubSystem::IPS)->isView;
     }
 
     /**
@@ -44,7 +44,7 @@ class IPPolicy
      */
     public function create(User $user)
     {
-        return $user->getAccountRightsBy(\App\Core\Constants\ListSubSystem::IPS)->isCreate;
+        return $user->getAccountRightsOn(\App\Core\Constants\ListSubSystem::IPS)->isCreate;
     }
 
     /**
@@ -54,9 +54,9 @@ class IPPolicy
      * @param  \App\IP  $iP
      * @return mixed
      */
-    public function update(User $user, IP $iP)
+    public function update(User $user, IPModel $iP)
     {
-        return $user->getAccountRightsBy(\App\Core\Constants\ListSubSystem::IPS)->isUpdate
+        return $user->getAccountRightsOn(\App\Core\Constants\ListSubSystem::IPS)->isUpdate
             ? Response::allow()
             : Response::deny('Недостаточно прав');
     }
@@ -68,9 +68,9 @@ class IPPolicy
      * @param  \App\IP  $iP
      * @return mixed
      */
-    public function delete(User $user, IP $iP)
+    public function delete(User $user, IPModel $iP)
     {
-        return $user->getAccountRightsBy(\App\Core\Constants\ListSubSystem::IPS)->isDelete;
+        return $user->getAccountRightsOn(\App\Core\Constants\ListSubSystem::IPS)->isDelete;
     }
 
     /**
@@ -80,7 +80,7 @@ class IPPolicy
      * @param  \App\IP  $iP
      * @return mixed
      */
-    public function restore(User $user, IP $iP)
+    public function restore(User $user, IPModel $iP)
     {
         return true;
 
@@ -93,7 +93,7 @@ class IPPolicy
      * @param  \App\IP  $iP
      * @return mixed
      */
-    public function forceDelete(User $user, IP $iP)
+    public function forceDelete(User $user, IPModel $iP)
     {
         return true;
     }

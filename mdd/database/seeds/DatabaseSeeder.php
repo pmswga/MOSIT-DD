@@ -37,7 +37,7 @@ class DatabaseSeeder extends Seeder
             TeachersSeeder::class,
 
             AccountsSeeder::class,
-            AccountsRightsSeeder::class
+            AccountRightsSeeder::class
         ]);
     }
 }
