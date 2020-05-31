@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Service\Accounts;
 
 use App\Http\Controllers\Controller;
-use App\User;
+use App\AccountModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -23,7 +23,7 @@ class AccountResourceController extends Controller
     public function index()
     {
         return view ('systems.service.accounts.account_index', [
-            'accounts' => User::all()
+            'accounts' => AccountModel::all()
         ]);
     }
 
@@ -59,7 +59,7 @@ class AccountResourceController extends Controller
         ]);
 
         if (!$validator->fails()) {
-            $user = new User();
+            $user = new AccountModel();
             $user->idAccountType = $data['accountType'];
             $user->idEmployee = $data['employeeId'];
             $user->email = $data['email'];
@@ -78,10 +78,10 @@ class AccountResourceController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\User  $user
+     * @param  \App\AccountModel  $user
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
+    public function show(AccountModel $user)
     {
         //
     }
@@ -89,10 +89,10 @@ class AccountResourceController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\User  $user
+     * @param  \App\AccountModel  $user
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $user)
+    public function edit(AccountModel $user)
     {
         //
     }
@@ -101,10 +101,10 @@ class AccountResourceController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\User  $user
+     * @param  \App\AccountModel  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request, AccountModel $user)
     {
         //
     }
@@ -112,10 +112,10 @@ class AccountResourceController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\User  $user
+     * @param  \App\AccountModel  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy(AccountModel $user)
     {
         //
     }

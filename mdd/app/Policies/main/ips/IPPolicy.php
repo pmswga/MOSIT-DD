@@ -3,7 +3,7 @@
 namespace App\Policies;
 
 use App\Models\Main\IP\IPModel;
-use App\User;
+use App\AccountModel;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Auth\Access\Response;
 
@@ -14,10 +14,10 @@ class IPPolicy
     /**
      * Determine whether the user can view any i p s.
      *
-     * @param  \App\User  $user
+     * @param  \App\AccountModel  $user
      * @return mixed
      */
-    public function viewAny(User $user)
+    public function viewAny(AccountModel $user)
     {
         return $user->getAccountRightsOn(\App\Core\Constants\ListSubSystem::IPS)->isViewAny
             ? Response::allow()
@@ -27,11 +27,11 @@ class IPPolicy
     /**
      * Determine whether the user can view the i p.
      *
-     * @param  \App\User  $user
+     * @param  \App\AccountModel  $user
      * @param  \App\IP  $iP
      * @return mixed
      */
-    public function view(User $user, IPModel $iP)
+    public function view(AccountModel $user, IPModel $iP)
     {
         return $user->getAccountRightsOn(\App\Core\Constants\ListSubSystem::IPS)->isView;
     }
@@ -39,10 +39,10 @@ class IPPolicy
     /**
      * Determine whether the user can create i p s.
      *
-     * @param  \App\User  $user
+     * @param  \App\AccountModel  $user
      * @return mixed
      */
-    public function create(User $user)
+    public function create(AccountModel $user)
     {
         return $user->getAccountRightsOn(\App\Core\Constants\ListSubSystem::IPS)->isCreate;
     }
@@ -50,11 +50,11 @@ class IPPolicy
     /**
      * Determine whether the user can update the i p.
      *
-     * @param  \App\User  $user
+     * @param  \App\AccountModel  $user
      * @param  \App\IP  $iP
      * @return mixed
      */
-    public function update(User $user, IPModel $iP)
+    public function update(AccountModel $user, IPModel $iP)
     {
         return $user->getAccountRightsOn(\App\Core\Constants\ListSubSystem::IPS)->isUpdate
             ? Response::allow()
@@ -64,11 +64,11 @@ class IPPolicy
     /**
      * Determine whether the user can delete the i p.
      *
-     * @param  \App\User  $user
+     * @param  \App\AccountModel  $user
      * @param  \App\IP  $iP
      * @return mixed
      */
-    public function delete(User $user, IPModel $iP)
+    public function delete(AccountModel $user, IPModel $iP)
     {
         return $user->getAccountRightsOn(\App\Core\Constants\ListSubSystem::IPS)->isDelete;
     }
@@ -76,11 +76,11 @@ class IPPolicy
     /**
      * Determine whether the user can restore the i p.
      *
-     * @param  \App\User  $user
+     * @param  \App\AccountModel  $user
      * @param  \App\IP  $iP
      * @return mixed
      */
-    public function restore(User $user, IPModel $iP)
+    public function restore(AccountModel $user, IPModel $iP)
     {
         return true;
 
@@ -89,11 +89,11 @@ class IPPolicy
     /**
      * Determine whether the user can permanently delete the i p.
      *
-     * @param  \App\User  $user
+     * @param  \App\AccountModel  $user
      * @param  \App\IP  $iP
      * @return mixed
      */
-    public function forceDelete(User $user, IPModel $iP)
+    public function forceDelete(AccountModel $user, IPModel $iP)
     {
         return true;
     }

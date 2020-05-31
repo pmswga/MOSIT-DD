@@ -12,7 +12,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\DB;
 
-class User extends Authenticatable
+class AccountModel extends Authenticatable
 {
     use Notifiable;
 
@@ -55,7 +55,7 @@ class User extends Authenticatable
     }
 
     public function getAccountType() {
-        return $this->hasOne('App\Models\Service\Accounts\ListAccountTypeModel', 'idAccountType', 'idAccountType')->first()["caption"];
+        return $this->hasOne('App\Models\Service\Accounts\ListAccountTypeModel', 'idAccountType', 'idAccountType')->first();
     }
 
     public function getIdAccountType() {

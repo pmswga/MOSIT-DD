@@ -8,7 +8,7 @@
         <div class="ui three statistics">
             <div class="statistic">
                 <div class="value">
-                    {{ \App\User::all()->count() }}
+                    {{ \App\AccountModel::all()->count() }}
                 </div>
                 <div class="label">
                     Всего
@@ -16,7 +16,7 @@
             </div>
             <div class="statistic">
                 <div class="value">
-                    {{ \App\User::all()->where('idAccountType', '=', \App\Core\Constants\ListAccountType::TEACHER)->count() }}
+                    {{ \App\AccountModel::all()->where('idAccountType', '=', \App\Core\Constants\ListAccountType::TEACHER)->count() }}
                 </div>
                 <div class="label">
                     Преподавателей
@@ -24,7 +24,7 @@
             </div>
             <div class="statistic">
                 <div class="value">
-                    {{ \App\User::all()->where('idAccountType', '=', \App\Core\Constants\ListAccountType::METHODIST)->count() }}
+                    {{ \App\AccountModel::all()->where('idAccountType', '=', \App\Core\Constants\ListAccountType::METHODIST)->count() }}
                 </div>
                 <div class="label">
                     Методисты

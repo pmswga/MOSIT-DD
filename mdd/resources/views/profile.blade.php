@@ -15,7 +15,7 @@
                 </tr>
                 <tr>
                     <td>Тип аккаунта</td>
-                    <td>{{ Auth::user()->getAccountType() }}</td>
+                    <td>{{ Auth::user()->getAccountType()->getCaption() }}</td>
                 </tr>
             </tbody>
         </table>

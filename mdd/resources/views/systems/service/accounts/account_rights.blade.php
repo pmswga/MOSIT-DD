@@ -10,7 +10,7 @@
                 <div class="field">
                     <label>Пользователь</label>
                     <select multiple>
-                        @foreach(\App\User::all() as $user)
+                        @foreach(\App\AccountModel::all() as $user)
                             <option>{{$user->email}}</option>
                         @endforeach
                     </select>

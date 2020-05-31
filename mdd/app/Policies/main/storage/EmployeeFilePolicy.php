@@ -3,7 +3,7 @@
 namespace App\Policies\main\storage;
 
 use App\Models\Main\Storage\EmployeeFileModel;
-use App\User;
+use App\AccountModel;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Auth\Access\Response;
 
@@ -14,10 +14,10 @@ class EmployeeFilePolicy
     /**
      * Determine whether the user can view any employee file models.
      *
-     * @param  \App\User  $user
+     * @param  \App\AccountModel  $user
      * @return mixed
      */
-    public function viewAny(User $user)
+    public function viewAny(AccountModel $user)
     {
         return $user->getAccountRightsOn(\App\Core\Constants\ListSubSystem::Storage)->isViewAny
             ? Response::allow()
@@ -27,11 +27,11 @@ class EmployeeFilePolicy
     /**
      * Determine whether the user can view the employee file model.
      *
-     * @param  \App\User  $user
+     * @param  \App\AccountModel  $user
      * @param  \App\Models\Main\Storage\EmployeeFileModel  $employeeFileModel
      * @return mixed
      */
-    public function view(User $user, EmployeeFileModel $employeeFileModel)
+    public function view(AccountModel $user, EmployeeFileModel $employeeFileModel)
     {
         return $user->getAccountRightsOn(\App\Core\Constants\ListSubSystem::Storage)->isView;
     }
@@ -39,10 +39,10 @@ class EmployeeFilePolicy
     /**
      * Determine whether the user can create employee file models.
      *
-     * @param  \App\User  $user
+     * @param  \App\AccountModel  $user
      * @return mixed
      */
-    public function create(User $user)
+    public function create(AccountModel $user)
     {
         return $user->getAccountRightsOn(\App\Core\Constants\ListSubSystem::Storage)->isCreate;
     }
@@ -50,11 +50,11 @@ class EmployeeFilePolicy
     /**
      * Determine whether the user can update the employee file model.
      *
-     * @param  \App\User  $user
+     * @param  \App\AccountModel  $user
      * @param  \App\Models\Main\Storage\EmployeeFileModel  $employeeFileModel
      * @return mixed
      */
-    public function update(User $user, EmployeeFileModel $employeeFileModel)
+    public function update(AccountModel $user, EmployeeFileModel $employeeFileModel)
     {
         return $user->getAccountRightsOn(\App\Core\Constants\ListSubSystem::Storage)->isUpdate;
     }
@@ -62,11 +62,11 @@ class EmployeeFilePolicy
     /**
      * Determine whether the user can delete the employee file model.
      *
-     * @param  \App\User  $user
+     * @param  \App\AccountModel  $user
      * @param  \App\Models\Main\Storage\EmployeeFileModel  $employeeFileModel
      * @return mixed
      */
-    public function delete(User $user, EmployeeFileModel $employeeFileModel)
+    public function delete(AccountModel $user, EmployeeFileModel $employeeFileModel)
     {
         return $user->getAccountRightsOn(\App\Core\Constants\ListSubSystem::Storage)->isDelete;
     }
@@ -74,11 +74,11 @@ class EmployeeFilePolicy
     /**
      * Determine whether the user can restore the employee file model.
      *
-     * @param  \App\User  $user
+     * @param  \App\AccountModel  $user
      * @param  \App\Models\Main\Storage\EmployeeFileModel  $employeeFileModel
      * @return mixed
      */
-    public function restore(User $user, EmployeeFileModel $employeeFileModel)
+    public function restore(AccountModel $user, EmployeeFileModel $employeeFileModel)
     {
         //
     }
@@ -86,11 +86,11 @@ class EmployeeFilePolicy
     /**
      * Determine whether the user can permanently delete the employee file model.
      *
-     * @param  \App\User  $user
+     * @param  \App\AccountModel  $user
      * @param  \App\Models\Main\Storage\EmployeeFileModel  $employeeFileModel
      * @return mixed
      */
-    public function forceDelete(User $user, EmployeeFileModel $employeeFileModel)
+    public function forceDelete(AccountModel $user, EmployeeFileModel $employeeFileModel)
     {
         //
     }
