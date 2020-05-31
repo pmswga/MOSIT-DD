@@ -16,7 +16,7 @@
             </div>
             <div class="statistic">
                 <div class="value">
-                    {{ \App\AccountModel::all()->where('idAccountType', '=', \App\Core\Constants\ListAccountType::TEACHER)->count() }}
+                    {{ \App\AccountModel::all()->where('idAccountType', '=', \App\Core\Constants\ListAccountTypeConstants::TEACHER)->count() }}
                 </div>
                 <div class="label">
                     Преподавателей
@@ -24,7 +24,7 @@
             </div>
             <div class="statistic">
                 <div class="value">
-                    {{ \App\AccountModel::all()->where('idAccountType', '=', \App\Core\Constants\ListAccountType::METHODIST)->count() }}
+                    {{ \App\AccountModel::all()->where('idAccountType', '=', \App\Core\Constants\ListAccountTypeConstants::METHODIST)->count() }}
                 </div>
                 <div class="label">
                     Методисты

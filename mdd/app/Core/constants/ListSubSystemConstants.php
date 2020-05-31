@@ -3,13 +3,13 @@
 namespace App\Core\Constants;
 
 /**
- * @class ListSubSystem
+ * @class ListSubSystemConstants
  * @brief Содержит список констант идентификаторов подсистем
  * Далее используется в классах ListSubSystemSeeder
  *
  * @package App\Core\Constants
  */
-class ListSubSystem
+class ListSubSystemConstants
 {
     public const IPS = 1;       ///< Идентификатор подсистемы - Индивидуальные планы
     public const Storage = 2;   ///< Идентификатор подсистемы - Хранение материалов

@@ -19,7 +19,7 @@ class EmployeeFilePolicy
      */
     public function viewAny(AccountModel $user)
     {
-        return $user->getAccountRightsOn(\App\Core\Constants\ListSubSystem::Storage)->isViewAny
+        return $user->getAccountRightsOn(\App\Core\Constants\ListSubSystemConstants::Storage)->isViewAny
             ? Response::allow()
             : Response::deny('Недостаточно прав');
     }
@@ -33,7 +33,7 @@ class EmployeeFilePolicy
      */
     public function view(AccountModel $user, EmployeeFileModel $employeeFileModel)
     {
-        return $user->getAccountRightsOn(\App\Core\Constants\ListSubSystem::Storage)->isView;
+        return $user->getAccountRightsOn(\App\Core\Constants\ListSubSystemConstants::Storage)->isView;
     }
 
     /**
@@ -44,7 +44,7 @@ class EmployeeFilePolicy
      */
     public function create(AccountModel $user)
     {
-        return $user->getAccountRightsOn(\App\Core\Constants\ListSubSystem::Storage)->isCreate;
+        return $user->getAccountRightsOn(\App\Core\Constants\ListSubSystemConstants::Storage)->isCreate;
     }
 
     /**
@@ -56,7 +56,7 @@ class EmployeeFilePolicy
      */
     public function update(AccountModel $user, EmployeeFileModel $employeeFileModel)
     {
-        return $user->getAccountRightsOn(\App\Core\Constants\ListSubSystem::Storage)->isUpdate;
+        return $user->getAccountRightsOn(\App\Core\Constants\ListSubSystemConstants::Storage)->isUpdate;
     }
 
     /**
@@ -68,7 +68,7 @@ class EmployeeFilePolicy
      */
     public function delete(AccountModel $user, EmployeeFileModel $employeeFileModel)
     {
-        return $user->getAccountRightsOn(\App\Core\Constants\ListSubSystem::Storage)->isDelete;
+        return $user->getAccountRightsOn(\App\Core\Constants\ListSubSystemConstants::Storage)->isDelete;
     }
 
     /**

@@ -23,7 +23,7 @@
             {{ Auth::user()->getEmployee()->getFullInitials() }}
         </div>
 
-        @if(\Illuminate\Support\Facades\Auth::user()->getAccountRightsOn(\App\Core\Constants\ListSubSystem::Tickets)->isAccess())
+        @if(\Illuminate\Support\Facades\Auth::user()->getAccountRightsOn(\App\Core\Constants\ListSubSystemConstants::Tickets)->isAccess())
             <div class="item">
                 <b>Поручения</b>
                 <div class="menu">
@@ -43,7 +43,7 @@
             </div>
         @endif
 
-        @if(\Illuminate\Support\Facades\Auth::user()->getAccountRightsOn(\App\Core\Constants\ListSubSystem::Tickets)->isAccess())
+        @if(\Illuminate\Support\Facades\Auth::user()->getAccountRightsOn(\App\Core\Constants\ListSubSystemConstants::Tickets)->isAccess())
             <div class="item">
                 <b>Мои файлы</b>
                 <div class="menu">

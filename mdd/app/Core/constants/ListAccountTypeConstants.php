@@ -3,13 +3,13 @@
 namespace App\Core\Constants;
 
 /**
- * @class ListAccountType
+ * @class ListAccountTypeConstants
  * @brief Содержит список констант идентификаторов типов пользователей
  * Далее используется в классах ListAccountTypeSeeder
  *
  * @package App\Core\Constants
  */
-class ListAccountType
+class ListAccountTypeConstants
 {
     public const TEACHER = 1;             ///< Идентификатор типа пользователя - Преподаватель
     public const METHODIST = 2;           ///< Идентификатор типа пользователя - Методист

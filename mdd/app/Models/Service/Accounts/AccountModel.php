@@ -2,7 +2,7 @@
 
 namespace App;
 
-use App\Core\Constants\ListSubSystem;
+use App\Core\Constants\ListSubSystemConstants;
 use App\Models\Main\Staff\EmployeeModel;
 use App\Models\Service\Accounts\AccountRightsModel;
 use App\Models\Service\Accounts\ListAccountTypeModel;
@@ -66,8 +66,8 @@ class AccountModel extends Authenticatable
         $rights = $this->hasMany(AccountRightsModel::class, 'idAccount', 'idAccount')
             ->where('isAccess', '=', 1)
             ->whereNotIn('idSubSystem', [
-                ListSubSystem::Storage,
-                ListSubSystem::Tickets
+                ListSubSystemConstants::Storage,
+                ListSubSystemConstants::Tickets
             ])
             ->get();
 
