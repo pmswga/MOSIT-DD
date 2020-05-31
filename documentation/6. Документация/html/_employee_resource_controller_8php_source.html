@@ -1,0 +1,141 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.18"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>MOSIT Digital Department: Исходный файл app/Http/Controllers/Main/Employees/EmployeeResourceController.php</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="owl.png"/></td>
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">MOSIT Digital Department
+   &#160;<span id="projectnumber">1.0</span>
+   </div>
+   <div id="projectbrief">Лучшая система в мире</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Создано системой Doxygen 1.8.18 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'Поиск');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','Поиск');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_d422163b96683743ed3963d4aac17747.html">app</a></li><li class="navelem"><a class="el" href="dir_0c4ee04d587063ecca91a7f35642b9f3.html">Http</a></li><li class="navelem"><a class="el" href="dir_27ba1f74dc73f44d4e9ca42f2dd266ec.html">Controllers</a></li><li class="navelem"><a class="el" href="dir_893c3d43926b630e130970d12e8592df.html">Main</a></li><li class="navelem"><a class="el" href="dir_58eaaf606612283339c2822340059955.html">Employees</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle">
+<div class="title">EmployeeResourceController.php</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="_employee_resource_controller_8php.html">См. документацию.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;&lt;?php</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
+<div class="line"><a name="l00003"></a><span class="lineno"><a class="line" href="namespace_app_1_1_http_1_1_controllers_1_1_main_1_1_employees.html">    3</a></span>&#160;<span class="keyword">namespace </span><a class="code" href="namespace_app_1_1_http_1_1_controllers_1_1_main_1_1_employees.html">App\Http\Controllers\Main\Employees</a>;</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;use <a class="code" href="class_app_1_1_http_1_1_controllers_1_1_controller.html">App\Http\Controllers\Controller</a>;</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;use <a class="code" href="class_app_1_1_models_1_1_main_1_1_staff_1_1_employee_model.html">App\Models\Main\Staff\EmployeeModel</a>;</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;use Illuminate\Http\Request;</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
+<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="class_app_1_1_http_1_1_controllers_1_1_main_1_1_employees_1_1_employee_resource_controller.html">    9</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_app_1_1_http_1_1_controllers_1_1_main_1_1_employees_1_1_employee_resource_controller.html">EmployeeResourceController</a> <span class="keyword">extends</span> <a class="code" href="class_app_1_1_http_1_1_controllers_1_1_controller.html">Controller</a></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
+<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="class_app_1_1_http_1_1_controllers_1_1_main_1_1_employees_1_1_employee_resource_controller.html#a149eb92716c1084a935e04a8d95f7347">   16</a></span>&#160;    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="class_app_1_1_http_1_1_controllers_1_1_main_1_1_employees_1_1_employee_resource_controller.html#a149eb92716c1084a935e04a8d95f7347">index</a>()</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    {</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;        <span class="keywordflow">return</span> view(<span class="stringliteral">&#39;systems.main.employee.employees_index&#39;</span>, [</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;            <span class="stringliteral">&#39;employees&#39;</span> =&gt; EmployeeModel::all()-&gt;sortBy(<span class="stringliteral">&#39;secondName&#39;</span>)</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;        ]);</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    }</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
+<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="class_app_1_1_http_1_1_controllers_1_1_main_1_1_employees_1_1_employee_resource_controller.html#a435e7d7525d4bcd0ed5e34a469f3adf6">   28</a></span>&#160;    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="class_app_1_1_http_1_1_controllers_1_1_main_1_1_employees_1_1_employee_resource_controller.html#a435e7d7525d4bcd0ed5e34a469f3adf6">create</a>()</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    {</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        <span class="comment">//</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    }</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
+<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="class_app_1_1_http_1_1_controllers_1_1_main_1_1_employees_1_1_employee_resource_controller.html#a9ef485163104597c12185b53cdacf638">   39</a></span>&#160;    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="class_app_1_1_http_1_1_controllers_1_1_main_1_1_employees_1_1_employee_resource_controller.html#a9ef485163104597c12185b53cdacf638">store</a>(Request $request)</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    {</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        <span class="comment">//</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    }</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
+<div class="line"><a name="l00050"></a><span class="lineno"><a class="line" href="class_app_1_1_http_1_1_controllers_1_1_main_1_1_employees_1_1_employee_resource_controller.html#a8ba8b65ff78230fc5a145e972316c36c">   50</a></span>&#160;    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="class_app_1_1_http_1_1_controllers_1_1_main_1_1_employees_1_1_employee_resource_controller.html#a8ba8b65ff78230fc5a145e972316c36c">show</a>(<a class="code" href="class_app_1_1_models_1_1_main_1_1_staff_1_1_employee_model.html">EmployeeModel</a> $employeeModel)</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    {</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        <span class="comment">//</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    }</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
+<div class="line"><a name="l00061"></a><span class="lineno"><a class="line" href="class_app_1_1_http_1_1_controllers_1_1_main_1_1_employees_1_1_employee_resource_controller.html#a0f48035c63a8c1895f34166306bec3d3">   61</a></span>&#160;    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="class_app_1_1_http_1_1_controllers_1_1_main_1_1_employees_1_1_employee_resource_controller.html#a0f48035c63a8c1895f34166306bec3d3">edit</a>(<a class="code" href="class_app_1_1_models_1_1_main_1_1_staff_1_1_employee_model.html">EmployeeModel</a> $employeeModel)</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    {</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        <span class="comment">//</span></div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    }</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
+<div class="line"><a name="l00073"></a><span class="lineno"><a class="line" href="class_app_1_1_http_1_1_controllers_1_1_main_1_1_employees_1_1_employee_resource_controller.html#a9c8b2123ad62f84946dfce226ce15cbe">   73</a></span>&#160;    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="class_app_1_1_http_1_1_controllers_1_1_main_1_1_employees_1_1_employee_resource_controller.html#a9c8b2123ad62f84946dfce226ce15cbe">update</a>(Request $request, <a class="code" href="class_app_1_1_models_1_1_main_1_1_staff_1_1_employee_model.html">EmployeeModel</a> $employeeModel)</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    {</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        <span class="comment">//</span></div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    }</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
+<div class="line"><a name="l00084"></a><span class="lineno"><a class="line" href="class_app_1_1_http_1_1_controllers_1_1_main_1_1_employees_1_1_employee_resource_controller.html#a9e678cdd6d9499e235c3ff683006a9b8">   84</a></span>&#160;    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="class_app_1_1_http_1_1_controllers_1_1_main_1_1_employees_1_1_employee_resource_controller.html#a9e678cdd6d9499e235c3ff683006a9b8">destroy</a>(<a class="code" href="class_app_1_1_models_1_1_main_1_1_staff_1_1_employee_model.html">EmployeeModel</a> $employeeModel)</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    {</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        <span class="comment">//</span></div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    }</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;}</div>
+</div><!-- fragment --></div><!-- contents -->
+<div class="ttc" id="aclass_app_1_1_http_1_1_controllers_1_1_main_1_1_employees_1_1_employee_resource_controller_html_a9c8b2123ad62f84946dfce226ce15cbe"><div class="ttname"><a href="class_app_1_1_http_1_1_controllers_1_1_main_1_1_employees_1_1_employee_resource_controller.html#a9c8b2123ad62f84946dfce226ce15cbe">App\Http\Controllers\Main\Employees\EmployeeResourceController\update</a></div><div class="ttdeci">update(Request $request, EmployeeModel $employeeModel)</div><div class="ttdef"><b>Definition:</b> <a href="_employee_resource_controller_8php_source.html#l00073">EmployeeResourceController.php:73</a></div></div>
+<div class="ttc" id="anamespace_app_1_1_http_1_1_controllers_1_1_main_1_1_employees_html"><div class="ttname"><a href="namespace_app_1_1_http_1_1_controllers_1_1_main_1_1_employees.html">App\Http\Controllers\Main\Employees</a></div><div class="ttdef"><b>Definition:</b> <a href="_employee_resource_controller_8php_source.html#l00003">EmployeeResourceController.php:3</a></div></div>
+<div class="ttc" id="aclass_app_1_1_http_1_1_controllers_1_1_main_1_1_employees_1_1_employee_resource_controller_html_a435e7d7525d4bcd0ed5e34a469f3adf6"><div class="ttname"><a href="class_app_1_1_http_1_1_controllers_1_1_main_1_1_employees_1_1_employee_resource_controller.html#a435e7d7525d4bcd0ed5e34a469f3adf6">App\Http\Controllers\Main\Employees\EmployeeResourceController\create</a></div><div class="ttdeci">create()</div><div class="ttdef"><b>Definition:</b> <a href="_employee_resource_controller_8php_source.html#l00028">EmployeeResourceController.php:28</a></div></div>
+<div class="ttc" id="aclass_app_1_1_http_1_1_controllers_1_1_main_1_1_employees_1_1_employee_resource_controller_html_a149eb92716c1084a935e04a8d95f7347"><div class="ttname"><a href="class_app_1_1_http_1_1_controllers_1_1_main_1_1_employees_1_1_employee_resource_controller.html#a149eb92716c1084a935e04a8d95f7347">App\Http\Controllers\Main\Employees\EmployeeResourceController\index</a></div><div class="ttdeci">index()</div><div class="ttdef"><b>Definition:</b> <a href="_employee_resource_controller_8php_source.html#l00016">EmployeeResourceController.php:16</a></div></div>
+<div class="ttc" id="aclass_app_1_1_models_1_1_main_1_1_staff_1_1_employee_model_html"><div class="ttname"><a href="class_app_1_1_models_1_1_main_1_1_staff_1_1_employee_model.html">App\Models\Main\Staff\EmployeeModel</a></div><div class="ttdef"><b>Definition:</b> <a href="_employee_model_8php_source.html#l00013">EmployeeModel.php:14</a></div></div>
+<div class="ttc" id="aclass_app_1_1_http_1_1_controllers_1_1_main_1_1_employees_1_1_employee_resource_controller_html_a9ef485163104597c12185b53cdacf638"><div class="ttname"><a href="class_app_1_1_http_1_1_controllers_1_1_main_1_1_employees_1_1_employee_resource_controller.html#a9ef485163104597c12185b53cdacf638">App\Http\Controllers\Main\Employees\EmployeeResourceController\store</a></div><div class="ttdeci">store(Request $request)</div><div class="ttdef"><b>Definition:</b> <a href="_employee_resource_controller_8php_source.html#l00039">EmployeeResourceController.php:39</a></div></div>
+<div class="ttc" id="aclass_app_1_1_http_1_1_controllers_1_1_main_1_1_employees_1_1_employee_resource_controller_html_a0f48035c63a8c1895f34166306bec3d3"><div class="ttname"><a href="class_app_1_1_http_1_1_controllers_1_1_main_1_1_employees_1_1_employee_resource_controller.html#a0f48035c63a8c1895f34166306bec3d3">App\Http\Controllers\Main\Employees\EmployeeResourceController\edit</a></div><div class="ttdeci">edit(EmployeeModel $employeeModel)</div><div class="ttdef"><b>Definition:</b> <a href="_employee_resource_controller_8php_source.html#l00061">EmployeeResourceController.php:61</a></div></div>
+<div class="ttc" id="aclass_app_1_1_http_1_1_controllers_1_1_controller_html"><div class="ttname"><a href="class_app_1_1_http_1_1_controllers_1_1_controller.html">App\Http\Controllers\Controller</a></div><div class="ttdef"><b>Definition:</b> <a href="_controller_8php_source.html#l00010">Controller.php:11</a></div></div>
+<div class="ttc" id="aclass_app_1_1_http_1_1_controllers_1_1_main_1_1_employees_1_1_employee_resource_controller_html_a9e678cdd6d9499e235c3ff683006a9b8"><div class="ttname"><a href="class_app_1_1_http_1_1_controllers_1_1_main_1_1_employees_1_1_employee_resource_controller.html#a9e678cdd6d9499e235c3ff683006a9b8">App\Http\Controllers\Main\Employees\EmployeeResourceController\destroy</a></div><div class="ttdeci">destroy(EmployeeModel $employeeModel)</div><div class="ttdef"><b>Definition:</b> <a href="_employee_resource_controller_8php_source.html#l00084">EmployeeResourceController.php:84</a></div></div>
+<div class="ttc" id="aclass_app_1_1_http_1_1_controllers_1_1_main_1_1_employees_1_1_employee_resource_controller_html"><div class="ttname"><a href="class_app_1_1_http_1_1_controllers_1_1_main_1_1_employees_1_1_employee_resource_controller.html">App\Http\Controllers\Main\Employees\EmployeeResourceController</a></div><div class="ttdef"><b>Definition:</b> <a href="_employee_resource_controller_8php_source.html#l00009">EmployeeResourceController.php:10</a></div></div>
+<div class="ttc" id="aclass_app_1_1_http_1_1_controllers_1_1_main_1_1_employees_1_1_employee_resource_controller_html_a8ba8b65ff78230fc5a145e972316c36c"><div class="ttname"><a href="class_app_1_1_http_1_1_controllers_1_1_main_1_1_employees_1_1_employee_resource_controller.html#a8ba8b65ff78230fc5a145e972316c36c">App\Http\Controllers\Main\Employees\EmployeeResourceController\show</a></div><div class="ttdeci">show(EmployeeModel $employeeModel)</div><div class="ttdef"><b>Definition:</b> <a href="_employee_resource_controller_8php_source.html#l00050">EmployeeResourceController.php:50</a></div></div>
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Создано системой &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.18
+</small></address>
+</body>
+</html>

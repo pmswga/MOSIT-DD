@@ -5,7 +5,7 @@ var indexSectionsWithContent =
   2: "alt",
   3: "0123456789abcdefhiklmpqrstuvw",
   4: "_abcdefghilmprstuv",
-  5: "$_abdehilmoprst",
+  5: "$_acdefhilmoprst",
   6: "m"
 };
 

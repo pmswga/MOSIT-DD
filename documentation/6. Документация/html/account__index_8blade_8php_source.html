@@ -72,38 +72,38 @@ $(function() {
 <div class="title">account_index.blade.php</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="account__index_8blade_8php.html">См. документацию.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;@extends(<span class="stringliteral">&#39;layouts.app&#39;</span>)</div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;@section(<span class="stringliteral">&#39;title&#39;</span>, <span class="stringliteral">&#39;Просмотр пользователей&#39;</span>)</div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;@section(<span class="stringliteral">&#39;homeLink&#39;</span>, route(<span class="stringliteral">&#39;admin.index&#39;</span>))</div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;@include(<span class="stringliteral">&#39;layouts.admin_menu&#39;</span>)</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;@section(<span class="stringliteral">&#39;content&#39;</span>)</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;    &lt;div <span class="keyword">class</span>=<span class="stringliteral">&quot;centered fourteen wide column&quot;</span>&gt;</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;        &lt;table <span class="keyword">class</span>=<span class="stringliteral">&quot;ui table&quot;</span>&gt;</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;            &lt;thead&gt;</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;                &lt;tr&gt;</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;                    &lt;th&gt;№&lt;/th&gt;</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;                    &lt;th&gt;Email&lt;/th&gt;</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;                    &lt;th&gt;Дата создания&lt;/th&gt;</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;                &lt;/tr&gt;</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;            &lt;/thead&gt;</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;            &lt;tbody&gt;</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;                @<span class="keywordflow">foreach</span> ($accounts as $account)</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;                    &lt;tr&gt;</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;                        &lt;td&gt;{{ <a class="code" href="02b61627f3055220c4b12324ee522056723c63e5_8php.html#ae7d53f6b57a5cd2cec9cadec7e80910a">$loop</a>-&gt;iteration }}&lt;/td&gt;</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;                        &lt;td&gt;{{ $account-&gt;getEmail() }}&lt;/td&gt;</div>
+<a href="account__index_8blade_8php.html">См. документацию.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;@extends(<span class="stringliteral">&#39;layout.app_admin&#39;</span>)</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;@section(<span class="stringliteral">&#39;title&#39;</span>, <span class="stringliteral">&#39;Пользователи&#39;</span>)</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;@section(<span class="stringliteral">&#39;content&#39;</span>)</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;    &lt;fieldset <span class="keyword">class</span>=<span class="stringliteral">&quot;ui segment&quot;</span>&gt;</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;        &lt;legend&gt;&lt;h3&gt;Все пользователи&lt;/h3&gt;&lt;/legend&gt;</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;        &lt;table <span class="keyword">class</span>=<span class="stringliteral">&quot;ui table&quot;</span>&gt;</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;            &lt;thead&gt;</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;                &lt;tr&gt;</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;                    &lt;th&gt;№&lt;/th&gt;</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;                    &lt;th&gt;Email&lt;/th&gt;</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;                    &lt;th&gt;Тип аккаунта&lt;/th&gt;</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;                    &lt;th&gt;Дата создания&lt;/th&gt;</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;                &lt;/tr&gt;</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;            &lt;/thead&gt;</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;            &lt;tbody&gt;</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;                @<span class="keywordflow">foreach</span> ($accounts as $account)</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;                    &lt;tr&gt;</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;                        &lt;td&gt;{{ <a class="code" href="02b61627f3055220c4b12324ee522056723c63e5_8php.html#ae7d53f6b57a5cd2cec9cadec7e80910a">$loop</a>-&gt;iteration }}&lt;/td&gt;</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;                        &lt;td&gt;{{ $account-&gt;getEmail() }}&lt;/td&gt;</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;                        &lt;td&gt;{{ $account-&gt;getAccountType() }}&lt;/td&gt;</div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;                        &lt;td&gt;{{ $account-&gt;created_at }}&lt;/td&gt;</div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;                    &lt;/tr&gt;</div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;                <span class="keyword">@end</span><span class="keywordflow">foreach</span></div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;            &lt;/tbody&gt;</div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        &lt;/table&gt;</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    &lt;/div&gt;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    &lt;/fieldset&gt;</div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="keyword">@end</span>section</div>
 </div><!-- fragment --></div><!-- contents -->
-<div class="ttc" id="a02b61627f3055220c4b12324ee522056723c63e5_8php_html_ae7d53f6b57a5cd2cec9cadec7e80910a"><div class="ttname"><a href="02b61627f3055220c4b12324ee522056723c63e5_8php.html#ae7d53f6b57a5cd2cec9cadec7e80910a">$loop</a></div><div class="ttdeci">$loop</div><div class="ttdef"><b>Definition:</b> <a href="02b61627f3055220c4b12324ee522056723c63e5_8php_source.html#l00018">02b61627f3055220c4b12324ee522056723c63e5.php:18</a></div></div>
+<div class="ttc" id="a02b61627f3055220c4b12324ee522056723c63e5_8php_html_ae7d53f6b57a5cd2cec9cadec7e80910a"><div class="ttname"><a href="02b61627f3055220c4b12324ee522056723c63e5_8php.html#ae7d53f6b57a5cd2cec9cadec7e80910a">$loop</a></div><div class="ttdeci">$loop</div><div class="ttdef"><b>Definition:</b> <a href="02b61627f3055220c4b12324ee522056723c63e5_8php_source.html#l00017">02b61627f3055220c4b12324ee522056723c63e5.php:17</a></div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Создано системой &#160;<a href="http://www.doxygen.org/index.html">

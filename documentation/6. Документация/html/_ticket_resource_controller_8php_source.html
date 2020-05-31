@@ -1,0 +1,272 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.18"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>MOSIT Digital Department: Исходный файл app/Http/Controllers/Main/Tickets/TicketResourceController.php</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="owl.png"/></td>
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">MOSIT Digital Department
+   &#160;<span id="projectnumber">1.0</span>
+   </div>
+   <div id="projectbrief">Лучшая система в мире</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Создано системой Doxygen 1.8.18 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'Поиск');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','Поиск');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_d422163b96683743ed3963d4aac17747.html">app</a></li><li class="navelem"><a class="el" href="dir_0c4ee04d587063ecca91a7f35642b9f3.html">Http</a></li><li class="navelem"><a class="el" href="dir_27ba1f74dc73f44d4e9ca42f2dd266ec.html">Controllers</a></li><li class="navelem"><a class="el" href="dir_893c3d43926b630e130970d12e8592df.html">Main</a></li><li class="navelem"><a class="el" href="dir_130978d881e771c92bf771459cfe1527.html">Tickets</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle">
+<div class="title">TicketResourceController.php</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="_ticket_resource_controller_8php.html">См. документацию.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;&lt;?php</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
+<div class="line"><a name="l00003"></a><span class="lineno"><a class="line" href="namespace_app_1_1_http_1_1_controllers_1_1_main_1_1_tickets.html">    3</a></span>&#160;<span class="keyword">namespace </span><a class="code" href="namespace_app_1_1_http_1_1_controllers_1_1_main_1_1_tickets.html">App\Http\Controllers\Main\Tickets</a>;</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;use <a class="code" href="class_app_1_1_core_1_1_constants_1_1_list_ticket_history_type_constants.html">App\Core\Constants\ListTicketHistoryTypeConstants</a>;</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;use <a class="code" href="class_app_1_1_core_1_1_constants_1_1_list_ticket_status_constants.html">App\Core\Constants\ListTicketStatusConstants</a>;</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;use <a class="code" href="class_app_1_1_http_1_1_controllers_1_1_controller.html">App\Http\Controllers\Controller</a>;</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;use <a class="code" href="class_app_1_1_models_1_1_main_1_1_tickets_1_1_employee_ticket_model.html">App\Models\Main\Tickets\EmployeeTicketModel</a>;</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;use <a class="code" href="class_app_1_1_models_1_1_main_1_1_tickets_1_1_ticket_file_model.html">App\Models\Main\Tickets\TicketFileModel</a>;</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;use <a class="code" href="class_app_1_1_models_1_1_main_1_1_tickets_1_1_ticket_history_model.html">App\Models\Main\Tickets\TicketHistoryModel</a>;</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;use <a class="code" href="class_app_1_1_models_1_1_main_1_1_tickets_1_1_ticket_model.html">App\Models\Main\Tickets\TicketModel</a>;</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;use <a class="code" href="class_app_1_1_models_1_1_service_1_1_lists_1_1_list_ticket_type_model.html">App\Models\Service\Lists\ListTicketTypeModel</a>;</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;use Illuminate\Http\Request;</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;use Illuminate\Support\Facades\Auth;</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;use Illuminate\Support\Facades\Session;</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;use Illuminate\Support\Facades\Storage;</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
+<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="class_app_1_1_http_1_1_controllers_1_1_main_1_1_tickets_1_1_ticket_resource_controller.html">   18</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_app_1_1_http_1_1_controllers_1_1_main_1_1_tickets_1_1_ticket_resource_controller.html">TicketResourceController</a> <span class="keyword">extends</span> <a class="code" href="class_app_1_1_http_1_1_controllers_1_1_controller.html">Controller</a></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;{</div>
+<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="class_app_1_1_http_1_1_controllers_1_1_main_1_1_tickets_1_1_ticket_resource_controller.html#aad29f97b564cdc7619df9a866645c03d">   20</a></span>&#160;    <span class="keyword">private</span> <a class="code" href="class_app_1_1_http_1_1_controllers_1_1_main_1_1_tickets_1_1_ticket_resource_controller.html#aad29f97b564cdc7619df9a866645c03d">$ticketsPath</a>;</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="class_app_1_1_http_1_1_controllers_1_1_main_1_1_tickets_1_1_ticket_resource_controller.html#a095c5d389db211932136b53f25f39685">   22</a></span>&#160;    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="class_app_1_1_http_1_1_controllers_1_1_main_1_1_tickets_1_1_ticket_resource_controller.html#a095c5d389db211932136b53f25f39685">__construct</a>()</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    {</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        $this-&gt;middleware(<span class="stringliteral">&#39;auth&#39;</span>);</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        $this-&gt;ticketsPath = <span class="stringliteral">&#39;tickets/&#39;</span>;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    }</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
+<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="class_app_1_1_http_1_1_controllers_1_1_main_1_1_tickets_1_1_ticket_resource_controller.html#ab5169658465f6ec4f54c1b1feee0454f">   28</a></span>&#160;    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="class_app_1_1_http_1_1_controllers_1_1_main_1_1_tickets_1_1_ticket_resource_controller.html#ab5169658465f6ec4f54c1b1feee0454f">downloadFile</a>(<a class="code" href="class_app_1_1_models_1_1_main_1_1_tickets_1_1_ticket_file_model.html">TicketFileModel</a> $file) {</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        <span class="keywordflow">return</span> Storage::download($file-&gt;<a class="code" href="class_app_1_1_models_1_1_main_1_1_tickets_1_1_ticket_file_model.html#a30c5c67b2bf8e2e2ccc7e361faa20afe">getPath</a>());</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    }</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
+<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="class_app_1_1_http_1_1_controllers_1_1_main_1_1_tickets_1_1_ticket_resource_controller.html#a149eb92716c1084a935e04a8d95f7347">   37</a></span>&#160;    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="class_app_1_1_http_1_1_controllers_1_1_main_1_1_tickets_1_1_ticket_resource_controller.html#a149eb92716c1084a935e04a8d95f7347">index</a>()</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    {</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        <span class="comment">//#fixme Разграничить передаваемые данные в зависимости от типа пользователя</span></div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        <span class="keywordflow">return</span> view(<span class="stringliteral">&#39;systems.main.tickets.ticket_index&#39;</span>, [</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;            <span class="stringliteral">&#39;ticketTypes&#39;</span> =&gt; ListTicketTypeModel::all(),</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;            <span class="stringliteral">&#39;employees&#39;</span> =&gt; Auth::user()-&gt;getEmployee()-&gt;getSubordinateEmployees(),</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;            <span class="stringliteral">&#39;assignedTickets&#39;</span> =&gt; Auth::user()-&gt;getEmployee()-&gt;getAssignedTickets(),</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;            <span class="stringliteral">&#39;createdTickets&#39;</span> =&gt; Auth::user()-&gt;getEmployee()-&gt;getCreatedTickets()</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        ]);</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    }</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
+<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="class_app_1_1_http_1_1_controllers_1_1_main_1_1_tickets_1_1_ticket_resource_controller.html#af0d2f8a4c3d942f43f40be2d09561b81">   48</a></span>&#160;    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="class_app_1_1_http_1_1_controllers_1_1_main_1_1_tickets_1_1_ticket_resource_controller.html#af0d2f8a4c3d942f43f40be2d09561b81">inbox</a>()</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    {</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        <span class="keywordflow">return</span> view(<span class="stringliteral">&#39;systems.main.tickets.ticket_inbox &#39;</span>, [</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;            <span class="stringliteral">&#39;inboxTicketList&#39;</span> =&gt; Auth::user()-&gt;getEmployee()-&gt;getUnseenTickets()</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        ]);</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    }</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
+<div class="line"><a name="l00055"></a><span class="lineno"><a class="line" href="class_app_1_1_http_1_1_controllers_1_1_main_1_1_tickets_1_1_ticket_resource_controller.html#a63ce5d9cae751ad7b69d48a1317f2f49">   55</a></span>&#160;    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="class_app_1_1_http_1_1_controllers_1_1_main_1_1_tickets_1_1_ticket_resource_controller.html#a63ce5d9cae751ad7b69d48a1317f2f49">expired</a>()</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    {</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        <span class="keywordflow">return</span> view(<span class="stringliteral">&#39;systems.main.tickets.ticket_inbox &#39;</span>, [</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;            <span class="stringliteral">&#39;inboxTicketList&#39;</span> =&gt; Auth::user()-&gt;getEmployee()-&gt;getExpiredTickets()</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        ]);</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    }</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
+<div class="line"><a name="l00067"></a><span class="lineno"><a class="line" href="class_app_1_1_http_1_1_controllers_1_1_main_1_1_tickets_1_1_ticket_resource_controller.html#a435e7d7525d4bcd0ed5e34a469f3adf6">   67</a></span>&#160;    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="class_app_1_1_http_1_1_controllers_1_1_main_1_1_tickets_1_1_ticket_resource_controller.html#a435e7d7525d4bcd0ed5e34a469f3adf6">create</a>()</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    {</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        <span class="comment">//</span></div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    }</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
+<div class="line"><a name="l00078"></a><span class="lineno"><a class="line" href="class_app_1_1_http_1_1_controllers_1_1_main_1_1_tickets_1_1_ticket_resource_controller.html#a9ef485163104597c12185b53cdacf638">   78</a></span>&#160;    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="class_app_1_1_http_1_1_controllers_1_1_main_1_1_tickets_1_1_ticket_resource_controller.html#a9ef485163104597c12185b53cdacf638">store</a>(Request $request)</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    {</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        $ticket = <span class="keyword">new</span> <a class="code" href="class_app_1_1_models_1_1_main_1_1_tickets_1_1_ticket_model.html">TicketModel</a>();</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        $ticket-&gt;idAuthor = Auth::user()-&gt;idEmployee;</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        $ticket-&gt;idTicketType = $request-&gt;ticketType;</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        $ticket-&gt;caption = $request-&gt;ticketCaption;</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        $ticket-&gt;description = $request-&gt;ticketDescription;</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        $ticket-&gt;startDate = date_format( date_create( $request-&gt;ticketStartDate ), <span class="stringliteral">&#39;Y.m.d H:i:s&#39;</span>);</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        $ticket-&gt;endDate = date_format( date_create( $request-&gt;ticketEndDate ), <span class="stringliteral">&#39;Y.m.d H:i:s&#39;</span>);</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;        $ticket-&gt;idTicketStatus = <a class="code" href="class_app_1_1_core_1_1_constants_1_1_list_ticket_status_constants.html#ae7d71eec207ebcef53a99536e8ca8825">ListTicketStatusConstants::CREATE</a>;</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160; </div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;        $result = <span class="keyword">true</span>;<span class="comment">//#fixme add exception handler</span></div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        <span class="keywordflow">if</span> ($ticket-&gt;save()) {</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; </div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;            $ticketHistory = <span class="keyword">new</span> <a class="code" href="class_app_1_1_models_1_1_main_1_1_tickets_1_1_ticket_history_model.html">TicketHistoryModel</a>();</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;            $ticketHistory-&gt;idTicket = $ticket-&gt;idTicket;</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;            $ticketHistory-&gt;idTicketHistoryType = <a class="code" href="class_app_1_1_core_1_1_constants_1_1_list_ticket_history_type_constants.html#ae7d71eec207ebcef53a99536e8ca8825">ListTicketHistoryTypeConstants::CREATE</a>;</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;            $ticketHistory-&gt;idEmployee = Auth::user()-&gt;idEmployee;</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160; </div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;            $ticketHistory-&gt;save();</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160; </div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;            <span class="keywordflow">foreach</span> ($request-&gt;ticketEmployees as $employee) {</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;                $ticketEmployee = <span class="keyword">new</span> <a class="code" href="class_app_1_1_models_1_1_main_1_1_tickets_1_1_employee_ticket_model.html">EmployeeTicketModel</a>();</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;                $ticketEmployee-&gt;idEmployee = $employee;</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;                $ticketEmployee-&gt;idTicket = $ticket-&gt;idTicket;</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;                $result *= $ticketEmployee-&gt;save();</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;            }</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160; </div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;            <span class="keywordflow">foreach</span> ($request-&gt;file(<span class="stringliteral">&#39;files&#39;</span>) as $file) {</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160; </div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;                $path = Storage::putFileAs(</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;                    $this-&gt;ticketsPath . <span class="stringliteral">&#39;ticket_&#39;</span>.$ticket-&gt;idTicket,</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;                    $file,</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;                    $file-&gt;getClientOriginalName()</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;                );</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160; </div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;                $ticketFile = <span class="keyword">new</span> <a class="code" href="class_app_1_1_models_1_1_main_1_1_tickets_1_1_ticket_file_model.html">TicketFileModel</a>();</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;                $ticketFile-&gt;idTicket = $ticket-&gt;idTicket;</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;                $ticketFile-&gt;filename = basename($path);</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;                $ticketFile-&gt;extension = $file-&gt;extension();</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;                $ticketFile-&gt;size = round((($file-&gt;getSize() / 1024 ) / 1024), 2);</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;                $ticketFile-&gt;path = $path;</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160; </div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;                $ticketFile-&gt;save();</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;            }</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160; </div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;            <span class="keywordflow">if</span> ( count($request-&gt;file(<span class="stringliteral">&#39;files&#39;</span>)) &gt; 0 ) {</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;                $ticketHistory = <span class="keyword">new</span> <a class="code" href="class_app_1_1_models_1_1_main_1_1_tickets_1_1_ticket_history_model.html">TicketHistoryModel</a>();</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;                $ticketHistory-&gt;idTicket = $ticket-&gt;idTicket;</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;                $ticketHistory-&gt;idTicketHistoryType = <a class="code" href="class_app_1_1_core_1_1_constants_1_1_list_ticket_history_type_constants.html#aa5c863785c3c7887de380daa3a6eaede">ListTicketHistoryTypeConstants::ATTACH_FILE</a>;</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;                $ticketHistory-&gt;idEmployee = Auth::user()-&gt;idEmployee;</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160; </div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;                $ticketHistory-&gt;save();</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;            }</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160; </div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;            <span class="keywordflow">if</span> ($result) {</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;                Session::flash(<span class="stringliteral">&#39;successMessage&#39;</span>, <span class="stringliteral">&#39;Поручение успешно создано&#39;</span>);</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;                <span class="keywordflow">return</span> back();</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;            }</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160; </div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;        }</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160; </div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;        Session::flash(<span class="stringliteral">&#39;successMessage&#39;</span>, <span class="stringliteral">&#39;Не удалось создать поручение&#39;</span>);</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;        <span class="keywordflow">return</span> back();</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;    }</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160; </div>
+<div class="line"><a name="l00150"></a><span class="lineno"><a class="line" href="class_app_1_1_http_1_1_controllers_1_1_main_1_1_tickets_1_1_ticket_resource_controller.html#a4262f83db5c26ec225c028a59b2e5fe8">  150</a></span>&#160;    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="class_app_1_1_http_1_1_controllers_1_1_main_1_1_tickets_1_1_ticket_resource_controller.html#a4262f83db5c26ec225c028a59b2e5fe8">show</a>(<a class="code" href="class_app_1_1_models_1_1_main_1_1_tickets_1_1_ticket_model.html">TicketModel</a> $ticket)</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;    {</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;        $employeeTicket = $ticket-&gt;hasOne(EmployeeTicketModel::class, <span class="stringliteral">&#39;idTicket&#39;</span>, <span class="stringliteral">&#39;idTicket&#39;</span>)</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;            -&gt;where(<span class="stringliteral">&#39;idEmployee&#39;</span>, <span class="charliteral">&#39;=&#39;</span>, Auth::user()-&gt;getEmployee()-&gt;idEmployee)</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;            -&gt;get()-&gt;first();</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160; </div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160; </div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;        <span class="keywordflow">if</span> ($employeeTicket) {</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;            <span class="keywordflow">if</span> (!$employeeTicket-&gt;isSeen) {</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;                Session::flash(<span class="stringliteral">&#39;successMessage&#39;</span>, <span class="stringliteral">&#39;Вы просмотрели поручение&#39;</span>);</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;                $employeeTicket-&gt;isSeen = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;                $employeeTicket-&gt;save();</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;            }</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;        }</div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160; </div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160; </div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;        <span class="keywordflow">return</span> view(<span class="stringliteral">&#39;systems.main.tickets.ticket_show&#39;</span>, [</div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;            <span class="stringliteral">&#39;ticket&#39;</span> =&gt; $ticket</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;        ]);</div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;    }</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160; </div>
+<div class="line"><a name="l00177"></a><span class="lineno"><a class="line" href="class_app_1_1_http_1_1_controllers_1_1_main_1_1_tickets_1_1_ticket_resource_controller.html#a13e7a80cad94e7fa7683238589601b33">  177</a></span>&#160;    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="class_app_1_1_http_1_1_controllers_1_1_main_1_1_tickets_1_1_ticket_resource_controller.html#a13e7a80cad94e7fa7683238589601b33">edit</a>(<a class="code" href="class_app_1_1_models_1_1_main_1_1_tickets_1_1_ticket_model.html">TicketModel</a> $ticketModel)</div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;    {</div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;        <span class="comment">//</span></div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;    }</div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160; </div>
+<div class="line"><a name="l00189"></a><span class="lineno"><a class="line" href="class_app_1_1_http_1_1_controllers_1_1_main_1_1_tickets_1_1_ticket_resource_controller.html#aaadad595f25a88f72d239be3dc0abe87">  189</a></span>&#160;    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="class_app_1_1_http_1_1_controllers_1_1_main_1_1_tickets_1_1_ticket_resource_controller.html#aaadad595f25a88f72d239be3dc0abe87">update</a>(Request $request, <a class="code" href="class_app_1_1_models_1_1_main_1_1_tickets_1_1_ticket_model.html">TicketModel</a> $ticketModel)</div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;    {</div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;        <span class="comment">//</span></div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;    }</div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160; </div>
+<div class="line"><a name="l00200"></a><span class="lineno"><a class="line" href="class_app_1_1_http_1_1_controllers_1_1_main_1_1_tickets_1_1_ticket_resource_controller.html#ac08c9a4a07e572ca2b0b74b981af6276">  200</a></span>&#160;    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="class_app_1_1_http_1_1_controllers_1_1_main_1_1_tickets_1_1_ticket_resource_controller.html#ac08c9a4a07e572ca2b0b74b981af6276">destroy</a>(<a class="code" href="class_app_1_1_models_1_1_main_1_1_tickets_1_1_ticket_model.html">TicketModel</a> $ticketModel)</div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;    {</div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;        <span class="comment">//</span></div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;    }</div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;}</div>
+</div><!-- fragment --></div><!-- contents -->
+<div class="ttc" id="aclass_app_1_1_models_1_1_main_1_1_tickets_1_1_ticket_file_model_html_a30c5c67b2bf8e2e2ccc7e361faa20afe"><div class="ttname"><a href="class_app_1_1_models_1_1_main_1_1_tickets_1_1_ticket_file_model.html#a30c5c67b2bf8e2e2ccc7e361faa20afe">App\Models\Main\Tickets\TicketFileModel\getPath</a></div><div class="ttdeci">getPath()</div><div class="ttdef"><b>Definition:</b> <a href="_ticket_file_model_8php_source.html#l00012">TicketFileModel.php:12</a></div></div>
+<div class="ttc" id="aclass_app_1_1_http_1_1_controllers_1_1_main_1_1_tickets_1_1_ticket_resource_controller_html_a4262f83db5c26ec225c028a59b2e5fe8"><div class="ttname"><a href="class_app_1_1_http_1_1_controllers_1_1_main_1_1_tickets_1_1_ticket_resource_controller.html#a4262f83db5c26ec225c028a59b2e5fe8">App\Http\Controllers\Main\Tickets\TicketResourceController\show</a></div><div class="ttdeci">show(TicketModel $ticket)</div><div class="ttdef"><b>Definition:</b> <a href="_ticket_resource_controller_8php_source.html#l00150">TicketResourceController.php:150</a></div></div>
+<div class="ttc" id="aclass_app_1_1_http_1_1_controllers_1_1_main_1_1_tickets_1_1_ticket_resource_controller_html_ab5169658465f6ec4f54c1b1feee0454f"><div class="ttname"><a href="class_app_1_1_http_1_1_controllers_1_1_main_1_1_tickets_1_1_ticket_resource_controller.html#ab5169658465f6ec4f54c1b1feee0454f">App\Http\Controllers\Main\Tickets\TicketResourceController\downloadFile</a></div><div class="ttdeci">downloadFile(TicketFileModel $file)</div><div class="ttdef"><b>Definition:</b> <a href="_ticket_resource_controller_8php_source.html#l00028">TicketResourceController.php:28</a></div></div>
+<div class="ttc" id="aclass_app_1_1_core_1_1_constants_1_1_list_ticket_history_type_constants_html_ae7d71eec207ebcef53a99536e8ca8825"><div class="ttname"><a href="class_app_1_1_core_1_1_constants_1_1_list_ticket_history_type_constants.html#ae7d71eec207ebcef53a99536e8ca8825">App\Core\Constants\ListTicketHistoryTypeConstants\CREATE</a></div><div class="ttdeci">const CREATE</div><div class="ttdef"><b>Definition:</b> <a href="_list_ticket_history_type_constants_8php_source.html#l00009">ListTicketHistoryTypeConstants.php:9</a></div></div>
+<div class="ttc" id="aclass_app_1_1_http_1_1_controllers_1_1_main_1_1_tickets_1_1_ticket_resource_controller_html_a149eb92716c1084a935e04a8d95f7347"><div class="ttname"><a href="class_app_1_1_http_1_1_controllers_1_1_main_1_1_tickets_1_1_ticket_resource_controller.html#a149eb92716c1084a935e04a8d95f7347">App\Http\Controllers\Main\Tickets\TicketResourceController\index</a></div><div class="ttdeci">index()</div><div class="ttdef"><b>Definition:</b> <a href="_ticket_resource_controller_8php_source.html#l00037">TicketResourceController.php:37</a></div></div>
+<div class="ttc" id="aclass_app_1_1_http_1_1_controllers_1_1_main_1_1_tickets_1_1_ticket_resource_controller_html_aad29f97b564cdc7619df9a866645c03d"><div class="ttname"><a href="class_app_1_1_http_1_1_controllers_1_1_main_1_1_tickets_1_1_ticket_resource_controller.html#aad29f97b564cdc7619df9a866645c03d">App\Http\Controllers\Main\Tickets\TicketResourceController\$ticketsPath</a></div><div class="ttdeci">$ticketsPath</div><div class="ttdef"><b>Definition:</b> <a href="_ticket_resource_controller_8php_source.html#l00020">TicketResourceController.php:20</a></div></div>
+<div class="ttc" id="aclass_app_1_1_core_1_1_constants_1_1_list_ticket_history_type_constants_html_aa5c863785c3c7887de380daa3a6eaede"><div class="ttname"><a href="class_app_1_1_core_1_1_constants_1_1_list_ticket_history_type_constants.html#aa5c863785c3c7887de380daa3a6eaede">App\Core\Constants\ListTicketHistoryTypeConstants\ATTACH_FILE</a></div><div class="ttdeci">const ATTACH_FILE</div><div class="ttdef"><b>Definition:</b> <a href="_list_ticket_history_type_constants_8php_source.html#l00011">ListTicketHistoryTypeConstants.php:11</a></div></div>
+<div class="ttc" id="aclass_app_1_1_models_1_1_main_1_1_tickets_1_1_ticket_file_model_html"><div class="ttname"><a href="class_app_1_1_models_1_1_main_1_1_tickets_1_1_ticket_file_model.html">App\Models\Main\Tickets\TicketFileModel</a></div><div class="ttdef"><b>Definition:</b> <a href="_ticket_file_model_8php_source.html#l00007">TicketFileModel.php:8</a></div></div>
+<div class="ttc" id="aclass_app_1_1_http_1_1_controllers_1_1_main_1_1_tickets_1_1_ticket_resource_controller_html_ac08c9a4a07e572ca2b0b74b981af6276"><div class="ttname"><a href="class_app_1_1_http_1_1_controllers_1_1_main_1_1_tickets_1_1_ticket_resource_controller.html#ac08c9a4a07e572ca2b0b74b981af6276">App\Http\Controllers\Main\Tickets\TicketResourceController\destroy</a></div><div class="ttdeci">destroy(TicketModel $ticketModel)</div><div class="ttdef"><b>Definition:</b> <a href="_ticket_resource_controller_8php_source.html#l00200">TicketResourceController.php:200</a></div></div>
+<div class="ttc" id="aclass_app_1_1_models_1_1_main_1_1_tickets_1_1_ticket_history_model_html"><div class="ttname"><a href="class_app_1_1_models_1_1_main_1_1_tickets_1_1_ticket_history_model.html">App\Models\Main\Tickets\TicketHistoryModel</a></div><div class="ttdef"><b>Definition:</b> <a href="_ticket_history_model_8php_source.html#l00010">TicketHistoryModel.php:11</a></div></div>
+<div class="ttc" id="aclass_app_1_1_models_1_1_main_1_1_tickets_1_1_ticket_model_html"><div class="ttname"><a href="class_app_1_1_models_1_1_main_1_1_tickets_1_1_ticket_model.html">App\Models\Main\Tickets\TicketModel</a></div><div class="ttdef"><b>Definition:</b> <a href="_ticket_model_8php_source.html#l00011">TicketModel.php:12</a></div></div>
+<div class="ttc" id="aclass_app_1_1_http_1_1_controllers_1_1_main_1_1_tickets_1_1_ticket_resource_controller_html_a9ef485163104597c12185b53cdacf638"><div class="ttname"><a href="class_app_1_1_http_1_1_controllers_1_1_main_1_1_tickets_1_1_ticket_resource_controller.html#a9ef485163104597c12185b53cdacf638">App\Http\Controllers\Main\Tickets\TicketResourceController\store</a></div><div class="ttdeci">store(Request $request)</div><div class="ttdef"><b>Definition:</b> <a href="_ticket_resource_controller_8php_source.html#l00078">TicketResourceController.php:78</a></div></div>
+<div class="ttc" id="aclass_app_1_1_core_1_1_constants_1_1_list_ticket_status_constants_html_ae7d71eec207ebcef53a99536e8ca8825"><div class="ttname"><a href="class_app_1_1_core_1_1_constants_1_1_list_ticket_status_constants.html#ae7d71eec207ebcef53a99536e8ca8825">App\Core\Constants\ListTicketStatusConstants\CREATE</a></div><div class="ttdeci">const CREATE</div><div class="ttdef"><b>Definition:</b> <a href="_list_ticket_status_constants_8php_source.html#l00009">ListTicketStatusConstants.php:9</a></div></div>
+<div class="ttc" id="aclass_app_1_1_http_1_1_controllers_1_1_main_1_1_tickets_1_1_ticket_resource_controller_html_aaadad595f25a88f72d239be3dc0abe87"><div class="ttname"><a href="class_app_1_1_http_1_1_controllers_1_1_main_1_1_tickets_1_1_ticket_resource_controller.html#aaadad595f25a88f72d239be3dc0abe87">App\Http\Controllers\Main\Tickets\TicketResourceController\update</a></div><div class="ttdeci">update(Request $request, TicketModel $ticketModel)</div><div class="ttdef"><b>Definition:</b> <a href="_ticket_resource_controller_8php_source.html#l00189">TicketResourceController.php:189</a></div></div>
+<div class="ttc" id="aclass_app_1_1_http_1_1_controllers_1_1_controller_html"><div class="ttname"><a href="class_app_1_1_http_1_1_controllers_1_1_controller.html">App\Http\Controllers\Controller</a></div><div class="ttdef"><b>Definition:</b> <a href="_controller_8php_source.html#l00010">Controller.php:11</a></div></div>
+<div class="ttc" id="aclass_app_1_1_models_1_1_main_1_1_tickets_1_1_employee_ticket_model_html"><div class="ttname"><a href="class_app_1_1_models_1_1_main_1_1_tickets_1_1_employee_ticket_model.html">App\Models\Main\Tickets\EmployeeTicketModel</a></div><div class="ttdef"><b>Definition:</b> <a href="_employee_ticket_model_8php_source.html#l00007">EmployeeTicketModel.php:8</a></div></div>
+<div class="ttc" id="aclass_app_1_1_core_1_1_constants_1_1_list_ticket_status_constants_html"><div class="ttname"><a href="class_app_1_1_core_1_1_constants_1_1_list_ticket_status_constants.html">App\Core\Constants\ListTicketStatusConstants</a></div><div class="ttdef"><b>Definition:</b> <a href="_list_ticket_status_constants_8php_source.html#l00007">ListTicketStatusConstants.php:8</a></div></div>
+<div class="ttc" id="aclass_app_1_1_http_1_1_controllers_1_1_main_1_1_tickets_1_1_ticket_resource_controller_html_a13e7a80cad94e7fa7683238589601b33"><div class="ttname"><a href="class_app_1_1_http_1_1_controllers_1_1_main_1_1_tickets_1_1_ticket_resource_controller.html#a13e7a80cad94e7fa7683238589601b33">App\Http\Controllers\Main\Tickets\TicketResourceController\edit</a></div><div class="ttdeci">edit(TicketModel $ticketModel)</div><div class="ttdef"><b>Definition:</b> <a href="_ticket_resource_controller_8php_source.html#l00177">TicketResourceController.php:177</a></div></div>
+<div class="ttc" id="aclass_app_1_1_http_1_1_controllers_1_1_main_1_1_tickets_1_1_ticket_resource_controller_html"><div class="ttname"><a href="class_app_1_1_http_1_1_controllers_1_1_main_1_1_tickets_1_1_ticket_resource_controller.html">App\Http\Controllers\Main\Tickets\TicketResourceController</a></div><div class="ttdef"><b>Definition:</b> <a href="_ticket_resource_controller_8php_source.html#l00018">TicketResourceController.php:19</a></div></div>
+<div class="ttc" id="aclass_app_1_1_http_1_1_controllers_1_1_main_1_1_tickets_1_1_ticket_resource_controller_html_af0d2f8a4c3d942f43f40be2d09561b81"><div class="ttname"><a href="class_app_1_1_http_1_1_controllers_1_1_main_1_1_tickets_1_1_ticket_resource_controller.html#af0d2f8a4c3d942f43f40be2d09561b81">App\Http\Controllers\Main\Tickets\TicketResourceController\inbox</a></div><div class="ttdeci">inbox()</div><div class="ttdef"><b>Definition:</b> <a href="_ticket_resource_controller_8php_source.html#l00048">TicketResourceController.php:48</a></div></div>
+<div class="ttc" id="aclass_app_1_1_http_1_1_controllers_1_1_main_1_1_tickets_1_1_ticket_resource_controller_html_a63ce5d9cae751ad7b69d48a1317f2f49"><div class="ttname"><a href="class_app_1_1_http_1_1_controllers_1_1_main_1_1_tickets_1_1_ticket_resource_controller.html#a63ce5d9cae751ad7b69d48a1317f2f49">App\Http\Controllers\Main\Tickets\TicketResourceController\expired</a></div><div class="ttdeci">expired()</div><div class="ttdef"><b>Definition:</b> <a href="_ticket_resource_controller_8php_source.html#l00055">TicketResourceController.php:55</a></div></div>
+<div class="ttc" id="aclass_app_1_1_models_1_1_service_1_1_lists_1_1_list_ticket_type_model_html"><div class="ttname"><a href="class_app_1_1_models_1_1_service_1_1_lists_1_1_list_ticket_type_model.html">App\Models\Service\Lists\ListTicketTypeModel</a></div><div class="ttdef"><b>Definition:</b> <a href="_list_ticket_type_model_8php_source.html#l00007">ListTicketTypeModel.php:8</a></div></div>
+<div class="ttc" id="aclass_app_1_1_http_1_1_controllers_1_1_main_1_1_tickets_1_1_ticket_resource_controller_html_a435e7d7525d4bcd0ed5e34a469f3adf6"><div class="ttname"><a href="class_app_1_1_http_1_1_controllers_1_1_main_1_1_tickets_1_1_ticket_resource_controller.html#a435e7d7525d4bcd0ed5e34a469f3adf6">App\Http\Controllers\Main\Tickets\TicketResourceController\create</a></div><div class="ttdeci">create()</div><div class="ttdef"><b>Definition:</b> <a href="_ticket_resource_controller_8php_source.html#l00067">TicketResourceController.php:67</a></div></div>
+<div class="ttc" id="aclass_app_1_1_core_1_1_constants_1_1_list_ticket_history_type_constants_html"><div class="ttname"><a href="class_app_1_1_core_1_1_constants_1_1_list_ticket_history_type_constants.html">App\Core\Constants\ListTicketHistoryTypeConstants</a></div><div class="ttdef"><b>Definition:</b> <a href="_list_ticket_history_type_constants_8php_source.html#l00007">ListTicketHistoryTypeConstants.php:8</a></div></div>
+<div class="ttc" id="aclass_app_1_1_http_1_1_controllers_1_1_main_1_1_tickets_1_1_ticket_resource_controller_html_a095c5d389db211932136b53f25f39685"><div class="ttname"><a href="class_app_1_1_http_1_1_controllers_1_1_main_1_1_tickets_1_1_ticket_resource_controller.html#a095c5d389db211932136b53f25f39685">App\Http\Controllers\Main\Tickets\TicketResourceController\__construct</a></div><div class="ttdeci">__construct()</div><div class="ttdef"><b>Definition:</b> <a href="_ticket_resource_controller_8php_source.html#l00022">TicketResourceController.php:22</a></div></div>
+<div class="ttc" id="anamespace_app_1_1_http_1_1_controllers_1_1_main_1_1_tickets_html"><div class="ttname"><a href="namespace_app_1_1_http_1_1_controllers_1_1_main_1_1_tickets.html">App\Http\Controllers\Main\Tickets</a></div><div class="ttdef"><b>Definition:</b> <a href="_ticket_resource_controller_8php_source.html#l00003">TicketResourceController.php:3</a></div></div>
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Создано системой &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.18
+</small></address>
+</body>
+</html>

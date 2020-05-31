@@ -72,7 +72,7 @@ $(function() {
 <div class="title">index.blade.php</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="index_8blade_8php.html">См. документацию.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;@extends(<span class="stringliteral">&#39;layouts.app&#39;</span>)</div>
+<a href="index_8blade_8php.html">См. документацию.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;@extends(<span class="stringliteral">&#39;layout.app_default&#39;</span>)</div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;@section(<span class="stringliteral">&#39;title&#39;</span>, <span class="stringliteral">&quot;Главная&quot;</span>)</div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
@@ -80,21 +80,22 @@ $(function() {
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;    &lt;fieldset <span class="keyword">class</span>=<span class="stringliteral">&quot;ui segment&quot;</span>&gt;</div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;        &lt;div <span class="keyword">class</span>=<span class="stringliteral">&quot;ui fluid image&quot;</span>&gt;</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;            &lt;img src=<span class="stringliteral">&quot;img/back.png&quot;</span> alt=<span class="stringliteral">&quot;cat&quot;</span>&gt;</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;            &lt;img src=<span class="stringliteral">&quot;{{ asset(&#39;img/back.png&#39;) }}&quot;</span> alt=<span class="stringliteral">&quot;Добро пожаловать&quot;</span>&gt;</div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;        &lt;/div&gt;</div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;        &lt;div <span class="keyword">class</span>=<span class="stringliteral">&quot;ui horizontal divider&quot;</span>&gt;</div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;            Powered by</div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;        &lt;/div&gt;</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;        &lt;div <span class="keyword">class</span>=<span class="stringliteral">&quot;ui five icons&quot;</span>&gt;</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;            &lt;i <span class="keyword">class</span>=<span class="stringliteral">&quot;big icon laravel&quot;</span>&gt;&lt;/i&gt;</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;            &lt;i <span class="keyword">class</span>=<span class="stringliteral">&quot;big icon php&quot;</span>&gt;&lt;/i&gt;</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;            &lt;i <span class="keyword">class</span>=<span class="stringliteral">&quot;big icon html5&quot;</span>&gt;&lt;/i&gt;</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;            &lt;i <span class="keyword">class</span>=<span class="stringliteral">&quot;big icon css3&quot;</span>&gt;&lt;/i&gt;</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;            &lt;i <span class="keyword">class</span>=<span class="stringliteral">&quot;big icon github&quot;</span>&gt;&lt;/i&gt;</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;        &lt;/div&gt;</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    &lt;/fieldset&gt;</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">@end</span>section</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;        &lt;div <span class="keyword">class</span>=<span class="stringliteral">&quot;ui icons&quot;</span> style=<span class="stringliteral">&quot;text-align: center;&quot;</span>&gt;</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;            &lt;i <span class="keyword">class</span>=<span class="stringliteral">&quot;big icon html5&quot;</span>&gt;&lt;/i&gt;</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;            &lt;i <span class="keyword">class</span>=<span class="stringliteral">&quot;big icon css3 alternate&quot;</span>&gt;&lt;/i&gt;</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;            &lt;i <span class="keyword">class</span>=<span class="stringliteral">&quot;big icon js&quot;</span>&gt;&lt;/i&gt;</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;            &lt;i <span class="keyword">class</span>=<span class="stringliteral">&quot;big icon php&quot;</span>&gt;&lt;/i&gt;</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;            &lt;i <span class="keyword">class</span>=<span class="stringliteral">&quot;big icon laravel&quot;</span>&gt;&lt;/i&gt;</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;            &lt;i <span class="keyword">class</span>=<span class="stringliteral">&quot;big icon github&quot;</span>&gt;&lt;/i&gt;</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;        &lt;/div&gt;</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    &lt;/fieldset&gt;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keyword">@end</span>section</div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

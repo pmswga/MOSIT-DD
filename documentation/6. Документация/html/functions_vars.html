@@ -67,20 +67,23 @@ $(function() {
 &#160;
 
 <h3><a id="index__24"></a>- $ -</h3><ul>
-<li>$accountRights
-: <a class="el" href="class_data_seeder.html#a99b8e4ff42268d67c35c0983c09a50d3">DataSeeder</a>
-</li>
 <li>$addHttpCookie
 : <a class="el" href="class_app_1_1_http_1_1_middleware_1_1_verify_csrf_token.html#a5f7f7fe94dbcbe77a5dde32a3fc0f7f8">VerifyCsrfToken</a>
+</li>
+<li>$baseAccountPath
+: <a class="el" href="class_app_1_1_http_1_1_controllers_1_1_main_1_1_storage_1_1_employee_file_resource_controller.html#a24ca829e41166ab63194de6bba04fed0">EmployeeFileResourceController</a>
 </li>
 <li>$casts
 : <a class="el" href="class_app_1_1_user.html#a1649e00448c72a723c2c79fe5f915b97">User</a>
 </li>
+<li>$cellCoordinates
+: <a class="el" href="class_app_1_1_core_1_1_systems_1_1_main_1_1_i_p_s_1_1_i_p_excel_file_streamer.html#abb6c402fd5ddbe982d4e6bb88dc88075">IPExcelFileStreamer</a>
+</li>
 <li>$commands
 : <a class="el" href="class_app_1_1_console_1_1_kernel.html#ab63cd62b3b65fd223b6f3d57b6ca754d">Kernel</a>
 </li>
-<li>$data
-: <a class="el" href="class_app_1_1_core_1_1_systems_1_1_main_1_1_i_p_s_1_1_i_p_excel_file.html#a6efc15b5a2314dd4b5aaa556a375c6d6">IPExcelFile</a>
+<li>$date_format
+: <a class="el" href="class_app_1_1_models_1_1_main_1_1_tickets_1_1_ticket_model.html#acca3fdcdfc67e06cb49a87e476d364a8">TicketModel</a>
 </li>
 <li>$dontFlash
 : <a class="el" href="class_app_1_1_exceptions_1_1_handler.html#a9298df83d140b018c3b1c0b635205492">Handler</a>
@@ -91,26 +94,24 @@ $(function() {
 <li>$employees
 : <a class="el" href="class_data_seeder.html#a598c06abe9d65a9d2990e39693ce2c27">DataSeeder</a>
 </li>
+<li>$excelFile
+: <a class="el" href="class_app_1_1_core_1_1_systems_1_1_main_1_1_i_p_s_1_1_i_p_excel_file_streamer.html#ac6b50726772ba06e71c19f55c6b71c40">IPExcelFileStreamer</a>
+</li>
 <li>$except
 : <a class="el" href="class_app_1_1_http_1_1_middleware_1_1_check_for_maintenance_mode.html#a20aee92e768748d175898c2dba356c51">CheckForMaintenanceMode</a>
 , <a class="el" href="class_app_1_1_http_1_1_middleware_1_1_encrypt_cookies.html#a20aee92e768748d175898c2dba356c51">EncryptCookies</a>
 , <a class="el" href="class_app_1_1_http_1_1_middleware_1_1_trim_strings.html#a20aee92e768748d175898c2dba356c51">TrimStrings</a>
 , <a class="el" href="class_app_1_1_http_1_1_middleware_1_1_verify_csrf_token.html#a20aee92e768748d175898c2dba356c51">VerifyCsrfToken</a>
 </li>
-<li>$file
-: <a class="el" href="class_app_1_1_core_1_1_systems_1_1_main_1_1_i_p_s_1_1_i_p_excel_file.html#aa1bfbd27060176201b271918dff57e8f">IPExcelFile</a>
-</li>
 <li>$fillable
-: <a class="el" href="class_app_1_1_user.html#a6a90e74ccdf5efd70d51d10c906f8e32">User</a>
+: <a class="el" href="class_app_1_1_models_1_1_main_1_1_storage_1_1_employee_file_model.html#a6a90e74ccdf5efd70d51d10c906f8e32">EmployeeFileModel</a>
+, <a class="el" href="class_app_1_1_user.html#a6a90e74ccdf5efd70d51d10c906f8e32">User</a>
 </li>
 <li>$headers
 : <a class="el" href="class_app_1_1_http_1_1_middleware_1_1_trust_proxies.html#a52500036ee807241b8b4b7e2367c49ef">TrustProxies</a>
 </li>
 <li>$hidden
 : <a class="el" href="class_app_1_1_user.html#a4a374564d2858d8ae869a8fb890aad56">User</a>
-</li>
-<li>$ipExcelConfig
-: <a class="el" href="class_app_1_1_core_1_1_systems_1_1_main_1_1_i_p_s_1_1_i_p_excel_file.html#ad417b873085ca819db07b4be0731e859">IPExcelFile</a>
 </li>
 <li>$listen
 : <a class="el" href="class_app_1_1_providers_1_1_event_service_provider.html#abdfd4689e0597f0b6c63b970c101e810">EventServiceProvider</a>
@@ -131,10 +132,23 @@ $(function() {
 : <a class="el" href="class_app_1_1_providers_1_1_auth_service_provider.html#a3f85b7feacec002a67ba0b150ae3d222">AuthServiceProvider</a>
 </li>
 <li>$primaryKey
-: <a class="el" href="class_app_1_1_models_1_1_main_1_1_employees_1_1_employee.html#a927b0256b942a3ee89485f2649af7981">Employee</a>
-, <a class="el" href="class_app_1_1_models_1_1_main_1_1_employees_1_1_teacher.html#a927b0256b942a3ee89485f2649af7981">Teacher</a>
-, <a class="el" href="class_app_1_1_models_1_1_main_1_1_i_p_1_1_i_p.html#a927b0256b942a3ee89485f2649af7981">IP</a>
-, <a class="el" href="class_app_1_1_models_1_1_service_1_1_accounts_1_1_account_type.html#a927b0256b942a3ee89485f2649af7981">AccountType</a>
+: <a class="el" href="class_app_1_1_models_1_1_main_1_1_i_p_1_1_i_p_model.html#a927b0256b942a3ee89485f2649af7981">IPModel</a>
+, <a class="el" href="class_app_1_1_models_1_1_main_1_1_staff_1_1_employee_hierarchy_model.html#a927b0256b942a3ee89485f2649af7981">EmployeeHierarchyModel</a>
+, <a class="el" href="class_app_1_1_models_1_1_main_1_1_staff_1_1_employee_model.html#a927b0256b942a3ee89485f2649af7981">EmployeeModel</a>
+, <a class="el" href="class_app_1_1_models_1_1_main_1_1_staff_1_1_teacher_model.html#a927b0256b942a3ee89485f2649af7981">TeacherModel</a>
+, <a class="el" href="class_app_1_1_models_1_1_main_1_1_storage_1_1_employee_file_model.html#a927b0256b942a3ee89485f2649af7981">EmployeeFileModel</a>
+, <a class="el" href="class_app_1_1_models_1_1_main_1_1_tickets_1_1_employee_ticket_model.html#a927b0256b942a3ee89485f2649af7981">EmployeeTicketModel</a>
+, <a class="el" href="class_app_1_1_models_1_1_main_1_1_tickets_1_1_ticket_file_model.html#a927b0256b942a3ee89485f2649af7981">TicketFileModel</a>
+, <a class="el" href="class_app_1_1_models_1_1_main_1_1_tickets_1_1_ticket_history_model.html#a927b0256b942a3ee89485f2649af7981">TicketHistoryModel</a>
+, <a class="el" href="class_app_1_1_models_1_1_main_1_1_tickets_1_1_ticket_model.html#a927b0256b942a3ee89485f2649af7981">TicketModel</a>
+, <a class="el" href="class_app_1_1_models_1_1_service_1_1_accounts_1_1_account_rights_model.html#a927b0256b942a3ee89485f2649af7981">AccountRightsModel</a>
+, <a class="el" href="class_app_1_1_models_1_1_service_1_1_accounts_1_1_list_account_type_model.html#a927b0256b942a3ee89485f2649af7981">ListAccountTypeModel</a>
+, <a class="el" href="class_app_1_1_models_1_1_service_1_1_accounts_1_1_list_system_section_model.html#a927b0256b942a3ee89485f2649af7981">ListSystemSectionModel</a>
+, <a class="el" href="class_app_1_1_models_1_1_service_1_1_lists_1_1_list_employee_post_model.html#a927b0256b942a3ee89485f2649af7981">ListEmployeePostModel</a>
+, <a class="el" href="class_app_1_1_models_1_1_service_1_1_lists_1_1_list_sub_system_model.html#a927b0256b942a3ee89485f2649af7981">ListSubSystemModel</a>
+, <a class="el" href="class_app_1_1_models_1_1_service_1_1_lists_1_1_list_ticket_history_type_model.html#a927b0256b942a3ee89485f2649af7981">ListTicketHistoryTypeModel</a>
+, <a class="el" href="class_app_1_1_models_1_1_service_1_1_lists_1_1_list_ticket_status_model.html#a927b0256b942a3ee89485f2649af7981">ListTicketStatusModel</a>
+, <a class="el" href="class_app_1_1_models_1_1_service_1_1_lists_1_1_list_ticket_type_model.html#a927b0256b942a3ee89485f2649af7981">ListTicketTypeModel</a>
 , <a class="el" href="class_app_1_1_user.html#a927b0256b942a3ee89485f2649af7981">User</a>
 </li>
 <li>$proxies
@@ -150,16 +164,42 @@ $(function() {
 <li>$routeMiddleware
 : <a class="el" href="class_app_1_1_http_1_1_kernel.html#ae5bf89bfdb0e63f0e05f25a03d805148">Kernel</a>
 </li>
+<li>$streamData
+: <a class="el" href="class_app_1_1_core_1_1_systems_1_1_main_1_1_i_p_s_1_1_i_p_excel_file_streamer.html#a49305bff32cc99b8dc11af6d1b8d3e70">IPExcelFileStreamer</a>
+</li>
 <li>$table
-: <a class="el" href="class_app_1_1_models_1_1_main_1_1_employees_1_1_employee.html#ae8876a14058f368335baccf35af4a22b">Employee</a>
-, <a class="el" href="class_app_1_1_models_1_1_main_1_1_employees_1_1_teacher.html#ae8876a14058f368335baccf35af4a22b">Teacher</a>
-, <a class="el" href="class_app_1_1_models_1_1_main_1_1_i_p_1_1_i_p.html#ae8876a14058f368335baccf35af4a22b">IP</a>
-, <a class="el" href="class_app_1_1_models_1_1_service_1_1_accounts_1_1_account_type.html#ae8876a14058f368335baccf35af4a22b">AccountType</a>
+: <a class="el" href="class_app_1_1_models_1_1_main_1_1_i_p_1_1_i_p_model.html#ae8876a14058f368335baccf35af4a22b">IPModel</a>
+, <a class="el" href="class_app_1_1_models_1_1_main_1_1_staff_1_1_employee_hierarchy_model.html#ae8876a14058f368335baccf35af4a22b">EmployeeHierarchyModel</a>
+, <a class="el" href="class_app_1_1_models_1_1_main_1_1_staff_1_1_employee_model.html#ae8876a14058f368335baccf35af4a22b">EmployeeModel</a>
+, <a class="el" href="class_app_1_1_models_1_1_main_1_1_staff_1_1_teacher_model.html#ae8876a14058f368335baccf35af4a22b">TeacherModel</a>
+, <a class="el" href="class_app_1_1_models_1_1_main_1_1_storage_1_1_employee_file_model.html#ae8876a14058f368335baccf35af4a22b">EmployeeFileModel</a>
+, <a class="el" href="class_app_1_1_models_1_1_main_1_1_tickets_1_1_employee_ticket_model.html#ae8876a14058f368335baccf35af4a22b">EmployeeTicketModel</a>
+, <a class="el" href="class_app_1_1_models_1_1_main_1_1_tickets_1_1_ticket_file_model.html#ae8876a14058f368335baccf35af4a22b">TicketFileModel</a>
+, <a class="el" href="class_app_1_1_models_1_1_main_1_1_tickets_1_1_ticket_history_model.html#ae8876a14058f368335baccf35af4a22b">TicketHistoryModel</a>
+, <a class="el" href="class_app_1_1_models_1_1_main_1_1_tickets_1_1_ticket_model.html#ae8876a14058f368335baccf35af4a22b">TicketModel</a>
+, <a class="el" href="class_app_1_1_models_1_1_service_1_1_accounts_1_1_account_rights_model.html#ae8876a14058f368335baccf35af4a22b">AccountRightsModel</a>
+, <a class="el" href="class_app_1_1_models_1_1_service_1_1_accounts_1_1_list_account_type_model.html#ae8876a14058f368335baccf35af4a22b">ListAccountTypeModel</a>
+, <a class="el" href="class_app_1_1_models_1_1_service_1_1_accounts_1_1_list_system_section_model.html#ae8876a14058f368335baccf35af4a22b">ListSystemSectionModel</a>
+, <a class="el" href="class_app_1_1_models_1_1_service_1_1_lists_1_1_list_employee_post_model.html#ae8876a14058f368335baccf35af4a22b">ListEmployeePostModel</a>
+, <a class="el" href="class_app_1_1_models_1_1_service_1_1_lists_1_1_list_sub_system_model.html#ae8876a14058f368335baccf35af4a22b">ListSubSystemModel</a>
+, <a class="el" href="class_app_1_1_models_1_1_service_1_1_lists_1_1_list_ticket_history_type_model.html#ae8876a14058f368335baccf35af4a22b">ListTicketHistoryTypeModel</a>
+, <a class="el" href="class_app_1_1_models_1_1_service_1_1_lists_1_1_list_ticket_status_model.html#ae8876a14058f368335baccf35af4a22b">ListTicketStatusModel</a>
+, <a class="el" href="class_app_1_1_models_1_1_service_1_1_lists_1_1_list_ticket_type_model.html#ae8876a14058f368335baccf35af4a22b">ListTicketTypeModel</a>
 , <a class="el" href="class_app_1_1_user.html#ae8876a14058f368335baccf35af4a22b">User</a>
 </li>
+<li>$ticketsPath
+: <a class="el" href="class_app_1_1_http_1_1_controllers_1_1_main_1_1_tickets_1_1_ticket_resource_controller.html#aad29f97b564cdc7619df9a866645c03d">TicketResourceController</a>
+</li>
 <li>$timestamps
-: <a class="el" href="class_app_1_1_models_1_1_main_1_1_employees_1_1_teacher.html#a51267c24c8fae742ed8f9be0ba6085ee">Teacher</a>
-, <a class="el" href="class_app_1_1_models_1_1_main_1_1_i_p_1_1_i_p.html#a51267c24c8fae742ed8f9be0ba6085ee">IP</a>
+: <a class="el" href="class_app_1_1_models_1_1_main_1_1_i_p_1_1_i_p_model.html#a51267c24c8fae742ed8f9be0ba6085ee">IPModel</a>
+, <a class="el" href="class_app_1_1_models_1_1_main_1_1_staff_1_1_teacher_model.html#a51267c24c8fae742ed8f9be0ba6085ee">TeacherModel</a>
+, <a class="el" href="class_app_1_1_models_1_1_main_1_1_tickets_1_1_employee_ticket_model.html#a51267c24c8fae742ed8f9be0ba6085ee">EmployeeTicketModel</a>
+, <a class="el" href="class_app_1_1_models_1_1_service_1_1_accounts_1_1_account_rights_model.html#a51267c24c8fae742ed8f9be0ba6085ee">AccountRightsModel</a>
+, <a class="el" href="class_app_1_1_models_1_1_service_1_1_accounts_1_1_list_system_section_model.html#a51267c24c8fae742ed8f9be0ba6085ee">ListSystemSectionModel</a>
+, <a class="el" href="class_app_1_1_models_1_1_service_1_1_lists_1_1_list_employee_post_model.html#a51267c24c8fae742ed8f9be0ba6085ee">ListEmployeePostModel</a>
+, <a class="el" href="class_app_1_1_models_1_1_service_1_1_lists_1_1_list_sub_system_model.html#a51267c24c8fae742ed8f9be0ba6085ee">ListSubSystemModel</a>
+, <a class="el" href="class_app_1_1_models_1_1_service_1_1_lists_1_1_list_ticket_status_model.html#a51267c24c8fae742ed8f9be0ba6085ee">ListTicketStatusModel</a>
+, <a class="el" href="class_app_1_1_models_1_1_service_1_1_lists_1_1_list_ticket_type_model.html#a51267c24c8fae742ed8f9be0ba6085ee">ListTicketTypeModel</a>
 </li>
 </ul>
 
@@ -168,10 +208,30 @@ $(function() {
 <li>ADMIN
 : <a class="el" href="class_app_1_1_core_1_1_constants_1_1_list_account_type.html#ae08c5e032ab4c69ff4afed08a1f537ed">ListAccountType</a>
 </li>
+<li>ATTACH_FILE
+: <a class="el" href="class_app_1_1_core_1_1_constants_1_1_list_ticket_history_type_constants.html#aa5c863785c3c7887de380daa3a6eaede">ListTicketHistoryTypeConstants</a>
+</li>
+</ul>
+
+
+<h3><a id="index_c"></a>- c -</h3><ul>
+<li>CLOSE
+: <a class="el" href="class_app_1_1_core_1_1_constants_1_1_list_ticket_history_type_constants.html#a78bf836e4984c5e8d339547cbe997a34">ListTicketHistoryTypeConstants</a>
+</li>
+<li>COMMENT
+: <a class="el" href="class_app_1_1_core_1_1_constants_1_1_list_ticket_history_type_constants.html#a4951cfda1f15c6edbf240a5c44971eb0">ListTicketHistoryTypeConstants</a>
+</li>
+<li>CREATE
+: <a class="el" href="class_app_1_1_core_1_1_constants_1_1_list_ticket_history_type_constants.html#ae7d71eec207ebcef53a99536e8ca8825">ListTicketHistoryTypeConstants</a>
+, <a class="el" href="class_app_1_1_core_1_1_constants_1_1_list_ticket_status_constants.html#ae7d71eec207ebcef53a99536e8ca8825">ListTicketStatusConstants</a>
+</li>
 </ul>
 
 
 <h3><a id="index_d"></a>- d -</h3><ul>
+<li>DELETE
+: <a class="el" href="class_app_1_1_core_1_1_constants_1_1_list_ticket_history_type_constants.html#a614b5d84fb7b22aa1dfde34cf7b8f1ff">ListTicketHistoryTypeConstants</a>
+</li>
 <li>DEPUTY_EDU_MET_WORK
 : <a class="el" href="class_app_1_1_core_1_1_constants_1_1_list_account_type.html#a18f84014d92ece167e864444e7c2552e">ListAccountType</a>
 </li>
@@ -186,6 +246,13 @@ $(function() {
 </li>
 <li>DEPUTY_STUDENT_WORK
 : <a class="el" href="class_app_1_1_core_1_1_constants_1_1_list_account_type.html#a08becbb051cf8123fd572fa9803ba2a1">ListAccountType</a>
+</li>
+</ul>
+
+
+<h3><a id="index_f"></a>- f -</h3><ul>
+<li>FINISH
+: <a class="el" href="class_app_1_1_core_1_1_constants_1_1_list_ticket_status_constants.html#ae8b9910d1091974473053b17518c7e10">ListTicketStatusConstants</a>
 </li>
 </ul>
 
@@ -208,6 +275,9 @@ $(function() {
 
 
 <h3><a id="index_m"></a>- m -</h3><ul>
+<li>MEETING
+: <a class="el" href="class_app_1_1_core_1_1_constants_1_1_list_ticket_type_constants.html#a5069d9db4c011cbde9ba7b924cc027f3">ListTicketTypeConstants</a>
+</li>
 <li>METHODIST
 : <a class="el" href="class_app_1_1_core_1_1_constants_1_1_list_account_type.html#a3f8b848219ded9008150bfdbcf93d6de">ListAccountType</a>
 </li>
@@ -222,6 +292,9 @@ $(function() {
 
 
 <h3><a id="index_p"></a>- p -</h3><ul>
+<li>PROGRESS
+: <a class="el" href="class_app_1_1_core_1_1_constants_1_1_list_ticket_status_constants.html#a543d52cf14847f61a8d9c2ee74b25b0e">ListTicketStatusConstants</a>
+</li>
 <li>Protocols
 : <a class="el" href="class_app_1_1_core_1_1_constants_1_1_list_sub_system.html#a9d29b810919699b8470282c9c4616d58">ListSubSystem</a>
 </li>
@@ -239,6 +312,9 @@ $(function() {
 
 
 <h3><a id="index_t"></a>- t -</h3><ul>
+<li>TASK
+: <a class="el" href="class_app_1_1_core_1_1_constants_1_1_list_ticket_type_constants.html#ad35934bc96bdbe92b52db17cea5c259f">ListTicketTypeConstants</a>
+</li>
 <li>TEACHER
 : <a class="el" href="class_app_1_1_core_1_1_constants_1_1_list_account_type.html#a1bcc3da7a39ffcafa2c3fad3986c801d">ListAccountType</a>
 </li>
