@@ -101,7 +101,7 @@
     <element xsi:type="archimate:ApplicationService" name="Сервис аутентификации/авторизации" id="607896d5-ffce-44b7-856d-bf2ccd7350bb"/>
     <element xsi:type="archimate:ApplicationFunction" name="Выдать страницу входа" id="0d46b8f3-b89c-4f38-9352-fc375b6890fa"/>
     <element xsi:type="archimate:ApplicationComponent" name="ListAccountTypeModel" id="4d7cc9c6-2b01-4c62-9f46-3c50c5c8ac4e"/>
-    <element xsi:type="archimate:ApplicationComponent" name="ListAccountRightsModel" id="baf42e55-e129-46d5-b3dd-e2b13f0b85d4"/>
+    <element xsi:type="archimate:ApplicationComponent" name="AccountRightsModel" id="baf42e55-e129-46d5-b3dd-e2b13f0b85d4"/>
     <element xsi:type="archimate:ApplicationComponent" name="ListSystemSectionModel" id="a8b19cfa-c0a2-48ee-9783-7d702a6a0eb7"/>
     <element xsi:type="archimate:ApplicationComponent" name="ListSubSystemModel" id="0fe25ccf-eabc-4dc6-8f36-d9998bb97aab"/>
   </folder>

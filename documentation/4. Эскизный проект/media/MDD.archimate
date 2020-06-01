@@ -287,11 +287,11 @@
       <child xsi:type="archimate:Group" id="323ebf25-d783-4ffc-bd57-05221a325971" name="View" targetConnections="28bbca0d-1cbd-4801-a958-c9e3172ffe62" textAlignment="1">
         <bounds x="528" y="3204" width="3660" height="780"/>
         <child xsi:type="archimate:DiagramObject" id="8a73fc75-1bd9-45e4-9097-bf6b2a9cf8d6" archimateElement="ae92520f-b88c-4f12-8382-a943d443fb46">
-          <bounds x="348" y="187" width="216" height="36"/>
+          <bounds x="48" y="300" width="216" height="36"/>
           <sourceConnection xsi:type="archimate:Connection" id="20d2eebb-49fe-49c2-876d-2bb869776059" source="8a73fc75-1bd9-45e4-9097-bf6b2a9cf8d6" target="5bb6a05d-52ca-43e1-9ae8-365c8e682bfa" archimateRelationship="323c1ed5-3c95-43a9-8e43-992e179103bd"/>
         </child>
         <child xsi:type="archimate:DiagramObject" id="5bb6a05d-52ca-43e1-9ae8-365c8e682bfa" targetConnections="20d2eebb-49fe-49c2-876d-2bb869776059 131e1c90-adf8-46cb-825c-87d4e9b7f4ad" archimateElement="607896d5-ffce-44b7-856d-bf2ccd7350bb">
-          <bounds x="24" y="180" width="226" height="49"/>
+          <bounds x="60" y="180" width="226" height="49"/>
         </child>
       </child>
       <child xsi:type="archimate:Note" id="31f9a5cf-f96c-432e-86bc-a5f5357ba99d" textAlignment="1">
