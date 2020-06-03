@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers\Main\IP;
 
-use App\Core\Constants\ListFileTagConstants;
+use App\Core\Systems\Main\IPS\IPExcelFile;
 use App\Core\systems\main\ips\IPExcelFileReader;
 use App\Http\Controllers\Controller;
 use App\Models\Main\IP\IPModel;
-use App\Models\Main\Staff\EmployeeModel;
 use App\Models\Main\Storage\EmployeeFileModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -25,47 +24,13 @@ class IPResourceController extends Controller
         $this->authorizeResource(IPModel::class, 'ip');
     }
 
-    static public function assignFile($file) {
-
-
-        try {
-            $ipFile = new IPExcelFileReader(
-                str_replace('/', '\\', storage_path() . '/app/' . $file->path)
-            );
-
-            $ipFile = $ipFile->getResult();
-        } catch (\PhpOffice\PhpSpreadsheet\Reader\Exception $e) {
-            Session::flash('errorMessage', 'Произошла ошибка при добавлении');
-            return back();
-        }
-
-        $teacher = EmployeeModel::all()
-            ->where('secondName', '=', $ipFile[0]['secondName'])
-            ->where('firstName', '=', $ipFile[0]['firstName'])
-            ->where('patronymic', '=', $ipFile[0]['patronymic'])
-            ->first();
-
-        if ($teacher) {
-            $ip = new IPModel();
-            $ip->idEmployeeFile = $file->idEmployeeFile;
-            $ip->idTeacher = $teacher->idEmployee;
-            $ip->educationYear = $ipFile[0]['educationYear'];
-            $ip->lastEmployee = Auth::user()->getEmployee()->idEmployee;
-            $ip->lastUpdate = date('Y-m-d H:i:s');
-
-            return $ip->save();
-        }
-
-        return false;
-    }
 
     public function downloadIP($ip)
     {
-        $ipFile = IPModel::query()->where('idIP', '=', $ip)->first();
-        $file = EmployeeFileModel::query()->where('idEmployeeFile', '=', $ipFile->idEmployeeFile)->first();
+        $ip = IPModel::find($ip);
 
-        if (!empty($file)) {
-            return Storage::download($file->path, $file->filename);
+        if (!empty($ip)) {
+            return Storage::download($ip->file, 'ИП.xlsx');
         } else {
             Session::flash('message', 'Не удалось скачать ИП');
             return back();

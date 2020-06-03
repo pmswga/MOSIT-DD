@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateEmployeeTickets extends Migration
+class CreateTicketFile extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,14 @@ class CreateEmployeeTickets extends Migration
      */
     public function up()
     {
-        Schema::create('employee_tickets', function (Blueprint $table) {
-            $table->bigIncrements('idEmployeeTicket');
-            $table->integer('idEmployee');
+        Schema::create('ticket_file', function (Blueprint $table) {
+            $table->bigIncrements('idTicketFile');
             $table->integer('idTicket');
-            $table->boolean('isSeen')->default(False);
+            $table->string('extension');
+            $table->string('filename');
+            $table->string('size');
+            $table->string('path');
+            $table->timestamps();
         });
     }
 
@@ -28,6 +31,6 @@ class CreateEmployeeTickets extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('employee_tickets');
+        Schema::dropIfExists('ticket_file');
     }
 }

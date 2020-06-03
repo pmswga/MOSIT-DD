@@ -1,4 +1,4 @@
-@extends('layout.app')
+@extends('layout.app_default')
 @section('title', 'Поручение №' . $ticket->idTicket)
 
 @section('content')
@@ -67,7 +67,7 @@
                 @foreach($ticket->getAttachedFiles() as $file)
                     <div class="item">
                         <div class="right floated content">
-                            {{ $file->getExtension() }} , {{ $file->getSize() }} Мб
+                            {{ $file->extension }} , {{ $file->size }} Мб
                         </div>
                         <i class="file big icon"></i>
                         <div class="content">

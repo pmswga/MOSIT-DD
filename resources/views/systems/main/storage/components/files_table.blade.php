@@ -1,7 +1,6 @@
 <table class="ui table">
     <thead>
         <th>Имя</th>
-        <th>Тег</th>
         <th>Расширение</th>
         <th>Размер</th>
         <th>Дата добавления</th>
@@ -43,11 +42,6 @@
                         {{ $file->getFilename() }}
                     </td>
                     <td>
-                        <div class="ui tag label">
-                            {{ $file->getFileTag()->getCaption() }}
-                        </div>
-                    </td>
-                    <td>
                         {{ $file->getExtension() }}
                     </td>
                     <td>
@@ -64,7 +58,7 @@
                             <a class="ui icon button" href="{{ route('files.downloadFile', $file) }}">
                                 <i class="download icon"></i>
                             </a>
-                            <form style="margin: 0; padding: 0;" method="POST" action="{{ route('files.destroy', $file) }}" onsubmit="return confirm('Удалить?')">
+                            <form style="margin: 0px; padding: 0px;" method="POST" action="{{ route('files.destroy', $file) }}" onsubmit="return confirm('Удалить?')">
                                 @method('DELETE')
                                 @csrf
                                 <input type="hidden" name="currentDirectory" value="{{ $currentDirectory }}">

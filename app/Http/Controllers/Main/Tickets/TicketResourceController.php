@@ -12,8 +12,6 @@ use App\Models\Main\Tickets\TicketModel;
 use App\Models\Service\Lists\ListTicketTypeModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 
@@ -84,97 +82,63 @@ class TicketResourceController extends Controller
         $ticket->idTicketType = $request->ticketType;
         $ticket->caption = $request->ticketCaption;
         $ticket->description = $request->ticketDescription;
-        $ticket->startDate = $request->ticketStartDate . ' ' . $request->ticketStartTime;
-        $ticket->endDate = $request->ticketEndDate . ' ' . $request->ticketEndTime;
+        $ticket->startDate = date_format( date_create( $request->ticketStartDate ), 'Y.m.d H:i:s');
+        $ticket->endDate = date_format( date_create( $request->ticketEndDate ), 'Y.m.d H:i:s');
         $ticket->idTicketStatus = ListTicketStatusConstants::CREATE;
 
+        $result = true;//#fixme add exception handler
+        if ($ticket->save()) {
 
-        $isTicketCreated = true;
-        $isTicketEventCreated = true;
-        $isTicketEmployeeAssigned = true;
-        $isTicketFilesUploaded = true;
-        $isTicketAttachFilesEvent = true;
-        $uploadedFiles = [];
+            $ticketHistory = new TicketHistoryModel();
+            $ticketHistory->idTicket = $ticket->idTicket;
+            $ticketHistory->idTicketHistoryType = ListTicketHistoryTypeConstants::CREATE;
+            $ticketHistory->idEmployee = Auth::user()->idEmployee;
 
-        try
-        {
-            DB::beginTransaction();
-            if ($ticket->save()) {
+            $ticketHistory->save();
+
+            foreach ($request->ticketEmployees as $employee) {
+                $ticketEmployee = new EmployeeTicketModel();
+                $ticketEmployee->idEmployee = $employee;
+                $ticketEmployee->idTicket = $ticket->idTicket;
+                $result *= $ticketEmployee->save();
+            }
+
+            foreach ($request->file('files') as $file) {
+
+                $path = Storage::putFileAs(
+                    $this->ticketsPath . 'ticket_'.$ticket->idTicket,
+                    $file,
+                    $file->getClientOriginalName()
+                );
+
+                $ticketFile = new TicketFileModel();
+                $ticketFile->idTicket = $ticket->idTicket;
+                $ticketFile->filename = basename($path);
+                $ticketFile->extension = $file->extension();
+                $ticketFile->size = round((($file->getSize() / 1024 ) / 1024), 2);
+                $ticketFile->path = $path;
+
+                $ticketFile->save();
+            }
+
+            if ( count($request->file('files')) > 0 ) {
                 $ticketHistory = new TicketHistoryModel();
                 $ticketHistory->idTicket = $ticket->idTicket;
-                $ticketHistory->idTicketHistoryType = ListTicketHistoryTypeConstants::CREATE;
+                $ticketHistory->idTicketHistoryType = ListTicketHistoryTypeConstants::ATTACH_FILE;
                 $ticketHistory->idEmployee = Auth::user()->idEmployee;
 
-                $isTicketEventCreated = $ticketHistory->save();
-
-                foreach ($request->ticketEmployees as $employee) {
-                    $ticketEmployee = new EmployeeTicketModel();
-                    $ticketEmployee->idEmployee = $employee;
-                    $ticketEmployee->idTicket = $ticket->idTicket;
-                    $isTicketEmployeeAssigned *= $ticketEmployee->save();
-                }
-
-                if ($request->file('files')) {
-                    foreach ($request->file('files') as $file) {
-
-                        $path = Storage::putFileAs(
-                            $this->ticketsPath . 'ticket_'.$ticket->idTicket,
-                            $file,
-                            $file->getClientOriginalName()
-                        );
-
-                        $ticketFile = new TicketFileModel();
-                        $ticketFile->idTicket = $ticket->idTicket;
-                        $ticketFile->path = $path;
-                        $ticketFile->filename = basename($path);
-                        $ticketFile->extension = $file->extension();
-
-                        $isTicketFilesUploaded *= $ticketFile->save();
-                        $uploadedFiles[] = $path;
-                    }
-
-                }
-
-                if (count($request->file('files')) > 0) {
-                    $ticketHistory = new TicketHistoryModel();
-                    $ticketHistory->idTicket = $ticket->idTicket;
-                    $ticketHistory->idTicketHistoryType = ListTicketHistoryTypeConstants::ATTACH_FILE;
-                    $ticketHistory->idEmployee = Auth::user()->idEmployee;
-
-                    $isTicketAttachFilesEvent = $ticketHistory->save();
-                }
-
-            } else {
-                $isTicketCreated = false;
+                $ticketHistory->save();
             }
 
-            if ($isTicketCreated and
-                $isTicketEventCreated and
-                $isTicketEmployeeAssigned and
-                $isTicketFilesUploaded and
-                $isTicketAttachFilesEvent
-            ) {
-                DB::commit();
+            if ($result) {
                 Session::flash('successMessage', 'Поручение успешно создано');
                 return back();
-            } else {
-                DB::rollBack();
-                Session::flash('errorMessage', 'Не удалось создать поручение');
-                return back();
             }
 
-        } catch (\Exception $e) {
-            DB::rollBack();
-
-            if (count($uploadedFiles) > 0 ) {
-                foreach ($uploadedFiles as $file) {
-                    Storage::delete($file);
-                }
-            }
-
-            Session::flash('errorMessage', 'Произошла ошибка при создании поручения');
-            return back();
         }
+
+        Session::flash('successMessage', 'Не удалось создать поручение');
+        return back();
     }
 
     /**
@@ -233,14 +197,8 @@ class TicketResourceController extends Controller
      * @param  \App\Models\Main\Tickets\TicketModel  $ticketModel
      * @return \Illuminate\Http\Response
      */
-    public function destroy(TicketModel $ticket)
+    public function destroy(TicketModel $ticketModel)
     {
-        if ($ticket->delete()) {
-            Session::flash('successMessage', 'Поручение было удалено');
-            return back();
-        }
-
-        Session::flash('errorMessage', 'Произошла ошибка при удалении поручения');
-        return back();
+        //
     }
 }

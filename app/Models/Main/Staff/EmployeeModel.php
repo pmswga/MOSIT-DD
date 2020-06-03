@@ -2,7 +2,6 @@
 
 namespace App\Models\Main\Staff;
 
-use App\Models\Main\Storage\EmployeeFileModel;
 use App\Models\Main\Tickets\EmployeeTicketModel;
 use App\Models\Main\Tickets\TicketModel;
 use App\Models\Service\Lists\ListEmployeePostModel;
@@ -41,11 +40,30 @@ class EmployeeModel extends Model
     }
 
     public function getFaculty() {
-        return $this->hasOne(ListFacultyModel::class, 'idFaculty', 'idFaculty')->first();
+        $faculty = DB::table('list_faculty') // #todo create model for this join
+            ->select('list_faculty.caption as faculty')
+            ->where('list_faculty.idFaculty', '=', $this->idFaculty)
+            ->get()->first();
+
+        return $faculty->faculty; // #todo add error handler
+    }
+
+    public function getInstitute() {
+        $institute = DB::table('list_faculty') // #todo create model for this join
+            ->select('list_institute.caption as institute')
+            ->join('list_institute', 'list_faculty.idInstitute', '=', 'list_institute.idInstitute')
+            ->where('list_faculty.idFaculty', '=', $this->idFaculty)
+            ->get()->first();
+
+        return $institute->institute; // #todo add error handler
     }
 
     public function getPost() {
         return $this->hasOne(ListEmployeePostModel::class, 'idEmployeePost', 'idEmployeePost')->first()->getCaption();
+    }
+
+    public function getAccountId() {
+        return $this->idEmployee;
     }
 
     public function getTeacher() {
@@ -160,16 +178,6 @@ class EmployeeModel extends Model
         return null;
     }
 
-
-    public function getFilesByTag(int $fileTag) {
-        return $this->hasOne(EmployeeFileModel::class, 'idEmployee', 'idEmployee')
-            ->where('idFileTag', '=', $fileTag)
-            ->get();
-    }
-
-    public function getFiles() {
-        return $this->hasOne(EmployeeFileModel::class, 'idEmployee', 'idEmployee')->get();
-    }
 
 
 }

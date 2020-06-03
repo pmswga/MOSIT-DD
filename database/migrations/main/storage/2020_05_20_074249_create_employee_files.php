@@ -16,9 +16,8 @@ class CreateEmployeeFiles extends Migration
         Schema::create('employee_files', function (Blueprint $table) {
             $table->bigIncrements('idEmployeeFile');
             $table->integer('idEmployee');
-            $table->integer('idFileTag');
-            $table->string('directory', 255);
             $table->string('path', 255);
+            $table->string('directory', 255);
             $table->string('filename', 255);
             $table->string('extension', 10);
             $table->timestamps();

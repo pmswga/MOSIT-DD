@@ -1,4 +1,4 @@
-@extends('layout.app')
+@extends('layout.app_default')
 
 @section('title', 'Профиль')
 
@@ -47,11 +47,11 @@
                 </tr>
                 <tr>
                     <td>Институт</td>
-                    <td>{{ Auth::user()->getEmployee()->getFaculty()->getInstitute()->getCaption() }}</td>
+                    <td>{{ Auth::user()->getEmployee()->getInstitute() }}</td>
                 </tr>
                 <tr>
                     <td>Кафедра</td>
-                    <td>{{ Auth::user()->getEmployee()->getFaculty()->getCaption() }}</td>
+                    <td>{{ Auth::user()->getEmployee()->getFaculty() }}</td>
                 </tr>
             </tbody>
         </table>
@@ -108,11 +108,11 @@
                 </tr>
                 <tr>
                     <td>Институт</td>
-                    <td>{{ Auth::user()->getEmployee()->getFaculty()->getInstitute()->getCaption() }}</td>
+                    <td>{{ Auth::user()->getEmployee()->getChief()->getInstitute() }}</td>
                 </tr>
                 <tr>
                     <td>Кафедра</td>
-                    <td>{{ Auth::user()->getEmployee()->getChief()->getFaculty()->getCaption() }}</td>
+                    <td>{{ Auth::user()->getEmployee()->getChief()->getFaculty() }}</td>
                 </tr>
                 </tbody>
             </table>

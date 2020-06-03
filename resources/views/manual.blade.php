@@ -1,4 +1,4 @@
-@extends('layout.app')
+@extends('layout.app_default')
 @section('title', 'Руководство пользователя')
 
 @section('content')
@@ -8,11 +8,11 @@
         <p>Для того чтобы начать работу с системой необходимо убедиться, что для вас создана учётная запись.</p>
         <p>Обратитесь к администратору, чтобы получить почту и пароль для входа. Если у вас уже есть почта и пароль, то используйте форму входа, чтобы войти в систему </p>
     </fieldset>
-
+    
     <fieldset class="ui segment">
         <legend><h3>2) Философия работы</h3></legend>
-
-
+        
+        
         <div class="ui vertical ordered fluid steps">
   <div class="step">
     <div class="content">
@@ -37,7 +37,7 @@
     </div>
   </div>
 </div>
-
+        
     </fieldset>
 
 @endsection
