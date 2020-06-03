@@ -32,7 +32,7 @@ return array(
     'App\\Http\\Controllers\\Main\\Storage\\EmployeeFileResourceController' => $baseDir . '/app/Http/Controllers/Main/Storage/EmployeeFileResourceController.php',
     'App\\Http\\Controllers\\Main\\Storage\\EmployeeFileTagResourceController' => $baseDir . '/app/Http/Controllers/Main/Storage/EmployeeFileTagResourceController.php',
     'App\\Http\\Controllers\\Main\\Tickets\\TicketResourceController' => $baseDir . '/app/Http/Controllers/Main/Tickets/TicketResourceController.php',
-    'App\\Http\\Controllers\\Service\\Accounts\\AccountPageController' => $baseDir . '/app/Http/Controllers/Service/Accounts/AccountPageController.php',
+    'App\\Http\\Controllers\\Service\\Accounts\\AccountPageController' => $baseDir . '/app/Http/Controllers/AccountPageController.php',
     'App\\Http\\Controllers\\Service\\Accounts\\AccountResourceController' => $baseDir . '/app/Http/Controllers/Service/Accounts/AccountResourceController.php',
     'App\\Http\\Kernel' => $baseDir . '/app/Http/Kernel.php',
     'App\\Http\\Middleware\\Authenticate' => $baseDir . '/app/Http/Middleware/Authenticate.php',

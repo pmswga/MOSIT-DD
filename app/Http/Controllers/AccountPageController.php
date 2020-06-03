@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Service\Accounts;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -16,10 +16,6 @@ class AccountPageController extends Controller
 
     public function profile() {
         return view('profile');
-    }
-
-    public function admin() {
-        return view('admin.index');
     }
 
     public function home() {

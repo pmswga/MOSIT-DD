@@ -509,7 +509,7 @@ class ComposerStaticInit1d8c66968d0590b4cd3aa7f7d33ab51a
         'App\\Http\\Controllers\\Main\\Storage\\EmployeeFileResourceController' => __DIR__ . '/../..' . '/app/Http/Controllers/Main/Storage/EmployeeFileResourceController.php',
         'App\\Http\\Controllers\\Main\\Storage\\EmployeeFileTagResourceController' => __DIR__ . '/../..' . '/app/Http/Controllers/Main/Storage/EmployeeFileTagResourceController.php',
         'App\\Http\\Controllers\\Main\\Tickets\\TicketResourceController' => __DIR__ . '/../..' . '/app/Http/Controllers/Main/Tickets/TicketResourceController.php',
-        'App\\Http\\Controllers\\Service\\Accounts\\AccountPageController' => __DIR__ . '/../..' . '/app/Http/Controllers/Service/Accounts/AccountPageController.php',
+        'App\\Http\\Controllers\\Service\\Accounts\\AccountPageController' => __DIR__ . '/../..' . '/app/Http/Controllers/AccountPageController.php',
         'App\\Http\\Controllers\\Service\\Accounts\\AccountResourceController' => __DIR__ . '/../..' . '/app/Http/Controllers/Service/Accounts/AccountResourceController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Middleware\\Authenticate' => __DIR__ . '/../..' . '/app/Http/Middleware/Authenticate.php',
