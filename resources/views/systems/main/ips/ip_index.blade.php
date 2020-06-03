@@ -6,13 +6,6 @@
 @section('content')
 
     <fieldset class="ui segment">
-        <legend><h3>Панель инструментов</h3></legend>
-        @can('create', \App\Models\Main\IP\IPModel::class)
-            @include('systems.main.ips.components.ip_add')
-        @endcan
-    </fieldset>
-
-    <fieldset class="ui segment">
         <legend><h3>Индивидуальные планы</h3></legend>
 
         @isset($ips)
