@@ -1,12 +1,4 @@
-<<<<<<< HEAD
-@extends('layout.app_default')
-=======
 @extends('layout.app')
-<<<<<<< HEAD
->>>>>>> parent of 41f8947... Update ip_index.blade.php
-=======
->>>>>>> parent of 41f8947... Update ip_index.blade.php
-
 @section('title', 'Индивидуальные планы')
 
 
