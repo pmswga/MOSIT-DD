@@ -22,13 +22,25 @@
                 <textarea name="ticketDescription" required></textarea>
             </div>
             <div class="two fields">
-                <div class="field">
-                    <label>Начало</label>
-                    <input type="datetime-local" name="ticketStartDate" required>
+                <div class="two fields">
+                    <div class="field">
+                        <label>Начало</label>
+                        <input type="date" name="ticketStartDate" required>
+                    </div>
+                    <div class="field">
+                        <label>Время</label>
+                        <input type="time" name="ticketStartTime" required>
+                    </div>
                 </div>
-                <div class="field">
-                    <label>Окончание</label>
-                    <input type="datetime-local" name="ticketEndDate" required>
+                <div class="two fields">
+                    <div class="field">
+                        <label>Окончание</label>
+                        <input type="date" name="ticketEndDate" required>
+                    </div>
+                    <div class="field">
+                        <label>Время</label>
+                        <input type="time" name="ticketEndTime" required>
+                    </div>
                 </div>
             </div>
             <div class="field">

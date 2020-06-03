@@ -67,7 +67,7 @@
                 @foreach($ticket->getAttachedFiles() as $file)
                     <div class="item">
                         <div class="right floated content">
-                            {{ $file->extension }} , {{ $file->size }} Мб
+                            {{ $file->getExtension() }} , {{ $file->getSize() }} Мб
                         </div>
                         <i class="file big icon"></i>
                         <div class="content">

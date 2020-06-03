@@ -20,6 +20,10 @@ class TicketModel extends Model
         $this->date_format = 'd.m.Y / H:i';
     }
 
+    public function getCaption() {
+        return $this->caption;
+    }
+
     public function getAuthor() {
         return $this->hasOne(EmployeeModel::class, 'idEmployee', 'idAuthor')->get()->first();
     }
@@ -48,19 +52,19 @@ class TicketModel extends Model
     }
 
     public function getStartDate() {
-        return date_format(date_create($this->startDate), $this->date_format);
+        return Carbon::createFromTimeString($this->startDate)->format($this->date_format);
     }
 
     public function getEndDate() {
-        return date_format(date_create($this->endDate), $this->date_format);
+        return Carbon::createFromTimeString($this->endDate)->format($this->date_format);
     }
 
     public function getCreatedDate() {
-        return date_format(date_create($this->created_at), $this->date_format);
+        return $this->created_at->format($this->date_format);
     }
 
     public function getUpdatedDate() {
-        return date_format(date_create($this->updated_at), $this->date_format);
+        return $this->updated_at->format($this->date_format);
     }
 
     public function isExpired() {

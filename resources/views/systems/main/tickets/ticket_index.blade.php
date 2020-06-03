@@ -37,11 +37,11 @@
                         <tr>
                             <td>{{ $ticket->idTicket }}</td>
                             <td><a href="{{ route('tickets.show', $ticket) }}">{{ $ticket->getTicketType()->caption }}</a></td>
-                            <td>{{ $ticket->caption }}</td>
-                            <td>{{ $ticket->startDate }}</td>
-                            <td>{{ $ticket->endDate }}</td>
-                            <td>{{ $ticket->created_at }}</td>
-                            <td>{{ $ticket->updated_at }}</td>
+                            <td>{{ $ticket->getCaption() }}</td>
+                            <td>{{ $ticket->getStartDate() }}</td>
+                            <td>{{ $ticket->getEndDate() }}</td>
+                            <td>{{ $ticket->getCreatedDate() }}</td>
+                            <td>{{ $ticket->getUpdatedDate() }}</td>
                         </tr>
                     @endforeach
                 </tbody>

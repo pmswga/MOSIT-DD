@@ -12,6 +12,8 @@ use App\Models\Main\Tickets\TicketModel;
 use App\Models\Service\Lists\ListTicketTypeModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 
@@ -77,68 +79,93 @@ class TicketResourceController extends Controller
      */
     public function store(Request $request)
     {
-        $ticket = new TicketModel();
-        $ticket->idAuthor = Auth::user()->idEmployee;
-        $ticket->idTicketType = $request->ticketType;
-        $ticket->caption = $request->ticketCaption;
-        $ticket->description = $request->ticketDescription;
-        $ticket->startDate = date_format( date_create( $request->ticketStartDate ), 'Y.m.d H:i:s');
-        $ticket->endDate = date_format( date_create( $request->ticketEndDate ), 'Y.m.d H:i:s');
-        $ticket->idTicketStatus = ListTicketStatusConstants::CREATE;
+        try
+        {
+            $ticket = new TicketModel();
+            $ticket->idAuthor = Auth::user()->idEmployee;
+            $ticket->idTicketType = $request->ticketType;
+            $ticket->caption = $request->ticketCaption;
+            $ticket->description = $request->ticketDescription;
+            $ticket->startDate = $request->ticketStartDate . ' ' . $request->ticketStartTime;
+            $ticket->endDate = $request->ticketEndDate . ' ' . $request->ticketEndTime;
+            $ticket->idTicketStatus = ListTicketStatusConstants::CREATE;
 
-        $result = true;//#fixme add exception handler
-        if ($ticket->save()) {
+            DB::beginTransaction();
 
-            $ticketHistory = new TicketHistoryModel();
-            $ticketHistory->idTicket = $ticket->idTicket;
-            $ticketHistory->idTicketHistoryType = ListTicketHistoryTypeConstants::CREATE;
-            $ticketHistory->idEmployee = Auth::user()->idEmployee;
+            $isTicketCreated = true;
+            $isTicketEventCreated = true;
+            $isTicketEmployeeAssigned = true;
+            $isTicketFilesUploaded = true;
+            $isTicketAttachFilesEvent = true;
 
-            $ticketHistory->save();
-
-            foreach ($request->ticketEmployees as $employee) {
-                $ticketEmployee = new EmployeeTicketModel();
-                $ticketEmployee->idEmployee = $employee;
-                $ticketEmployee->idTicket = $ticket->idTicket;
-                $result *= $ticketEmployee->save();
-            }
-
-            foreach ($request->file('files') as $file) {
-
-                $path = Storage::putFileAs(
-                    $this->ticketsPath . 'ticket_'.$ticket->idTicket,
-                    $file,
-                    $file->getClientOriginalName()
-                );
-
-                $ticketFile = new TicketFileModel();
-                $ticketFile->idTicket = $ticket->idTicket;
-                $ticketFile->filename = basename($path);
-                $ticketFile->extension = $file->extension();
-                $ticketFile->size = round((($file->getSize() / 1024 ) / 1024), 2);
-                $ticketFile->path = $path;
-
-                $ticketFile->save();
-            }
-
-            if ( count($request->file('files')) > 0 ) {
+            if ($ticket->save()) {
                 $ticketHistory = new TicketHistoryModel();
                 $ticketHistory->idTicket = $ticket->idTicket;
-                $ticketHistory->idTicketHistoryType = ListTicketHistoryTypeConstants::ATTACH_FILE;
+                $ticketHistory->idTicketHistoryType = ListTicketHistoryTypeConstants::CREATE;
                 $ticketHistory->idEmployee = Auth::user()->idEmployee;
 
-                $ticketHistory->save();
+                $isTicketEventCreated = $ticketHistory->save();
+
+                foreach ($request->ticketEmployees as $employee) {
+                    $ticketEmployee = new EmployeeTicketModel();
+                    $ticketEmployee->idEmployee = $employee;
+                    $ticketEmployee->idTicket = $ticket->idTicket;
+                    $isTicketEmployeeAssigned *= $ticketEmployee->save();
+                }
+
+                if ($request->file('files')) {
+                    foreach ($request->file('files') as $file) {
+
+                        $path = Storage::putFileAs(
+                            $this->ticketsPath . 'ticket_'.$ticket->idTicket,
+                            $file,
+                            $file->getClientOriginalName()
+                        );
+
+                        $ticketFile = new TicketFileModel();
+                        $ticketFile->idTicket = $ticket->idTicket;
+                        $ticketFile->path = $path;
+                        $ticketFile->filename = basename($path);
+                        $ticketFile->extension = $file->extension();
+
+                        $isTicketFilesUploaded *= $ticketFile->save();
+                    }
+
+                }
+
+                if (count($request->file('files')) > 0) {
+                    $ticketHistory = new TicketHistoryModel();
+                    $ticketHistory->idTicket = $ticket->idTicket;
+                    $ticketHistory->idTicketHistoryType = ListTicketHistoryTypeConstants::ATTACH_FILE;
+                    $ticketHistory->idEmployee = Auth::user()->idEmployee;
+
+                    $isTicketAttachFilesEvent = $ticketHistory->save();
+                }
+
+            } else {
+                $isTicketCreated = false;
             }
 
-            if ($result) {
+            if ($isTicketCreated and
+                $isTicketEventCreated and
+                $isTicketEmployeeAssigned and
+                $isTicketFilesUploaded and
+                $isTicketAttachFilesEvent
+            ) {
+                DB::commit();
                 Session::flash('successMessage', 'Поручение успешно создано');
+                return back();
+            } else {
+                DB::rollBack();
+                Session::flash('successMessage', 'Не удалось создать поручение');
                 return back();
             }
 
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Session::flash('successMessage', 'Произошла ошибка при создании поручения');
+            return back();
         }
-
-        Session::flash('successMessage', 'Не удалось создать поручение');
-        return back();
     }
 
     /**
