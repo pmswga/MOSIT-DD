@@ -7,11 +7,11 @@ use Illuminate\Support\Facades\Route;
  */
 Route::post('/login', '\App\Http\Controllers\Auth\LoginController@login')->name('login');
 Route::post('/logout', '\App\Http\Controllers\Auth\LoginController@logout')->name('logout');
-Route::post('/reset_password', '\App\Http\Controllers\Auth\LoginController@logout')->name('reset_password');
+Route::post('/reset_password', '\App\Http\Controllers\Auth\ResetPasswordController@resetPassword')->name('reset_password');
 
 
 /**
- * Маргруты главным страниц
+ * Маршруты главным страниц
  */
 Route::get('/', 'MainPageController@index')->name('index');
 Route::get('/manual', 'MainPageController@manual')->name('manual');
