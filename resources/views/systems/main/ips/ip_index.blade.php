@@ -7,9 +7,7 @@
 
     <fieldset class="ui segment">
         <legend><h3>Панель инструментов</h3></legend>
-        @can('create', \App\Models\Main\IP\IPModel::class)
-            @include('systems.main.ips.components.ip_add')
-        @endcan
+
     </fieldset>
 
     <fieldset class="ui segment">
@@ -58,16 +56,6 @@
                                         <i class="orange edit icon"></i>
                                     </a>
                                 @endcan
-                                @can('delete', $ip)
-                                    <form method="POST" style="margin: 0px; padding: 0px;" action="{{ route('ips.destroy', $ip) }}" onsubmit="return confirm('Удалить?')">
-                                        @method('DELETE')
-                                        @csrf
-                                        <input type="hidden" name="idIP" value="{{ $ip->idIP }}">
-                                        <button type="submit"  class="ui button">
-                                            <i class="red trash icon"></i>
-                                        </button>
-                                    </form>
-                                @endcan
                             </div>
                         </td>
                     </tr>
@@ -79,7 +67,6 @@
                 @slot('type', 'message')
                 @slot('message', 'Вы не добавили файлы, с которыми будете работать')
             @endcomponent
-
         @endisset
     </fieldset>
 

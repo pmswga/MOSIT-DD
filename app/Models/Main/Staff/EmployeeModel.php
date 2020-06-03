@@ -2,6 +2,7 @@
 
 namespace App\Models\Main\Staff;
 
+use App\Models\Main\Storage\EmployeeFileModel;
 use App\Models\Main\Tickets\EmployeeTicketModel;
 use App\Models\Main\Tickets\TicketModel;
 use App\Models\Service\Lists\ListEmployeePostModel;
@@ -45,10 +46,6 @@ class EmployeeModel extends Model
 
     public function getPost() {
         return $this->hasOne(ListEmployeePostModel::class, 'idEmployeePost', 'idEmployeePost')->first()->getCaption();
-    }
-
-    public function getAccountId() {
-        return $this->idEmployee;
     }
 
     public function getTeacher() {
@@ -163,6 +160,16 @@ class EmployeeModel extends Model
         return null;
     }
 
+
+    public function getFilesByTag(int $fileTag) {
+        return $this->hasOne(EmployeeFileModel::class, 'idEmployee', 'idEmployee')
+            ->where('idFileTag', '=', $fileTag)
+            ->get();
+    }
+
+    public function getFiles() {
+        return $this->hasOne(EmployeeFileModel::class, 'idEmployee', 'idEmployee')->get();
+    }
 
 
 }
