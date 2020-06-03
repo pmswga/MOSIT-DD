@@ -4,16 +4,9 @@ namespace App\Http\Controllers\Main\Storage;
 
 use App\Http\Controllers\Controller;
 use App\Models\Main\Storage\EmployeeFileModel;
-use App\Models\Main\Storage\EmployeeFileTagModel;
-use App\Models\Service\Lists\ListFileTagModel;
-use foo\bar;
-use Illuminate\Database\QueryException;
-use Illuminate\Filesystem\Filesystem;
-use Illuminate\Foundation\Application;
+use App\Models\Main\Storage\ListFileTagModel;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Session;
 
@@ -119,6 +112,7 @@ class EmployeeFileResourceController extends Controller
         return view('systems.main.storage.files_index', [
             'currentDirectory' => $path,
             'parentDirectory'  => $parentDirectory,
+            'fileTags' => ListFileTagModel::all(),
             'folders' => $allDirectories,
             'files' => $files
         ]);
@@ -154,8 +148,9 @@ class EmployeeFileResourceController extends Controller
 
                 $fileModel = new EmployeeFileModel([
                     'idEmployee' => Auth::user()->idEmployee,
-                    'path' => $pathInfo['dirname'] . '/' . $pathInfo['basename'],
+                    'idFileTag' => $request->fileTag,
                     'directory' => $currentDirectory,
+                    'path' => $pathInfo['dirname'] . '/' . $pathInfo['basename'],
                     'filename' => $pathInfo['filename'],
                     'extension' => $pathInfo['extension']
                 ]);
@@ -163,6 +158,8 @@ class EmployeeFileResourceController extends Controller
                 if ($fileModel->save()) {
                     Session::flash('successMessage', 'Файл добавлен');
                     return back();
+                } else {
+                    Storage::delete($path);
                 }
             }
 

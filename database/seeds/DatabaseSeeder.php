@@ -28,6 +28,8 @@ class DatabaseSeeder extends Seeder
             ListSystemSectionSeeder::class,
             ListSubSystemSeeder::class,
 
+            ListFileTagSeeder::class,
+
             ListTicketTypeSeeder::class,
             ListTicketStatusSeeder::class,
             ListTicketHistoryTypeSeeder::class,
