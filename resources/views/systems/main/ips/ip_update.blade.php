@@ -1,5 +1,4 @@
-@extends('layout.app_default')
-
+@extends('layout.app')
 @section('title') Редактирование ИП @endsection
 
 @section('content')

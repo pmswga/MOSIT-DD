@@ -1,6 +1,7 @@
 <table class="ui table">
     <thead>
         <th>Имя</th>
+        <th>Тег</th>
         <th>Расширение</th>
         <th>Размер</th>
         <th>Дата добавления</th>
@@ -19,7 +20,7 @@
         @if(count($folders) > 0 or count($files) > 0)
             @foreach($folders as $folder)
                 <tr>
-                    <td colspan="4">
+                    <td colspan="6">
                         <i class="folder icon"></i>
                         <a href="{{ route('files.index', ['path' => $folder]) }}">{{ basename($folder) }}</a>
                     </td>
@@ -40,6 +41,11 @@
                     <td>
                         <i class="file icon"></i>
                         {{ $file->getFilename() }}
+                    </td>
+                    <td>
+                        <div class="ui tag label">
+                            {{ $file->getFileTag()->getCaption() }}
+                        </div>
                     </td>
                     <td>
                         {{ $file->getExtension() }}

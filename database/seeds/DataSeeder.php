@@ -35,7 +35,7 @@ class  DataSeeder {
             'secondName' => 'Аншина',
             'firstName' => 'Марина',
             'patronymic' => 'Львовна',
-            'personalPhone' => '+70000000000',
+            'personalPhone' => '',
             'personalEmail' => 'anshina@mail.ru',
             'idFaculty' => 1,
             'idEmployeePost' => 1,

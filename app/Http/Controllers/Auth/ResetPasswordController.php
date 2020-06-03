@@ -27,4 +27,25 @@ class ResetPasswordController extends Controller
      * @var string
      */
     protected $redirectTo = RouteServiceProvider::HOME;
+    
+    
+     public function resetPassword(Request $request)
+    {
+        if ($request->newPassword === $request->newPasswordRepeat) {
+            Auth::user()->password = Hash::make($request->newPassword);
+
+            if (Auth::user()->save()) {
+                Session::flash('successMessage', 'Пароль успешно сменён');
+                return back();
+
+            }
+
+            Session::flash('errorMessage', 'Не удалось сменить пароль');
+            return back();
+        }
+
+        Session::flash('errorMessage', 'Пароли не совпадают');
+        return back();
+    }
+    
 }
