@@ -15,6 +15,8 @@ Route::get('/login', function () { // #fixme Настроить класс Login
     return redirect()->route('index');
 });
 
+Route::post('/reset_password', 'Auth\ResetPasswordController@resetPassword')->name('reset_password');
+
 /**
  * Маршруты связанные с подсистемами
  */

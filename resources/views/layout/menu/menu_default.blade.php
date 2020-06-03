@@ -78,7 +78,7 @@
             <b>Настройки</b>
             <div class="menu">
                 <a class="item" href="{{ route('profile') }}">Профиль</a>
-                <a class="item" href="#reset">
+                <a class="item" onclick="$('#resetPasswordModal').modal('show')">
                     Сменить пароль
                 </a>
             </div>
@@ -107,6 +107,10 @@
     <form id="logoutForm" method="POST" action="{{ route('logout') }}">
         @csrf
     </form>
+    @include('components.reset_password')
 @else
-    @include('login')
+    @include('components.login')
 @endauth
+
+
+
