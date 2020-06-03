@@ -15,11 +15,12 @@ class CreateTicketFiles extends Migration
     {
         Schema::create('ticket_files', function (Blueprint $table) {
             $table->bigIncrements('idTicketFile');
-            $table->integer('idTicket');
+            $table->bigInteger('idTicket')->unsigned();
             $table->string('path');
             $table->string('filename');
             $table->string('extension');
             $table->timestamps();
+            $table->foreign('idTicket')->references('idTicket')->on('tickets')->onDelete('cascade');
         });
     }
 

@@ -30,6 +30,7 @@
                         <th>Дата окончания</th>
                         <th>Дата создания</th>
                         <th>Последнее обновление</th>
+                        <th>Действия</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -42,6 +43,14 @@
                             <td>{{ $ticket->getEndDate() }}</td>
                             <td>{{ $ticket->getCreatedDate() }}</td>
                             <td>{{ $ticket->getUpdatedDate() }}</td>
+                            <td>
+                                <form method="POST" onsubmit="return confirm('Удалить?')" action="{{ route('tickets.destroy', $ticket) }}">
+                                    @method('DELETE')
+                                    @csrf
+
+                                    <input type="submit" class="ui red button" value="Удалить">
+                                </form>
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>
