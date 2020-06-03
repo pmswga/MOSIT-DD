@@ -5,6 +5,7 @@ namespace App\Models\Main\IP;
 use App\Models\Main\Staff\EmployeeModel;
 use App\Models\Main\Staff\TeacherModel;
 use App\Models\Main\Storage\EmployeeFileModel;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 
@@ -13,6 +14,7 @@ class IPModel extends Model
     protected $table = 'ips';
     protected $primaryKey = 'idIP';
     public $timestamps = false;
+    protected $date_format = 'd.m.Y / H:i';
 
     public function getFilePath() {
         $file = $this->hasOne(EmployeeFileModel::class, 'idEmployeeFile', 'idEmployeeFile')->first();
@@ -23,24 +25,20 @@ class IPModel extends Model
         return str_replace('/', '\\' , storage_path() . '/app/' . $this->getFilePath());
     }
 
-    public function getFileContent() {
-        $file = $this->hasOne(EmployeeFileModel::class, 'idEmployeeFile', 'idEmployeeFile')->first();
-        return Storage::get($file->path);
+    public function getFIle() {
+        return $this->hasOne(EmployeeFileModel::class, 'idEmployeeFile', 'idEmployeeFile')->first();
     }
 
-    public function getTeacherInitials() {
-        $teacher = $this->hasOne(TeacherModel::class, 'idTeacher', 'idTeacher')
-                ->where('idTeacher', '=', $this->idTeacher)->get()->first();
+    public function getTeacher() {
+        return $this->hasOne(EmployeeModel::class,'idEmployee', 'idTeacher')->first();
+    }
 
-        if ($teacher) {
-            $employee = $teacher->hasOne(EmployeeModel::class, 'idEmployee', 'idEmployee')->get()->first();
+    public function getLastEmployee() {
+        return $this->hasOne(EmployeeModel::class, 'idEmployee', 'lastEmployee')->first();
+    }
 
-            if ($employee) {
-                return $employee->getFullInitials();
-            }
-        }
-
-        return '';
+    public function getLastUpdate() {
+        return Carbon::createFromTimeString($this->lastUpdate)->format($this->date_format);
     }
 
 }

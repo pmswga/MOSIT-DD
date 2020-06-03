@@ -39,7 +39,7 @@
                 </tr>
                 <tr>
                     <td>Должность</td>
-                    <td>{{ Auth::user()->getEmployee()->getPost() }}</td>
+                    <td>{{ Auth::user()->getEmployee()->getPost()->getCaption() }}</td>
                 </tr>
                 <tr>
                     <td>Телефон</td>
@@ -96,7 +96,7 @@
                 </tr>
                 <tr>
                     <td>Должность</td>
-                    <td>{{ Auth::user()->getEmployee()->getChief()->getPost() }}</td>
+                    <td>{{ Auth::user()->getEmployee()->getChief()->getPost()->getCaption() }}</td>
                 </tr>
                 <tr>
                     <td>Телефон</td>

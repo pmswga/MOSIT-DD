@@ -7,8 +7,7 @@
 
     <fieldset class="ui segment">
         <legend><h3>Индивидуальные планы</h3></legend>
-
-        @isset($ips)
+        @if($ips->isNotEmpty())
             <table class="ui celled table">
                 <col width="5%">
                 <col width="25%">
@@ -30,15 +29,15 @@
                 @foreach($ips as $ip)
                     <tr>
                         <td style="text-align: center">{{ $loop->iteration }}</td>
-                        <td>{{ $ip->getTeacherInitials() }}</td>
+                        <td>{{ $ip->getTeacher()->getFullInitials() }}</td>
                         <td>
                             {{ $ip->educationYear }}
                         </td>
                         <td>
-                            {{ date_format(date_create($ip->lastUpdate), 'd.m.Y / H:i') }}
+                            {{ $ip->getLastUpdate() }}
                         </td>
                         <td>
-                            {{ \App\Models\Main\Staff\EmployeeModel::find($ip->lastEmployee)->getFullInitials()  }}
+                            {{ $ip->getLastEmployee()->getFullInitials() }}
                         </td>
                         <td colspan="2" style="text-align: center">
                             <div class="ui  basic icon buttons">
@@ -62,8 +61,7 @@
                 @slot('type', 'message')
                 @slot('message', 'Вы не добавили файлы, с которыми будете работать')
             @endcomponent
-
-        @endisset
+        @endif
     </fieldset>
 
 @endsection

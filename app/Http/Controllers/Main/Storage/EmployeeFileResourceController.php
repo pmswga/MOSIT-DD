@@ -5,16 +5,11 @@ namespace App\Http\Controllers\Main\Storage;
 use App\Core\Constants\ListFileTagConstants;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Main\IP\IPResourceController;
+use App\Models\Main\IP\IPModel;
 use App\Models\Main\Storage\EmployeeFileModel;
 use App\Models\Main\Storage\ListFileTagModel;
-use foo\bar;
-use Illuminate\Database\QueryException;
-use Illuminate\Filesystem\Filesystem;
-use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Session;
 
@@ -33,7 +28,12 @@ class EmployeeFileResourceController extends Controller
     }
 
     public function downloadFile(EmployeeFileModel $file) {
-        return Storage::download($file->getPath());
+        if (Storage::exists($file->getPath())) {
+            return Storage::download($file->getPath());
+        }
+
+        Session::flash('errorMessage', 'Не удалось скачать файл');
+        return back();
     }
 
     public function createDirectory(Request $request) {
@@ -171,13 +171,13 @@ class EmployeeFileResourceController extends Controller
                     ]);
 
                     if ($fileModel->save()) {
-
-                        switch ($request->fileTag) {
+                        switch ($request->fileTag)
+                        {
                             case ListFileTagConstants::IP:
-                                {
-                                    IPResourceController::assignFile($fileModel);
-                                }
-                                break;
+                            {
+                                IPResourceController::assignFile($fileModel);
+                            }
+                            break;
                         }
 
                         Session::flash('successMessage', 'Файл добавлен');
@@ -243,10 +243,10 @@ class EmployeeFileResourceController extends Controller
             switch ($file->idFileTag)
             {
                 case ListFileTagConstants::IP:
-                    {
-                        $ipFile = IPModel::all()->where('idEmployeeFile', '=', $file->idEmployeeFile)->first();
-                        $ipFile->delete();
-                    } break;
+                {
+                    $ipFile = IPModel::all()->where('idEmployeeFile', '=', $file->idEmployeeFile)->first();
+                    $ipFile->delete();
+                } break;
             }
 
             if (Storage::delete($file->path)) {
