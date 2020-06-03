@@ -12,7 +12,7 @@
         <div id="grid" class="ui stackable grid">
             <div class="two column row">
                 <div id="menu" class="three wide column">
-                    @include('layout.menu.menu_default')
+                    @include('layout.menu')
                 </div>
                 <div id="content" class="thirteen wide column">
 

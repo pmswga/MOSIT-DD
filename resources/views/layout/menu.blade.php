@@ -19,9 +19,9 @@
             <a class="item" >Copyright © 2020. Все права защищены</a>
         </div>
     @else
-        <div class="header item" style="text-align: center">
+        <a class="header item" href="{{ route('home') }}" style="text-align: center">
             {{ Auth::user()->getEmployee()->getFullInitials() }}
-        </div>
+        </a>
 
         @if(\Illuminate\Support\Facades\Auth::user()->getAccountRightsOn(\App\Core\Constants\ListSubSystemConstants::Tickets)->isAccess())
             <div class="item">
