@@ -178,6 +178,14 @@ class EmployeeModel extends Model
         return null;
     }
 
+    public function getFilesByTag(int $fileTag) {
+        return $this->hasOne(EmployeeFileModel::class, 'idEmployee', 'idEmployee')
+            ->where('idFileTag', '=', $fileTag)
+            ->get();
+    }
 
+    public function getFiles() {
+        return $this->hasOne(EmployeeFileModel::class, 'idEmployee', 'idEmployee')->get();
+    }
 
 }

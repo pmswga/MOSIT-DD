@@ -18,6 +18,10 @@ class AccountPageController extends Controller
         return view('profile');
     }
 
+    public function admin() {
+        return view('admin.index');
+    }
+
     public function home() {
         return view('home');
     }

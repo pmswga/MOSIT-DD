@@ -12,12 +12,10 @@ class TicketModel extends Model
 {
     protected $table = 'tickets';
     protected $primaryKey = 'idTicket';
-    protected $date_format;
+    protected $date_format = 'd.m.Y / H:i';
 
-    public function __construct(array $attributes = [])
-    {
-        parent::__construct($attributes);
-        $this->date_format = 'd.m.Y / H:i';
+    public function getCaption() {
+        return $this->caption;
     }
 
     public function getAuthor() {
@@ -56,11 +54,11 @@ class TicketModel extends Model
     }
 
     public function getCreatedDate() {
-        return date_format(date_create($this->created_at), $this->date_format);
+        return $this->created_at->format($this->date_format);
     }
 
     public function getUpdatedDate() {
-        return date_format(date_create($this->updated_at), $this->date_format);
+        return $this->updated_at->format($this->date_format);
     }
 
     public function isExpired() {

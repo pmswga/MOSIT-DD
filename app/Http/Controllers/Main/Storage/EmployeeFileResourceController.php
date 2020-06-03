@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Main\Storage;
 
+use App\Core\Constants\ListFileTagConstants;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Main\IP\IPResourceController;
 use App\Models\Main\Storage\EmployeeFileModel;
-use App\Models\Main\Storage\EmployeeFileTagModel;
-use App\Models\Service\Lists\ListFileTagModel;
+use App\Models\Main\Storage\ListFileTagModel;
 use foo\bar;
 use Illuminate\Database\QueryException;
 use Illuminate\Filesystem\Filesystem;
@@ -119,6 +120,7 @@ class EmployeeFileResourceController extends Controller
         return view('systems.main.storage.files_index', [
             'currentDirectory' => $path,
             'parentDirectory'  => $parentDirectory,
+            'fileTags' => ListFileTagModel::all(),
             'folders' => $allDirectories,
             'files' => $files
         ]);
@@ -148,24 +150,46 @@ class EmployeeFileResourceController extends Controller
         if (Storage::exists($currentDirectory)) {
             $path = Storage::putFileAs($currentDirectory, $file, $file->getClientOriginalName());
 
-            if ($path) {
-                #$pathInfo = pathInfo( str_replace('/', '\\',App::storagePath() . $path) );
-                $pathInfo = pathInfo($path);
+            $pathInfo = pathInfo($path);
 
-                $fileModel = new EmployeeFileModel([
-                    'idEmployee' => Auth::user()->idEmployee,
-                    'path' => $pathInfo['dirname'] . '/' . $pathInfo['basename'],
-                    'directory' => $currentDirectory,
-                    'filename' => $pathInfo['filename'],
-                    'extension' => $pathInfo['extension']
-                ]);
+            if (Storage::exists($path)) {
 
-                if ($fileModel->save()) {
-                    Session::flash('successMessage', 'Файл добавлен');
+                $isExist = EmployeeFileModel::query()
+                    ->where('filename', '=', $pathInfo['filename'])
+                    ->where('idEmployee', '=', Auth::id())
+                    ->get();
+
+                if ($isExist->isEmpty()) {
+
+                    $fileModel = new EmployeeFileModel([
+                        'idEmployee' => Auth::user()->idEmployee,
+                        'idFileTag' => $request->fileTag,
+                        'directory' => $currentDirectory,
+                        'path' => $pathInfo['dirname'] . '/' . $pathInfo['basename'],
+                        'filename' => $pathInfo['filename'],
+                        'extension' => $pathInfo['extension']
+                    ]);
+
+                    if ($fileModel->save()) {
+
+                        switch ($request->fileTag) {
+                            case ListFileTagConstants::IP:
+                                {
+                                    IPResourceController::assignFile($fileModel);
+                                }
+                                break;
+                        }
+
+                        Session::flash('successMessage', 'Файл добавлен');
+                        return back();
+                    } else {
+                        Storage::delete($path);
+                    }
+                } else {
+                    Session::flash('successMessage', 'Такой файл уже был добавлен ранее');
                     return back();
                 }
             }
-
         }
 
         Session::flash('errorMessage', 'Произошла ошибка загрузки файла');
@@ -215,6 +239,16 @@ class EmployeeFileResourceController extends Controller
     public function destroy(EmployeeFileModel $file)
     {
         if (Storage::exists($file->path)) {
+
+            switch ($file->idFileTag)
+            {
+                case ListFileTagConstants::IP:
+                    {
+                        $ipFile = IPModel::all()->where('idEmployeeFile', '=', $file->idEmployeeFile)->first();
+                        $ipFile->delete();
+                    } break;
+            }
+
             if (Storage::delete($file->path)) {
                 if ($file->delete()) {
                     Session::flash('successMessage', 'Файл был удалён');

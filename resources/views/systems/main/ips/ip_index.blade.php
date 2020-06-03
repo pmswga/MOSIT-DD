@@ -1,11 +1,4 @@
-<<<<<<< HEAD
-@extends('layout.app_default')
-=======
 @extends('layout.app')
-<<<<<<< HEAD
->>>>>>> parent of 41f8947... Update ip_index.blade.php
-=======
->>>>>>> parent of 41f8947... Update ip_index.blade.php
 
 @section('title', 'Индивидуальные планы')
 
@@ -64,16 +57,6 @@
                                     <a class="ui button" href="{{ route('ips.edit', $ip) }}">
                                         <i class="orange edit icon"></i>
                                     </a>
-                                @endcan
-                                @can('delete', $ip)
-                                    <form method="POST" style="margin: 0px; padding: 0px;" action="{{ route('ips.destroy', $ip) }}" onsubmit="return confirm('Удалить?')">
-                                        @method('DELETE')
-                                        @csrf
-                                        <input type="hidden" name="idIP" value="{{ $ip->idIP }}">
-                                        <button type="submit"  class="ui button">
-                                            <i class="red trash icon"></i>
-                                        </button>
-                                    </form>
                                 @endcan
                             </div>
                         </td>
