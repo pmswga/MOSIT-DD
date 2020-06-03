@@ -47,11 +47,11 @@
                 </tr>
                 <tr>
                     <td>Институт</td>
-                    <td>{{ Auth::user()->getEmployee()->getInstitute() }}</td>
+                    <td>{{ Auth::user()->getEmployee()->getFaculty()->getInstitute()->getCaption() }}</td>
                 </tr>
                 <tr>
                     <td>Кафедра</td>
-                    <td>{{ Auth::user()->getEmployee()->getFaculty() }}</td>
+                    <td>{{ Auth::user()->getEmployee()->getFaculty()->getCaption() }}</td>
                 </tr>
             </tbody>
         </table>
@@ -108,11 +108,11 @@
                 </tr>
                 <tr>
                     <td>Институт</td>
-                    <td>{{ Auth::user()->getEmployee()->getChief()->getInstitute() }}</td>
+                    <td>{{ Auth::user()->getEmployee()->getChief()->getFaculty()->getInstitute()->getCaption() }}</td>
                 </tr>
                 <tr>
                     <td>Кафедра</td>
-                    <td>{{ Auth::user()->getEmployee()->getChief()->getFaculty() }}</td>
+                    <td>{{ Auth::user()->getEmployee()->getChief()->getFaculty()->getCaption() }}</td>
                 </tr>
                 </tbody>
             </table>
