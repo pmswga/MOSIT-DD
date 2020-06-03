@@ -12,7 +12,7 @@ class EmployeeFilePolicy
     use HandlesAuthorization;
 
     /**
-     * Determine whether the user can view any employee file models.
+     * Determine whether the user can view any help file models.
      *
      * @param  \App\AccountModel  $user
      * @return mixed
@@ -25,7 +25,7 @@ class EmployeeFilePolicy
     }
 
     /**
-     * Determine whether the user can view the employee file model.
+     * Determine whether the user can view the help file model.
      *
      * @param  \App\AccountModel  $user
      * @param  \App\Models\Main\Storage\EmployeeFileModel  $employeeFileModel
@@ -37,7 +37,7 @@ class EmployeeFilePolicy
     }
 
     /**
-     * Determine whether the user can create employee file models.
+     * Determine whether the user can create help file models.
      *
      * @param  \App\AccountModel  $user
      * @return mixed
@@ -48,7 +48,7 @@ class EmployeeFilePolicy
     }
 
     /**
-     * Determine whether the user can update the employee file model.
+     * Determine whether the user can update the help file model.
      *
      * @param  \App\AccountModel  $user
      * @param  \App\Models\Main\Storage\EmployeeFileModel  $employeeFileModel
@@ -60,7 +60,7 @@ class EmployeeFilePolicy
     }
 
     /**
-     * Determine whether the user can delete the employee file model.
+     * Determine whether the user can delete the help file model.
      *
      * @param  \App\AccountModel  $user
      * @param  \App\Models\Main\Storage\EmployeeFileModel  $employeeFileModel
@@ -72,7 +72,7 @@ class EmployeeFilePolicy
     }
 
     /**
-     * Determine whether the user can restore the employee file model.
+     * Determine whether the user can restore the help file model.
      *
      * @param  \App\AccountModel  $user
      * @param  \App\Models\Main\Storage\EmployeeFileModel  $employeeFileModel
@@ -84,7 +84,7 @@ class EmployeeFilePolicy
     }
 
     /**
-     * Determine whether the user can permanently delete the employee file model.
+     * Determine whether the user can permanently delete the help file model.
      *
      * @param  \App\AccountModel  $user
      * @param  \App\Models\Main\Storage\EmployeeFileModel  $employeeFileModel

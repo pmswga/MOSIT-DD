@@ -15,7 +15,7 @@ class EmployeeResourceController extends Controller
      */
     public function index()
     {
-        return view('systems.main.employee.employees_index', [
+        return view('systems.main.help.employees_index', [
             'employees' => EmployeeModel::all()->sortBy('secondName')
         ]);
     }

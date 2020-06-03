@@ -11,16 +11,33 @@ Route::post('/reset_password', '\App\Http\Controllers\Auth\ResetPasswordControll
 
 
 /**
- * Маршруты главным страниц
+ * Маршруты главных страниц
  */
 Route::get('/', 'MainPageController@index')->name('index');
-Route::get('/manual', 'MainPageController@manual')->name('manual');
 Route::get('/home', 'AccountPageController@home')->name('home');
 Route::get('/profile','AccountPageController@profile')->name('profile');
 
 Route::get('/login', function () { // #fixme Настроить класс LoginController или иной для автоматического редиректа на главную страницу
     return redirect()->route('index');
 });
+
+
+
+
+/**
+ * Маршруты справочников
+ */
+
+Route::prefix('help')->group(function () {
+
+    Route::get('/', 'HelpPageController@index')->name('help.index');
+    Route::get('/manual', 'HelpPageController@manual')->name('manual');
+
+    Route::get('/employee_list', 'HelpPageController@employeeList')->name('employee_list');
+
+});
+
+
 
 /**
  * Маршруты связанные с подсистемами

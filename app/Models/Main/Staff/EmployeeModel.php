@@ -44,7 +44,7 @@ class EmployeeModel extends Model
     }
 
     public function getPost() {
-        return $this->hasOne(ListEmployeePostModel::class, 'idEmployeePost', 'idEmployeePost')->first()->getCaption();
+        return $this->hasOne(ListEmployeePostModel::class, 'idEmployeePost', 'idEmployeePost')->first();
     }
 
     public function getAccountId() {

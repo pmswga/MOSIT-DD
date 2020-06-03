@@ -11,10 +11,6 @@ class MainPageController extends Controller
         return view('index');
     }
 
-    public function manual() {
-        return view('manual');
-    }
-
     public function about() {
         return view('about');
     }
