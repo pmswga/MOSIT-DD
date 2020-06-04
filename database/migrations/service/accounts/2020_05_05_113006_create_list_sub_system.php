@@ -13,7 +13,7 @@ class CreateListSubSystem extends Migration
      */
     public function up()
     {
-        Schema::create('list_sub_system', function (Blueprint $table) {
+        Schema::create(\App\Core\Config\ListDatabaseTable::TABLE_LIST_SUB_SYSTEM, function (Blueprint $table) {
             $table->bigIncrements('idSubSystem');
             $table->integer('idSystemSection');
             $table->string('caption', 255)->unique();
@@ -28,6 +28,6 @@ class CreateListSubSystem extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('list_sub_system');
+        Schema::dropIfExists(\App\Core\Config\ListDatabaseTable::TABLE_LIST_SUB_SYSTEM);
     }
 }

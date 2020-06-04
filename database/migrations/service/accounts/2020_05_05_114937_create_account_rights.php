@@ -13,7 +13,7 @@ class CreateAccountRights extends Migration
      */
     public function up()
     {
-        Schema::create('account_rights', function (Blueprint $table) {
+        Schema::create(\App\Core\Config\ListDatabaseTable::TABLE_ACCOUNT_RIGHTS, function (Blueprint $table) {
             $table->integer('idAccount');
             $table->integer('idSubSystem');
             $table->boolean('isAccess')->default(0);
@@ -32,6 +32,6 @@ class CreateAccountRights extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('account_rights');
+        Schema::dropIfExists(\App\Core\Config\ListDatabaseTable::TABLE_ACCOUNT_RIGHTS);
     }
 }

@@ -13,7 +13,7 @@ class CreateAccounts extends Migration
      */
     public function up()
     {
-        Schema::create('accounts', function (Blueprint $table) {
+        Schema::create(\App\Core\Config\ListDatabaseTable::TABLE_ACCOUNTS, function (Blueprint $table) {
             $table->bigIncrements('idAccount');
             $table->integer("idEmployee");
             $table->integer("idAccountType");
@@ -32,6 +32,6 @@ class CreateAccounts extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('accounts');
+        Schema::dropIfExists(\App\Core\Config\ListDatabaseTable::TABLE_ACCOUNTS);
     }
 }

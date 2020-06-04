@@ -13,7 +13,7 @@ class CreateListSystemSection extends Migration
      */
     public function up()
     {
-        Schema::create('list_system_section', function (Blueprint $table) {
+        Schema::create(\App\Core\Config\ListDatabaseTable::TABLE_LIST_SYSTEM_SECTION, function (Blueprint $table) {
             $table->bigIncrements('idSystemSection');
             $table->string('caption', 255)->unique();
         });
@@ -26,6 +26,6 @@ class CreateListSystemSection extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('list_system_section');
+        Schema::dropIfExists(\App\Core\Config\ListDatabaseTable::TABLE_LIST_SYSTEM_SECTION);
     }
 }
