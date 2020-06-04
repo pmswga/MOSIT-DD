@@ -12,7 +12,7 @@ class ListTicketStatusSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('list_ticket_status')->insert([
+        DB::table(\App\Core\Config\ListDatabaseTable::TABLE_LIST_TICKET_STATUS)->insert([
             [
                 'idTicketStatus' => \App\Core\Constants\ListTicketStatusConstants::CREATE,
                 'caption' => 'Создано'

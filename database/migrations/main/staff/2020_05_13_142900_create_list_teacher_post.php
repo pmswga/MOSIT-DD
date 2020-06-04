@@ -13,7 +13,7 @@ class CreateListTeacherPost extends Migration
      */
     public function up()
     {
-        Schema::create('list_teacher_post', function (Blueprint $table) {
+        Schema::create(\App\Core\Config\ListDatabaseTable::TABLE_LIST_TEACHER_POST, function (Blueprint $table) {
             $table->bigIncrements('idTeacherPost');
             $table->string('caption', 255)->unique();
         });
@@ -26,6 +26,6 @@ class CreateListTeacherPost extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('list_teacher_post');
+        Schema::dropIfExists(\App\Core\Config\ListDatabaseTable::TABLE_LIST_TEACHER_POST);
     }
 }

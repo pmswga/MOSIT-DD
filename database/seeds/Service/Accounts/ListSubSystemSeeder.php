@@ -12,7 +12,7 @@ class ListSubSystemSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('list_sub_system')->insert([
+        DB::table(\App\Core\Config\ListDatabaseTable::TABLE_LIST_SUB_SYSTEM)->insert([
             [
                 'idSystemSection' => 1,
                 'idSubSystem' => \App\Core\Constants\ListSubSystemConstants::IPS,

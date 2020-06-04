@@ -12,7 +12,7 @@ class ListTicketTypeSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('list_ticket_type')->insert([
+        DB::table(\App\Core\Config\ListDatabaseTable::TABLE_LIST_TICKET_TYPE)->insert([
             [
                 'idTicketType' => \App\Core\Constants\ListTicketTypeConstants::TASK,
                 'caption' => 'Задача'

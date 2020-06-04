@@ -13,7 +13,7 @@ class CreateListTicketStatus extends Migration
      */
     public function up()
     {
-        Schema::create('list_ticket_status', function (Blueprint $table) {
+        Schema::create(\App\Core\Config\ListDatabaseTable::TABLE_LIST_TICKET_STATUS, function (Blueprint $table) {
             $table->bigIncrements('idTicketStatus');
             $table->string('caption', 255)->unique();
         });
@@ -26,6 +26,6 @@ class CreateListTicketStatus extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('list_ticket_status');
+        Schema::dropIfExists(\App\Core\Config\ListDatabaseTable::TABLE_LIST_TICKET_STATUS);
     }
 }

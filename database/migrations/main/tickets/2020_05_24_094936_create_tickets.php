@@ -13,7 +13,7 @@ class CreateTickets extends Migration
      */
     public function up()
     {
-        Schema::create('tickets', function (Blueprint $table) {
+        Schema::create(\App\Core\Config\ListDatabaseTable::TABLE_TICKETS, function (Blueprint $table) {
             $table->bigIncrements('idTicket');
             $table->integer('idAuthor');
             $table->integer('idTicketType');
@@ -33,6 +33,6 @@ class CreateTickets extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tickets');
+        Schema::dropIfExists(\App\Core\Config\ListDatabaseTable::TABLE_TICKETS);
     }
 }

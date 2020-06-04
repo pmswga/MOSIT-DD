@@ -13,7 +13,7 @@ class CreateListAcademicTitle extends Migration
      */
     public function up()
     {
-        Schema::create('list_academic_title', function (Blueprint $table) {
+        Schema::create(\App\Core\Config\ListDatabaseTable::TABLE_LIST_ACADEMIC_TITLE, function (Blueprint $table) {
             $table->bigIncrements('idAcademicTitle');
             $table->string('caption', 255)->unique();
         });
@@ -26,6 +26,6 @@ class CreateListAcademicTitle extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('list_academic_title');
+        Schema::dropIfExists(\App\Core\Config\ListDatabaseTable::TABLE_LIST_ACADEMIC_TITLE);
     }
 }

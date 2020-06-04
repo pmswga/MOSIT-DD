@@ -13,7 +13,7 @@ class CreateTicketHistory extends Migration
      */
     public function up()
     {
-        Schema::create('ticket_history', function (Blueprint $table) {
+        Schema::create(\App\Core\Config\ListDatabaseTable::TABLE_TICKET_HISTORY, function (Blueprint $table) {
             $table->bigIncrements('idTicketHistory');
             $table->integer('idTicket');
             $table->integer('idTicketHistoryType');
@@ -29,6 +29,6 @@ class CreateTicketHistory extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ticket_history');
+        Schema::dropIfExists(\App\Core\Config\ListDatabaseTable::TABLE_TICKET_HISTORY);
     }
 }

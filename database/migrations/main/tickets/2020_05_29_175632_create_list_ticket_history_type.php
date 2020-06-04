@@ -13,7 +13,7 @@ class CreateListTicketHistoryType extends Migration
      */
     public function up()
     {
-        Schema::create('list_ticket_history_type', function (Blueprint $table) {
+        Schema::create(\App\Core\Config\ListDatabaseTable::TABLE_LIST_TICKET_HISTORY_TYPE, function (Blueprint $table) {
             $table->bigIncrements('idTicketHistoryType');
             $table->string('caption')->unique();
             $table->string('message');
@@ -27,6 +27,6 @@ class CreateListTicketHistoryType extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('list_ticket_history_type');
+        Schema::dropIfExists(\App\Core\Config\ListDatabaseTable::TABLE_LIST_TICKET_HISTORY_TYPE);
     }
 }

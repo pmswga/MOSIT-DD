@@ -13,7 +13,7 @@ class CreateListFaculty extends Migration
      */
     public function up()
     {
-        Schema::create('list_faculty', function (Blueprint $table) {
+        Schema::create(\App\Core\Config\ListDatabaseTable::TABLE_LIST_FACULTY, function (Blueprint $table) {
             $table->bigIncrements('idFaculty');
             $table->integer('idInstitute');
             $table->string('caption')->unique();
@@ -27,6 +27,6 @@ class CreateListFaculty extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('list_faculty');
+        Schema::dropIfExists(\App\Core\Config\ListDatabaseTable::TABLE_LIST_FACULTY);
     }
 }

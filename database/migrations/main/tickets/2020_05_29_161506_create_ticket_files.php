@@ -13,7 +13,7 @@ class CreateTicketFiles extends Migration
      */
     public function up()
     {
-        Schema::create('ticket_files', function (Blueprint $table) {
+        Schema::create(\App\Core\Config\ListDatabaseTable::TABLE_TICKET_FILES, function (Blueprint $table) {
             $table->bigIncrements('idTicketFile');
             $table->bigInteger('idTicket')->unsigned();
             $table->string('path');
@@ -31,6 +31,6 @@ class CreateTicketFiles extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ticket_files');
+        Schema::dropIfExists(\App\Core\Config\ListDatabaseTable::TABLE_TICKET_FILES);
     }
 }

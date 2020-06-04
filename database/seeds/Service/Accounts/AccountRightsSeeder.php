@@ -48,6 +48,6 @@ class AccountRightsSeeder extends Seeder
             'isDelete' => True
         ];
 
-        DB::table('account_rights')->insert($accountRights);
+        DB::table(\App\Core\Config\ListDatabaseTable::TABLE_ACCOUNT_RIGHTS)->insert($accountRights);
     }
 }

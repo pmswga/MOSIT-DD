@@ -13,7 +13,7 @@ class CreateRates extends Migration
      */
     public function up()
     {
-        Schema::create('rates', function (Blueprint $table) {
+        Schema::create(\App\Core\Config\ListDatabaseTable::TABLE_RATES, function (Blueprint $table) {
             $table->bigIncrements('idRate');
             $table->integer('idEmployee');
             $table->integer('idRateType');
@@ -28,6 +28,6 @@ class CreateRates extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('rates');
+        Schema::dropIfExists(\App\Core\Config\ListDatabaseTable::TABLE_RATES);
     }
 }

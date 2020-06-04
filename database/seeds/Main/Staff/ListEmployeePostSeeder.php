@@ -12,7 +12,7 @@ class ListEmployeePostSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('list_employee_post')->insert([
+        DB::table(\App\Core\Config\ListDatabaseTable::TABLE_LIST_EMPLOYEE_POST)->insert([
             [
                 'idEmployeePost' => 1,
                 'caption' => 'Преподаватель'

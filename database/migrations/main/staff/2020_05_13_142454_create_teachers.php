@@ -13,7 +13,7 @@ class CreateTeachers extends Migration
      */
     public function up()
     {
-        Schema::create('teachers', function (Blueprint $table) {
+        Schema::create(\App\Core\Config\ListDatabaseTable::TABLE_TEACHERS, function (Blueprint $table) {
             $table->bigIncrements('idTeacher');
             $table->integer('idEmployee');
             $table->integer('idDegree');
@@ -30,6 +30,6 @@ class CreateTeachers extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('teachers');
+        Schema::dropIfExists(\App\Core\Config\ListDatabaseTable::TABLE_TEACHERS);
     }
 }

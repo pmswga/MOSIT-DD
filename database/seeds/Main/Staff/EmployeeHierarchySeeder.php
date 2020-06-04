@@ -12,7 +12,7 @@ class EmployeeHierarchySeeder extends Seeder
      */
     public function run()
     {
-        DB::table('employee_hierarchy')->insert([
+        DB::table(\App\Core\Config\ListDatabaseTable::TABLE_EMPLOYEE_HIERARCHY)->insert([
             [
                 'idEmployeeSuper' => 7,
                 'idEmployeeSub' => 9

@@ -13,7 +13,7 @@ class CreateListDegree extends Migration
      */
     public function up()
     {
-        Schema::create('list_degree', function (Blueprint $table) {
+        Schema::create(\App\Core\Config\ListDatabaseTable::TABLE_LIST_DEGREE, function (Blueprint $table) {
             $table->bigIncrements('idDegree');
             $table->string('caption', 255)->unique();
         });
@@ -26,6 +26,6 @@ class CreateListDegree extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('list_degree');
+        Schema::dropIfExists(\App\Core\Config\ListDatabaseTable::TABLE_LIST_DEGREE);
     }
 }
