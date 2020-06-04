@@ -25,7 +25,7 @@
                         <a href="{{ route('files.index', ['path' => $folder]) }}">{{ basename($folder) }}</a>
                     </td>
                     <td>
-                        <form style="margin: 0px; padding: 0px;" method="POST" action="{{ route('files.destroyDirectory', ['directoryName' => basename($folder)]) }}" onsubmit="return confirm('Удалить?')">
+                        <form style="margin: 0; padding: 0;" method="POST" action="{{ route('files.destroyDirectory', ['directoryName' => basename($folder)]) }}" onsubmit="return confirm('Удалить?')">
                             @method('DELETE')
                             @csrf
                             <input type="hidden" name="currentDirectory" value="{{ $currentDirectory }}">
@@ -76,11 +76,6 @@
                     </td>
                 </tr>
             @endforeach
-        @else
-            @component('components.message')
-                @slot('type', 'message')
-                @slot('message', 'Начните работу с вашими файлами прямо сейчас')
-            @endcomponent
         @endif
     </tbody>
 </table>

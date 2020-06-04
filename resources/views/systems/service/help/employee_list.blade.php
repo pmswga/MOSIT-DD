@@ -11,7 +11,6 @@
                     <div class="content">
                         <div class="header">{{ $leading->getFullInitials() }}</div>
                         <div class="description">{{ $leading->getPost()->getCaption() }}</div>
-
                     </div>
                     <div class="extra content">
                         <div class="ui list">
@@ -35,7 +34,7 @@
     </fieldset>
 
     <fieldset class="ui segment">
-        <legend><h3>Сотрудники кафдеры</h3></legend>
+        <legend><h3>Сотрудники кафедры</h3></legend>
         <table class="ui table">
             <thead>
                 <tr>

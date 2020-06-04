@@ -35,6 +35,9 @@ class IPResourceController extends Controller
         } catch (\PhpOffice\PhpSpreadsheet\Reader\Exception $e) {
             Session::flash('errorMessage', 'Произошла ошибка при добавлении');
             return back();
+        } catch (Exception $e) {
+            Session::flash('errorMessage', 'Произошла ошибка при добавлении');
+            return back();
         }
 
         $teacher = EmployeeModel::all()
@@ -62,18 +65,18 @@ class IPResourceController extends Controller
         $ipFile = IPModel::query()->where('idIP', '=', $ip)->first();
         $file = EmployeeFileModel::query()->where('idEmployeeFile', '=', $ipFile->idEmployeeFile)->first();
 
-        if (!empty($file)) {
+        if (Storage::exists($file->path)) {
             return Storage::download($file->path, $file->filename);
-        } else {
-            Session::flash('message', 'Не удалось скачать ИП');
-            return back();
         }
+
+        Session::flash('message', 'Не удалось скачать ИП');
+        return back();
     }
 
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index()
     {

@@ -1,7 +1,5 @@
 @extends('layout.app')
-
 @section('title', 'Индивидуальные планы')
-
 
 @section('content')
 

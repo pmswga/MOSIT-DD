@@ -40,16 +40,15 @@ class ResetPasswordController extends Controller
             Auth::user()->password = Hash::make($request->newPassword);
 
             if (Auth::user()->save()) {
-                Session::flash('successMessage', 'Пароль успешно сменён');
+                Session::flash('message', ['type' => 'success', 'message' => 'Пароль успешно сменён']);
                 return back();
-
             }
 
-            Session::flash('errorMessage', 'Не удалось сменить пароль');
+            Session::flash('message', ['type' => 'error', 'message' => 'Не удалось сменить пароль']);
             return back();
         }
 
-        Session::flash('errorMessage', 'Пароли не совпадают');
+        Session::flash('message', ['type' => 'warning', 'message' => 'Пароли не совпадают']);
         return back();
     }
 
