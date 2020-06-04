@@ -28,6 +28,6 @@ class AccountsSeeder extends Seeder
             ];
         }
 
-        DB::table('accounts')->insert($accounts);
+        DB::table(\App\Core\Config\ListDatabaseTable::TABLE_ACCOUNTS)->insert($accounts);
     }
 }

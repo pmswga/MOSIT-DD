@@ -13,7 +13,7 @@ class CreateListEmployeePost extends Migration
      */
     public function up()
     {
-        Schema::create('list_employee_post', function (Blueprint $table) {
+        Schema::create(\App\Core\Config\ListDatabaseTable::TABLE_LIST_EMPLOYEE_POST, function (Blueprint $table) {
             $table->bigIncrements('idEmployeePost');
             $table->string('caption', 255)->unique();
         });
@@ -26,6 +26,6 @@ class CreateListEmployeePost extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('list_employee_post');
+        Schema::dropIfExists(\App\Core\Config\ListDatabaseTable::TABLE_LIST_EMPLOYEE_POST);
     }
 }

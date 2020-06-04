@@ -12,7 +12,7 @@ class ListFileTagSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('list_file_tag')->insert([
+        DB::table(\App\Core\Config\ListDatabaseTable::TABLE_LIST_FILE_TAG)->insert([
             [
                 'idFileTag' => \App\Core\Constants\ListFileTagConstants::IP,
                 'caption' => 'Индивидуальный план',

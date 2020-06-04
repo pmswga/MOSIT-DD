@@ -12,7 +12,7 @@ class ListAccountTypeSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('list_account_type')->insert([
+        DB::table(\App\Core\Config\ListDatabaseTable::TABLE_LIST_ACCOUNT_TYPE)->insert([
             [
                 'idAccountType' => 1,
                 'caption' => 'Преподаватель'

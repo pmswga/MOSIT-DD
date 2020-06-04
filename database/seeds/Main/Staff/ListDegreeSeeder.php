@@ -12,7 +12,7 @@ class ListDegreeSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('list_degree')->insert([
+        DB::table(\App\Core\Config\ListDatabaseTable::TABLE_LIST_DEGREE)->insert([
             [
                 'idDegree' => 1,
                 'caption' => 'Кандидат наук'

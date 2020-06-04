@@ -12,7 +12,7 @@ class ListAcademicTitleSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('list_academic_title')->insert([
+        DB::table(\App\Core\Config\ListDatabaseTable::TABLE_LIST_ACADEMIC_TITLE)->insert([
             [
                 'idAcademicTitle' => 1,
                 'caption' => 'Доцент'

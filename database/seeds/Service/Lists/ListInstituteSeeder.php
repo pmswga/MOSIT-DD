@@ -12,7 +12,7 @@ class ListInstituteSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('list_institute')->insert([
+        DB::table(\App\Core\Config\ListDatabaseTable::TABLE_LIST_INSTITUTE)->insert([
             [
                 'idInstitute' => 1,
                 'caption' => 'ИТ'

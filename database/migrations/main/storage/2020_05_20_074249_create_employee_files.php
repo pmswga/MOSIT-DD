@@ -13,7 +13,7 @@ class CreateEmployeeFiles extends Migration
      */
     public function up()
     {
-        Schema::create('employee_files', function (Blueprint $table) {
+        Schema::create(\App\Core\Config\ListDatabaseTable::TABLE_EMPLOYEE_FILES, function (Blueprint $table) {
             $table->bigIncrements('idEmployeeFile');
             $table->unsignedBigInteger('idEmployee');
             $table->unsignedBigInteger('idFileTag');
@@ -32,6 +32,6 @@ class CreateEmployeeFiles extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('employee_files');
+        Schema::dropIfExists(\App\Core\Config\ListDatabaseTable::TABLE_EMPLOYEE_FILES);
     }
 }

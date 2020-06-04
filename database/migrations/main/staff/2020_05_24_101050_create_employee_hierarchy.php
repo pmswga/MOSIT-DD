@@ -13,7 +13,7 @@ class CreateEmployeeHierarchy extends Migration
      */
     public function up()
     {
-        Schema::create('employee_hierarchy', function (Blueprint $table) {
+        Schema::create(\App\Core\Config\ListDatabaseTable::TABLE_EMPLOYEE_HIERARCHY, function (Blueprint $table) {
             $table->bigIncrements('idEmployeeHierarchy');
             $table->integer('idEmployeeSuper');
             $table->integer('idEmployeeSub');
@@ -27,6 +27,6 @@ class CreateEmployeeHierarchy extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('employee_hierarchy');
+        Schema::dropIfExists(\App\Core\Config\ListDatabaseTable::TABLE_EMPLOYEE_HIERARCHY);
     }
 }

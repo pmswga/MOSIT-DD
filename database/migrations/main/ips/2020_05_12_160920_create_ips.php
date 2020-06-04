@@ -13,7 +13,7 @@ class CreateIps extends Migration
      */
     public function up()
     {
-        Schema::create('ips', function (Blueprint $table) {
+        Schema::create(\App\Core\Config\ListDatabaseTable::TABLE_IPS, function (Blueprint $table) {
             $table->bigIncrements('idIP');
             $table->integer('idTeacher');
             $table->string('educationYear', 9);
@@ -30,6 +30,6 @@ class CreateIps extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ips');
+        Schema::dropIfExists(\App\Core\Config\ListDatabaseTable::TABLE_IPS);
     }
 }

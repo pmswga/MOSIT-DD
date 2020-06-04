@@ -12,6 +12,6 @@ class EmployeesSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('employees')->insert(DataSeeder::$employees);
+        DB::table(\App\Core\Config\ListDatabaseTable::TABLE_EMPLOYEES)->insert(DataSeeder::$employees);
     }
 }

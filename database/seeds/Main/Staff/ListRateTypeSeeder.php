@@ -12,7 +12,7 @@ class ListRateTypeSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('list_rate_type')->insert([
+        DB::table(\App\Core\Config\ListDatabaseTable::TABLE_LIST_RATE_TYPE)->insert([
             [
                 'idRateType' => 1,
                 'caption' => 'Штатная',

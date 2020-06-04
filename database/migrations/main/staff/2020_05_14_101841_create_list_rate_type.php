@@ -13,7 +13,7 @@ class CreateListRateType extends Migration
      */
     public function up()
     {
-        Schema::create('list_rate_type', function (Blueprint $table) {
+        Schema::create(\App\Core\Config\ListDatabaseTable::TABLE_LIST_RATE_TYPE, function (Blueprint $table) {
             $table->bigIncrements('idRateType');
             $table->string('caption', 255);
         });
@@ -26,6 +26,6 @@ class CreateListRateType extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('list_rate_type');
+        Schema::dropIfExists(\App\Core\Config\ListDatabaseTable::TABLE_LIST_RATE_TYPE);
     }
 }

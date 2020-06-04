@@ -12,7 +12,7 @@ class ListTicketHistoryTypeSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('list_ticket_history_type')->insert([
+        DB::table(\App\Core\Config\ListDatabaseTable::TABLE_LIST_TICKET_HISTORY_TYPE)->insert([
             [
                 'idTicketHistoryType' => \App\Core\Constants\ListTicketHistoryTypeConstants::CREATE,
                 'caption' => 'Создание',
