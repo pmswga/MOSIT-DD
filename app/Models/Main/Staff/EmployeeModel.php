@@ -40,26 +40,11 @@ class EmployeeModel extends Model
     }
 
     public function getFaculty() {
-        $faculty = DB::table('list_faculty') // #todo create model for this join
-            ->select('list_faculty.caption as faculty')
-            ->where('list_faculty.idFaculty', '=', $this->idFaculty)
-            ->get()->first();
-
-        return $faculty->faculty; // #todo add error handler
-    }
-
-    public function getInstitute() {
-        $institute = DB::table('list_faculty') // #todo create model for this join
-            ->select('list_institute.caption as institute')
-            ->join('list_institute', 'list_faculty.idInstitute', '=', 'list_institute.idInstitute')
-            ->where('list_faculty.idFaculty', '=', $this->idFaculty)
-            ->get()->first();
-
-        return $institute->institute; // #todo add error handler
+        return $this->hasOne(ListFacultyModel::class, 'idFaculty', 'idFaculty')->first();
     }
 
     public function getPost() {
-        return $this->hasOne(ListEmployeePostModel::class, 'idEmployeePost', 'idEmployeePost')->first()->getCaption();
+        return $this->hasOne(ListEmployeePostModel::class, 'idEmployeePost', 'idEmployeePost')->first();
     }
 
     public function getAccountId() {

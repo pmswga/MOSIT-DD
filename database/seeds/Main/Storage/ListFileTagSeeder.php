@@ -18,7 +18,7 @@ class ListFileTagSeeder extends Seeder
                 'caption' => 'Индивидуальный план',
             ],
             [
-                'idFileTag' => \App\Core\Constants\ListFileTagConstants::Order,
+                'idFileTag' => \App\Core\Constants\ListFileTagConstants::ORDER,
                 'caption' => 'Приказ',
             ],
             [

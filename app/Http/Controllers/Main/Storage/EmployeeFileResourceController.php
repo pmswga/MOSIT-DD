@@ -5,16 +5,11 @@ namespace App\Http\Controllers\Main\Storage;
 use App\Core\Constants\ListFileTagConstants;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Main\IP\IPResourceController;
+use App\Models\Main\IP\IPModel;
 use App\Models\Main\Storage\EmployeeFileModel;
 use App\Models\Main\Storage\ListFileTagModel;
-use foo\bar;
-use Illuminate\Database\QueryException;
-use Illuminate\Filesystem\Filesystem;
-use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Session;
 
@@ -33,7 +28,12 @@ class EmployeeFileResourceController extends Controller
     }
 
     public function downloadFile(EmployeeFileModel $file) {
-        return Storage::download($file->getPath());
+        if (Storage::exists($file->getPath())) {
+            return Storage::download($file->getPath());
+        }
+
+        Session::flash('message', ['type' => 'error', 'message' => 'Не удалось скачать файл']);
+        return back();
     }
 
     public function createDirectory(Request $request) {
@@ -44,16 +44,16 @@ class EmployeeFileResourceController extends Controller
 
             if (!Storage::exists($path)) {
                 if (Storage::makeDirectory($path)) {
-                    Session::flash('successMessage', 'Папка успешно создана');
+                    Session::flash('message', ['type' => 'success', 'message' => 'Папка создана']);
                     return back();
                 }
             }
 
-            Session::flash('errorMessage', 'Папка уже существует');
+            Session::flash('message', ['type' => 'warning', 'message' => 'Папка уже существует']);
             return back();
         }
 
-        Session::flash('errorMessage', 'Не удалось создать папку');
+        Session::flash('message', ['type' => 'error', 'message' => 'Не удалось создать папку']);
         return back();
     }
 
@@ -68,23 +68,23 @@ class EmployeeFileResourceController extends Controller
                 if (EmployeeFileModel::all()->where('directory', '=', $path)->count() == 0) {
                     if (Storage::exists($path)) {
                         if (Storage::deleteDirectory($path)) {
-                            Session::flash('successMessage', 'Папка успешно удалена');
+                            Session::flash('message', ['type' => 'success', 'message' => 'Папка удалена']);
                             return back();
                         }
                     }
 
-                    Session::flash('errorMessage', 'Папка не существует');
+                    Session::flash('message', ['type' => 'error', 'message' => 'Невозможно удалить папку, так как в ней содержатся файлы']);
                     return back();
                 }
 
-                Session::flash('errorMessage', 'Невозможно удалить папку, так как в ней содержатся файлы');
+                Session::flash('message', ['type' => 'warning', 'message' => 'Невозможно удалить папку, так как в ней содержатся файлы']);
                 return back();
             }
 
-            Session::flash('errorMessage', 'Не удалось удалить папку');
+            Session::flash('message', ['type' => 'error', 'message' => 'Не удалось удалить папку']);
             return back();
         } catch (\ErrorException $errorException) {
-            Session::flash('errorMessage', 'Папка содержит подпапки');
+            Session::flash('message', ['type' => 'warning', 'message' => 'Папка содержит подпапки']);
             return back();
         }
     }
@@ -92,7 +92,7 @@ class EmployeeFileResourceController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index(Request $request)
     {
@@ -140,7 +140,7 @@ class EmployeeFileResourceController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
@@ -149,18 +149,15 @@ class EmployeeFileResourceController extends Controller
 
         if (Storage::exists($currentDirectory)) {
             $path = Storage::putFileAs($currentDirectory, $file, $file->getClientOriginalName());
-
             $pathInfo = pathInfo($path);
 
             if (Storage::exists($path)) {
-
                 $isExist = EmployeeFileModel::query()
                     ->where('filename', '=', $pathInfo['filename'])
                     ->where('idEmployee', '=', Auth::id())
                     ->get();
 
                 if ($isExist->isEmpty()) {
-
                     $fileModel = new EmployeeFileModel([
                         'idEmployee' => Auth::user()->idEmployee,
                         'idFileTag' => $request->fileTag,
@@ -171,28 +168,27 @@ class EmployeeFileResourceController extends Controller
                     ]);
 
                     if ($fileModel->save()) {
-
-                        switch ($request->fileTag) {
+                        switch ($request->fileTag)
+                        {
                             case ListFileTagConstants::IP:
-                                {
-                                    IPResourceController::assignFile($fileModel);
-                                }
-                                break;
+                            {
+                                IPResourceController::assignFile($fileModel);
+                            } break;
                         }
 
-                        Session::flash('successMessage', 'Файл добавлен');
+                        Session::flash('message', ['type' => 'success', 'message' => 'Файл загружен']);
                         return back();
                     } else {
                         Storage::delete($path);
                     }
                 } else {
-                    Session::flash('successMessage', 'Такой файл уже был добавлен ранее');
+                    Session::flash('message', ['type' => 'warning', 'message' => 'Такой файл уже был добавлен ранее']);
                     return back();
                 }
             }
         }
 
-        Session::flash('errorMessage', 'Произошла ошибка загрузки файла');
+        Session::flash('message', ['type' => 'error', 'message' => 'Произошла ошибка загрузки файла']);
         return back();
     }
 
@@ -239,25 +235,24 @@ class EmployeeFileResourceController extends Controller
     public function destroy(EmployeeFileModel $file)
     {
         if (Storage::exists($file->path)) {
-
             switch ($file->idFileTag)
             {
                 case ListFileTagConstants::IP:
-                    {
-                        $ipFile = IPModel::all()->where('idEmployeeFile', '=', $file->idEmployeeFile)->first();
-                        $ipFile->delete();
-                    } break;
+                {
+                    $ipFile = IPModel::all()->where('idEmployeeFile', '=', $file->idEmployeeFile)->first();
+                    $ipFile->delete();
+                } break;
             }
 
             if (Storage::delete($file->path)) {
                 if ($file->delete()) {
-                    Session::flash('successMessage', 'Файл был удалён');
+                    Session::flash('message', ['type' => 'success', 'message' => 'Файл удалён']);
                     return back();
                 }
             }
         }
 
-        Session::flash('errorMessage', 'Произошла ошибка при удалении файла');
+        Session::flash('message', ['type' => 'error', 'message' => 'Произошла ошибка при удалении файла']);
         return back();
     }
 }

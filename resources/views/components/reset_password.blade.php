@@ -7,11 +7,11 @@
             @csrf
             <div class="field">
                 <label>Новый пароль</label>
-                <input type="password" name="newPassword">
+                <input type="password" name="newPassword" required>
             </div>
             <div class="field">
                 <label>Повторите пароль</label>
-                <input type="password" name="newPasswordRepeat">
+                <input type="password" name="newPasswordRepeat" required>
             </div>
             <div class="field">
                 <input type="submit" value="Сменить" class="ui fluid primary button">

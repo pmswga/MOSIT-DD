@@ -1,18 +1,19 @@
 <?php
 
+
 namespace App\Core\Constants;
 
 /**
- * @class ListAccountTypeConstants
- * @brief Содержит список констант идентификаторов типов пользователей
- * Далее используется в классе ListAccountTypeSeeder
+ * @class ListEmployeePostConstants
+ * @brief Содержит список констант идентификаторов типов должностей сотрудников
+ * Далее используется в классе ListEmployeePostSeeder
  *
  * @package App\Core\Constants
  */
-class ListAccountTypeConstants
+class ListEmployeePostConstants
 {
     public const TEACHER = 1;             ///< Преподаватель
-    public const METHODIST = 2;           ///< Методист
+    public const OPERATOR = 2;            ///< Оператор ЭВМ
     public const DEPUTY_EDU_WORK = 3;     ///< Заместитель по учебной работе
     public const DEPUTY_SCI_WORK = 4;     ///< Заместитель по научной работе
     public const DEPUTY_EDU_MET_WORK = 5; ///< Заместитель по учебно-методической работе

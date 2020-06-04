@@ -87,8 +87,14 @@
         <div class="item">
             <b>Справка</b>
             <div class="menu">
+                <a class="item" href="{{ route('help.index') }}">
+                    Справочник
+                </a>
                 <a class="item" href="{{ route('manual') }}">
                     Руководство
+                </a>
+                <a class="item" href="{{ route('employee_list') }}">
+                    Список сотрудников
                 </a>
             </div>
         </div>

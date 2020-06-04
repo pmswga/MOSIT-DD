@@ -29,13 +29,16 @@ class EmployeeFileModel extends Model
     }
 
     public function getSize() {
-        return round((Storage::size($this->path)/1024)/1024, 2);
+        if (Storage::exists($this->path)) {
+            return round((Storage::size($this->path)/1024)/1024, 2);
+        }
+
+        return 0;
     }
 
     public function getExtension() {
         return $this->extension;
     }
-
 
     public function getFileTag() {
         return $this->hasOne(ListFileTagModel::class,'idFileTag', 'idFileTag')->first();

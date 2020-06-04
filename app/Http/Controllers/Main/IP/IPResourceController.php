@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Main\IP;
 
-use App\Core\Systems\Main\IPS\IPExcelFile;
+use App\Core\Constants\ListAccountTypeConstants;
 use App\Core\systems\main\ips\IPExcelFileReader;
 use App\Http\Controllers\Controller;
 use App\Models\Main\IP\IPModel;
@@ -35,6 +35,9 @@ class IPResourceController extends Controller
         } catch (\PhpOffice\PhpSpreadsheet\Reader\Exception $e) {
             Session::flash('errorMessage', 'Произошла ошибка при добавлении');
             return back();
+        } catch (Exception $e) {
+            Session::flash('errorMessage', 'Произошла ошибка при добавлении');
+            return back();
         }
 
         $teacher = EmployeeModel::all()
@@ -62,24 +65,24 @@ class IPResourceController extends Controller
         $ipFile = IPModel::query()->where('idIP', '=', $ip)->first();
         $file = EmployeeFileModel::query()->where('idEmployeeFile', '=', $ipFile->idEmployeeFile)->first();
 
-        if (!empty($file)) {
+        if (Storage::exists($file->path)) {
             return Storage::download($file->path, $file->filename);
-        } else {
-            Session::flash('message', 'Не удалось скачать ИП');
-            return back();
         }
+
+        Session::flash('message', 'Не удалось скачать ИП');
+        return back();
     }
 
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index()
     {
         switch (Auth::user()->getIdAccountType())
         {
-            case 1:
+            case ListAccountTypeConstants::TEACHER:
             {
                 $ips = IPModel::all()->where('idTeacher', '=', Auth::user()->getEmployee()->getTeacher()->idTeacher);
 
@@ -87,18 +90,11 @@ class IPResourceController extends Controller
                     'ips' => $ips
                 ]);
             } break;
-            case 2:
+            case ListAccountTypeConstants::METHODIST:
             {
                 $ips = IPModel::all();
 
-                $files = DB::table('ips')
-                    ->select('ips.idIP', 'ef.idEmployeeFile', 'ef.filename')
-                    ->rightJoin('employee_files as ef', 'ef.idEmployeeFile', '=', 'ips.idEmployeeFile')
-                    ->whereNull('ips.idIP')
-                    ->get();
-
                 return view('systems.main.ips.ip_index', [
-                    'files' => $files,
                     'ips' => $ips
                 ]);
             } break;

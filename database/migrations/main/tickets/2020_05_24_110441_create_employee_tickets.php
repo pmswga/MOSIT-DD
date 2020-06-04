@@ -16,8 +16,11 @@ class CreateEmployeeTickets extends Migration
         Schema::create('employee_tickets', function (Blueprint $table) {
             $table->bigIncrements('idEmployeeTicket');
             $table->integer('idEmployee');
-            $table->integer('idTicket');
+            $table->bigInteger('idTicket')->unsigned();
             $table->boolean('isSeen')->default(False);
+            $table->foreign('idTicket')->references('idTicket')->on('tickets')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
         });
     }
 
