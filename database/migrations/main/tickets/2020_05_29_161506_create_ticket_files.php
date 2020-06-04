@@ -20,7 +20,9 @@ class CreateTicketFiles extends Migration
             $table->string('filename');
             $table->string('extension');
             $table->timestamps();
-            $table->foreign('idTicket')->references('idTicket')->on('tickets')->onDelete('cascade');
+            $table->foreign('idTicket')->references('idTicket')->on(\App\Core\Config\ListDatabaseTable::TABLE_TICKETS)
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
         });
     }
 

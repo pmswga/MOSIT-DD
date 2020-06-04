@@ -18,7 +18,7 @@ class CreateEmployeeTickets extends Migration
             $table->integer('idEmployee');
             $table->bigInteger('idTicket')->unsigned();
             $table->boolean('isSeen')->default(False);
-            $table->foreign('idTicket')->references('idTicket')->on('tickets')
+            $table->foreign('idTicket')->references('idTicket')->on(\App\Core\Config\ListDatabaseTable::TABLE_TICKETS)
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
         });
