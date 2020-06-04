@@ -13,7 +13,7 @@ class CreateListAccountType extends Migration
      */
     public function up()
     {
-        Schema::create('list_account_type', function (Blueprint $table) {
+        Schema::create(\App\Core\Config\ListDatabaseTable::TABLE_LIST_ACCOUNT_TYPE, function (Blueprint $table) {
             $table->bigIncrements('idAccountType');
             $table->string("caption", 255)->unique();
         });
@@ -26,6 +26,6 @@ class CreateListAccountType extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('list_account_type');
+        Schema::dropIfExists(\App\Core\Config\ListDatabaseTable::TABLE_LIST_ACCOUNT_TYPE);
     }
 }
