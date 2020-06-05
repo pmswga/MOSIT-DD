@@ -129,28 +129,31 @@
                     <tbody>
                         @foreach($file[3]['work'] as $work)
                             <tr>
-                                <td>{{ $loop->iteration }}</td>
                                 <td>
-                                    <select class="">
+                                    <input type="hidden" name="metWork_{{ $loop->iteration }}[]" value="{{ $loop->iteration }}">
+                                    {{ $loop->iteration }}
+                                </td>
+                                <td>
+                                    <select name="metWork_{{ $loop->iteration }}[]">
                                         <option>{{ $work['caption'] }}</option>
                                     </select>
                                 </td>
                                 <td>
-                                    <input class="workSum3Plan" type="number" value="{{ $work['plan'] }}">
+                                    <input name="metWork_{{ $loop->iteration }}[]" class="workSum3Plan" type="number" value="{{ $work['plan'] }}">
                                 </td>
                                 <td>
-                                    <input class="workSum3Real" type="number" value="{{ $work['real'] }}">
+                                    <input name="metWork_{{ $loop->iteration }}[]" class="workSum3Real" type="number" value="{{ $work['real'] }}">
                                 </td>
                                 <td>
-                                    <select class="">
+                                    <select name="metWork_{{ $loop->iteration }}[]">
                                         <option>{{ $work['finish'] }}</option>
                                     </select>
                                 </td>
                                 <td>
-                                    <input type="date" value="{{ $work['finishDatePlan'] }}">
+                                    <input name="metWork_{{ $loop->iteration }}[]" type="date" value="{{ $work['finishDatePlan'] }}">
                                 </td>
                                 <td>
-                                    <input type="date" value="{{ $work['finishDateReal'] }}">
+                                    <input name="metWork_{{ $loop->iteration }}[]" type="date" value="{{ $work['finishDateReal'] }}">
                                 </td>
                             </tr>
                         @endforeach
@@ -182,30 +185,33 @@
                     <tbody>
                         @foreach($file[4]['work_1'] as $work)
                             <tr>
-                                <td>{{ $loop->iteration }}</td>
                                 <td>
-                                    <select class="">
+                                    <input type="hidden" name="sciWork_{{ $loop->iteration }}[]" value="{{ $loop->iteration }}">
+                                    {{ $loop->iteration }}
+                                </td>
+                                <td>
+                                    <select name="sciWork_{{ $loop->iteration }}[]">
                                         <option>{{ $work['caption'] }}</option>
                                     </select>
                                 </td>
                                 <td class="ui form">
                                     <div class="field">
-                                        <input class="workSum4Plan" type="number" value="{{ $work['plan'] }}">
+                                        <input name="sciWork_{{ $loop->iteration }}[]" class="workSum4Plan" type="number" value="{{ $work['plan'] }}">
                                     </div>
                                 </td>
                                 <td class="ui form">
                                     <div class="field">
-                                        <input class="workSum4Real" type="number" value="{{ $work['real'] }}">
+                                        <input name="sciWork_{{ $loop->iteration }}[]" class="workSum4Real" type="number" value="{{ $work['real'] }}">
                                     </div>
                                 </td>
                                 <td class="ui form">
                                     <div class="field">
-                                        <input type="date" value="{{ $work['finishDatePlan'] }}">
+                                        <input name="sciWork_{{ $loop->iteration }}[]" type="date" value="{{ $work['finishDatePlan'] }}">
                                     </div>
                                 </td>
                                 <td class="ui form">
                                     <div class="field">
-                                        <input type="date" value="{{ $work['finishDateReal'] }}">
+                                        <input name="sciWork_{{ $loop->iteration }}[]" type="date" value="{{ $work['finishDateReal'] }}">
                                     </div>
                                 </td>
                             </tr>
@@ -238,25 +244,28 @@
                     <tbody>
                         @foreach($file[4]['work_2'] as $work)
                             <tr>
-                                <td>{{ $loop->iteration }}</td>
                                 <td>
-                                    <select class="">
+                                    <input type="hidden" name="orgWork_{{ $loop->iteration }}[]" value="{{ $loop->iteration }}">
+                                    {{ $loop->iteration }}
+                                </td>
+                                <td>
+                                    <select name="orgWork_{{ $loop->iteration }}[]">
                                         <option>{{ $work['caption'] }}</option>
                                     </select>
                                 </td>
                                 <td>
-                                    <input class="workSum5Plan" type="number" value="{{ $work['plan'] }}">
+                                    <input name="orgWork_{{ $loop->iteration }}[]" class="workSum5Plan" type="number" value="{{ $work['plan'] }}">
                                 </td>
                                 <td>
-                                    <input class="workSum5Real" type="number" value="{{ $work['real'] }}">
+                                    <input name="orgWork_{{ $loop->iteration }}[]" class="workSum5Real" type="number" value="{{ $work['real'] }}">
                                 </td>
                                 <td>
-                                    <select class="">
+                                    <select name="orgWork_{{ $loop->iteration }}[]">
                                         <option>{{ $work['finishDatePlan'] }}</option>
                                     </select>
                                 </td>
                                 <td>
-                                    <select class="">
+                                    <select name="orgWork_{{ $loop->iteration }}[]">
                                         <option>{{ $work['finishDateReal'] }}</option>
                                     </select>
                                 </td>
@@ -320,6 +329,7 @@
 
         $(document).ready(function () {
             $('[type=number]').attr('min', 0);
+            $('[type=number]').attr('step', '0.01');
         });
 
         class IPCalculate
