@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Main\IP;
 
 use App\Core\Constants\ListAccountTypeConstants;
 use App\Core\systems\main\ips\IPExcelFileReader;
+use App\Core\Systems\Main\IPS\IPExcelFileWriter;
 use App\Http\Controllers\Controller;
 use App\Models\Main\IP\IPModel;
 use App\Models\Main\Staff\EmployeeModel;
@@ -178,8 +179,9 @@ class IPResourceController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Main\IP\IPModel  $iP
+     * @param \App\Models\Main\IP\IPModel $iP
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \PhpOffice\PhpSpreadsheet\Reader\Exception
      */
     public function edit(IPModel $ip)
     {
@@ -212,21 +214,48 @@ class IPResourceController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Main\IP\IPModel  $iP
-     * @return \Illuminate\Http\Response
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\Main\IP\IPModel $iP
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \PhpOffice\PhpSpreadsheet\Reader\Exception
      */
     public function update(Request $request, IPModel $ip)
     {
-        date_default_timezone_set('Europe/Moscow');
+        $metWorks = [];
+        $sciWorks = [];
+        $orgWorks = [];
+
+        foreach ($request->request->keys() as $key) {
+            if (preg_match('/metWork_/', $key)) {
+                $metWorks[] = $request[$key];
+            }
+            if (preg_match('/orgWork_/', $key)) {
+                $orgWorks[] = $request[$key];
+            }
+            if (preg_match('/sciWork_/', $key)) {
+                $sciWorks[] = $request[$key];
+            }
+        }
+
+        $data = [];
+        $data['3'] = $metWorks;
+        $data['4'] = $sciWorks;
+        $data['5'] = $orgWorks;
+
+        #dd($data);
+
+        $writer = new IPExcelFileWriter($ip->getFullFilePath(), $data);
+        $writer->getResult();
+
+
         $ip->lastEmployee = Auth::user()->idEmployee;
         $ip->lastUpdate = date('Y-m-d H:i:s');
         if ($ip->update()) {
-            Session::flash('message', 'ИП обновлён');
+            Session::flash('message', ['type' => 'success', 'message' => 'ИП сохранён']);
             return Redirect::route('ips.edit', $ip);
         }
 
-        Session::flash('message', 'Не удалось сохранить ИП');
+        Session::flash('message', ['type' => 'error', 'message' => 'Не удалось сохранить ИП']);
         return Redirect::route('ips.index');
     }
 
