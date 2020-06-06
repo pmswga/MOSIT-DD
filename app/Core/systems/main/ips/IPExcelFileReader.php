@@ -188,7 +188,6 @@ class IPExcelFileReader extends IPExcelFileStreamer
                 $works[] = $work;
             }
 
-
             if (preg_match('/ИТОГО/i', $work['num'])) {
                 $this->streamData[3]['eduMetWorkSum'] = $this->excelFile->getActiveSheet()->getCell('D' . $column)->getCalculatedValue();
             }

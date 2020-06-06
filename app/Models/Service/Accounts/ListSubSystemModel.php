@@ -2,12 +2,13 @@
 
 namespace App\Models\Service\Lists;
 
+use App\Core\Config\ListDatabaseTable;
 use App\Models\Service\Accounts\ListSystemSectionModel;
 use Illuminate\Database\Eloquent\Model;
 
 class ListSubSystemModel extends Model
 {
-    protected  $table = 'list_sub_system';
+    protected  $table = ListDatabaseTable::TABLE_LIST_SUB_SYSTEM;
     protected $primaryKey = 'idListSubSystem';
     public $timestamps = false;
 

@@ -229,11 +229,11 @@ class IPResourceController extends Controller
             if (preg_match('/metWork_/', $key)) {
                 $metWorks[] = $request[$key];
             }
-            if (preg_match('/orgWork_/', $key)) {
-                $orgWorks[] = $request[$key];
-            }
             if (preg_match('/sciWork_/', $key)) {
                 $sciWorks[] = $request[$key];
+            }
+            if (preg_match('/orgWork_/', $key)) {
+                $orgWorks[] = $request[$key];
             }
         }
 
