@@ -23,7 +23,7 @@ class IPModel extends Model
     }
 
     public function getFullFilePath() {
-        return str_replace('/', '\\' , storage_path() . '/app/' . $this->getFilePath());
+        return storage_path() . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR . $this->getFilePath();
     }
 
     public function getFIle() {
