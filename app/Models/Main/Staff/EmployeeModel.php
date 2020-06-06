@@ -122,7 +122,7 @@ class EmployeeModel extends Model
 
     public function getExpiredTickets() {
         $expiredTicketList = $this->hasOne(EmployeeTicketModel::class,'idEmployee', 'idEmployee')
-            ->join('Tickets as t', 't.idTicket', '=', 'employee_tickets.idTicket')
+            ->join('tickets as t', 't.idTicket', '=', 'employee_tickets.idTicket')
             ->whereDate('t.endDate', '<=', Carbon::today()->toDateString())
             ->get();
 
@@ -136,7 +136,7 @@ class EmployeeModel extends Model
 
     public function getExpiredTicketsCount() {
         return $this->hasOne(EmployeeTicketModel::class,'idEmployee', 'idEmployee')
-            ->join('Tickets as t', 't.idTicket', '=', 'employee_tickets.idTicket')
+            ->join('tickets as t', 't.idTicket', '=', 'employee_tickets.idTicket')
             ->whereDate('t.endDate', '<=', Carbon::today()->toDateString())
             ->get()
             ->count();
@@ -144,7 +144,7 @@ class EmployeeModel extends Model
 
     public function getAssignedTicketsCount() {
         return $this->hasOne(EmployeeTicketModel::class,'idEmployee', 'idEmployee')
-            ->join('Tickets as t', 't.idTicket', '=', 'employee_tickets.idTicket')
+            ->join('tickets as t', 't.idTicket', '=', 'employee_tickets.idTicket')
             ->get()
             ->count();
     }

@@ -7,7 +7,7 @@ namespace App\Core\Config;
 class ListDatabaseTable
 {
 
-    public const TABLE_FAILED_JOBS = 'Failed_jobs';
+    public const TABLE_FAILED_JOBS = 'failed_jobs';
 
     public const TABLE_ACCOUNTS = 'accounts';
     public const TABLE_PASSWORD_RESETS = 'password_reset';
