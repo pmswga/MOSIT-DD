@@ -29,7 +29,7 @@ class IPResourceController extends Controller
     static public function assignFile($file) {
         try {
             $ipFile = new IPExcelFileReader(
-                str_replace('/', '\\', storage_path() . '/app/' . $file->path)
+                storage_path() . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR  . $file->path
             );
 
             $ipFile = $ipFile->getResult();
@@ -116,8 +116,9 @@ class IPResourceController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\RedirectResponse
+     * @throws \PhpOffice\PhpSpreadsheet\Reader\Exception
      */
     public function store(Request $request)
     {
@@ -126,9 +127,10 @@ class IPResourceController extends Controller
 
         $result = true;
         foreach ($data['files'] as $file) {
+
             $ipFile = new IPExcelFileReader(
-                str_replace('/', '\\' , storage_path() . '/app/' . EmployeeFileModel::all()->where('idEmployeeFile', '=', $file)->first()->path)
-                );
+            storage_path() . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR  . EmployeeFileModel::all()->where('idEmployeeFile', '=', $file)->first()->path
+            );
 
             try
             {
@@ -141,7 +143,7 @@ class IPResourceController extends Controller
 
             $idTeacher = DB::table('employees as e')
                 ->select('t.idTeacher')
-                ->join('Teachers as t', 't.idEmployee', '=','e.idEmployee')
+                ->join('teachers as t', 't.idEmployee', '=','e.idEmployee')
                 ->where('e.secondName', '=', $ipFile[0]['secondName'])
                 ->where('e.firstName', '=', $ipFile[0]['firstName'])
                 ->where('e.patronymic', '=', $ipFile[0]['patronymic'])
@@ -193,7 +195,7 @@ class IPResourceController extends Controller
 
         $idTeacher = DB::table('employees as e')
             ->select('t.idTeacher')
-            ->join('Teachers as t', 't.idEmployee', '=','e.idEmployee')
+            ->join('teachers as t', 't.idEmployee', '=','e.idEmployee')
             ->where('e.secondName', '=', $ipFile[0]['secondName'])
             ->where('e.firstName', '=', $ipFile[0]['firstName'])
             ->where('e.patronymic', '=', $ipFile[0]['patronymic'])
