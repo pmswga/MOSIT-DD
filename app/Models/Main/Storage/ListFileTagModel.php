@@ -2,11 +2,12 @@
 
 namespace App\Models\Main\Storage;
 
+use App\Core\Config\ListDatabaseTable;
 use Illuminate\Database\Eloquent\Model;
 
 class ListFileTagModel extends Model
 {
-    protected $table = 'list_file_tag';
+    protected $table = ListDatabaseTable::TABLE_LIST_FILE_TAG;
     protected $primaryKey = 'idFileTag';
 
     public function getCaption() {

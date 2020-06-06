@@ -2,11 +2,12 @@
 
 namespace App\Models\Main\Staff;
 
+use App\Core\Config\ListDatabaseTable;
 use Illuminate\Database\Eloquent\Model;
 
 class ListFacultyModel extends Model
 {
-    protected $table = 'list_faculty';
+    protected $table = ListDatabaseTable::TABLE_LIST_FACULTY;
     protected $primaryKey = 'idFaculty';
 
     public function getCaption() {

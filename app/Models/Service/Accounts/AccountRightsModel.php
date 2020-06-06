@@ -2,12 +2,13 @@
 
 namespace App\Models\Service\Accounts;
 
+use App\Core\Config\ListDatabaseTable;
 use App\Models\Service\Lists\ListSubSystemModel;
 use Illuminate\Database\Eloquent\Model;
 
 class AccountRightsModel extends Model
 {
-    protected $table = 'account_rights';
+    protected $table = ListDatabaseTable::TABLE_ACCOUNT_RIGHTS;
     protected $primaryKey = 'idAccountRight';
     public $timestamps = false;
 

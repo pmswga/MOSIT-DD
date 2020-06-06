@@ -2,6 +2,7 @@
 
 namespace App\Models\Main\Tickets;
 
+use App\Core\Config\ListDatabaseTable;
 use App\Models\Main\Staff\EmployeeModel;
 use App\Models\Service\Lists\ListTicketHistoryTypeModel;
 use Illuminate\Database\Eloquent\Model;
@@ -9,8 +10,8 @@ use Illuminate\Support\Facades\DB;
 
 class TicketHistoryModel extends Model
 {
+    protected $table = ListDatabaseTable::TABLE_TICKET_HISTORY;
     protected $primaryKey = 'idTicketHistory';
-    protected $table = 'ticket_history';
 
     public function getEmployeeInitials() {
         $employee = $this->hasOne(EmployeeModel::class, 'idEmployee', 'idEmployee')->first();

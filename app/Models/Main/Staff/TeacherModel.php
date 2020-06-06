@@ -2,12 +2,13 @@
 
 namespace App\Models\Main\Staff;
 
+use App\Core\Config\ListDatabaseTable;
 use App\Models\Main\IP\IPModel;
 use Illuminate\Database\Eloquent\Model;
 
 class TeacherModel extends Model
 {
-    protected $table = 'Teachers';
+    protected $table = ListDatabaseTable::TABLE_TEACHERS;
     protected $primaryKey = 'idTeacher';
     public $timestamps = false;
 

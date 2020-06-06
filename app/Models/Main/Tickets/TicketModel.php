@@ -2,6 +2,7 @@
 
 namespace App\Models\Main\Tickets;
 
+use App\Core\Config\ListDatabaseTable;
 use App\Models\Main\Staff\EmployeeModel;
 use App\Models\Service\Lists\ListTicketStatusModel;
 use App\Models\Service\Lists\ListTicketTypeModel;
@@ -10,7 +11,7 @@ use Illuminate\Support\Carbon;
 
 class TicketModel extends Model
 {
-    protected $table = 'tickets';
+    protected $table = ListDatabaseTable::TABLE_TICKETS;
     protected $primaryKey = 'idTicket';
     protected $date_format = 'd.m.Y / H:i';
 

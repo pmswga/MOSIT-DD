@@ -2,12 +2,13 @@
 
 namespace App\Models\Main\Tickets;
 
+use App\Core\Config\ListDatabaseTable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 
 class TicketFileModel extends Model
 {
-    protected $table = 'ticket_files';
+    protected $table = ListDatabaseTable::TABLE_TICKET_FILES;
     protected $primaryKey = 'idTicketFile';
     protected $date_format = 'd.m.Y / H:i';
 

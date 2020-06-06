@@ -2,11 +2,12 @@
 
 namespace App\Models\Service\Accounts;
 
+use App\Core\Config\ListDatabaseTable;
 use Illuminate\Database\Eloquent\Model;
 
 class ListAccountTypeModel extends Model
 {
-    protected $table = "list_account_type";
+    protected $table = ListDatabaseTable::TABLE_LIST_ACCOUNT_TYPE;
     protected $primaryKey = "idAccountType";
 
     public function getCaption() {

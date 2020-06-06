@@ -109,7 +109,7 @@ class IPExcelFileWriter extends IPExcelFileStreamer
                 foreach ($array as $value) {
                     $this->excelFile->getActiveSheet()->setCellValue($columns[$column].$row, $value);
 
-                    print_r($value."-> Coords: ".$columns[$column].$row."<br>");
+                    #print_r($value."-> Coords: ".$columns[$column].$row."<br>");
 
                     $column++;
                 }
@@ -119,12 +119,15 @@ class IPExcelFileWriter extends IPExcelFileStreamer
             $row++;
         }
 
-        echo "<hr>";
-
         if ( count($this->data[4]) > 5 ) {
             $row = $this->cellCoordinates[4]['sciWork'] + count($this->data[4]) + 5;
         } else {
             $row = $this->cellCoordinates[4]['orgWork'];
+        }
+
+
+        if (count($this->data[5]) > 6) {
+            $this->excelFile->getActiveSheet()->insertNewRowBefore(20, count($this->data[5]) - 6);
         }
 
         $column = 0;
@@ -134,7 +137,7 @@ class IPExcelFileWriter extends IPExcelFileStreamer
                 foreach ($array as $value) {
                     $this->excelFile->getActiveSheet()->setCellValue($columns[$column].$row, $value);
 
-                    print_r($value."-> Coords: ".$columns[$column].$row."<br>");
+                    #print_r($value."-> Coords: ".$columns[$column].$row."<br>");
 
                     $column++;
                 }

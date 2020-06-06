@@ -2,6 +2,7 @@
 
 namespace App\Models\Main\Staff;
 
+use App\Core\Config\ListDatabaseTable;
 use App\Models\Main\Tickets\EmployeeTicketModel;
 use App\Models\Main\Tickets\TicketModel;
 use App\Models\Service\Lists\ListEmployeePostModel;
@@ -12,7 +13,7 @@ use phpDocumentor\Reflection\Types\Null_;
 
 class EmployeeModel extends Model
 {
-    protected $table = "Employees";
+    protected $table = ListDatabaseTable::TABLE_EMPLOYEES;
     protected $primaryKey = "idEmployee";
 
     public function getSecondName() {

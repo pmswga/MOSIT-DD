@@ -2,13 +2,14 @@
 
 namespace App\Models\Main\Storage;
 
+use App\Core\Config\ListDatabaseTable;
 use App\Models\Main\Storage\ListFileTagModel;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 
 class EmployeeFileModel extends Model
 {
-    protected $table = 'employee_files';
+    protected $table = ListDatabaseTable::TABLE_EMPLOYEE_FILES;
     protected $primaryKey = 'idEmployeeFile';
     protected $date_format = 'd.m.Y / H:i';
 
