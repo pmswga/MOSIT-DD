@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Core\Config\ListDatabaseTable;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\AccountModel;
@@ -47,7 +48,7 @@ class LoginController extends Controller
     }
 
     public function checkUser($email, $password) {
-        $user = DB::table('Accounts')->where([
+        $user = DB::table(ListDatabaseTable::TABLE_ACCOUNTS)->where([
             ['email', '=', $email]
         ])->get()->first();
 
