@@ -115,7 +115,6 @@ class TicketResourceController extends Controller
                 $ticketFile->idTicket = $ticket->idTicket;
                 $ticketFile->filename = basename($path);
                 $ticketFile->extension = $file->extension();
-                $ticketFile->size = round((($file->getSize() / 1024 ) / 1024), 2);
                 $ticketFile->path = $path;
 
                 $ticketFile->save();
