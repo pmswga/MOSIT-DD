@@ -39,6 +39,7 @@ class ListDatabaseTable
     public const TABLE_EMPLOYEE_TICKETS = 'employee_tickets';
     public const TABLE_LIST_TICKET_STATUS = 'list_ticket_status';
     public const TABLE_TICKET_FILES = 'ticket_files';
+    public const TABLE_TICKET_COMMENTS = 'ticket_comments';
     public const TABLE_TICKET_HISTORY = 'ticket_history';
     public const TABLE_LIST_TICKET_HISTORY_TYPE = 'list_ticket_history_type';
 

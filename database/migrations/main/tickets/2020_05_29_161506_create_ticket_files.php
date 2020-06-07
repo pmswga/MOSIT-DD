@@ -15,7 +15,8 @@ class CreateTicketFiles extends Migration
     {
         Schema::create(\App\Core\Config\ListDatabaseTable::TABLE_TICKET_FILES, function (Blueprint $table) {
             $table->bigIncrements('idTicketFile');
-            $table->bigInteger('idTicket')->unsigned();
+            $table->unsignedBigInteger('idTicket');
+            $table->unsignedBigInteger('idEmployee');
             $table->string('path');
             $table->string('filename');
             $table->string('extension');

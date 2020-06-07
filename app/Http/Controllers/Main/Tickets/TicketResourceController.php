@@ -10,8 +10,10 @@ use App\Models\Main\Tickets\TicketFileModel;
 use App\Models\Main\Tickets\TicketHistoryModel;
 use App\Models\Main\Tickets\TicketModel;
 use App\Models\Service\Lists\ListTicketTypeModel;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 
@@ -72,8 +74,9 @@ class TicketResourceController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
      */
     public function store(Request $request)
     {
@@ -82,61 +85,63 @@ class TicketResourceController extends Controller
         $ticket->idTicketType = $request->ticketType;
         $ticket->caption = $request->ticketCaption;
         $ticket->description = $request->ticketDescription;
-        $ticket->startDate = date_format( date_create( $request->ticketStartDate ), 'Y.m.d H:i:s');
-        $ticket->endDate = date_format( date_create( $request->ticketEndDate ), 'Y.m.d H:i:s');
+        $ticket->startDate = date_format( date_create( $request->ticketStartDate . $request->ticketStartTime ), 'Y.m.d H:i:s');
+        $ticket->endDate = date_format( date_create( $request->ticketEndDate . $request->ticketEndTime ), 'Y.m.d H:i:s');
         $ticket->idTicketStatus = ListTicketStatusConstants::CREATE;
 
-        $result = true;//#fixme add exception handler
-        if ($ticket->save()) {
+        DB::beginTransaction();
 
-            $ticketHistory = new TicketHistoryModel();
-            $ticketHistory->idTicket = $ticket->idTicket;
-            $ticketHistory->idTicketHistoryType = ListTicketHistoryTypeConstants::CREATE;
-            $ticketHistory->idEmployee = Auth::user()->idEmployee;
-
-            $ticketHistory->save();
-
-            foreach ($request->ticketEmployees as $employee) {
-                $ticketEmployee = new EmployeeTicketModel();
-                $ticketEmployee->idEmployee = $employee;
-                $ticketEmployee->idTicket = $ticket->idTicket;
-                $result *= $ticketEmployee->save();
+        try
+        {
+            if (!$ticket->save()) {
+                throw new \Exception();
             }
 
-            foreach ($request->file('files') as $file) {
-
-                $path = Storage::putFileAs(
-                    $this->ticketsPath . 'ticket_'.$ticket->idTicket,
-                    $file,
-                    $file->getClientOriginalName()
-                );
-
-                $ticketFile = new TicketFileModel();
-                $ticketFile->idTicket = $ticket->idTicket;
-                $ticketFile->filename = basename($path);
-                $ticketFile->extension = $file->extension();
-                $ticketFile->path = $path;
-
-                $ticketFile->save();
+            if (!$ticket->addHistoryEvent(Auth::id(), ListTicketStatusConstants::CREATE)) {
+                throw new \Exception();
             }
 
-            if ( count($request->file('files')) > 0 ) {
-                $ticketHistory = new TicketHistoryModel();
-                $ticketHistory->idTicket = $ticket->idTicket;
-                $ticketHistory->idTicketHistoryType = ListTicketHistoryTypeConstants::ATTACH_FILE;
-                $ticketHistory->idEmployee = Auth::user()->idEmployee;
 
-                $ticketHistory->save();
+            if (count($request->ticketEmployees) > 0) {
+                foreach ($request->ticketEmployees as $employee) {
+                    $ticketEmployee = new EmployeeTicketModel();
+                    $ticketEmployee->idEmployee = $employee;
+                    $ticketEmployee->idTicket = $ticket->idTicket;
+
+                    if (!$ticketEmployee->save()) {
+                        throw new \Exception();
+                    }
+                }
             }
 
-            if ($result) {
-                Session::flash('successMessage', 'Поручение успешно создано');
-                return back();
+            if (count($request->file('files')) > 0) {
+
+                foreach ($request->file('files') as $file) {
+                    $path = Storage::putFileAs(
+                        $this->ticketsPath . 'ticket_'.$ticket->idTicket,
+                        $file,
+                        $file->getClientOriginalName()
+                    );
+
+                    if (!$ticket->attachFile(Auth::id(), $path, $file->extension())) {
+                        throw new \Exception();
+                    }
+                }
+
+                if (!$ticket->addHistoryEvent(Auth::id(), ListTicketHistoryTypeConstants::ATTACH_FILE)) {
+                    throw new \Exception();
+                }
             }
 
+            DB::commit();
+            Session::flash('message', ['type' => 'success', 'message' => 'Поручение успешно создано']);
+            return back();
+        } catch (\Exception $e) {
+            DB::rollBack();
         }
 
-        Session::flash('successMessage', 'Не удалось создать поручение');
+
+        Session::flash('message', ['type' => 'message', 'message' => 'Не удалось создать поручение']);
         return back();
     }
 
@@ -176,6 +181,63 @@ class TicketResourceController extends Controller
     public function edit(TicketModel $ticketModel)
     {
         //
+    }
+
+    public function addComment(Request $request, TicketModel $ticket)
+    {
+        DB::beginTransaction();
+        try {
+
+            if (!$ticket->addComment(Auth::id(), $request->comment)) {
+                throw new \Exception();
+            }
+
+            if (!$ticket->addHistoryEvent(Auth::id(), ListTicketHistoryTypeConstants::COMMENT)) {
+                throw new \Exception();
+            }
+
+            DB::commit();
+
+            Session::flash('message', ['type' => 'success', 'message' => 'Комментарий прикреплён']);
+            return back();
+        } catch (\Exception $e) {
+            DB::rollBack();
+        }
+
+        Session::flash('message', ['type' => 'error', 'message' => 'Не удалось прикрепить комментарий']);
+        return back();
+    }
+
+    public function attachFile(Request $request, TicketModel $ticket)
+    {
+        $file = $request->file('attachedFile');
+        $path = Storage::putFileAs(
+            $this->ticketsPath . 'ticket_'.$ticket->idTicket,
+            $file,
+            $file->getClientOriginalName()
+        );
+
+        DB::beginTransaction();
+        try
+        {
+            if (!$ticket->attachFile(Auth::id(), $path, $file->extension())) {
+                throw new \Exception();
+            }
+
+            if (!$ticket->addHistoryEvent(Auth::id(), ListTicketHistoryTypeConstants::ATTACH_FILE)) {
+                throw new \Exception();
+            }
+
+            DB::commit();
+
+            Session::flash('message', ['type' => 'success', 'message' => 'Новый файл прикреплён']);
+            return back();
+        } catch (\Exception $e) {
+            DB::rollBack();
+        }
+
+        Session::flash('message', ['type' => 'error', 'message' => 'Не удалось прикрепить новый файл']);
+        return back();
     }
 
     /**

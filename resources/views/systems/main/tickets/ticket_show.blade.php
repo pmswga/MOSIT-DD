@@ -18,36 +18,32 @@
                 </tr>
                 <tr>
                     <td>Тип</td>
-                    <td>{{ $ticket->getTicketType()->caption }}</td>
+                    <td>{{ $ticket->getTicketType()->getCaption() }}</td>
                 </tr>
                 <tr>
                     <td>Статус</td>
-                    <td>{{ $ticket->getTicketStatus() }}</td>
+                    <td>{{ $ticket->getTicketStatus()->getCaption() }}</td>
                 </tr>
                 <tr>
                     <td>Название</td>
-                    <td>{{ $ticket->caption }}</td>
+                    <td>{{ $ticket->getCaption() }}</td>
                 </tr>
                 <tr>
                     <td>Описание</td>
-                    <td>{{ $ticket->description }}</td>
+                    <td>{{ $ticket->getDescription() }}</td>
                 </tr>
                 <tr>
                     <td>Дата начала</td>
                     <td>{{ $ticket->getStartDate() }}</td>
                 </tr>
-
                 @if($ticket->isExpired())
                     <tr class="error">
-                        <td>Дата окончания</td>
-                        <td>{{ $ticket->getEndDate() }}</td>
-                    </tr>
                 @else
                     <tr>
+                @endif
                         <td>Дата окончания</td>
                         <td>{{ $ticket->getEndDate() }}</td>
                     </tr>
-                @endif
                 <tr>
                     <td>Дата создания</td>
                     <td>{{ $ticket->getCreatedDate() }}</td>
@@ -102,6 +98,34 @@
     </fieldset>
 
     <fieldset class="ui segment">
+        <legend><h3>Работа с поручением</h3></legend>
+        <div class="ui form">
+            <div class="three fields">
+                <div class="field">
+                    <a class="ui primary icon fluid button" onclick="$('#attachFileModal').modal('show')">
+                        <i class="upload icon"></i>
+                        Загрузить файл
+                    </a>
+                    @include('systems.main.tickets.components.ticket_attach_file')
+                </div>
+                <div class="field">
+                    <a class="ui primary fluid button" onclick="$('#addCommentModal').modal('show')">
+                        <i class="comment icon"></i>
+                        Оставить комментарий
+                    </a>
+                    @include('systems.main.tickets.components.ticket_add_comment')
+                </div>
+                <div class="field">
+                    <a class="ui green fluid button">
+                        <i class="check icon"></i>
+                        Отметить как выполненное
+                    </a>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+
+    <fieldset class="ui segment">
         <legend><h3>История поручения</h3></legend>
 
         <div class="ui large feed">
@@ -128,34 +152,35 @@
                     </div>
                     <div class="content">
                         <div class="summary">
-
                             <a class="user">
-                                {{ $history->getEmployeeInitials() }}
+                                {{ $history->getEmployee()->getFullInitials() }}
                             </a>
-                            {{ $history->getTicketHistoryType()->message }}
+                            {{ $history->getTicketHistoryType()->getMessage() }}
+                            <div class="date">
+                                {{ $history->getCreatedDate() }}
+                            </div>
+
+                            <div class="extra text">
+                                {{ $history->getComment()->getComment() }}
+                            </div>
                             @switch($history->idTicketHistoryType)
                                 @case(\App\Core\Constants\ListTicketHistoryTypeConstants::COMMENT)
                                 @break
                                 @case(\App\Core\Constants\ListTicketHistoryTypeConstants::ATTACH_FILE)
-                                    {{--
                                     <div class="ui selection list">
                                         @foreach($history->getAttachedFiles() as $file)
                                         <div class="item">
-                                            <i class="file word icon"></i>
+                                            <i class="file icon"></i>
                                             <div class="content">
-                                                <div class="header">Отчёт</div>
+                                                <div class="header">{{ $file->getFilename() }}</div>
                                             </div>
                                         </div>
                                         @endforeach
                                     </div>
-                                    --}}
                                 @break
                             @endswitch
 
 
-                            <div class="date">
-                                {{ $history->getCreatedDate() }}
-                            </div>
                         </div>
                     </div>
                 </div>

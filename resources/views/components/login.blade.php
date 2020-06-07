@@ -1,7 +1,7 @@
 <div id="loginModal" class="ui mini modal">
     <div class="content">
         <div class="ui centered medium image">
-            <img id="cat" src="img/cat.png" alt="cat">
+            <img id="cat" src="{{ asset('img/cat.png') }}" alt="cat">
         </div>
         <form class="ui form" method="POST" action="{{ route('login') }}">
             @csrf

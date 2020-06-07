@@ -2,6 +2,10 @@
 @section('title') Редактирование ИП @endsection
 
 @section('content')
+    <script type="text/javascript" src="{{ asset('js/core/systems/ips/calculator.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/vue.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/core/systems/ips/ip_table.js') }}"></script>
+
 
     <form name="updateIP" novalidate class="ui form" method="POST" action="{{ route('ips.update', $ip) }}">
         @method('PUT')
@@ -225,54 +229,8 @@
             <div class="title">
                 <h3>Организационно-методическая и воспитательная работа</h3>
             </div>
-            <div class="content">
-                <table class="ui table">
-                    <thead>
-                        <tr>
-                            <th rowspan="2">№</th>
-                            <th rowspan="2">Наименование и вид работ</th>
-                            <th colspan="2">Трудоёмкость (час)</th>
-                            <th colspan="2">Срок выполнения (даты)</th>
-                        </tr>
-                        <tr>
-                            <th>Планируемая</th>
-                            <th>Фактическая</th>
-                            <th>Планируемая</th>
-                            <th>Фактическая</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($file[4]['work_2'] as $work)
-                            <tr>
-                                <td>
-                                    <input type="hidden" name="orgWork_{{ $loop->iteration }}[]" value="{{ $loop->iteration }}">
-                                    {{ $loop->iteration }}
-                                </td>
-                                <td>
-                                    <select name="orgWork_{{ $loop->iteration }}[]">
-                                        <option>{{ $work['caption'] }}</option>
-                                    </select>
-                                </td>
-                                <td>
-                                    <input name="orgWork_{{ $loop->iteration }}[]" class="workSum5Plan" type="number" value="{{ $work['plan'] }}">
-                                </td>
-                                <td>
-                                    <input name="orgWork_{{ $loop->iteration }}[]" class="workSum5Real" type="number" value="{{ $work['real'] }}">
-                                </td>
-                                <td>
-                                    <select name="orgWork_{{ $loop->iteration }}[]">
-                                        <option>{{ $work['finishDatePlan'] }}</option>
-                                    </select>
-                                </td>
-                                <td>
-                                    <select name="orgWork_{{ $loop->iteration }}[]">
-                                        <option>{{ $work['finishDateReal'] }}</option>
-                                    </select>
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+            <div id="orgWorkTable" class="content">
+                <org-work-table v-bind:works='orgWorks'></org-work-table>
             </div>
         </div>
 
@@ -324,30 +282,12 @@
 
     </form>
 
-
     <script type="text/javascript">
 
         $(document).ready(function () {
             $('[type=number]').attr('min', 0);
             $('[type=number]').attr('step', '0.01');
         });
-
-        class IPCalculate
-        {
-            static calcualteSum(_class) {
-                let sum = 0;
-
-                $(_class).each(function (index, element) {
-                    sum += parseFloat($(element).val());
-                });
-
-                if (isNaN(sum)) {
-                    return 0;
-                } else {
-                    return sum;
-                }
-            }
-        }
 
 
         $('[type=number]').on('change', function (element) {
@@ -369,6 +309,26 @@
             $('#workSumPlan').text(workSumPlan.toString());
             $('#workSumReal').text(workSumReal.toString());
         });
+
+        var app2 = new Vue({
+            el: '#orgWorkTable',
+            data: {
+                newWork: '',
+                orgWorks: JSON.parse('{{ json_encode($file[4]['work_2']) }}'.replace(/&quot;/ig,'"')),
+                countOfOrgWork: '{{count($file[4]['work_2'])}}'
+            },
+            methods: {
+                addNewWork: function () {
+                    this.works.push({
+                        num: ++this.count,
+                        caption: this.newWork,
+                        plan: 0,
+                        real: 0
+                    });
+                }
+            }
+        });
+
 
     </script>
 @endsection

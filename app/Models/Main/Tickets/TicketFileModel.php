@@ -12,6 +12,10 @@ class TicketFileModel extends Model
     protected $primaryKey = 'idTicketFile';
     protected $date_format = 'd.m.Y / H:i';
 
+    public function getFilename() {
+        return $this->filename;
+    }
+
     public function getPath() {
         return $this->path;
     }

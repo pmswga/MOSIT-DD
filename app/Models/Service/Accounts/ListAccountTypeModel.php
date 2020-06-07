@@ -9,6 +9,7 @@ class ListAccountTypeModel extends Model
 {
     protected $table = ListDatabaseTable::TABLE_LIST_ACCOUNT_TYPE;
     protected $primaryKey = "idAccountType";
+    public $timestamps = false;
 
     public function getCaption() {
         return $this->caption;
