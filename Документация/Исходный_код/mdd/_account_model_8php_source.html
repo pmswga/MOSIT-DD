@@ -1,0 +1,171 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.18"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>MOSIT Digital Department: Исходный файл app/Models/Service/Accounts/AccountModel.php</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="owl.png"/></td>
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">MOSIT Digital Department
+   &#160;<span id="projectnumber">1.0</span>
+   </div>
+   <div id="projectbrief">Лучшая система в мире</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Создано системой Doxygen 1.8.18 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'Поиск');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','Поиск');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_d422163b96683743ed3963d4aac17747.html">app</a></li><li class="navelem"><a class="el" href="dir_fc6199fba97859a095e1d9a5aa5fae23.html">Models</a></li><li class="navelem"><a class="el" href="dir_ca28422a6e3cc4bdca142487f3f870d7.html">Service</a></li><li class="navelem"><a class="el" href="dir_e47dd630452aa4b8234214412537a1a4.html">Accounts</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle">
+<div class="title">AccountModel.php</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="_account_model_8php.html">См. документацию.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;&lt;?php</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespace_app.html">App</a>;</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;use <a class="code" href="class_app_1_1_core_1_1_config_1_1_list_database_table.html">App\Core\Config\ListDatabaseTable</a>;</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;use <a class="code" href="class_app_1_1_core_1_1_constants_1_1_list_sub_system_constants.html">App\Core\Constants\ListSubSystemConstants</a>;</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;use <a class="code" href="class_app_1_1_models_1_1_main_1_1_staff_1_1_employee_model.html">App\Models\Main\Staff\EmployeeModel</a>;</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;use <a class="code" href="class_app_1_1_models_1_1_service_1_1_accounts_1_1_account_rights_model.html">App\Models\Service\Accounts\AccountRightsModel</a>;</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;use <a class="code" href="class_app_1_1_models_1_1_service_1_1_accounts_1_1_list_account_type_model.html">App\Models\Service\Accounts\ListAccountTypeModel</a>;</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;use <a class="code" href="class_app_1_1_models_1_1_service_1_1_lists_1_1_list_sub_system_model.html">App\Models\Service\Lists\ListSubSystemModel</a>;</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;use Illuminate\Contracts\Auth\MustVerifyEmail;</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;use Illuminate\Foundation\Auth\User as Authenticatable;</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;use Illuminate\Notifications\Notifiable;</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;use Illuminate\Support\Facades\DB;</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
+<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="class_app_1_1_account_model.html">   16</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_app_1_1_account_model.html">AccountModel</a> <span class="keyword">extends</span> Authenticatable</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;{</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    use Notifiable;</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
+<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="class_app_1_1_account_model.html#ae8876a14058f368335baccf35af4a22b">   20</a></span>&#160;    <span class="keyword">protected</span> $table = ListDatabaseTable::TABLE_ACCOUNTS;</div>
+<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="class_app_1_1_account_model.html#a927b0256b942a3ee89485f2649af7981">   21</a></span>&#160;    <span class="keyword">protected</span> $primaryKey = <span class="stringliteral">&quot;idAccount&quot;</span>;</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
+<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="class_app_1_1_account_model.html#a6a90e74ccdf5efd70d51d10c906f8e32">   28</a></span>&#160;    <span class="keyword">protected</span> $fillable = [</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        <span class="stringliteral">&#39;email&#39;</span>, <span class="stringliteral">&#39;password&#39;</span>, <span class="stringliteral">&#39;idEmployee&#39;</span>, <span class="stringliteral">&#39;idAccountType&#39;</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    ];</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
+<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="class_app_1_1_account_model.html#a4a374564d2858d8ae869a8fb890aad56">   37</a></span>&#160;    <span class="keyword">protected</span> $hidden = [</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        <span class="stringliteral">&#39;password&#39;</span>, <span class="stringliteral">&#39;remember_token&#39;</span>,</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    ];</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
+<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="class_app_1_1_account_model.html#a1649e00448c72a723c2c79fe5f915b97">   46</a></span>&#160;    <span class="keyword">protected</span> $casts = [</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        <span class="stringliteral">&#39;email_verified_at&#39;</span> =&gt; <span class="stringliteral">&#39;datetime&#39;</span>,</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    ];</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
+<div class="line"><a name="l00050"></a><span class="lineno"><a class="line" href="class_app_1_1_account_model.html#a02a01849f28e2535e888ae4ec87b20f2">   50</a></span>&#160;    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="class_app_1_1_account_model.html#a02a01849f28e2535e888ae4ec87b20f2">getEmail</a>() {</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        <span class="keywordflow">return</span> $this-&gt;email;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    }</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
+<div class="line"><a name="l00054"></a><span class="lineno"><a class="line" href="class_app_1_1_account_model.html#adc190066f29a2cde524e017a1172c6b5">   54</a></span>&#160;    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="class_app_1_1_account_model.html#adc190066f29a2cde524e017a1172c6b5">getEmployee</a>() {</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        <span class="keywordflow">return</span> $this-&gt;hasOne(<span class="stringliteral">&#39;App\Models\Main\Staff\EmployeeModel&#39;</span>, <span class="stringliteral">&#39;idEmployee&#39;</span>, <span class="stringliteral">&#39;idEmployee&#39;</span>)-&gt;first();</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    }</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
+<div class="line"><a name="l00058"></a><span class="lineno"><a class="line" href="class_app_1_1_account_model.html#a3f7e28c180a615f8a0edd419ac23f787">   58</a></span>&#160;    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="class_app_1_1_account_model.html#a3f7e28c180a615f8a0edd419ac23f787">getAccountType</a>() {</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        <span class="keywordflow">return</span> $this-&gt;hasOne(<span class="stringliteral">&#39;App\Models\Service\Accounts\ListAccountTypeModel&#39;</span>, <span class="stringliteral">&#39;idAccountType&#39;</span>, <span class="stringliteral">&#39;idAccountType&#39;</span>)-&gt;first();</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    }</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
+<div class="line"><a name="l00062"></a><span class="lineno"><a class="line" href="class_app_1_1_account_model.html#ade72b06c8e530935299a3bf41fa57cfa">   62</a></span>&#160;    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="class_app_1_1_account_model.html#ade72b06c8e530935299a3bf41fa57cfa">getIdAccountType</a>() {</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        <span class="keywordflow">return</span> $this-&gt;idAccountType;</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    }</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
+<div class="line"><a name="l00066"></a><span class="lineno"><a class="line" href="class_app_1_1_account_model.html#af5d3804e803dfa8078a8a81c767536f9">   66</a></span>&#160;    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="class_app_1_1_account_model.html#af5d3804e803dfa8078a8a81c767536f9">getAccountRights</a>() {</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        $rights = $this-&gt;hasMany(AccountRightsModel::class, <span class="stringliteral">&#39;idAccount&#39;</span>, <span class="stringliteral">&#39;idAccount&#39;</span>)</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;            -&gt;where(<span class="stringliteral">&#39;isAccess&#39;</span>, <span class="charliteral">&#39;=&#39;</span>, 1)</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;            -&gt;whereNotIn(<span class="stringliteral">&#39;idSubSystem&#39;</span>, [</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;                ListSubSystemConstants::Storage,</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;                ListSubSystemConstants::Tickets</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;            ])</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;            -&gt;get();</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        $groupRights = [];</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        <span class="keywordflow">foreach</span> ($rights as $right) {</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;            $groupRights[$right-&gt;getSubSystem()-&gt;getSystemSection()-&gt;getCaption()][] = $right;</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        }</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        <span class="keywordflow">return</span> $groupRights;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    }</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
+<div class="line"><a name="l00083"></a><span class="lineno"><a class="line" href="class_app_1_1_account_model.html#ac9fd35323fff4adc2a6c11e07b27fcbd">   83</a></span>&#160;    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="class_app_1_1_account_model.html#ac9fd35323fff4adc2a6c11e07b27fcbd">getAccountRightsOn</a>(<span class="keywordtype">int</span> $systemId) {</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        <span class="keywordflow">return</span> $this-&gt;hasOne(AccountRightsModel::class, <span class="stringliteral">&#39;idAccount&#39;</span>, <span class="stringliteral">&#39;idAccount&#39;</span>)</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;            -&gt;where(<span class="stringliteral">&#39;idSubSystem&#39;</span>, <span class="charliteral">&#39;=&#39;</span>, $systemId)</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;            -&gt;first();</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    }</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160; </div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;}</div>
+</div><!-- fragment --></div><!-- contents -->
+<div class="ttc" id="aclass_app_1_1_core_1_1_constants_1_1_list_sub_system_constants_html"><div class="ttname"><a href="class_app_1_1_core_1_1_constants_1_1_list_sub_system_constants.html">App\Core\Constants\ListSubSystemConstants</a></div><div class="ttdoc">Содержит список констант идентификаторов подсистем. Далее используется в классе ListSubSystemSeeder.</div><div class="ttdef"><b>Definition:</b> <a href="_list_sub_system_constants_8php_source.html#l00012">ListSubSystemConstants.php:13</a></div></div>
+<div class="ttc" id="aclass_app_1_1_core_1_1_config_1_1_list_database_table_html"><div class="ttname"><a href="class_app_1_1_core_1_1_config_1_1_list_database_table.html">App\Core\Config\ListDatabaseTable</a></div><div class="ttdef"><b>Definition:</b> <a href="_list_database_table_8php_source.html#l00007">ListDatabaseTable.php:8</a></div></div>
+<div class="ttc" id="aclass_app_1_1_account_model_html"><div class="ttname"><a href="class_app_1_1_account_model.html">App\AccountModel</a></div><div class="ttdef"><b>Definition:</b> <a href="_account_model_8php_source.html#l00016">AccountModel.php:17</a></div></div>
+<div class="ttc" id="aclass_app_1_1_models_1_1_main_1_1_staff_1_1_employee_model_html"><div class="ttname"><a href="class_app_1_1_models_1_1_main_1_1_staff_1_1_employee_model.html">App\Models\Main\Staff\EmployeeModel</a></div><div class="ttdef"><b>Definition:</b> <a href="_employee_model_8php_source.html#l00014">EmployeeModel.php:15</a></div></div>
+<div class="ttc" id="aclass_app_1_1_account_model_html_a3f7e28c180a615f8a0edd419ac23f787"><div class="ttname"><a href="class_app_1_1_account_model.html#a3f7e28c180a615f8a0edd419ac23f787">App\AccountModel\getAccountType</a></div><div class="ttdeci">getAccountType()</div><div class="ttdef"><b>Definition:</b> <a href="_account_model_8php_source.html#l00058">AccountModel.php:58</a></div></div>
+<div class="ttc" id="aclass_app_1_1_account_model_html_ade72b06c8e530935299a3bf41fa57cfa"><div class="ttname"><a href="class_app_1_1_account_model.html#ade72b06c8e530935299a3bf41fa57cfa">App\AccountModel\getIdAccountType</a></div><div class="ttdeci">getIdAccountType()</div><div class="ttdef"><b>Definition:</b> <a href="_account_model_8php_source.html#l00062">AccountModel.php:62</a></div></div>
+<div class="ttc" id="aclass_app_1_1_account_model_html_af5d3804e803dfa8078a8a81c767536f9"><div class="ttname"><a href="class_app_1_1_account_model.html#af5d3804e803dfa8078a8a81c767536f9">App\AccountModel\getAccountRights</a></div><div class="ttdeci">getAccountRights()</div><div class="ttdef"><b>Definition:</b> <a href="_account_model_8php_source.html#l00066">AccountModel.php:66</a></div></div>
+<div class="ttc" id="aclass_app_1_1_models_1_1_service_1_1_accounts_1_1_list_account_type_model_html"><div class="ttname"><a href="class_app_1_1_models_1_1_service_1_1_accounts_1_1_list_account_type_model.html">App\Models\Service\Accounts\ListAccountTypeModel</a></div><div class="ttdef"><b>Definition:</b> <a href="_list_account_type_model_8php_source.html#l00008">ListAccountTypeModel.php:9</a></div></div>
+<div class="ttc" id="aclass_app_1_1_account_model_html_a02a01849f28e2535e888ae4ec87b20f2"><div class="ttname"><a href="class_app_1_1_account_model.html#a02a01849f28e2535e888ae4ec87b20f2">App\AccountModel\getEmail</a></div><div class="ttdeci">getEmail()</div><div class="ttdef"><b>Definition:</b> <a href="_account_model_8php_source.html#l00050">AccountModel.php:50</a></div></div>
+<div class="ttc" id="aclass_app_1_1_account_model_html_ac9fd35323fff4adc2a6c11e07b27fcbd"><div class="ttname"><a href="class_app_1_1_account_model.html#ac9fd35323fff4adc2a6c11e07b27fcbd">App\AccountModel\getAccountRightsOn</a></div><div class="ttdeci">getAccountRightsOn(int $systemId)</div><div class="ttdef"><b>Definition:</b> <a href="_account_model_8php_source.html#l00083">AccountModel.php:83</a></div></div>
+<div class="ttc" id="aclass_app_1_1_account_model_html_adc190066f29a2cde524e017a1172c6b5"><div class="ttname"><a href="class_app_1_1_account_model.html#adc190066f29a2cde524e017a1172c6b5">App\AccountModel\getEmployee</a></div><div class="ttdeci">getEmployee()</div><div class="ttdef"><b>Definition:</b> <a href="_account_model_8php_source.html#l00054">AccountModel.php:54</a></div></div>
+<div class="ttc" id="anamespace_app_html"><div class="ttname"><a href="namespace_app.html">App</a></div></div>
+<div class="ttc" id="aclass_app_1_1_models_1_1_service_1_1_accounts_1_1_account_rights_model_html"><div class="ttname"><a href="class_app_1_1_models_1_1_service_1_1_accounts_1_1_account_rights_model.html">App\Models\Service\Accounts\AccountRightsModel</a></div><div class="ttdef"><b>Definition:</b> <a href="_account_rights_model_8php_source.html#l00009">AccountRightsModel.php:10</a></div></div>
+<div class="ttc" id="aclass_app_1_1_models_1_1_service_1_1_lists_1_1_list_sub_system_model_html"><div class="ttname"><a href="class_app_1_1_models_1_1_service_1_1_lists_1_1_list_sub_system_model.html">App\Models\Service\Lists\ListSubSystemModel</a></div><div class="ttdef"><b>Definition:</b> <a href="_list_sub_system_model_8php_source.html#l00009">ListSubSystemModel.php:10</a></div></div>
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Создано системой &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.18
+</small></address>
+</body>
+</html>

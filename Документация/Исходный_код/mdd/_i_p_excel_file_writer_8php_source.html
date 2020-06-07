@@ -1,0 +1,240 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.18"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>MOSIT Digital Department: Исходный файл app/Core/systems/main/ips/IPExcelFileWriter.php</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="owl.png"/></td>
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">MOSIT Digital Department
+   &#160;<span id="projectnumber">1.0</span>
+   </div>
+   <div id="projectbrief">Лучшая система в мире</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Создано системой Doxygen 1.8.18 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'Поиск');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','Поиск');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_d422163b96683743ed3963d4aac17747.html">app</a></li><li class="navelem"><a class="el" href="dir_532b70cea5e722f89f49332a716ee57b.html">Core</a></li><li class="navelem"><a class="el" href="dir_10730d5a12965a6a2371d26d5cd28fa2.html">systems</a></li><li class="navelem"><a class="el" href="dir_788a1e4ea854c6cb0e25963ea8c3bce7.html">main</a></li><li class="navelem"><a class="el" href="dir_96e5c11237bbc9df1bcec3fc0710d57c.html">ips</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle">
+<div class="title">IPExcelFileWriter.php</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="_i_p_excel_file_writer_8php.html">См. документацию.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;&lt;?php</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespace_app_1_1_core_1_1_systems_1_1_main_1_1_i_p_s.html">App\Core\Systems\Main\IPS</a>;</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;use PhpOffice\PhpSpreadsheet\Cell\Coordinate;</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;use PhpOffice\PhpSpreadsheet\Exception;</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;use PhpOffice\PhpSpreadsheet\Writer\Xlsx;</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
+<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="class_app_1_1_core_1_1_systems_1_1_main_1_1_i_p_s_1_1_i_p_excel_file_writer.html">    9</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_app_1_1_core_1_1_systems_1_1_main_1_1_i_p_s_1_1_i_p_excel_file_writer.html">IPExcelFileWriter</a> <span class="keyword">extends</span> <a class="code" href="class_app_1_1_core_1_1_systems_1_1_main_1_1_i_p_s_1_1_i_p_excel_file_streamer.html">IPExcelFileStreamer</a></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
+<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="class_app_1_1_core_1_1_systems_1_1_main_1_1_i_p_s_1_1_i_p_excel_file_writer.html#aa56848b7019f6b36ceda0b50354c98ce">   11</a></span>&#160;    <span class="keyword">private</span> <a class="code" href="class_app_1_1_core_1_1_systems_1_1_main_1_1_i_p_s_1_1_i_p_excel_file_writer.html#aa56848b7019f6b36ceda0b50354c98ce">$excelFilename</a>;</div>
+<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="class_app_1_1_core_1_1_systems_1_1_main_1_1_i_p_s_1_1_i_p_excel_file_writer.html#a6efc15b5a2314dd4b5aaa556a375c6d6">   12</a></span>&#160;    <span class="keyword">private</span> <a class="code" href="class_app_1_1_core_1_1_systems_1_1_main_1_1_i_p_s_1_1_i_p_excel_file_writer.html#a6efc15b5a2314dd4b5aaa556a375c6d6">$data</a>;</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
+<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="class_app_1_1_core_1_1_systems_1_1_main_1_1_i_p_s_1_1_i_p_excel_file_writer.html#a0e353b11ffdfbe545b3a27e850422924">   14</a></span>&#160;    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="class_app_1_1_core_1_1_systems_1_1_main_1_1_i_p_s_1_1_i_p_excel_file_writer.html#a0e353b11ffdfbe545b3a27e850422924">__construct</a>(<a class="code" href="class_app_1_1_core_1_1_systems_1_1_main_1_1_i_p_s_1_1_i_p_excel_file_writer.html#aa56848b7019f6b36ceda0b50354c98ce">$excelFilename</a>, <a class="code" href="class_app_1_1_core_1_1_systems_1_1_main_1_1_i_p_s_1_1_i_p_excel_file_writer.html#a6efc15b5a2314dd4b5aaa556a375c6d6">$data</a> = [])</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    {</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;        <span class="keywordflow">if</span> (isset(<a class="code" href="class_app_1_1_core_1_1_systems_1_1_main_1_1_i_p_s_1_1_i_p_excel_file_writer.html#aa56848b7019f6b36ceda0b50354c98ce">$excelFilename</a>) &amp;&amp; !empty(<a class="code" href="class_app_1_1_core_1_1_systems_1_1_main_1_1_i_p_s_1_1_i_p_excel_file_writer.html#aa56848b7019f6b36ceda0b50354c98ce">$excelFilename</a>)) {</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;            parent::__construct(<a class="code" href="class_app_1_1_core_1_1_systems_1_1_main_1_1_i_p_s_1_1_i_p_excel_file_writer.html#aa56848b7019f6b36ceda0b50354c98ce">$excelFilename</a>);</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;            $this-&gt;excelFilename = <a class="code" href="class_app_1_1_core_1_1_systems_1_1_main_1_1_i_p_s_1_1_i_p_excel_file_writer.html#aa56848b7019f6b36ceda0b50354c98ce">$excelFilename</a>;</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;            $this-&gt;data = <a class="code" href="class_app_1_1_core_1_1_systems_1_1_main_1_1_i_p_s_1_1_i_p_excel_file_writer.html#a6efc15b5a2314dd4b5aaa556a375c6d6">$data</a>;</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;        }</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;        $this-&gt;cellCoordinates = [</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;            3 =&gt; [</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;                <span class="stringliteral">&#39;work&#39;</span> =&gt; <span class="stringliteral">&#39;24&#39;</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;            ],</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;            4 =&gt; [</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;                <span class="stringliteral">&#39;sciWork&#39;</span> =&gt; <span class="charliteral">&#39;4&#39;</span>,</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;                <span class="stringliteral">&#39;orgWork&#39;</span> =&gt; <span class="stringliteral">&#39;14&#39;</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;            ],</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;            5 =&gt; [</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;                <span class="stringliteral">&#39;work&#39;</span> =&gt; <span class="charliteral">&#39;3&#39;</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;            ]</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        ];</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    }</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
+<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="class_app_1_1_core_1_1_systems_1_1_main_1_1_i_p_s_1_1_i_p_excel_file_writer.html#a598ebe0f854699fded1848368a314d69">   40</a></span>&#160;    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="class_app_1_1_core_1_1_systems_1_1_main_1_1_i_p_s_1_1_i_p_excel_file_writer.html#a598ebe0f854699fded1848368a314d69">streamSheet1</a>()</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    {</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    }</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
+<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="class_app_1_1_core_1_1_systems_1_1_main_1_1_i_p_s_1_1_i_p_excel_file_writer.html#ab3a962505fdf6be6d37d2ce959c34459">   48</a></span>&#160;    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="class_app_1_1_core_1_1_systems_1_1_main_1_1_i_p_s_1_1_i_p_excel_file_writer.html#ab3a962505fdf6be6d37d2ce959c34459">streamSheet2</a>()</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    {</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    }</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
+<div class="line"><a name="l00057"></a><span class="lineno"><a class="line" href="class_app_1_1_core_1_1_systems_1_1_main_1_1_i_p_s_1_1_i_p_excel_file_writer.html#a9458339fa1e03b0646037380874bc121">   57</a></span>&#160;    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="class_app_1_1_core_1_1_systems_1_1_main_1_1_i_p_s_1_1_i_p_excel_file_writer.html#a9458339fa1e03b0646037380874bc121">streamSheet3</a>()</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    {</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    }</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
+<div class="line"><a name="l00065"></a><span class="lineno"><a class="line" href="class_app_1_1_core_1_1_systems_1_1_main_1_1_i_p_s_1_1_i_p_excel_file_writer.html#aaf065d87a51ab9c194b560893722e451">   65</a></span>&#160;    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="class_app_1_1_core_1_1_systems_1_1_main_1_1_i_p_s_1_1_i_p_excel_file_writer.html#aaf065d87a51ab9c194b560893722e451">streamSheet4</a>()</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    {</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        $this-&gt;excelFile-&gt;setActiveSheetIndex(3);</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        $columns = [<span class="charliteral">&#39;A&#39;</span>, <span class="charliteral">&#39;B&#39;</span>, <span class="charliteral">&#39;D&#39;</span>, <span class="charliteral">&#39;E&#39;</span>, <span class="charliteral">&#39;G&#39;</span>, <span class="charliteral">&#39;N&#39;</span>, <span class="charliteral">&#39;T&#39;</span>];</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        $row = $this-&gt;cellCoordinates[3][<span class="stringliteral">&#39;work&#39;</span>];</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        $column = 0;</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        <span class="keywordflow">foreach</span> ($this-&gt;data[3] as $array) {</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;            $work[<span class="stringliteral">&#39;num&#39;</span>] = $this-&gt;excelFile-&gt;getActiveSheet()-&gt;getCellByColumnAndRow(1, $column)-&gt;getValue();</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;            <span class="keywordflow">if</span> (!preg_match(<span class="stringliteral">&#39;/ИТОГО/i&#39;</span>, $work[<span class="stringliteral">&#39;num&#39;</span>])) {</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;                <span class="keywordflow">foreach</span> ($array as $value) {</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;                    $this-&gt;excelFile-&gt;getActiveSheet()-&gt;setCellValue($columns[$column].$row, $value);</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="preprocessor">                    #print_r($value.&quot;-&gt; Coords: &quot;.$columns[$column].$row.&quot;&lt;br&gt;&quot;);</span></div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;                    $column++;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;                }</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;            }</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;            $column = 0;</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;            $row++;</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        }</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160; </div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    }</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160; </div>
+<div class="line"><a name="l00094"></a><span class="lineno"><a class="line" href="class_app_1_1_core_1_1_systems_1_1_main_1_1_i_p_s_1_1_i_p_excel_file_writer.html#a14c07dd540b32d58150bbbd9ce84eba9">   94</a></span>&#160;    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="class_app_1_1_core_1_1_systems_1_1_main_1_1_i_p_s_1_1_i_p_excel_file_writer.html#a14c07dd540b32d58150bbbd9ce84eba9">streamSheet5</a>()</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    {</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;        $this-&gt;excelFile-&gt;setActiveSheetIndex(4);</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160; </div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        <span class="keywordflow">if</span> (count($this-&gt;data[4]) &gt; 5) {</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;            $this-&gt;excelFile-&gt;getActiveSheet()-&gt;insertNewRowBefore(9, count($this-&gt;data[4]) - 5);</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;        }</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160; </div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160; </div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;        $columns = [<span class="charliteral">&#39;A&#39;</span>, <span class="charliteral">&#39;B&#39;</span>, <span class="charliteral">&#39;C&#39;</span>, <span class="charliteral">&#39;D&#39;</span>, <span class="charliteral">&#39;E&#39;</span>, <span class="charliteral">&#39;F&#39;</span>];</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;        $row = $this-&gt;cellCoordinates[4][<span class="stringliteral">&#39;sciWork&#39;</span>];</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;        $column = 0;</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;        <span class="keywordflow">foreach</span> ($this-&gt;data[4] as $array) {</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;            $work[<span class="stringliteral">&#39;num&#39;</span>] = $this-&gt;excelFile-&gt;getActiveSheet()-&gt;getCellByColumnAndRow(1, $column)-&gt;getValue();</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;            <span class="keywordflow">if</span> (!preg_match(<span class="stringliteral">&#39;/ИТОГО/i&#39;</span>, $work[<span class="stringliteral">&#39;num&#39;</span>])) {</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;                <span class="keywordflow">foreach</span> ($array as $value) {</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;                    $this-&gt;excelFile-&gt;getActiveSheet()-&gt;setCellValue($columns[$column].$row, $value);</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160; </div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;<span class="preprocessor">                    #print_r($value.&quot;-&gt; Coords: &quot;.$columns[$column].$row.&quot;&lt;br&gt;&quot;);</span></div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160; </div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;                    $column++;</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;                }</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;            }</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160; </div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;            $column = 0;</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;            $row++;</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;        }</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160; </div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;        <span class="keywordflow">if</span> ( count($this-&gt;data[4]) &gt; 5 ) {</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;            $row = $this-&gt;cellCoordinates[4][<span class="stringliteral">&#39;sciWork&#39;</span>] + count($this-&gt;data[4]) + 5;</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;        } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;            $row = $this-&gt;cellCoordinates[4][<span class="stringliteral">&#39;orgWork&#39;</span>];</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;        }</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160; </div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160; </div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;        <span class="keywordflow">if</span> (count($this-&gt;data[5]) &gt; 6) {</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;            $this-&gt;excelFile-&gt;getActiveSheet()-&gt;insertNewRowBefore(20, count($this-&gt;data[5]) - 6);</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;        }</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160; </div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;        $column = 0;</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;        <span class="keywordflow">foreach</span> ($this-&gt;data[5] as $array) {</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;            $work[<span class="stringliteral">&#39;num&#39;</span>] = $this-&gt;excelFile-&gt;getActiveSheet()-&gt;getCellByColumnAndRow(1, $column)-&gt;getValue();</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;            <span class="keywordflow">if</span> (!preg_match(<span class="stringliteral">&#39;/ИТОГО/i&#39;</span>, $work[<span class="stringliteral">&#39;num&#39;</span>])) {</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;                <span class="keywordflow">foreach</span> ($array as $value) {</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;                    $this-&gt;excelFile-&gt;getActiveSheet()-&gt;setCellValue($columns[$column].$row, $value);</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160; </div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;<span class="preprocessor">                    #print_r($value.&quot;-&gt; Coords: &quot;.$columns[$column].$row.&quot;&lt;br&gt;&quot;);</span></div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160; </div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;                    $column++;</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;                }</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;            }</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160; </div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;            $column = 0;</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;            $row++;</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;        }</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160; </div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160; </div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;<span class="preprocessor">        #dd([]);</span></div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;    }</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160; </div>
+<div class="line"><a name="l00158"></a><span class="lineno"><a class="line" href="class_app_1_1_core_1_1_systems_1_1_main_1_1_i_p_s_1_1_i_p_excel_file_writer.html#ae077eb8a032a325ceb939bfabfa5f472">  158</a></span>&#160;    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="class_app_1_1_core_1_1_systems_1_1_main_1_1_i_p_s_1_1_i_p_excel_file_writer.html#ae077eb8a032a325ceb939bfabfa5f472">getResult</a>()</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;    {</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;        $this-&gt;<a class="code" href="class_app_1_1_core_1_1_systems_1_1_main_1_1_i_p_s_1_1_i_p_excel_file_writer.html#aaf065d87a51ab9c194b560893722e451">streamSheet4</a>();</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;        $this-&gt;<a class="code" href="class_app_1_1_core_1_1_systems_1_1_main_1_1_i_p_s_1_1_i_p_excel_file_writer.html#a14c07dd540b32d58150bbbd9ce84eba9">streamSheet5</a>();</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160; </div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;        $writer = <span class="keyword">new</span> Xlsx($this-&gt;excelFile);</div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;        $writer-&gt;save($this-&gt;excelFilename);</div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;    }</div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;}</div>
+</div><!-- fragment --></div><!-- contents -->
+<div class="ttc" id="aclass_app_1_1_core_1_1_systems_1_1_main_1_1_i_p_s_1_1_i_p_excel_file_writer_html_a9458339fa1e03b0646037380874bc121"><div class="ttname"><a href="class_app_1_1_core_1_1_systems_1_1_main_1_1_i_p_s_1_1_i_p_excel_file_writer.html#a9458339fa1e03b0646037380874bc121">App\Core\Systems\Main\IPS\IPExcelFileWriter\streamSheet3</a></div><div class="ttdeci">streamSheet3()</div><div class="ttdef"><b>Definition:</b> <a href="_i_p_excel_file_writer_8php_source.html#l00057">IPExcelFileWriter.php:57</a></div></div>
+<div class="ttc" id="aclass_app_1_1_core_1_1_systems_1_1_main_1_1_i_p_s_1_1_i_p_excel_file_writer_html_a0e353b11ffdfbe545b3a27e850422924"><div class="ttname"><a href="class_app_1_1_core_1_1_systems_1_1_main_1_1_i_p_s_1_1_i_p_excel_file_writer.html#a0e353b11ffdfbe545b3a27e850422924">App\Core\Systems\Main\IPS\IPExcelFileWriter\__construct</a></div><div class="ttdeci">__construct($excelFilename, $data=[])</div><div class="ttdef"><b>Definition:</b> <a href="_i_p_excel_file_writer_8php_source.html#l00014">IPExcelFileWriter.php:14</a></div></div>
+<div class="ttc" id="aclass_app_1_1_core_1_1_systems_1_1_main_1_1_i_p_s_1_1_i_p_excel_file_writer_html_aa56848b7019f6b36ceda0b50354c98ce"><div class="ttname"><a href="class_app_1_1_core_1_1_systems_1_1_main_1_1_i_p_s_1_1_i_p_excel_file_writer.html#aa56848b7019f6b36ceda0b50354c98ce">App\Core\Systems\Main\IPS\IPExcelFileWriter\$excelFilename</a></div><div class="ttdeci">$excelFilename</div><div class="ttdef"><b>Definition:</b> <a href="_i_p_excel_file_writer_8php_source.html#l00011">IPExcelFileWriter.php:11</a></div></div>
+<div class="ttc" id="aclass_app_1_1_core_1_1_systems_1_1_main_1_1_i_p_s_1_1_i_p_excel_file_writer_html_a14c07dd540b32d58150bbbd9ce84eba9"><div class="ttname"><a href="class_app_1_1_core_1_1_systems_1_1_main_1_1_i_p_s_1_1_i_p_excel_file_writer.html#a14c07dd540b32d58150bbbd9ce84eba9">App\Core\Systems\Main\IPS\IPExcelFileWriter\streamSheet5</a></div><div class="ttdeci">streamSheet5()</div><div class="ttdef"><b>Definition:</b> <a href="_i_p_excel_file_writer_8php_source.html#l00094">IPExcelFileWriter.php:94</a></div></div>
+<div class="ttc" id="aclass_app_1_1_core_1_1_systems_1_1_main_1_1_i_p_s_1_1_i_p_excel_file_writer_html"><div class="ttname"><a href="class_app_1_1_core_1_1_systems_1_1_main_1_1_i_p_s_1_1_i_p_excel_file_writer.html">App\Core\Systems\Main\IPS\IPExcelFileWriter</a></div><div class="ttdef"><b>Definition:</b> <a href="_i_p_excel_file_writer_8php_source.html#l00009">IPExcelFileWriter.php:10</a></div></div>
+<div class="ttc" id="aclass_app_1_1_core_1_1_systems_1_1_main_1_1_i_p_s_1_1_i_p_excel_file_writer_html_ab3a962505fdf6be6d37d2ce959c34459"><div class="ttname"><a href="class_app_1_1_core_1_1_systems_1_1_main_1_1_i_p_s_1_1_i_p_excel_file_writer.html#ab3a962505fdf6be6d37d2ce959c34459">App\Core\Systems\Main\IPS\IPExcelFileWriter\streamSheet2</a></div><div class="ttdeci">streamSheet2()</div><div class="ttdef"><b>Definition:</b> <a href="_i_p_excel_file_writer_8php_source.html#l00048">IPExcelFileWriter.php:48</a></div></div>
+<div class="ttc" id="aclass_app_1_1_core_1_1_systems_1_1_main_1_1_i_p_s_1_1_i_p_excel_file_streamer_html"><div class="ttname"><a href="class_app_1_1_core_1_1_systems_1_1_main_1_1_i_p_s_1_1_i_p_excel_file_streamer.html">App\Core\Systems\Main\IPS\IPExcelFileStreamer</a></div><div class="ttdoc">Абстрактный класс описывающий методы обработки EXCEL-файла индивидуального плана из системы Тандем....</div><div class="ttdef"><b>Definition:</b> <a href="_i_p_excel_file_streamer_8php_source.html#l00014">IPExcelFileStreamer.php:15</a></div></div>
+<div class="ttc" id="aclass_app_1_1_core_1_1_systems_1_1_main_1_1_i_p_s_1_1_i_p_excel_file_writer_html_a6efc15b5a2314dd4b5aaa556a375c6d6"><div class="ttname"><a href="class_app_1_1_core_1_1_systems_1_1_main_1_1_i_p_s_1_1_i_p_excel_file_writer.html#a6efc15b5a2314dd4b5aaa556a375c6d6">App\Core\Systems\Main\IPS\IPExcelFileWriter\$data</a></div><div class="ttdeci">$data</div><div class="ttdef"><b>Definition:</b> <a href="_i_p_excel_file_writer_8php_source.html#l00012">IPExcelFileWriter.php:12</a></div></div>
+<div class="ttc" id="aclass_app_1_1_core_1_1_systems_1_1_main_1_1_i_p_s_1_1_i_p_excel_file_writer_html_ae077eb8a032a325ceb939bfabfa5f472"><div class="ttname"><a href="class_app_1_1_core_1_1_systems_1_1_main_1_1_i_p_s_1_1_i_p_excel_file_writer.html#ae077eb8a032a325ceb939bfabfa5f472">App\Core\Systems\Main\IPS\IPExcelFileWriter\getResult</a></div><div class="ttdeci">getResult()</div><div class="ttdef"><b>Definition:</b> <a href="_i_p_excel_file_writer_8php_source.html#l00158">IPExcelFileWriter.php:158</a></div></div>
+<div class="ttc" id="aclass_app_1_1_core_1_1_systems_1_1_main_1_1_i_p_s_1_1_i_p_excel_file_writer_html_a598ebe0f854699fded1848368a314d69"><div class="ttname"><a href="class_app_1_1_core_1_1_systems_1_1_main_1_1_i_p_s_1_1_i_p_excel_file_writer.html#a598ebe0f854699fded1848368a314d69">App\Core\Systems\Main\IPS\IPExcelFileWriter\streamSheet1</a></div><div class="ttdeci">streamSheet1()</div><div class="ttdef"><b>Definition:</b> <a href="_i_p_excel_file_writer_8php_source.html#l00040">IPExcelFileWriter.php:40</a></div></div>
+<div class="ttc" id="aclass_app_1_1_core_1_1_systems_1_1_main_1_1_i_p_s_1_1_i_p_excel_file_writer_html_aaf065d87a51ab9c194b560893722e451"><div class="ttname"><a href="class_app_1_1_core_1_1_systems_1_1_main_1_1_i_p_s_1_1_i_p_excel_file_writer.html#aaf065d87a51ab9c194b560893722e451">App\Core\Systems\Main\IPS\IPExcelFileWriter\streamSheet4</a></div><div class="ttdeci">streamSheet4()</div><div class="ttdef"><b>Definition:</b> <a href="_i_p_excel_file_writer_8php_source.html#l00065">IPExcelFileWriter.php:65</a></div></div>
+<div class="ttc" id="anamespace_app_1_1_core_1_1_systems_1_1_main_1_1_i_p_s_html"><div class="ttname"><a href="namespace_app_1_1_core_1_1_systems_1_1_main_1_1_i_p_s.html">App\Core\Systems\Main\IPS</a></div><div class="ttdef"><b>Definition:</b> <a href="_i_p_excel_file_reader_8php_source.html#l00003">IPExcelFileReader.php:3</a></div></div>
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Создано системой &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.18
+</small></address>
+</body>
+</html>

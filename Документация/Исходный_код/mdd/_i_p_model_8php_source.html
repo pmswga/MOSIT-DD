@@ -1,0 +1,145 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.18"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>MOSIT Digital Department: Исходный файл app/Models/Main/IP/IPModel.php</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="owl.png"/></td>
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">MOSIT Digital Department
+   &#160;<span id="projectnumber">1.0</span>
+   </div>
+   <div id="projectbrief">Лучшая система в мире</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Создано системой Doxygen 1.8.18 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'Поиск');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','Поиск');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_d422163b96683743ed3963d4aac17747.html">app</a></li><li class="navelem"><a class="el" href="dir_fc6199fba97859a095e1d9a5aa5fae23.html">Models</a></li><li class="navelem"><a class="el" href="dir_f9fa842c316705870be2a6d96c57f270.html">Main</a></li><li class="navelem"><a class="el" href="dir_f59f7241ebece2fd34dc8af6151c9878.html">IP</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle">
+<div class="title">IPModel.php</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="_i_p_model_8php.html">См. документацию.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;&lt;?php</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
+<div class="line"><a name="l00003"></a><span class="lineno"><a class="line" href="namespace_app_1_1_models_1_1_main_1_1_i_p.html">    3</a></span>&#160;<span class="keyword">namespace </span><a class="code" href="namespace_app_1_1_models_1_1_main_1_1_i_p.html">App\Models\Main\IP</a>;</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;use <a class="code" href="class_app_1_1_core_1_1_config_1_1_list_database_table.html">App\Core\Config\ListDatabaseTable</a>;</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;use <a class="code" href="class_app_1_1_models_1_1_main_1_1_staff_1_1_employee_model.html">App\Models\Main\Staff\EmployeeModel</a>;</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;use <a class="code" href="class_app_1_1_models_1_1_main_1_1_staff_1_1_teacher_model.html">App\Models\Main\Staff\TeacherModel</a>;</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;use <a class="code" href="class_app_1_1_models_1_1_main_1_1_storage_1_1_employee_file_model.html">App\Models\Main\Storage\EmployeeFileModel</a>;</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;use Carbon\Carbon;</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;use Illuminate\Database\Eloquent\Model;</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;use Illuminate\Support\Facades\Storage;</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
+<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="class_app_1_1_models_1_1_main_1_1_i_p_1_1_i_p_model.html">   13</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_app_1_1_models_1_1_main_1_1_i_p_1_1_i_p_model.html">IPModel</a> <span class="keyword">extends</span> Model</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;{</div>
+<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="class_app_1_1_models_1_1_main_1_1_i_p_1_1_i_p_model.html#ae8876a14058f368335baccf35af4a22b">   15</a></span>&#160;    <span class="keyword">protected</span> <a class="code" href="class_app_1_1_models_1_1_main_1_1_i_p_1_1_i_p_model.html#ae8876a14058f368335baccf35af4a22b">$table</a> = <a class="code" href="class_app_1_1_core_1_1_config_1_1_list_database_table.html#ac9962616b20d1a6627f875c91f96a70d">ListDatabaseTable::TABLE_IPS</a>;</div>
+<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="class_app_1_1_models_1_1_main_1_1_i_p_1_1_i_p_model.html#a927b0256b942a3ee89485f2649af7981">   16</a></span>&#160;    <span class="keyword">protected</span> <a class="code" href="class_app_1_1_models_1_1_main_1_1_i_p_1_1_i_p_model.html#a927b0256b942a3ee89485f2649af7981">$primaryKey</a> = <span class="stringliteral">&#39;idIP&#39;</span>;</div>
+<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="class_app_1_1_models_1_1_main_1_1_i_p_1_1_i_p_model.html#a51267c24c8fae742ed8f9be0ba6085ee">   17</a></span>&#160;    <span class="keyword">public</span> <a class="code" href="class_app_1_1_models_1_1_main_1_1_i_p_1_1_i_p_model.html#a51267c24c8fae742ed8f9be0ba6085ee">$timestamps</a> = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="class_app_1_1_models_1_1_main_1_1_i_p_1_1_i_p_model.html#acca3fdcdfc67e06cb49a87e476d364a8">   18</a></span>&#160;    <span class="keyword">protected</span> <a class="code" href="class_app_1_1_models_1_1_main_1_1_i_p_1_1_i_p_model.html#acca3fdcdfc67e06cb49a87e476d364a8">$date_format</a> = <span class="stringliteral">&#39;d.m.Y / H:i&#39;</span>;</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
+<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="class_app_1_1_models_1_1_main_1_1_i_p_1_1_i_p_model.html#a13f3044501ccff40350fb08dc1a278d6">   20</a></span>&#160;    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="class_app_1_1_models_1_1_main_1_1_i_p_1_1_i_p_model.html#a13f3044501ccff40350fb08dc1a278d6">getFilePath</a>() {</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;        $file = $this-&gt;hasOne(EmployeeFileModel::class, <span class="stringliteral">&#39;idEmployeeFile&#39;</span>, <span class="stringliteral">&#39;idEmployeeFile&#39;</span>)-&gt;first();</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;        <span class="keywordflow">return</span> $file-&gt;path;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    }</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
+<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="class_app_1_1_models_1_1_main_1_1_i_p_1_1_i_p_model.html#a35250bb8cab8b4a2c1e196e3e5976ccb">   25</a></span>&#160;    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="class_app_1_1_models_1_1_main_1_1_i_p_1_1_i_p_model.html#a35250bb8cab8b4a2c1e196e3e5976ccb">getFullFilePath</a>() {</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        <span class="keywordflow">return</span> storage_path() . DIRECTORY_SEPARATOR . <span class="stringliteral">&#39;app&#39;</span> . DIRECTORY_SEPARATOR . $this-&gt;<a class="code" href="class_app_1_1_models_1_1_main_1_1_i_p_1_1_i_p_model.html#a13f3044501ccff40350fb08dc1a278d6">getFilePath</a>();</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    }</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
+<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="class_app_1_1_models_1_1_main_1_1_i_p_1_1_i_p_model.html#ac1050c5cee0ebd0e2240035c6087ac28">   29</a></span>&#160;    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="class_app_1_1_models_1_1_main_1_1_i_p_1_1_i_p_model.html#ac1050c5cee0ebd0e2240035c6087ac28">getFIle</a>() {</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        <span class="keywordflow">return</span> $this-&gt;hasOne(EmployeeFileModel::class, <span class="stringliteral">&#39;idEmployeeFile&#39;</span>, <span class="stringliteral">&#39;idEmployeeFile&#39;</span>)-&gt;first();</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    }</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
+<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="class_app_1_1_models_1_1_main_1_1_i_p_1_1_i_p_model.html#a762b28be473aaf198f43072e2ac8532a">   33</a></span>&#160;    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="class_app_1_1_models_1_1_main_1_1_i_p_1_1_i_p_model.html#a762b28be473aaf198f43072e2ac8532a">getTeacher</a>() {</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        <span class="keywordflow">return</span> $this-&gt;hasOne(EmployeeModel::class,<span class="stringliteral">&#39;idEmployee&#39;</span>, <span class="stringliteral">&#39;idTeacher&#39;</span>)-&gt;first();</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    }</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
+<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="class_app_1_1_models_1_1_main_1_1_i_p_1_1_i_p_model.html#af9467f0633ec8dd1e3ca99fabb4f29c0">   37</a></span>&#160;    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="class_app_1_1_models_1_1_main_1_1_i_p_1_1_i_p_model.html#af9467f0633ec8dd1e3ca99fabb4f29c0">getLastEmployee</a>() {</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        <span class="keywordflow">return</span> $this-&gt;hasOne(EmployeeModel::class, <span class="stringliteral">&#39;idEmployee&#39;</span>, <span class="stringliteral">&#39;lastEmployee&#39;</span>)-&gt;first();</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    }</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
+<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="class_app_1_1_models_1_1_main_1_1_i_p_1_1_i_p_model.html#a252c5eb34e72db6aa7f6fcbed104eb66">   41</a></span>&#160;    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="class_app_1_1_models_1_1_main_1_1_i_p_1_1_i_p_model.html#a252c5eb34e72db6aa7f6fcbed104eb66">getLastUpdate</a>() {</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        <span class="keywordflow">return</span> Carbon::createFromTimeString($this-&gt;lastUpdate)-&gt;format($this-&gt;date_format);</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    }</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;}</div>
+</div><!-- fragment --></div><!-- contents -->
+<div class="ttc" id="aclass_app_1_1_models_1_1_main_1_1_i_p_1_1_i_p_model_html_ae8876a14058f368335baccf35af4a22b"><div class="ttname"><a href="class_app_1_1_models_1_1_main_1_1_i_p_1_1_i_p_model.html#ae8876a14058f368335baccf35af4a22b">App\Models\Main\IP\IPModel\$table</a></div><div class="ttdeci">$table</div><div class="ttdef"><b>Definition:</b> <a href="_i_p_model_8php_source.html#l00015">IPModel.php:15</a></div></div>
+<div class="ttc" id="aclass_app_1_1_core_1_1_config_1_1_list_database_table_html"><div class="ttname"><a href="class_app_1_1_core_1_1_config_1_1_list_database_table.html">App\Core\Config\ListDatabaseTable</a></div><div class="ttdef"><b>Definition:</b> <a href="_list_database_table_8php_source.html#l00007">ListDatabaseTable.php:8</a></div></div>
+<div class="ttc" id="aclass_app_1_1_models_1_1_main_1_1_staff_1_1_employee_model_html"><div class="ttname"><a href="class_app_1_1_models_1_1_main_1_1_staff_1_1_employee_model.html">App\Models\Main\Staff\EmployeeModel</a></div><div class="ttdef"><b>Definition:</b> <a href="_employee_model_8php_source.html#l00014">EmployeeModel.php:15</a></div></div>
+<div class="ttc" id="aclass_app_1_1_models_1_1_main_1_1_i_p_1_1_i_p_model_html_a762b28be473aaf198f43072e2ac8532a"><div class="ttname"><a href="class_app_1_1_models_1_1_main_1_1_i_p_1_1_i_p_model.html#a762b28be473aaf198f43072e2ac8532a">App\Models\Main\IP\IPModel\getTeacher</a></div><div class="ttdeci">getTeacher()</div><div class="ttdef"><b>Definition:</b> <a href="_i_p_model_8php_source.html#l00033">IPModel.php:33</a></div></div>
+<div class="ttc" id="aclass_app_1_1_models_1_1_main_1_1_storage_1_1_employee_file_model_html"><div class="ttname"><a href="class_app_1_1_models_1_1_main_1_1_storage_1_1_employee_file_model.html">App\Models\Main\Storage\EmployeeFileModel</a></div><div class="ttdef"><b>Definition:</b> <a href="_employee_file_model_8php_source.html#l00010">EmployeeFileModel.php:11</a></div></div>
+<div class="ttc" id="aclass_app_1_1_models_1_1_main_1_1_i_p_1_1_i_p_model_html_acca3fdcdfc67e06cb49a87e476d364a8"><div class="ttname"><a href="class_app_1_1_models_1_1_main_1_1_i_p_1_1_i_p_model.html#acca3fdcdfc67e06cb49a87e476d364a8">App\Models\Main\IP\IPModel\$date_format</a></div><div class="ttdeci">$date_format</div><div class="ttdef"><b>Definition:</b> <a href="_i_p_model_8php_source.html#l00018">IPModel.php:18</a></div></div>
+<div class="ttc" id="aclass_app_1_1_models_1_1_main_1_1_i_p_1_1_i_p_model_html"><div class="ttname"><a href="class_app_1_1_models_1_1_main_1_1_i_p_1_1_i_p_model.html">App\Models\Main\IP\IPModel</a></div><div class="ttdef"><b>Definition:</b> <a href="_i_p_model_8php_source.html#l00013">IPModel.php:14</a></div></div>
+<div class="ttc" id="aclass_app_1_1_models_1_1_main_1_1_i_p_1_1_i_p_model_html_a927b0256b942a3ee89485f2649af7981"><div class="ttname"><a href="class_app_1_1_models_1_1_main_1_1_i_p_1_1_i_p_model.html#a927b0256b942a3ee89485f2649af7981">App\Models\Main\IP\IPModel\$primaryKey</a></div><div class="ttdeci">$primaryKey</div><div class="ttdef"><b>Definition:</b> <a href="_i_p_model_8php_source.html#l00016">IPModel.php:16</a></div></div>
+<div class="ttc" id="aclass_app_1_1_core_1_1_config_1_1_list_database_table_html_ac9962616b20d1a6627f875c91f96a70d"><div class="ttname"><a href="class_app_1_1_core_1_1_config_1_1_list_database_table.html#ac9962616b20d1a6627f875c91f96a70d">App\Core\Config\ListDatabaseTable\TABLE_IPS</a></div><div class="ttdeci">const TABLE_IPS</div><div class="ttdef"><b>Definition:</b> <a href="_list_database_table_8php_source.html#l00021">ListDatabaseTable.php:21</a></div></div>
+<div class="ttc" id="aclass_app_1_1_models_1_1_main_1_1_staff_1_1_teacher_model_html"><div class="ttname"><a href="class_app_1_1_models_1_1_main_1_1_staff_1_1_teacher_model.html">App\Models\Main\Staff\TeacherModel</a></div><div class="ttdef"><b>Definition:</b> <a href="_teacher_model_8php_source.html#l00009">TeacherModel.php:10</a></div></div>
+<div class="ttc" id="aclass_app_1_1_models_1_1_main_1_1_i_p_1_1_i_p_model_html_a35250bb8cab8b4a2c1e196e3e5976ccb"><div class="ttname"><a href="class_app_1_1_models_1_1_main_1_1_i_p_1_1_i_p_model.html#a35250bb8cab8b4a2c1e196e3e5976ccb">App\Models\Main\IP\IPModel\getFullFilePath</a></div><div class="ttdeci">getFullFilePath()</div><div class="ttdef"><b>Definition:</b> <a href="_i_p_model_8php_source.html#l00025">IPModel.php:25</a></div></div>
+<div class="ttc" id="aclass_app_1_1_models_1_1_main_1_1_i_p_1_1_i_p_model_html_a13f3044501ccff40350fb08dc1a278d6"><div class="ttname"><a href="class_app_1_1_models_1_1_main_1_1_i_p_1_1_i_p_model.html#a13f3044501ccff40350fb08dc1a278d6">App\Models\Main\IP\IPModel\getFilePath</a></div><div class="ttdeci">getFilePath()</div><div class="ttdef"><b>Definition:</b> <a href="_i_p_model_8php_source.html#l00020">IPModel.php:20</a></div></div>
+<div class="ttc" id="aclass_app_1_1_models_1_1_main_1_1_i_p_1_1_i_p_model_html_a252c5eb34e72db6aa7f6fcbed104eb66"><div class="ttname"><a href="class_app_1_1_models_1_1_main_1_1_i_p_1_1_i_p_model.html#a252c5eb34e72db6aa7f6fcbed104eb66">App\Models\Main\IP\IPModel\getLastUpdate</a></div><div class="ttdeci">getLastUpdate()</div><div class="ttdef"><b>Definition:</b> <a href="_i_p_model_8php_source.html#l00041">IPModel.php:41</a></div></div>
+<div class="ttc" id="aclass_app_1_1_models_1_1_main_1_1_i_p_1_1_i_p_model_html_ac1050c5cee0ebd0e2240035c6087ac28"><div class="ttname"><a href="class_app_1_1_models_1_1_main_1_1_i_p_1_1_i_p_model.html#ac1050c5cee0ebd0e2240035c6087ac28">App\Models\Main\IP\IPModel\getFIle</a></div><div class="ttdeci">getFIle()</div><div class="ttdef"><b>Definition:</b> <a href="_i_p_model_8php_source.html#l00029">IPModel.php:29</a></div></div>
+<div class="ttc" id="anamespace_app_1_1_models_1_1_main_1_1_i_p_html"><div class="ttname"><a href="namespace_app_1_1_models_1_1_main_1_1_i_p.html">App\Models\Main\IP</a></div><div class="ttdef"><b>Definition:</b> <a href="_i_p_model_8php_source.html#l00003">IPModel.php:3</a></div></div>
+<div class="ttc" id="aclass_app_1_1_models_1_1_main_1_1_i_p_1_1_i_p_model_html_a51267c24c8fae742ed8f9be0ba6085ee"><div class="ttname"><a href="class_app_1_1_models_1_1_main_1_1_i_p_1_1_i_p_model.html#a51267c24c8fae742ed8f9be0ba6085ee">App\Models\Main\IP\IPModel\$timestamps</a></div><div class="ttdeci">$timestamps</div><div class="ttdef"><b>Definition:</b> <a href="_i_p_model_8php_source.html#l00017">IPModel.php:17</a></div></div>
+<div class="ttc" id="aclass_app_1_1_models_1_1_main_1_1_i_p_1_1_i_p_model_html_af9467f0633ec8dd1e3ca99fabb4f29c0"><div class="ttname"><a href="class_app_1_1_models_1_1_main_1_1_i_p_1_1_i_p_model.html#af9467f0633ec8dd1e3ca99fabb4f29c0">App\Models\Main\IP\IPModel\getLastEmployee</a></div><div class="ttdeci">getLastEmployee()</div><div class="ttdef"><b>Definition:</b> <a href="_i_p_model_8php_source.html#l00037">IPModel.php:37</a></div></div>
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Создано системой &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.18
+</small></address>
+</body>
+</html>

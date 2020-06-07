@@ -1,0 +1,156 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.18"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>MOSIT Digital Department: Исходный файл app/Models/Main/Storage/EmployeeFileModel.php</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="owl.png"/></td>
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">MOSIT Digital Department
+   &#160;<span id="projectnumber">1.0</span>
+   </div>
+   <div id="projectbrief">Лучшая система в мире</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Создано системой Doxygen 1.8.18 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'Поиск');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','Поиск');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_d422163b96683743ed3963d4aac17747.html">app</a></li><li class="navelem"><a class="el" href="dir_fc6199fba97859a095e1d9a5aa5fae23.html">Models</a></li><li class="navelem"><a class="el" href="dir_f9fa842c316705870be2a6d96c57f270.html">Main</a></li><li class="navelem"><a class="el" href="dir_fa6d94329993b311fa3b23e5d6464521.html">Storage</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle">
+<div class="title">EmployeeFileModel.php</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="_employee_file_model_8php.html">См. документацию.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;&lt;?php</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
+<div class="line"><a name="l00003"></a><span class="lineno"><a class="line" href="namespace_app_1_1_models_1_1_main_1_1_storage.html">    3</a></span>&#160;<span class="keyword">namespace </span><a class="code" href="namespace_app_1_1_models_1_1_main_1_1_storage.html">App\Models\Main\Storage</a>;</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;use <a class="code" href="class_app_1_1_core_1_1_config_1_1_list_database_table.html">App\Core\Config\ListDatabaseTable</a>;</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;use <a class="code" href="class_app_1_1_models_1_1_main_1_1_storage_1_1_list_file_tag_model.html">App\Models\Main\Storage\ListFileTagModel</a>;</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;use Illuminate\Database\Eloquent\Model;</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;use Illuminate\Support\Facades\Storage;</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
+<div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="class_app_1_1_models_1_1_main_1_1_storage_1_1_employee_file_model.html">   10</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_app_1_1_models_1_1_main_1_1_storage_1_1_employee_file_model.html">EmployeeFileModel</a> <span class="keyword">extends</span> Model</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
+<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="class_app_1_1_models_1_1_main_1_1_storage_1_1_employee_file_model.html#ae8876a14058f368335baccf35af4a22b">   12</a></span>&#160;    <span class="keyword">protected</span> <a class="code" href="class_app_1_1_models_1_1_main_1_1_storage_1_1_employee_file_model.html#ae8876a14058f368335baccf35af4a22b">$table</a> = <a class="code" href="class_app_1_1_core_1_1_config_1_1_list_database_table.html#a5c1f31a713243e6b5970def30b133d0f">ListDatabaseTable::TABLE_EMPLOYEE_FILES</a>;</div>
+<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="class_app_1_1_models_1_1_main_1_1_storage_1_1_employee_file_model.html#a927b0256b942a3ee89485f2649af7981">   13</a></span>&#160;    <span class="keyword">protected</span> <a class="code" href="class_app_1_1_models_1_1_main_1_1_storage_1_1_employee_file_model.html#a927b0256b942a3ee89485f2649af7981">$primaryKey</a> = <span class="stringliteral">&#39;idEmployeeFile&#39;</span>;</div>
+<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="class_app_1_1_models_1_1_main_1_1_storage_1_1_employee_file_model.html#acca3fdcdfc67e06cb49a87e476d364a8">   14</a></span>&#160;    <span class="keyword">protected</span> <a class="code" href="class_app_1_1_models_1_1_main_1_1_storage_1_1_employee_file_model.html#acca3fdcdfc67e06cb49a87e476d364a8">$date_format</a> = <span class="stringliteral">&#39;d.m.Y / H:i&#39;</span>;</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
+<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="class_app_1_1_models_1_1_main_1_1_storage_1_1_employee_file_model.html#a6a90e74ccdf5efd70d51d10c906f8e32">   16</a></span>&#160;    <span class="keyword">protected</span> <a class="code" href="class_app_1_1_models_1_1_main_1_1_storage_1_1_employee_file_model.html#a6a90e74ccdf5efd70d51d10c906f8e32">$fillable</a> = [</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;        <span class="stringliteral">&#39;idEmployee&#39;</span>, <span class="stringliteral">&#39;idFileTag&#39;</span>,  <span class="stringliteral">&#39;path&#39;</span>, <span class="stringliteral">&#39;directory&#39;</span>, <span class="stringliteral">&#39;filename&#39;</span>, <span class="stringliteral">&#39;extension&#39;</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    ];</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
+<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="class_app_1_1_models_1_1_main_1_1_storage_1_1_employee_file_model.html#ae91c1c5598123b895e7de5df270bd0fd">   20</a></span>&#160;    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="class_app_1_1_models_1_1_main_1_1_storage_1_1_employee_file_model.html#ae91c1c5598123b895e7de5df270bd0fd">getDirectory</a>() {</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;        <span class="keywordflow">return</span> $this-&gt;directory;</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    }</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
+<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="class_app_1_1_models_1_1_main_1_1_storage_1_1_employee_file_model.html#a30c5c67b2bf8e2e2ccc7e361faa20afe">   24</a></span>&#160;    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="class_app_1_1_models_1_1_main_1_1_storage_1_1_employee_file_model.html#a30c5c67b2bf8e2e2ccc7e361faa20afe">getPath</a>() {</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        <span class="keywordflow">return</span> $this-&gt;path;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    }</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
+<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="class_app_1_1_models_1_1_main_1_1_storage_1_1_employee_file_model.html#a2982abe8d7b767602a1485dfb4cf653d">   28</a></span>&#160;    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="class_app_1_1_models_1_1_main_1_1_storage_1_1_employee_file_model.html#a2982abe8d7b767602a1485dfb4cf653d">getFilename</a>() {</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        <span class="keywordflow">return</span> $this-&gt;filename;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    }</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
+<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="class_app_1_1_models_1_1_main_1_1_storage_1_1_employee_file_model.html#a75cce10cdf81be6dc84881c28b3379b7">   32</a></span>&#160;    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="class_app_1_1_models_1_1_main_1_1_storage_1_1_employee_file_model.html#a75cce10cdf81be6dc84881c28b3379b7">getSize</a>() {</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        <span class="keywordflow">if</span> (Storage::exists($this-&gt;path)) {</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;            <span class="keywordflow">return</span> round((Storage::size($this-&gt;path)/1024)/1024, 2);</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        }</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        <span class="keywordflow">return</span> 0;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    }</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
+<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="class_app_1_1_models_1_1_main_1_1_storage_1_1_employee_file_model.html#ae6914d3a98b1490a7da85ffb5e4cb8ab">   40</a></span>&#160;    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="class_app_1_1_models_1_1_main_1_1_storage_1_1_employee_file_model.html#ae6914d3a98b1490a7da85ffb5e4cb8ab">getExtension</a>() {</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        <span class="keywordflow">return</span> $this-&gt;extension;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    }</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
+<div class="line"><a name="l00044"></a><span class="lineno"><a class="line" href="class_app_1_1_models_1_1_main_1_1_storage_1_1_employee_file_model.html#a19fdcffc9e3b291899f1fb01dca21ffb">   44</a></span>&#160;    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="class_app_1_1_models_1_1_main_1_1_storage_1_1_employee_file_model.html#a19fdcffc9e3b291899f1fb01dca21ffb">getFileTag</a>() {</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        <span class="keywordflow">return</span> $this-&gt;hasOne(ListFileTagModel::class,<span class="stringliteral">&#39;idFileTag&#39;</span>, <span class="stringliteral">&#39;idFileTag&#39;</span>)-&gt;first();</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    }</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
+<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="class_app_1_1_models_1_1_main_1_1_storage_1_1_employee_file_model.html#abde8ad01ec98aaa628a632172d76d062">   48</a></span>&#160;    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="class_app_1_1_models_1_1_main_1_1_storage_1_1_employee_file_model.html#abde8ad01ec98aaa628a632172d76d062">getCreatedDate</a>() {</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        <span class="keywordflow">return</span> $this-&gt;created_at-&gt;format($this-&gt;date_format);</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    }</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
+<div class="line"><a name="l00052"></a><span class="lineno"><a class="line" href="class_app_1_1_models_1_1_main_1_1_storage_1_1_employee_file_model.html#ae9037f5f16f1df2caf7a687b015a444e">   52</a></span>&#160;    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="class_app_1_1_models_1_1_main_1_1_storage_1_1_employee_file_model.html#ae9037f5f16f1df2caf7a687b015a444e">getUpdatedDate</a>() {</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        <span class="keywordflow">return</span> $this-&gt;updated_at-&gt;format($this-&gt;date_format);</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    }</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;}</div>
+</div><!-- fragment --></div><!-- contents -->
+<div class="ttc" id="anamespace_app_1_1_models_1_1_main_1_1_storage_html"><div class="ttname"><a href="namespace_app_1_1_models_1_1_main_1_1_storage.html">App\Models\Main\Storage</a></div><div class="ttdef"><b>Definition:</b> <a href="_employee_file_model_8php_source.html#l00003">EmployeeFileModel.php:3</a></div></div>
+<div class="ttc" id="aclass_app_1_1_models_1_1_main_1_1_storage_1_1_employee_file_model_html_a6a90e74ccdf5efd70d51d10c906f8e32"><div class="ttname"><a href="class_app_1_1_models_1_1_main_1_1_storage_1_1_employee_file_model.html#a6a90e74ccdf5efd70d51d10c906f8e32">App\Models\Main\Storage\EmployeeFileModel\$fillable</a></div><div class="ttdeci">$fillable</div><div class="ttdef"><b>Definition:</b> <a href="_employee_file_model_8php_source.html#l00016">EmployeeFileModel.php:16</a></div></div>
+<div class="ttc" id="aclass_app_1_1_core_1_1_config_1_1_list_database_table_html"><div class="ttname"><a href="class_app_1_1_core_1_1_config_1_1_list_database_table.html">App\Core\Config\ListDatabaseTable</a></div><div class="ttdef"><b>Definition:</b> <a href="_list_database_table_8php_source.html#l00007">ListDatabaseTable.php:8</a></div></div>
+<div class="ttc" id="aclass_app_1_1_models_1_1_main_1_1_storage_1_1_employee_file_model_html_ae9037f5f16f1df2caf7a687b015a444e"><div class="ttname"><a href="class_app_1_1_models_1_1_main_1_1_storage_1_1_employee_file_model.html#ae9037f5f16f1df2caf7a687b015a444e">App\Models\Main\Storage\EmployeeFileModel\getUpdatedDate</a></div><div class="ttdeci">getUpdatedDate()</div><div class="ttdef"><b>Definition:</b> <a href="_employee_file_model_8php_source.html#l00052">EmployeeFileModel.php:52</a></div></div>
+<div class="ttc" id="aclass_app_1_1_models_1_1_main_1_1_storage_1_1_employee_file_model_html_ae91c1c5598123b895e7de5df270bd0fd"><div class="ttname"><a href="class_app_1_1_models_1_1_main_1_1_storage_1_1_employee_file_model.html#ae91c1c5598123b895e7de5df270bd0fd">App\Models\Main\Storage\EmployeeFileModel\getDirectory</a></div><div class="ttdeci">getDirectory()</div><div class="ttdef"><b>Definition:</b> <a href="_employee_file_model_8php_source.html#l00020">EmployeeFileModel.php:20</a></div></div>
+<div class="ttc" id="aclass_app_1_1_models_1_1_main_1_1_storage_1_1_employee_file_model_html_a927b0256b942a3ee89485f2649af7981"><div class="ttname"><a href="class_app_1_1_models_1_1_main_1_1_storage_1_1_employee_file_model.html#a927b0256b942a3ee89485f2649af7981">App\Models\Main\Storage\EmployeeFileModel\$primaryKey</a></div><div class="ttdeci">$primaryKey</div><div class="ttdef"><b>Definition:</b> <a href="_employee_file_model_8php_source.html#l00013">EmployeeFileModel.php:13</a></div></div>
+<div class="ttc" id="aclass_app_1_1_models_1_1_main_1_1_storage_1_1_list_file_tag_model_html"><div class="ttname"><a href="class_app_1_1_models_1_1_main_1_1_storage_1_1_list_file_tag_model.html">App\Models\Main\Storage\ListFileTagModel</a></div><div class="ttdef"><b>Definition:</b> <a href="_list_file_tag_model_8php_source.html#l00008">ListFileTagModel.php:9</a></div></div>
+<div class="ttc" id="aclass_app_1_1_models_1_1_main_1_1_storage_1_1_employee_file_model_html_a75cce10cdf81be6dc84881c28b3379b7"><div class="ttname"><a href="class_app_1_1_models_1_1_main_1_1_storage_1_1_employee_file_model.html#a75cce10cdf81be6dc84881c28b3379b7">App\Models\Main\Storage\EmployeeFileModel\getSize</a></div><div class="ttdeci">getSize()</div><div class="ttdef"><b>Definition:</b> <a href="_employee_file_model_8php_source.html#l00032">EmployeeFileModel.php:32</a></div></div>
+<div class="ttc" id="aclass_app_1_1_models_1_1_main_1_1_storage_1_1_employee_file_model_html"><div class="ttname"><a href="class_app_1_1_models_1_1_main_1_1_storage_1_1_employee_file_model.html">App\Models\Main\Storage\EmployeeFileModel</a></div><div class="ttdef"><b>Definition:</b> <a href="_employee_file_model_8php_source.html#l00010">EmployeeFileModel.php:11</a></div></div>
+<div class="ttc" id="aclass_app_1_1_models_1_1_main_1_1_storage_1_1_employee_file_model_html_ae6914d3a98b1490a7da85ffb5e4cb8ab"><div class="ttname"><a href="class_app_1_1_models_1_1_main_1_1_storage_1_1_employee_file_model.html#ae6914d3a98b1490a7da85ffb5e4cb8ab">App\Models\Main\Storage\EmployeeFileModel\getExtension</a></div><div class="ttdeci">getExtension()</div><div class="ttdef"><b>Definition:</b> <a href="_employee_file_model_8php_source.html#l00040">EmployeeFileModel.php:40</a></div></div>
+<div class="ttc" id="aclass_app_1_1_models_1_1_main_1_1_storage_1_1_employee_file_model_html_ae8876a14058f368335baccf35af4a22b"><div class="ttname"><a href="class_app_1_1_models_1_1_main_1_1_storage_1_1_employee_file_model.html#ae8876a14058f368335baccf35af4a22b">App\Models\Main\Storage\EmployeeFileModel\$table</a></div><div class="ttdeci">$table</div><div class="ttdef"><b>Definition:</b> <a href="_employee_file_model_8php_source.html#l00012">EmployeeFileModel.php:12</a></div></div>
+<div class="ttc" id="aclass_app_1_1_models_1_1_main_1_1_storage_1_1_employee_file_model_html_abde8ad01ec98aaa628a632172d76d062"><div class="ttname"><a href="class_app_1_1_models_1_1_main_1_1_storage_1_1_employee_file_model.html#abde8ad01ec98aaa628a632172d76d062">App\Models\Main\Storage\EmployeeFileModel\getCreatedDate</a></div><div class="ttdeci">getCreatedDate()</div><div class="ttdef"><b>Definition:</b> <a href="_employee_file_model_8php_source.html#l00048">EmployeeFileModel.php:48</a></div></div>
+<div class="ttc" id="aclass_app_1_1_models_1_1_main_1_1_storage_1_1_employee_file_model_html_acca3fdcdfc67e06cb49a87e476d364a8"><div class="ttname"><a href="class_app_1_1_models_1_1_main_1_1_storage_1_1_employee_file_model.html#acca3fdcdfc67e06cb49a87e476d364a8">App\Models\Main\Storage\EmployeeFileModel\$date_format</a></div><div class="ttdeci">$date_format</div><div class="ttdef"><b>Definition:</b> <a href="_employee_file_model_8php_source.html#l00014">EmployeeFileModel.php:14</a></div></div>
+<div class="ttc" id="aclass_app_1_1_core_1_1_config_1_1_list_database_table_html_a5c1f31a713243e6b5970def30b133d0f"><div class="ttname"><a href="class_app_1_1_core_1_1_config_1_1_list_database_table.html#a5c1f31a713243e6b5970def30b133d0f">App\Core\Config\ListDatabaseTable\TABLE_EMPLOYEE_FILES</a></div><div class="ttdeci">const TABLE_EMPLOYEE_FILES</div><div class="ttdef"><b>Definition:</b> <a href="_list_database_table_8php_source.html#l00034">ListDatabaseTable.php:34</a></div></div>
+<div class="ttc" id="aclass_app_1_1_models_1_1_main_1_1_storage_1_1_employee_file_model_html_a19fdcffc9e3b291899f1fb01dca21ffb"><div class="ttname"><a href="class_app_1_1_models_1_1_main_1_1_storage_1_1_employee_file_model.html#a19fdcffc9e3b291899f1fb01dca21ffb">App\Models\Main\Storage\EmployeeFileModel\getFileTag</a></div><div class="ttdeci">getFileTag()</div><div class="ttdef"><b>Definition:</b> <a href="_employee_file_model_8php_source.html#l00044">EmployeeFileModel.php:44</a></div></div>
+<div class="ttc" id="aclass_app_1_1_models_1_1_main_1_1_storage_1_1_employee_file_model_html_a30c5c67b2bf8e2e2ccc7e361faa20afe"><div class="ttname"><a href="class_app_1_1_models_1_1_main_1_1_storage_1_1_employee_file_model.html#a30c5c67b2bf8e2e2ccc7e361faa20afe">App\Models\Main\Storage\EmployeeFileModel\getPath</a></div><div class="ttdeci">getPath()</div><div class="ttdef"><b>Definition:</b> <a href="_employee_file_model_8php_source.html#l00024">EmployeeFileModel.php:24</a></div></div>
+<div class="ttc" id="aclass_app_1_1_models_1_1_main_1_1_storage_1_1_employee_file_model_html_a2982abe8d7b767602a1485dfb4cf653d"><div class="ttname"><a href="class_app_1_1_models_1_1_main_1_1_storage_1_1_employee_file_model.html#a2982abe8d7b767602a1485dfb4cf653d">App\Models\Main\Storage\EmployeeFileModel\getFilename</a></div><div class="ttdeci">getFilename()</div><div class="ttdef"><b>Definition:</b> <a href="_employee_file_model_8php_source.html#l00028">EmployeeFileModel.php:28</a></div></div>
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Создано системой &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.18
+</small></address>
+</body>
+</html>
