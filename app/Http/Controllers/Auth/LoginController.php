@@ -2,18 +2,15 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\AccountModel;
 use App\Core\Config\ListDatabaseTable;
 use App\Http\Controllers\Controller;
-use App\Providers\RouteServiceProvider;
-use App\AccountModel;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\URL;
-use Symfony\Component\Console\Input\Input;
-use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Session;
 
 class LoginController extends Controller
 {
@@ -48,9 +45,7 @@ class LoginController extends Controller
     }
 
     public function checkUser($email, $password) {
-        $user = DB::table(ListDatabaseTable::TABLE_ACCOUNTS)->where([
-            ['email', '=', $email]
-        ])->get()->first();
+        $user = AccountModel::all()->where('email', '=', $email)->first();
 
         if ($user) {
             return Hash::check($password, $user->password);
@@ -66,12 +61,14 @@ class LoginController extends Controller
         if ($this->checkUser($credential['email'], $credential['password'])) {
             if (Auth::attempt($credential)) {
                 return redirect()->route($this->redirectTo);
-            } else {
-                return  back()->withErrors(['error' => "Произошла ошибка авторизации"]);
             }
-        } else {
-            return  back()->withErrors(['error' => "Пользователь не найден"]);
+
+            Session::flash('message', ['type' => 'error', 'message' => 'Произошла ошибка авторизации']);
+            return  back();
         }
+
+        Session::flash('message', ['type' => 'error', 'message' => 'Пользователь не найден']);
+        return  back();
     }
 
 }
