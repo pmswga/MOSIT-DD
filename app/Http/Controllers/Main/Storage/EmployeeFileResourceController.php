@@ -40,7 +40,7 @@ class EmployeeFileResourceController extends Controller
         $data = $request->only(['currentDirectory', 'directoryName']);
 
         if (Storage::exists($data['currentDirectory'])) {
-            $path = $data['currentDirectory']. '/' .$data['directoryName'];
+            $path = $data['currentDirectory']. DIRECTORY_SEPARATOR .$data['directoryName'];
 
             if (!Storage::exists($path)) {
                 if (Storage::makeDirectory($path)) {
@@ -63,7 +63,7 @@ class EmployeeFileResourceController extends Controller
         try
         {
             if (Storage::exists($data['currentDirectory'])) {
-                $path = $data['currentDirectory']. '/' .$data['directoryName'];
+                $path = $data['currentDirectory']. DIRECTORY_SEPARATOR .$data['directoryName'];
 
                 if (EmployeeFileModel::all()->where('directory', '=', $path)->count() == 0) {
                     if (Storage::exists($path)) {
