@@ -54,3 +54,6 @@ Route::resource('/tickets', 'Main\Tickets\TicketResourceController');
 Route::get('/tickets_inbox', 'Main\Tickets\TicketResourceController@inbox')->name('tickets.inbox');
 Route::get('/tickets_expired', 'Main\Tickets\TicketResourceController@expired')->name('tickets.expired');
 Route::get('/tickets/download/{file}', 'Main\Tickets\TicketResourceController@downloadFile')->name('tickets.downloadFile');
+Route::match(['patch', 'put'], '/ticket/attachFile/{ticket}', 'Main\Tickets\TicketResourceController@attachFile')->name('tickets.attachFile');
+Route::match(['patch', 'put'], '/ticket/comment/{ticket}', 'Main\Tickets\TicketResourceController@addComment')->name('tickets.addComment');
+

@@ -3,11 +3,13 @@
 namespace App\Models\Main\Tickets;
 
 use App\Core\Config\ListDatabaseTable;
+use App\Core\Constants\ListTicketHistoryTypeConstants;
 use App\Models\Main\Staff\EmployeeModel;
 use App\Models\Service\Lists\ListTicketStatusModel;
 use App\Models\Service\Lists\ListTicketTypeModel;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class TicketModel extends Model
 {
@@ -17,6 +19,10 @@ class TicketModel extends Model
 
     public function getCaption() {
         return $this->caption;
+    }
+
+    public function getDescription() {
+        return $this->description;
     }
 
     public function getAuthor() {
@@ -39,19 +45,19 @@ class TicketModel extends Model
     }
 
     public function getTicketType() {
-        return $this->hasOne(ListTicketTypeModel::class, 'idTicketType', 'idTicketType')->get()->first();
+        return $this->hasOne(ListTicketTypeModel::class, 'idTicketType', 'idTicketType')->first();
     }
 
     public function getTicketStatus() {
-        return $this->hasOne(ListTicketStatusModel::class, 'idTicketStatus', 'idTicketStatus')->get()->first()->getCaption();
+        return $this->hasOne(ListTicketStatusModel::class, 'idTicketStatus', 'idTicketStatus')->first();
     }
 
     public function getStartDate() {
-        return date_format(date_create($this->startDate), $this->date_format);
+        return Carbon::createFromTimeString($this->startDate)->format($this->date_format);
     }
 
     public function getEndDate() {
-        return date_format(date_create($this->endDate), $this->date_format);
+        return Carbon::createFromTimeString($this->endDate)->format($this->date_format);
     }
 
     public function getCreatedDate() {
@@ -63,14 +69,40 @@ class TicketModel extends Model
     }
 
     public function isExpired() {
-        $endDate = Carbon::instance( date_create($this->endDate) );
-        $nowDate = Carbon::today();
+        return Carbon::today() > Carbon::createFromTimeString($this->endDate);
+    }
 
-        return $nowDate > $endDate;
+    public function addComment(int $employeeId, string $comment) {
+        $ticketComment = new TicketCommentModel();
+        $ticketComment->idTicket = $this->idTicket;
+        $ticketComment->idEmployee = $employeeId;
+        $ticketComment->comment = $comment;
+
+        return $ticketComment->save();
     }
 
     public function getAttachedFiles() {
         return $this->hasOne(TicketFileModel::class,'idTicket', 'idTicket')->get();
+    }
+
+    public function attachFile(int $employeeId, string $path, string $extension) {
+        $ticketFile = new TicketFileModel();
+        $ticketFile->idTicket = $this->idTicket;
+        $ticketFile->idEmployee = $employeeId;
+        $ticketFile->filename = basename($path);
+        $ticketFile->extension = $extension;
+        $ticketFile->path = $path;
+
+        return $ticketFile->save();
+    }
+
+    public function addHistoryEvent(int $employeeId, int $historyType) {
+        $ticketHistory = new TicketHistoryModel();
+        $ticketHistory->idTicket = $this->idTicket;
+        $ticketHistory->idTicketHistoryType = $historyType;
+        $ticketHistory->idEmployee = $employeeId;
+
+        return $ticketHistory->save();
     }
 
     public function getHistory() {

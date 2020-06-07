@@ -4,14 +4,9 @@ namespace App;
 
 use App\Core\Config\ListDatabaseTable;
 use App\Core\Constants\ListSubSystemConstants;
-use App\Models\Main\Staff\EmployeeModel;
 use App\Models\Service\Accounts\AccountRightsModel;
-use App\Models\Service\Accounts\ListAccountTypeModel;
-use App\Models\Service\Lists\ListSubSystemModel;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Facades\DB;
 
 class AccountModel extends Authenticatable
 {

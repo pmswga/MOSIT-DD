@@ -6,7 +6,7 @@ namespace App\Core\Constants;
 /**
  * @class ListTicketHistoryTypeConstants
  * @brief Содержит список констант идентификаторов типов событий работы с поручением.
- * Далее используется в классе ListAccountTypeSeeder
+ * Далее используется в классе ListTicketHistoryTypeSeeder
  *
  * @package App\Core\Constants
  */

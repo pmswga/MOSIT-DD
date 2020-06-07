@@ -10,4 +10,9 @@ class ListTicketTypeModel extends Model
     protected $table = ListDatabaseTable::TABLE_LIST_TICKET_TYPE;
     protected $primaryKey = 'idTicketType';
     public $timestamps = false;
+
+    public function getCaption() {
+        return $this->caption;
+    }
+
 }
