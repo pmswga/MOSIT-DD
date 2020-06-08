@@ -181,18 +181,15 @@ class IPResourceController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param \App\Models\Main\IP\IPModel $iP
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return \Illuminate\Http\RedirectResponse
      * @throws \PhpOffice\PhpSpreadsheet\Reader\Exception
+     * @throws Exception
      */
     public function edit(IPModel $ip)
     {
-        #dd( storage_path() . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR . $ip->getFile()->getDirectory() );
-
         $ipExcelFileStreamer = new IPExcelFileReader($ip->getFile()->getPath());
 
         $ipFile = $ipExcelFileStreamer->getResult();
-
-        #dd($ipFile);
 
         $idTeacher = DB::table('employees as e')
             ->select('t.idTeacher')
@@ -200,7 +197,7 @@ class IPResourceController extends Controller
             ->where('e.secondName', '=', $ipFile[0]['secondName'])
             ->where('e.firstName', '=', $ipFile[0]['firstName'])
             ->where('e.patronymic', '=', $ipFile[0]['patronymic'])
-            ->get()->first()->idTeacher;
+            ->first()->idTeacher;
 
         if (!empty($ip)) {
             return view('systems.main.ips.ip_update', [
@@ -245,9 +242,7 @@ class IPResourceController extends Controller
         $data['4'] = $sciWorks;
         $data['5'] = $orgWorks;
 
-        #dd($data);
-
-        $writer = new IPExcelFileWriter($ip->getFullFilePath(), $data);
+        $writer = new IPExcelFileWriter($ip->getFile()->getPath(), $data);
         $writer->getResult();
 
 
