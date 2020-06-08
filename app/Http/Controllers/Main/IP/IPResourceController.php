@@ -28,7 +28,6 @@ class IPResourceController extends Controller
 
     static public function assignFile($file) {
 
-        dd($file->getPath());
         try {
             $ipFile = new IPExcelFileReader($file->getPath());
 

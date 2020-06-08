@@ -64,7 +64,7 @@
                             <a class="ui icon button" href="{{ route('files.downloadFile', $file) }}">
                                 <i class="download icon"></i>
                             </a>
-                            <form style="margin: 0px; padding: 0px;" method="POST" action="{{ route('files.destroy', $file) }}" onsubmit="return confirm('Удалить?')">
+                            <form style="margin: 0; padding: 0;" method="POST" action="{{ route('files.destroy', $file) }}" onsubmit="return confirm('Удалить?')">
                                 @method('DELETE')
                                 @csrf
                                 <input type="hidden" name="currentDirectory" value="{{ $currentDirectory }}">
