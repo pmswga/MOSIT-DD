@@ -41,7 +41,7 @@ class EmployeeFileResourceController extends Controller
 
         $fullPath = storage_path() . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR . $data['currentDirectory'];
 
-      
+
         if (is_dir($fullPath)) {
             $path = $fullPath. DIRECTORY_SEPARATOR . ltrim(str_replace(' ', '_', $data['directoryName']));
 
