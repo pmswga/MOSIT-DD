@@ -7,6 +7,7 @@ use App\Core\Constants\ListTicketHistoryTypeConstants;
 use App\Models\Main\Staff\EmployeeModel;
 use App\Models\Service\Lists\ListTicketHistoryTypeModel;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 
 class TicketHistoryModel extends Model
@@ -37,12 +38,26 @@ class TicketHistoryModel extends Model
         return $this->updated_at->format($this->date_format);
     }
 
-    public function getComment() {
+    public function getComments() {
         $comments = $this->hasOne(TicketCommentModel::class, 'idTicket', 'idTicket')
             ->where('idTicket', '=', $this->idTicket)
             ->where('idEmployee', '=', $this->idEmployee)
-            ->where('created_at', '=', $this->created_at)
+            ->whereRaw('DATE_FORMAT(created_at, \'%d.%m.%Y %H:%i\') = DATE_FORMAT(?, \'%d.%m.%Y %H:%i\')', [$this->created_at])
             ->first();
+
+#        dd($comments);
+
+        #$collection = collect($comments->toArray());
+        #$collection = $collection->mapToGroups(function ($item, $key) {
+        #    $item['created_at'] = Carbon::createFromTimeString($item['created_at'])->format($this->date_format);
+        #    $item['updated_at'] = Carbon::createFromTimeString($item['updated_at'])->format($this->date_format);
+
+        #    return [$item['created_at'] => TicketCommentModel::all()->where('idTicketComment', '=', $item['idTicketComment'])->first()];
+
+        #});
+
+        #dd($collection);
+
 
         return $comments ?? new TicketCommentModel();
     }

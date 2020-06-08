@@ -161,7 +161,7 @@
                             </div>
 
                             <div class="extra text">
-                                {{ $history->getComment()->getComment() }}
+                                {{ $history->getComments()->getComment() }}
                             </div>
                             @switch($history->idTicketHistoryType)
                                 @case(\App\Core\Constants\ListTicketHistoryTypeConstants::COMMENT)

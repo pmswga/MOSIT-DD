@@ -106,7 +106,18 @@ class TicketModel extends Model
     }
 
     public function getHistory() {
-        return $this->hasOne(TicketHistoryModel::class, 'idTicket', 'idTicket')->get();
+        $history = $this->hasOne(TicketHistoryModel::class, 'idTicket', 'idTicket')->orderByDesc('created_at')->get();
+
+        #$collection = collect($history->toArray());
+
+        #$collection = $collection->mapToGroups(function ($item, $key) {
+        #    $item['created_at'] = Carbon::createFromTimeString($item['created_at'])->format($this->date_format);
+        #    $item['updated_at'] = Carbon::createFromTimeString($item['updated_at'])->format($this->date_format);
+
+        #    return [$item['created_at'] => TicketHistoryModel::all()->where('idTicketHistory', '=', $item['idTicketHistory'])->first()];
+        #});
+
+        return $history;
     }
 
 }

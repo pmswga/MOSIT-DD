@@ -24,4 +24,9 @@ class EmployeeTicketModel extends Model
         return $this->isSeen;
     }
 
+    public function setSeen(bool $isSeen) {
+        $this->isSeen = $isSeen;
+        return $this->save();
+    }
+
 }
