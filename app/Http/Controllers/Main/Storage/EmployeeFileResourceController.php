@@ -157,7 +157,6 @@ class EmployeeFileResourceController extends Controller
         $file = $request->file;
         $currentDirectory = $request->currentDirectory;
 
-
         if (Storage::exists($currentDirectory)) {
             $path = Storage::putFileAs($currentDirectory, $file, $file->getClientOriginalName());
             $pathInfo = pathInfo($path);
@@ -168,7 +167,7 @@ class EmployeeFileResourceController extends Controller
                     ->where('idEmployee', '=', Auth::id())
                     ->get();
 
-                $fullPath = storage_path() . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR . $pathInfo['dirname'] . DIRECTORY_SEPARATOR . ltrim($pathInfo['basename']);
+                $fullPath = storage_path() . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR .$currentDirectory . DIRECTORY_SEPARATOR . ltrim($file->getClientOriginalName());
 
                 if (PHP_OS === 'WINNT') {
                     $fullPath = str_replace('/', '\\', $fullPath);
@@ -181,8 +180,8 @@ class EmployeeFileResourceController extends Controller
                         'idFileTag' => $request->fileTag,
                         'directory' => $currentDirectory,
                         'path' => $fullPath,
-                        'filename' => $pathInfo['filename'],
-                        'extension' => $pathInfo['extension']
+                        'filename' => $file->getClientOriginalName(),
+                        'extension' => $file->getClientOriginalExtension()
                     ]);
 
                     if ($fileModel->save()) {
