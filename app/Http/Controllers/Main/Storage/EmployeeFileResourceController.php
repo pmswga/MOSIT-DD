@@ -122,6 +122,7 @@ class EmployeeFileResourceController extends Controller
         if (PHP_OS === 'WINNT') {
             $path = str_replace('/', '\\', $path);
         }
+
         $files = EmployeeFileModel::all()->where('directory', '=', $path);
 
         #print_r($this->getAccountPath());
