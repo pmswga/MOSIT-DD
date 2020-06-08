@@ -8,6 +8,7 @@ use App\Http\Controllers\Main\IP\IPResourceController;
 use App\Models\Main\IP\IPModel;
 use App\Models\Main\Storage\EmployeeFileModel;
 use App\Models\Main\Storage\ListFileTagModel;
+use Hamcrest\Util;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -27,9 +28,8 @@ class EmployeeFileResourceController extends Controller
     }
 
     public function downloadFile(EmployeeFileModel $file) {
-        dd(storage_path() . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR . $file->getDirectory() . $file->getFilename());
-        if (Storage::exists($file->getPath())) {
-            return Storage::download($file->getPath());
+        if (file_exists($file->getPath())) {
+            return Storage::download($file->getDirectory() . DIRECTORY_SEPARATOR . $file->getFilename()  . '.' . $file->getExtension());
         }
 
         Session::flash('message', ['type' => 'error', 'message' => 'Не удалось скачать файл']);
@@ -39,11 +39,14 @@ class EmployeeFileResourceController extends Controller
     public function createDirectory(Request $request) {
         $data = $request->only(['currentDirectory', 'directoryName']);
 
-        if (Storage::exists($data['currentDirectory'])) {
-            $path = $data['currentDirectory']. DIRECTORY_SEPARATOR . ltrim(str_replace(' ', '_', $data['directoryName']));
+        $fullPath = storage_path() . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR . $data['currentDirectory'];
 
-            if (!Storage::exists($path)) {
-                if (Storage::makeDirectory($path)) {
+      
+        if (is_dir($fullPath)) {
+            $path = $fullPath. DIRECTORY_SEPARATOR . ltrim(str_replace(' ', '_', $data['directoryName']));
+
+            if (!is_dir($path)) {
+                if (mkdir($path)) {
                     Session::flash('message', ['type' => 'success', 'message' => 'Папка создана']);
                     return back();
                 }
@@ -159,11 +162,10 @@ class EmployeeFileResourceController extends Controller
 
         if (Storage::exists($currentDirectory)) {
             $path = Storage::putFileAs($currentDirectory, $file, $file->getClientOriginalName());
-            $pathInfo = pathInfo($path);
 
             if (Storage::exists($path)) {
                 $isExist = EmployeeFileModel::query()
-                    ->where('filename', '=', $pathInfo['filename'])
+                    ->where('filename', '=', $file->getClientOriginalName())
                     ->where('idEmployee', '=', Auth::id())
                     ->get();
 

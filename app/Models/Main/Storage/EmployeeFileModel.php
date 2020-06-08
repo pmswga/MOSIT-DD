@@ -26,7 +26,7 @@ class EmployeeFileModel extends Model
     }
 
     public function getFilename() {
-        return $this->filename;
+        return pathinfo($this->filename, PATHINFO_FILENAME);
     }
 
     public function getSize() {

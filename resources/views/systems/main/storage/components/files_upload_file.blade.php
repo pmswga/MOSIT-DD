@@ -3,7 +3,7 @@
         Загрузка файла
     </div>
     <div class="content">
-        <form class="ui form" method="POST" enctype="multipart/form-data" action="{{ route('files.store') }}">
+        <form class="ui form" method="POST" onsubmit="$(this).attr('class', 'ui loading form')" enctype="multipart/form-data" action="{{ route('files.store') }}">
             @csrf
             <div class="field">
                 <label>Файл</label>
