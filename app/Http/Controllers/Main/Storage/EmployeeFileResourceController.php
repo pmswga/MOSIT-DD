@@ -40,7 +40,7 @@ class EmployeeFileResourceController extends Controller
         $data = $request->only(['currentDirectory', 'directoryName']);
 
         if (Storage::exists($data['currentDirectory'])) {
-            $path = $data['currentDirectory']. DIRECTORY_SEPARATOR . str_replace(' ', '_', $data['directoryName']);
+            $path = $data['currentDirectory']. DIRECTORY_SEPARATOR . ltrim(str_replace(' ', '_', $data['directoryName']));
 
             if (!Storage::exists($path)) {
                 if (Storage::makeDirectory($path)) {
