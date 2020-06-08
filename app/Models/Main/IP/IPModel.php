@@ -4,11 +4,9 @@ namespace App\Models\Main\IP;
 
 use App\Core\Config\ListDatabaseTable;
 use App\Models\Main\Staff\EmployeeModel;
-use App\Models\Main\Staff\TeacherModel;
 use App\Models\Main\Storage\EmployeeFileModel;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Storage;
 
 class IPModel extends Model
 {

@@ -29,7 +29,7 @@ class EmployeeFileResourceController extends Controller
 
     public function downloadFile(EmployeeFileModel $file) {
         if (file_exists($file->getPath())) {
-            return Storage::download($file->getDirectory() . DIRECTORY_SEPARATOR . $file->getFilename()  . '.' . $file->getExtension());
+            return Storage::download($file->getDownloadPath(), $file->getFilename(true));
         }
 
         Session::flash('message', ['type' => 'error', 'message' => 'Не удалось скачать файл']);
@@ -100,11 +100,9 @@ class EmployeeFileResourceController extends Controller
      */
     public function index(Request $request)
     {
-        // #fixme
         if (!Storage::exists($this->getAccountPath())) {
             Storage::makeDirectory($this->getAccountPath());
         }
-
 
         $parentPath = '';
         if ($request->path) {
@@ -125,12 +123,6 @@ class EmployeeFileResourceController extends Controller
         }
 
         $files = EmployeeFileModel::all()->where('directory', '=', $path);
-
-        #print_r($this->getAccountPath());
-        #print("<br>");
-        #print_r($parentPath);
-        #print("<br>");
-        #print_r($path);
 
         return view('systems.main.storage.files_index', [
             'currentDirectory' => $path,
@@ -169,6 +161,7 @@ class EmployeeFileResourceController extends Controller
                 $isExist = EmployeeFileModel::query()
                     ->where('filename', '=', $file->getClientOriginalName())
                     ->where('idEmployee', '=', Auth::id())
+                    ->where('directory', '=', $currentDirectory)
                     ->get();
 
                 $fullPath = storage_path() . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR .$currentDirectory . DIRECTORY_SEPARATOR . ltrim($file->getClientOriginalName());
