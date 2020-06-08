@@ -12,22 +12,22 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Cookie;
 
 class EmployeeFileResourceController extends Controller
 {
-    private $baseAccountPath;
 
     public function __construct()
     {
         $this->authorizeResource(EmployeeFileModel::class, 'file');
-        $this->baseAccountPath = 'storage/';
     }
 
     private function getAccountPath() {
-        return $this->baseAccountPath . Auth::user()->getEmail();
+        return 'storage' . DIRECTORY_SEPARATOR . Auth::user()->getEmail();
     }
 
     public function downloadFile(EmployeeFileModel $file) {
+        dd(storage_path() . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR . $file->getDirectory() . $file->getFilename());
         if (Storage::exists($file->getPath())) {
             return Storage::download($file->getPath());
         }
@@ -101,28 +101,38 @@ class EmployeeFileResourceController extends Controller
             Storage::makeDirectory($this->getAccountPath());
         }
 
-        $path = '';
-        $parentDirectory = '';
+
+        $parentPath = '';
         if ($request->path) {
-            $path = $request->path;
-            if ($request->path != $this->getAccountPath()) {
-                $parentDirectory = dirname($path);
+            if (pathinfo($request->path)['dirname'] !== 'storage') {
+                $parentPath = str_replace('..', '', pathinfo($request->path)['dirname']);
             }
+
+            $path = str_replace('..', '', $request->path);
         } else {
+            $parentPath = '';
             $path = $this->getAccountPath();
         }
 
         $allDirectories = Storage::directories($path);
 
+        if (PHP_OS === 'WINNT') {
+            $path = str_replace('/', '\\', $path);
+        }
         $files = EmployeeFileModel::all()->where('directory', '=', $path);
 
+        #print_r($this->getAccountPath());
+        #print("<br>");
+        #print_r($parentPath);
+        #print("<br>");
+        #print_r($path);
 
         return view('systems.main.storage.files_index', [
             'currentDirectory' => $path,
-            'parentDirectory'  => $parentDirectory,
+            'parentDirectory'  => $parentPath,
             'fileTags' => ListFileTagModel::all(),
-            'folders' => $allDirectories,
-            'files' => $files
+            'folders' => $allDirectories ?? [],
+            'files' => $files ?? []
         ]);
     }
 
@@ -147,6 +157,7 @@ class EmployeeFileResourceController extends Controller
         $file = $request->file;
         $currentDirectory = $request->currentDirectory;
 
+
         if (Storage::exists($currentDirectory)) {
             $path = Storage::putFileAs($currentDirectory, $file, $file->getClientOriginalName());
             $pathInfo = pathInfo($path);
@@ -157,12 +168,19 @@ class EmployeeFileResourceController extends Controller
                     ->where('idEmployee', '=', Auth::id())
                     ->get();
 
+                $fullPath = storage_path() . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR . $pathInfo['dirname'] . DIRECTORY_SEPARATOR . $pathInfo['basename'];
+
+                if (PHP_OS === 'WINNT') {
+                    $fullPath = str_replace('/', '\\', $fullPath);
+                    $currentDirectory = str_replace('/', '\\', $currentDirectory);
+                }
+
                 if ($isExist->isEmpty()) {
                     $fileModel = new EmployeeFileModel([
                         'idEmployee' => Auth::user()->idEmployee,
                         'idFileTag' => $request->fileTag,
                         'directory' => $currentDirectory,
-                        'path' => $pathInfo['dirname'] . '/' . $pathInfo['basename'],
+                        'path' => $fullPath,
                         'filename' => $pathInfo['filename'],
                         'extension' => $pathInfo['extension']
                     ]);
