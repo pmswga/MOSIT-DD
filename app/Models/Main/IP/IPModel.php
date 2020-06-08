@@ -17,15 +17,6 @@ class IPModel extends Model
     public $timestamps = false;
     protected $date_format = 'd.m.Y / H:i';
 
-    public function getFilePath() {
-        $file = $this->hasOne(EmployeeFileModel::class, 'idEmployeeFile', 'idEmployeeFile')->first();
-        return $file->path;
-    }
-
-    public function getFullFilePath() {
-        return storage_path() . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR . $this->getFilePath();
-    }
-
     public function getFIle() {
         return $this->hasOne(EmployeeFileModel::class, 'idEmployeeFile', 'idEmployeeFile')->first();
     }

@@ -22,7 +22,7 @@
                 <tr>
                     <td colspan="6">
                         <i class="folder icon"></i>
-                        <a href="{{ route('files.index', ['path' => $folder]) }}">{{ basename($folder) }}</a>
+                        <a href="{{ route('files.index', ['path' => $folder]) }}">{{  str_replace('_', ' ', basename($folder)) }}</a>
                     </td>
                     <td>
                         <form style="margin: 0; padding: 0;" method="POST" action="{{ route('files.destroyDirectory', ['directoryName' => basename($folder)]) }}" onsubmit="return confirm('Удалить?')">

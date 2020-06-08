@@ -28,9 +28,7 @@ class IPResourceController extends Controller
 
     static public function assignFile($file) {
         try {
-            $ipFile = new IPExcelFileReader(
-                storage_path() . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR  . $file->path
-            );
+            $ipFile = new IPExcelFileReader($file->getPath());
 
             $ipFile = $ipFile->getResult();
         } catch (\PhpOffice\PhpSpreadsheet\Reader\Exception $e) {
@@ -187,7 +185,9 @@ class IPResourceController extends Controller
      */
     public function edit(IPModel $ip)
     {
-        $ipExcelFileStreamer = new IPExcelFileReader($ip->getFullFilePath());
+        #dd( storage_path() . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR . $ip->getFile()->getDirectory() );
+
+        $ipExcelFileStreamer = new IPExcelFileReader($ip->getFile()->getPath());
 
         $ipFile = $ipExcelFileStreamer->getResult();
 
