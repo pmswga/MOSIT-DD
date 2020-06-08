@@ -62,15 +62,16 @@ class EmployeeFileResourceController extends Controller
 
     public function destroyDirectory(Request $request) {
         $data = $request->only(['currentDirectory', 'directoryName']);
+        $fullPath = storage_path() . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR . $data['currentDirectory'];
 
         try
         {
             if (Storage::exists($data['currentDirectory'])) {
-                $path = $data['currentDirectory']. DIRECTORY_SEPARATOR . $data['directoryName'];
+                $path = $fullPath . DIRECTORY_SEPARATOR . ltrim(str_replace(' ', '_', $data['directoryName']));
 
                 if (EmployeeFileModel::all()->where('directory', '=', $path)->count() == 0) {
-                    if (Storage::exists($path)) {
-                        if (Storage::deleteDirectory($path)) {
+                    if (is_dir($path)) {
+                        if (rmdir($path)) {
                             Session::flash('message', ['type' => 'success', 'message' => 'Папка удалена']);
                             return back();
                         }
