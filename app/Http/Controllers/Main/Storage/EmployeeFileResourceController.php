@@ -168,7 +168,7 @@ class EmployeeFileResourceController extends Controller
                     ->where('idEmployee', '=', Auth::id())
                     ->get();
 
-                $fullPath = storage_path() . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR . $pathInfo['dirname'] . DIRECTORY_SEPARATOR . $pathInfo['basename'];
+                $fullPath = storage_path() . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR . $pathInfo['dirname'] . DIRECTORY_SEPARATOR . ltrim($pathInfo['basename']);
 
                 if (PHP_OS === 'WINNT') {
                     $fullPath = str_replace('/', '\\', $fullPath);
@@ -252,20 +252,19 @@ class EmployeeFileResourceController extends Controller
      */
     public function destroy(EmployeeFileModel $file)
     {
-        if (Storage::exists($file->path)) {
+        if (file_exists($file->getPath())) {
             switch ($file->idFileTag)
             {
                 case ListFileTagConstants::IP:
                 {
                     $ipFile = IPModel::all()->where('idEmployeeFile', '=', $file->idEmployeeFile)->first();
                     if ($ipFile) {
-
                         $ipFile->delete();
                     }
                 } break;
             }
 
-            if (Storage::delete($file->path)) {
+            if (unlink($file->getPath())) {
                 if ($file->delete()) {
                     Session::flash('message', ['type' => 'success', 'message' => 'Файл удалён']);
                     return back();
