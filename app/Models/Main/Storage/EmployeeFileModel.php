@@ -25,7 +25,11 @@ class EmployeeFileModel extends Model
         return $this->path;
     }
 
-    public function getFilename() {
+    public function getFilename(bool $withExtension = false) {
+        if ($withExtension) {
+            return $this->filename;
+        }
+
         return pathinfo($this->filename, PATHINFO_FILENAME);
     }
 
@@ -39,6 +43,10 @@ class EmployeeFileModel extends Model
 
     public function getExtension() {
         return $this->extension;
+    }
+
+    public function getDownloadPath() {
+        return $this->directory . DIRECTORY_SEPARATOR . $this->filename;
     }
 
     public function getFileTag() {

@@ -65,11 +65,11 @@ class IPResourceController extends Controller
         $ipFile = IPModel::query()->where('idIP', '=', $ip)->first();
         $file = EmployeeFileModel::query()->where('idEmployeeFile', '=', $ipFile->idEmployeeFile)->first();
 
-        if (Storage::exists($file->path)) {
-            return Storage::download($file->path, $file->filename);
+        if (file_exists($file->getPath())) {
+            return Storage::download($file->getDownloadPath(), $file->getFilename(true));
         }
 
-        Session::flash('message', 'Не удалось скачать ИП');
+        Session::flash('message', ['type' => 'error', 'message' => 'Не удалось скачать ИП']);
         return back();
     }
 
@@ -105,7 +105,7 @@ class IPResourceController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function create()
     {
@@ -123,19 +123,18 @@ class IPResourceController extends Controller
     {
         $data = $request->only(['files', 'lastEmployee', 'lastUpdate']);
 
-
         $result = true;
         foreach ($data['files'] as $file) {
 
             $ipFile = new IPExcelFileReader(
-            storage_path() . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR  . EmployeeFileModel::all()->where('idEmployeeFile', '=', $file)->first()->path
+                EmployeeFileModel::all()->where('idEmployeeFile', '=', $file)->first()->getPath()
             );
 
             try
             {
                 $ipFile = $ipFile->getResult();
             } catch (Exception $e) {
-                Session::flash('errorMessage', 'Произошла ошибка при добавлении');
+                Session::flash('message', ['type' => 'error', 'message' => 'Произошла ошибка при добавлении']);
                 return back();
             }
 
@@ -158,11 +157,11 @@ class IPResourceController extends Controller
         }
 
         if ($result) {
-            Session::flash('successMessage', 'ИП успешно добавлен');
+            Session::flash('message', ['type' => 'success', 'message' => 'ИП успешно добавлен']);
             return back();
         }
 
-        Session::flash('errorMessage', 'Произошла ошибка при добавлении');
+        Session::flash('message', ['type' => 'error', 'message' => 'Произошла ошибка при добавлении']);
         return back();
     }
 
