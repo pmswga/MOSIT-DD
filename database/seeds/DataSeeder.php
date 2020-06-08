@@ -166,7 +166,7 @@ class  DataSeeder {
             'firstName' => 'Иван',
             'patronymic' => 'Васильевич',
             'personalPhone' => '+79151078294',
-            'personalEmail' => 'ivshin@mail.ru',
+            'personalEmail' => 'ivsin@mail.ru',
             'idFaculty' => 1,
             'idEmployeePost' => 4,
         ],

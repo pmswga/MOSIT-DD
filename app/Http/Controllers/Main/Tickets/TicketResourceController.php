@@ -101,7 +101,6 @@ class TicketResourceController extends Controller
                 throw new \Exception();
             }
 
-
             if (count($request->ticketEmployees) > 0) {
                 foreach ($request->ticketEmployees as $employee) {
                     $ticketEmployee = new EmployeeTicketModel();
@@ -114,7 +113,7 @@ class TicketResourceController extends Controller
                 }
             }
 
-            if (count($request->file('files')) > 0) {
+            if ($request->file('files') and count($request->file('files')) > 0) {
 
                 foreach ($request->file('files') as $file) {
                     $path = Storage::putFileAs(
@@ -138,10 +137,10 @@ class TicketResourceController extends Controller
             return back();
         } catch (\Exception $e) {
             DB::rollBack();
+            dd($e->getMessage());
         }
 
-
-        Session::flash('message', ['type' => 'message', 'message' => 'Не удалось создать поручение']);
+        Session::flash('message', ['type' => 'error', 'message' => 'Не удалось создать поручение']);
         return back();
     }
 
@@ -155,17 +154,24 @@ class TicketResourceController extends Controller
     {
         $employeeTicket = $ticket->hasOne(EmployeeTicketModel::class, 'idTicket', 'idTicket')
             ->where('idEmployee', '=', Auth::user()->getEmployee()->idEmployee)
-            ->get()->first();
+            ->first();
 
+        try {
+            if ($employeeTicket) {
+                DB::beginTransaction();
 
-        if ($employeeTicket) {
-            if (!$employeeTicket->isSeen) {
-                Session::flash('successMessage', 'Вы просмотрели поручение');
-                $employeeTicket->isSeen = true;
-                $employeeTicket->save();
+                if (!$employeeTicket->isSeen()) {
+                    Session::flash('message', ['type' => 'info', 'message' => 'Вы просмотрели поручение']);
+                    if (!$employeeTicket->setSeen(true)) {
+                        throw new \Exception();
+                    }
+                }
+
+                DB::commit();
             }
+        } catch (\Exception $e) {
+            DB::rollBack();
         }
-
 
         return view('systems.main.tickets.ticket_show', [
             'ticket' => $ticket
@@ -258,7 +264,7 @@ class TicketResourceController extends Controller
      * @param  \App\Models\Main\Tickets\TicketModel  $ticketModel
      * @return \Illuminate\Http\Response
      */
-    public function destroy(TicketModel $ticketModel)
+    public function destroy(TicketModel $ticket)
     {
         //
     }
