@@ -4,7 +4,9 @@ namespace App;
 
 use App\Core\Config\ListDatabaseTable;
 use App\Core\Constants\ListSubSystemConstants;
+use App\Models\Main\Staff\EmployeeModel;
 use App\Models\Service\Accounts\AccountRightsModel;
+use App\Models\Service\Accounts\ListAccountTypeModel;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -14,6 +16,7 @@ class AccountModel extends Authenticatable
 
     protected $table = ListDatabaseTable::TABLE_ACCOUNTS;
     protected $primaryKey = "idAccount";
+    protected $date_format = 'd.m.Y / H:i';
 
     /**
      * The attributes that are mass assignable.
@@ -47,16 +50,17 @@ class AccountModel extends Authenticatable
     }
 
     public function getEmployee() {
-        return $this->hasOne('App\Models\Main\Staff\EmployeeModel', 'idEmployee', 'idEmployee')->first();
+        return $this->hasOne(EmployeeModel::class, 'idEmployee', 'idEmployee')->first();
     }
 
     public function getAccountType() {
-        return $this->hasOne('App\Models\Service\Accounts\ListAccountTypeModel', 'idAccountType', 'idAccountType')->first();
+        return $this->hasOne(ListAccountTypeModel::class, 'idAccountType', 'idAccountType')->first();
     }
 
-    public function getIdAccountType() {
-        return $this->idAccountType;
+    public function getCreatedDate() {
+        return $this->created_at->format($this->date_format);
     }
+
 
     public function getAccountRights() {
         $rights = $this->hasMany(AccountRightsModel::class, 'idAccount', 'idAccount')

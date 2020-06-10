@@ -18,6 +18,16 @@ class ListFacultySeeder extends Seeder
                 'idInstitute' => 1,
                 'caption' => 'МОСИТ'
             ],
+            [
+                'idFaculty' => 2,
+                'idInstitute' => 1,
+                'caption' => 'КИС'
+            ],
+            [
+                'idFaculty' => 3,
+                'idInstitute' => 1,
+                'caption' => 'ИППО'
+            ],
         ]);
     }
 }

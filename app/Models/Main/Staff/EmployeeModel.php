@@ -2,7 +2,9 @@
 
 namespace App\Models\Main\Staff;
 
+use App\AccountModel;
 use App\Core\Config\ListDatabaseTable;
+use App\Models\Main\Storage\EmployeeFileModel;
 use App\Models\Main\Tickets\EmployeeTicketModel;
 use App\Models\Main\Tickets\TicketModel;
 use App\Models\Service\Lists\ListEmployeePostModel;
@@ -15,6 +17,7 @@ class EmployeeModel extends Model
 {
     protected $table = ListDatabaseTable::TABLE_EMPLOYEES;
     protected $primaryKey = "idEmployee";
+    public $timestamps = false;
 
     public function getSecondName() {
         return $this->secondName;
@@ -30,6 +33,10 @@ class EmployeeModel extends Model
 
     public function getFullInitials() {
         return $this->secondName.' '.$this->firstName.' '.$this->patronymic;
+    }
+
+    public function getShortInitials() {
+        return $this->secondName . ' ' . mb_substr($this->firstName, 0, 1) . '. ' . mb_substr($this->patronymic ?? '', 0, 1) . '.';
     }
 
     public function getPersonalPhone() {
@@ -48,19 +55,16 @@ class EmployeeModel extends Model
         return $this->hasOne(ListEmployeePostModel::class, 'idEmployeePost', 'idEmployeePost')->first();
     }
 
-    public function getAccountId() {
-        return $this->idEmployee;
-    }
-
     public function getTeacher() {
         $teacher = $this->hasOne(TeacherModel::class, 'idEmployee', 'idEmployee')->first();
+    }
 
+    public function setLeadership($employeeId) {
+        $employeeHierarchy = new EmployeeHierarchyModel();
+        $employeeHierarchy->idEmployeeSup = $employeeId;
+        $employeeHierarchy->idEmployeeSub = $this->idEmployee;
 
-        if ($teacher) {
-            return $teacher;
-        }
-
-        return null;
+        return $employeeHierarchy->save();
     }
 
     public function getChief() {

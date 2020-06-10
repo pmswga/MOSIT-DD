@@ -9,6 +9,6 @@ class EmployeeHierarchyModel extends Model
 {
     protected $table = ListDatabaseTable::TABLE_EMPLOYEE_HIERARCHY;
     protected $primaryKey = 'idEmployeeHierarchy';
-
+    public $timestamps = false;
 
 }

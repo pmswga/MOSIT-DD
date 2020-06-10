@@ -15,7 +15,7 @@ class CreateEmployeeHierarchy extends Migration
     {
         Schema::create(\App\Core\Config\ListDatabaseTable::TABLE_EMPLOYEE_HIERARCHY, function (Blueprint $table) {
             $table->bigIncrements('idEmployeeHierarchy');
-            $table->integer('idEmployeeSuper');
+            $table->integer('idEmployeeSup');
             $table->integer('idEmployeeSub');
         });
     }

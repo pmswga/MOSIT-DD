@@ -2,58 +2,31 @@
 
 use Illuminate\Support\Facades\Route;
 
-/**
- * Маршруты связанные с аутентификацией/авторизацией и выходом
- */
-Route::post('/login', '\App\Http\Controllers\Auth\LoginController@login')->name('login');
-Route::post('/logout', '\App\Http\Controllers\Auth\LoginController@logout')->name('logout');
-Route::post('/reset_password', '\App\Http\Controllers\Auth\ResetPasswordController@resetPassword')->name('reset_password');
-
-
-/**
- * Маршруты главных страниц
- */
-Route::get('/', 'MainPageController@index')->name('index');
-Route::get('/home', 'AccountPageController@home')->name('home');
-Route::get('/profile','AccountPageController@profile')->name('profile');
-
-Route::get('/login', function () { // #fixme Настроить класс LoginController или иной для автоматического редиректа на главную страницу
-    return redirect()->route('index');
-});
+Route::get('/', 'MainPageController@index')->name('admin.index');
 
 
 
+Route::resource('accounts', 'Service\Accounts\AccountResourceController');
 
-/**
- * Маршруты справочников
- */
-
-Route::prefix('help')->group(function () {
-
-    Route::get('/', 'HelpPageController@index')->name('help.index');
-    Route::get('/manual', 'HelpPageController@manual')->name('manual');
-
-    Route::get('/employee_list', 'HelpPageController@employeeList')->name('employee_list');
-
-});
+Route::resource('employees', 'Main\Employees\EmployeeResourceController');
 
 
 
-/**
- * Маршруты связанные с подсистемами
- */
-Route::resource('/ips', 'Main\IP\IPResourceController');
-Route::get('/ips/download/{ip}', 'Main\IP\IPResourceController@downloadIP')->name('ips.download');
+Route::get( 'rights', function () { // #fixme Исправить
+    $rawRights = \Illuminate\Support\Facades\DB::table('accounts as ac')
+        ->select('ac.idAccount', 'ac.email', 'lss.idSubSystem', 'lss.caption', 'ar.isAccess', 'ar.isViewAny', 'ar.isView', 'ar.isCreate', 'ar.isUpdate', 'ar.isDelete')
+        ->join('account_rights as ar', 'ar.idAccount', '=', 'ac.idAccount')
+        ->join('list_sub_system as lss', 'lss.idSubSystem', '=', 'ar.idSubSystem')
+        ->get();
 
-Route::resource('/files', 'Main\Storage\EmployeeFileResourceController');
-Route::get('/files/download/{file}', 'Main\Storage\EmployeeFileResourceController@downloadFile')->name('files.downloadFile');
-Route::post('/files_createDirectory', 'Main\Storage\EmployeeFileResourceController@createDirectory')->name('files.createDirectory');
-Route::delete('/files_destroyDirectory', 'Main\Storage\EmployeeFileResourceController@destroyDirectory')->name('files.destroyDirectory');
+    $rights = [];
 
-Route::resource('/tickets', 'Main\Tickets\TicketResourceController');
-Route::get('/tickets_inbox', 'Main\Tickets\TicketResourceController@inbox')->name('tickets.inbox');
-Route::get('/tickets_expired', 'Main\Tickets\TicketResourceController@expired')->name('tickets.expired');
-Route::get('/tickets/download/{file}', 'Main\Tickets\TicketResourceController@downloadFile')->name('tickets.downloadFile');
-Route::match(['patch', 'put'], '/ticket/attachFile/{ticket}', 'Main\Tickets\TicketResourceController@attachFile')->name('tickets.attachFile');
-Route::match(['patch', 'put'], '/ticket/comment/{ticket}', 'Main\Tickets\TicketResourceController@addComment')->name('tickets.addComment');
+    foreach ($rawRights as $rawRight) {
+        $rights[$rawRight->email][] = $rawRight;
+    }
+
+    return view('system.service.accounts.account_rights', [
+        'rights' => $rights
+    ]);
+})->name('accounts.rights');
 
