@@ -47,7 +47,7 @@ class AccountModel extends Authenticatable
     }
 
     public function getEmployee() {
-        return $this->hasOne('App\Models\Main\Staff\EmployeeModel', 'idEmployee', 'idEmployee')->first();
+        return $this->hasOne('App\Models\Main\Staff\EmployeeModel', 'idEmployee', 'idAccount')->first();
     }
 
     public function getAccountType() {
@@ -68,8 +68,12 @@ class AccountModel extends Authenticatable
             ->get();
 
         $groupRights = [];
-        foreach ($rights as $right) {
-            $groupRights[$right->getSubSystem()->getSystemSection()->getCaption()][] = $right;
+        if ($rights) {
+            foreach ($rights as $right) {
+                if ($right) {
+                    $groupRights[$right->getSubSystem()->getSystemSection()->getCaption()][] = $right;
+                }
+            }
         }
 
         return $groupRights;

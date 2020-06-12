@@ -75,9 +75,10 @@ class EmployeeModel extends Model
 
     public function getSubordinateEmployees() {
         $employeeList = $this->hasOne(EmployeeHierarchyModel::class, 'idEmployeeSup', 'idEmployee')->get();
+
         $employees = [];
         foreach ($employeeList as $employee) {
-            $employees[] = EmployeeModel::all()->where('idEmployee', $employee->idEmployeeSub)->first();
+            $employees[] = $employee->getEmployeeSup();
         }
 
         if ($employees) {
