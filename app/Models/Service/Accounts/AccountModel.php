@@ -76,9 +76,15 @@ class AccountModel extends Authenticatable
     }
 
     public function getAccountRightsOn(int $systemId) {
-        return $this->hasOne(AccountRightsModel::class, 'idAccount', 'idAccount')
+        $accountRight =  $this->hasOne(AccountRightsModel::class, 'idAccount', 'idAccount')
             ->where('idSubSystem', '=', $systemId)
             ->first();
+
+        if ($accountRight) {
+            return $accountRight;
+        }
+
+        return new AccountRightsModel();
     }
 
 }

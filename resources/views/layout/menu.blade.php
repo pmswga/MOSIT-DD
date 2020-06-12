@@ -15,6 +15,7 @@
             Войти
             <i class="sign-in icon"></i>
         </a>
+        @include('components.login')
         <div class="right menu" style="position: absolute; bottom: 0px; width: 100%; text-align: center">
             <a class="item" >Copyright © 2020. Все права защищены</a>
         </div>
@@ -23,7 +24,7 @@
             {{ Auth::user()->getEmployee()->getFullInitials() }}
         </a>
 
-        @if(\Illuminate\Support\Facades\Auth::user()->getAccountRightsOn(\App\Core\Constants\ListSubSystemConstants::Tickets)->isAccess())
+        @if(Auth::user()->getAccountRightsOn(\App\Core\Constants\ListSubSystemConstants::Tickets)->isAccess())
             <div class="item">
                 <b>Поручения</b>
                 <div class="menu">
@@ -43,7 +44,7 @@
             </div>
         @endif
 
-        @if(\Illuminate\Support\Facades\Auth::user()->getAccountRightsOn(\App\Core\Constants\ListSubSystemConstants::Tickets)->isAccess())
+        @if(\Illuminate\Support\Facades\Auth::user()->getAccountRightsOn(\App\Core\Constants\ListSubSystemConstants::Storage)->isAccess())
             <div class="item">
                 <b>Мои файлы</b>
                 <div class="menu">
@@ -81,6 +82,7 @@
                 <a class="item" onclick="$('#resetPasswordModal').modal('show')">
                     Сменить пароль
                 </a>
+                @include('components.reset_password')
             </div>
         </div>
 
@@ -104,19 +106,10 @@
                     Выйти
                     <i class="logout icon"></i>
                 </a>
+                <form id="logoutForm" method="POST" action="{{ route('logout') }}">
+                    @csrf
+                </form>
             </div>
         </div>
     @endguest
 </div>
-
-@auth
-    <form id="logoutForm" method="POST" action="{{ route('logout') }}">
-        @csrf
-    </form>
-    @include('components.reset_password')
-@else
-    @include('components.login')
-@endauth
-
-
-
