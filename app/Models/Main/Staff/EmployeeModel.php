@@ -3,6 +3,7 @@
 namespace App\Models\Main\Staff;
 
 use App\Core\Config\ListDatabaseTable;
+use App\Models\Main\Storage\EmployeeFileModel;
 use App\Models\Main\Tickets\EmployeeTicketModel;
 use App\Models\Main\Tickets\TicketModel;
 use App\Models\Service\Lists\ListEmployeePostModel;
@@ -15,6 +16,12 @@ class EmployeeModel extends Model
 {
     protected $table = ListDatabaseTable::TABLE_EMPLOYEES;
     protected $primaryKey = "idEmployee";
+
+    public function __construct(array $attributes = [])
+    {
+        parent::__construct($attributes);
+        $this->isNull = true;
+    }
 
     public function getSecondName() {
         return $this->secondName;
@@ -53,31 +60,21 @@ class EmployeeModel extends Model
     }
 
     public function getTeacher() {
-        $teacher = $this->hasOne(TeacherModel::class, 'idEmployee', 'idEmployee')->first();
-
-
-        if ($teacher) {
-            return $teacher;
-        }
-
-        return null;
+        return $this->hasOne(TeacherModel::class, 'idEmployee', 'idEmployee')->first() ?? new TeacherModel();
     }
 
     public function getChief() {
         $chiefId = $this->hasOne(EmployeeHierarchyModel::class, 'idEmployeeSub', 'idEmployee')->get()->first();
-        $chief = null;
 
         if ($chiefId) {
-            $chief = EmployeeModel::all()->where('idEmployee', $chiefId->idEmployeeSuper)->first();
-            return $chief;
+            return EmployeeModel::all()->where('idEmployee', $chiefId->idEmployeeSup)->first() ?? new EmployeeModel();
         }
 
         return new EmployeeModel();
     }
 
-
     public function getSubordinateEmployees() {
-        $employeeList = $this->hasOne(EmployeeHierarchyModel::class, 'idEmployeeSuper', 'idEmployee')->get();
+        $employeeList = $this->hasOne(EmployeeHierarchyModel::class, 'idEmployeeSup', 'idEmployee')->get();
         $employees = [];
         foreach ($employeeList as $employee) {
             $employees[] = EmployeeModel::all()->where('idEmployee', $employee->idEmployeeSub)->first();
