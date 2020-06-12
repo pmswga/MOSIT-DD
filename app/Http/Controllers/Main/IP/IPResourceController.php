@@ -27,37 +27,40 @@ class IPResourceController extends Controller
     }
 
     static public function assignFile($file) {
-
         try {
             $ipFile = new IPExcelFileReader($file->getPath());
 
             $ipFile = $ipFile->getResult();
-        } catch (\PhpOffice\PhpSpreadsheet\Reader\Exception $e) {
-            Session::flash('errorMessage', 'Произошла ошибка при добавлении');
-            return back();
-        } catch (Exception $e) {
-            Session::flash('errorMessage', 'Произошла ошибка при добавлении');
-            return back();
-        }
 
-        $teacher = EmployeeModel::all()
-            ->where('secondName', '=', $ipFile[0]['secondName'])
-            ->where('firstName', '=', $ipFile[0]['firstName'])
-            ->where('patronymic', '=', $ipFile[0]['patronymic'])
-            ->first();
+            $teacher = EmployeeModel::all()
+                ->where('secondName', '=', $ipFile[0]['secondName'])
+                ->where('firstName', '=', $ipFile[0]['firstName'])
+                ->where('patronymic', '=', $ipFile[0]['patronymic'])
+                ->first();
 
-        if ($teacher) {
+            if (empty($teacher->getTeacher()->getOriginal())) {
+                throw new \Exception();
+            }
+
+            DB::beginTransaction();
+
             $ip = new IPModel();
             $ip->idEmployeeFile = $file->idEmployeeFile;
             $ip->idTeacher = $teacher->idEmployee;
             $ip->educationYear = $ipFile[0]['educationYear'];
-            $ip->lastEmployee = Auth::user()->getEmployee()->idEmployee;
+            $ip->lastEmployee = Auth::id();
             $ip->lastUpdate = date('Y-m-d H:i:s');
 
-            return $ip->save();
-        }
+            if (!$ip->save()) {
+                throw new \Exception();
+            }
 
-        return false;
+            DB::commit();
+            return true;
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return false;
+        }
     }
 
     public function downloadIP($ip)

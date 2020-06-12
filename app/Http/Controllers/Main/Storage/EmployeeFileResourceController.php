@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Main\Storage;
 
+use App\Core\Config\ListMessageCode;
 use App\Core\Constants\ListFileTagConstants;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Main\IP\IPResourceController;
@@ -11,6 +12,7 @@ use App\Models\Main\Storage\ListFileTagModel;
 use Hamcrest\Util;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Cookie;
@@ -154,56 +156,83 @@ class EmployeeFileResourceController extends Controller
         $file = $request->file;
         $currentDirectory = $request->currentDirectory;
 
-        if (Storage::exists($currentDirectory)) {
+        try
+        {
+            if (!Storage::exists($currentDirectory)) {
+                throw new \Exception();
+            }
+
             $path = Storage::putFileAs($currentDirectory, $file, $file->getClientOriginalName());
 
-            if (Storage::exists($path)) {
-                $isExist = EmployeeFileModel::query()
-                    ->where('filename', '=', $file->getClientOriginalName())
-                    ->where('idEmployee', '=', Auth::id())
-                    ->where('directory', '=', $currentDirectory)
-                    ->get();
+            if (!Storage::exists($path)) {
+                throw new \Exception();
+            }
 
-                $fullPath = storage_path() . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR .$currentDirectory . DIRECTORY_SEPARATOR . ltrim($file->getClientOriginalName());
+            $isExist = EmployeeFileModel::query()
+                ->where('filename', '=', $file->getClientOriginalName())
+                ->where('idEmployee', '=', Auth::id())
+                ->where('directory', '=', $currentDirectory)
+                ->get();
 
-                if (PHP_OS === 'WINNT') {
-                    $fullPath = str_replace('/', '\\', $fullPath);
-                    $currentDirectory = str_replace('/', '\\', $currentDirectory);
-                }
+            if (!$isExist->isEmpty()) {
+                throw new \Exception('Такой файл уже существует', ListMessageCode::WARNING);
+            }
 
-                if ($isExist->isEmpty()) {
-                    $fileModel = new EmployeeFileModel([
-                        'idEmployee' => Auth::user()->idEmployee,
-                        'idFileTag' => $request->fileTag,
-                        'directory' => $currentDirectory,
-                        'path' => $fullPath,
-                        'filename' => $file->getClientOriginalName(),
-                        'extension' => $file->getClientOriginalExtension()
-                    ]);
+            DB::beginTransaction();
 
-                    if ($fileModel->save()) {
-                        switch ($request->fileTag)
-                        {
-                            case ListFileTagConstants::IP:
-                            {
-                                IPResourceController::assignFile($fileModel);
-                            } break;
+            $fullPath =
+                storage_path() .
+                DIRECTORY_SEPARATOR .
+                'app' .
+                DIRECTORY_SEPARATOR .
+                $currentDirectory .
+                DIRECTORY_SEPARATOR .
+                ltrim($file->getClientOriginalName());
+
+            if (PHP_OS === 'WINNT') {
+                $fullPath = str_replace('/', '\\', $fullPath);
+                $currentDirectory = str_replace('/', '\\', $currentDirectory);
+            }
+
+            $fileModel = new EmployeeFileModel([
+                'idEmployee' => Auth::id(),
+                'idFileTag' => $request->fileTag,
+                'directory' => $currentDirectory,
+                'path' => $fullPath,
+                'filename' => $file->getClientOriginalName(),
+                'extension' => $file->getClientOriginalExtension()
+            ]);
+
+            if (!$fileModel->save()) {
+               throw new \Exception('Не удалось загрузить файл', ListMessageCode::ERROR);
+            }
+
+            if ($request->fileTag) {
+                switch ($request->fileTag)
+                {
+                    case ListFileTagConstants::IP:
+                    {
+                        if (!IPResourceController::assignFile($fileModel)) {
+                            throw new \Exception('Не удалось связать файл с подсистемой индивидуальных планов', ListMessageCode::ERROR);
                         }
-
-                        Session::flash('message', ['type' => 'success', 'message' => 'Файл загружен']);
-                        return back();
-                    } else {
-                        Storage::delete($path);
-                    }
-                } else {
-                    Session::flash('message', ['type' => 'warning', 'message' => 'Такой файл уже был добавлен ранее']);
-                    return back();
+                    } break;
                 }
             }
-        }
 
-        Session::flash('message', ['type' => 'error', 'message' => 'Произошла ошибка загрузки файла']);
-        return back();
+            DB::commit();
+
+            Session::flash('message', ['type' => 'success', 'message' => 'Файл загружен']);
+            return back();
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+            if (Storage::exists($path)) {
+                Storage::delete($path);
+            }
+
+            Session::flash('message', ['type' => ListMessageCode::getType($e->getCode()), 'message' => $e->getMessage()]);
+            return back();
+        }
     }
 
     /**
