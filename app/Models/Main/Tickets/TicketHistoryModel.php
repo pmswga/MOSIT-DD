@@ -14,7 +14,12 @@ class TicketHistoryModel extends Model
 {
     protected $table = ListDatabaseTable::TABLE_TICKET_HISTORY;
     protected $primaryKey = 'idTicketHistory';
-    protected $date_format = 'd.m.Y / H:i';
+    protected $date_format = 'd.m.Y / H:i:s';
+
+    public function __construct(array $attributes = [])
+    {
+        parent::__construct($attributes);
+    }
 
     public function getEmployee() {
         return $this->hasOne(EmployeeModel::class, 'idEmployee', 'idEmployee')->first();
@@ -42,44 +47,21 @@ class TicketHistoryModel extends Model
         $comments = $this->hasOne(TicketCommentModel::class, 'idTicket', 'idTicket')
             ->where('idTicket', '=', $this->idTicket)
             ->where('idEmployee', '=', $this->idEmployee)
-            ->whereRaw('DATE_FORMAT(created_at, \'%d.%m.%Y %H:%i\') = DATE_FORMAT(?, \'%d.%m.%Y %H:%i\')', [$this->created_at])
+            ->where('created_at', '=', $this->created_at)
+            # ->whereRaw('DATE_FORMAT(created_at, \'%d.%m.%Y %H:%i\') = DATE_FORMAT(?, \'%d.%m.%Y %H:%i\')', [$this->created_at])
             ->first();
-
-#        dd($comments);
-
-        #$collection = collect($comments->toArray());
-        #$collection = $collection->mapToGroups(function ($item, $key) {
-        #    $item['created_at'] = Carbon::createFromTimeString($item['created_at'])->format($this->date_format);
-        #    $item['updated_at'] = Carbon::createFromTimeString($item['updated_at'])->format($this->date_format);
-
-        #    return [$item['created_at'] => TicketCommentModel::all()->where('idTicketComment', '=', $item['idTicketComment'])->first()];
-
-        #});
-
-        #dd($collection);
-
 
         return $comments ?? new TicketCommentModel();
     }
 
     public function getAttachedFiles() {
-
         $files = $this->hasOne(TicketFileModel::class, 'idTicket', 'idTicket')
             ->where('idTicket', '=', $this->idTicket)
             ->where('idEmployee', '=', $this->idEmployee)
             ->where('created_at', '=', $this->created_at)
             ->get();
 
-        #$files = DB::table('ticket_history as th')
-        #    ->join('ticket_files as tf', 'tf.idTicket', '=', 'th.idTicket')
-        #    ->where('th.idTicket', '=', $this->idTicket)
-        #    ->where('th.idTicketHistoryType', '=', ListTicketHistoryTypeConstants::ATTACH_FILE)
-        #    ->where('tf.created_at', '=', $this->created_at)
-        #    ->get();
-
-        #dd($files);
-
-        return $files;
+        return $files ?? new TicketFileModel();
     }
 
 }

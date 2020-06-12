@@ -3,13 +3,11 @@
 namespace App\Models\Main\Tickets;
 
 use App\Core\Config\ListDatabaseTable;
-use App\Core\Constants\ListTicketHistoryTypeConstants;
 use App\Models\Main\Staff\EmployeeModel;
 use App\Models\Service\Lists\ListTicketStatusModel;
 use App\Models\Service\Lists\ListTicketTypeModel;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\Auth;
 
 class TicketModel extends Model
 {
@@ -69,7 +67,15 @@ class TicketModel extends Model
     }
 
     public function isExpired() {
-        return Carbon::today() > Carbon::createFromTimeString($this->endDate);
+        return Carbon::today() >= Carbon::createFromTimeString($this->endDate);
+    }
+
+    public function assignEmployee(int $employeeId) {
+        $ticketEmployee = new EmployeeTicketModel();
+        $ticketEmployee->idEmployee = $employeeId;
+        $ticketEmployee->idTicket = $this->idTicket;
+
+        return $ticketEmployee->save();
     }
 
     public function addComment(int $employeeId, string $comment) {
@@ -106,18 +112,10 @@ class TicketModel extends Model
     }
 
     public function getHistory() {
-        $history = $this->hasOne(TicketHistoryModel::class, 'idTicket', 'idTicket')->orderByDesc('created_at')->get();
-
-        #$collection = collect($history->toArray());
-
-        #$collection = $collection->mapToGroups(function ($item, $key) {
-        #    $item['created_at'] = Carbon::createFromTimeString($item['created_at'])->format($this->date_format);
-        #    $item['updated_at'] = Carbon::createFromTimeString($item['updated_at'])->format($this->date_format);
-
-        #    return [$item['created_at'] => TicketHistoryModel::all()->where('idTicketHistory', '=', $item['idTicketHistory'])->first()];
-        #});
-
-        return $history;
+        return $this->hasOne(TicketHistoryModel::class, 'idTicket', 'idTicket')
+            ->orderByDesc('created_at')
+            ->orderByDesc('idTicketHistory')
+            ->get();
     }
 
 }
