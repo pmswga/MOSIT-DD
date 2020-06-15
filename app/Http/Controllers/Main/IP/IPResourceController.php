@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Main\IP;
 
+use App\Core\Config\ListMessageCode;
 use App\Core\Constants\ListAccountTypeConstants;
 use App\Core\systems\main\ips\IPExcelFileReader;
 use App\Core\Systems\Main\IPS\IPExcelFileWriter;
@@ -128,7 +129,6 @@ class IPResourceController extends Controller
 
         $result = true;
         foreach ($data['files'] as $file) {
-
             $ipFile = new IPExcelFileReader(
                 EmployeeFileModel::all()->where('idEmployeeFile', '=', $file)->first()->getPath()
             );
@@ -140,7 +140,6 @@ class IPResourceController extends Controller
                 Session::flash('message', ['type' => 'error', 'message' => 'Произошла ошибка при добавлении']);
                 return back();
             }
-
 
             $idTeacher = DB::table('employees as e')
                 ->select('t.idTeacher')
@@ -189,28 +188,33 @@ class IPResourceController extends Controller
      */
     public function edit(IPModel $ip)
     {
-        $ipExcelFileStreamer = new IPExcelFileReader($ip->getFile()->getPath());
+        try
+        {
+            $ipExcelFileStreamer = new IPExcelFileReader($ip->getFile()->getPath());
+            $ipFile = $ipExcelFileStreamer->getResult();
 
-        $ipFile = $ipExcelFileStreamer->getResult();
+            $idTeacher = DB::table('employees as e')
+                ->select('t.idTeacher')
+                ->join('teachers as t', 't.idEmployee', '=','e.idEmployee')
+                ->where('e.secondName', '=', $ipFile[0]['secondName'])
+                ->where('e.firstName', '=', $ipFile[0]['firstName'])
+                ->where('e.patronymic', '=', $ipFile[0]['patronymic'])
+                ->first()->idTeacher;
 
-        $idTeacher = DB::table('employees as e')
-            ->select('t.idTeacher')
-            ->join('teachers as t', 't.idEmployee', '=','e.idEmployee')
-            ->where('e.secondName', '=', $ipFile[0]['secondName'])
-            ->where('e.firstName', '=', $ipFile[0]['firstName'])
-            ->where('e.patronymic', '=', $ipFile[0]['patronymic'])
-            ->first()->idTeacher;
+            if (empty($ip)) {
+                throw new \Exception();
+            }
 
-        if (!empty($ip)) {
             return view('systems.main.ips.ip_update', [
                 'ip' => $ip,
                 'idTeacher' => $idTeacher,
                 'file' => $ipFile
             ]);
-        }
+        } catch (\Exception $e) {
 
-        Session::flash('message', 'Произошла ошибка');
-        return Redirect::route('ips.index');
+            Session::flash('message', ['type' => 'error', 'message' => $e->getMessage()]);
+            return Redirect::route('ips.index');
+        }
     }
 
     /**
@@ -244,19 +248,31 @@ class IPResourceController extends Controller
         $data['4'] = $sciWorks;
         $data['5'] = $orgWorks;
 
-        $writer = new IPExcelFileWriter($ip->getFile()->getPath(), $data);
-        $writer->getResult();
 
 
-        $ip->lastEmployee = Auth::user()->idEmployee;
-        $ip->lastUpdate = date('Y-m-d H:i:s');
-        if ($ip->update()) {
+        try
+        {
+            $writer = new IPExcelFileWriter($ip->getFile()->getPath(), $data);
+            $writer->getResult();
+
+            DB::beginTransaction();
+
+            $ip->lastEmployee = Auth::user()->getEmployee()->idEmployee;
+            $ip->lastUpdate = date('Y-m-d H:i:s');
+            if (!$ip->update()) {
+                throw new \Exception('Не удалось сохранить ИП', ListMessageCode::ERROR);
+            }
+
+            DB::commit();
+
             Session::flash('message', ['type' => 'success', 'message' => 'ИП сохранён']);
             return Redirect::route('ips.edit', $ip);
-        }
+        } catch (\Exception $e) {
+            DB::rollBack();
 
-        Session::flash('message', ['type' => 'error', 'message' => 'Не удалось сохранить ИП']);
-        return Redirect::route('ips.index');
+            Session::flash('message', ['type' => ListMessageCode::getType($e->getCode()), 'message' => $e->getMessage()]);
+            return Redirect::route('ips.edit', $ip);
+        }
     }
 
     /**
@@ -267,12 +283,23 @@ class IPResourceController extends Controller
      */
     public function destroy(IPModel $ip)
     {
-        if ($ip->delete()) {
-            Session::flash('successMessage', 'ИП больше не отслеживается');
-            return back();
-        }
+        try
+        {
+            DB::beginTransaction();
 
-        Session::flash('errorMessage', 'Ошибка удаления');
-        return Redirect::route('ips.index');
+            if (!$ip->delete()) {
+                throw new \Exception();
+            }
+
+            DB::commit();
+
+            #Session::flash('successMessage', 'ИП больше не отслеживается');
+            return back();
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+            #Session::flash('errorMessage', 'Ошибка удаления');
+            return Redirect::route('ips.index');
+        }
     }
 }
