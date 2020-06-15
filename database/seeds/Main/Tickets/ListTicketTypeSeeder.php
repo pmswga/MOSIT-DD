@@ -12,15 +12,17 @@ class ListTicketTypeSeeder extends Seeder
      */
     public function run()
     {
-        DB::table(\App\Core\Config\ListDatabaseTable::TABLE_LIST_TICKET_TYPE)->insert([
-            [
-                'idTicketType' => \App\Core\Constants\ListTicketTypeConstants::TASK,
-                'caption' => 'Задача'
-            ],
-            [
-                'idTicketType' => \App\Core\Constants\ListTicketTypeConstants::MEETING,
-                'caption' => 'Встреча'
-            ]
-        ]);
+        if (DB::table(\App\Core\Config\ListDatabaseTable::TABLE_LIST_TICKET_TYPE)->count() === 0) {
+            DB::table(\App\Core\Config\ListDatabaseTable::TABLE_LIST_TICKET_TYPE)->insert([
+                [
+                    'idTicketType' => \App\Core\Constants\ListTicketTypeConstants::TASK,
+                    'caption' => 'Задача'
+                ],
+                [
+                    'idTicketType' => \App\Core\Constants\ListTicketTypeConstants::MEETING,
+                    'caption' => 'Встреча'
+                ]
+            ]);
+        }
     }
 }

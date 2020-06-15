@@ -12,11 +12,13 @@ class ListInstituteSeeder extends Seeder
      */
     public function run()
     {
-        DB::table(\App\Core\Config\ListDatabaseTable::TABLE_LIST_INSTITUTE)->insert([
-            [
-                'idInstitute' => 1,
-                'caption' => 'ИТ'
-            ],
-        ]);
+        if (DB::table(\App\Core\Config\ListDatabaseTable::TABLE_LIST_INSTITUTE)->count() === 0) {
+            DB::table(\App\Core\Config\ListDatabaseTable::TABLE_LIST_INSTITUTE)->insert([
+                [
+                    'idInstitute' => 1,
+                    'caption' => 'ИТ'
+                ],
+            ]);
+        }
     }
 }

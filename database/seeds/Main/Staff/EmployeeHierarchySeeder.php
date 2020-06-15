@@ -12,31 +12,33 @@ class EmployeeHierarchySeeder extends Seeder
      */
     public function run()
     {
-        DB::table(\App\Core\Config\ListDatabaseTable::TABLE_EMPLOYEE_HIERARCHY)->insert([
-            [
-                'idEmployeeSup' => 7,
-                'idEmployeeSub' => 9
-            ],
-            [
-                'idEmployeeSup' => 7,
-                'idEmployeeSub' => 15
-            ],
-            [
-                'idEmployeeSup' => 7,
-                'idEmployeeSub' => 16
-            ],
-            [
-                'idEmployeeSup' => 7,
-                'idEmployeeSub' => 5
-            ],
-            [
-                'idEmployeeSup' => 9,
-                'idEmployeeSub' => 1
-            ],
-            [
-                'idEmployeeSup' => 9,
-                'idEmployeeSub' => 2
-            ],
-        ]);
+        if (DB::table(\App\Core\Config\ListDatabaseTable::TABLE_EMPLOYEE_HIERARCHY)->count() == 0) {
+            DB::table(\App\Core\Config\ListDatabaseTable::TABLE_EMPLOYEE_HIERARCHY)->insert([
+                [
+                    'idEmployeeSup' => 7,
+                    'idEmployeeSub' => 9
+                ],
+                [
+                    'idEmployeeSup' => 7,
+                    'idEmployeeSub' => 15
+                ],
+                [
+                    'idEmployeeSup' => 7,
+                    'idEmployeeSub' => 16
+                ],
+                [
+                    'idEmployeeSup' => 7,
+                    'idEmployeeSub' => 5
+                ],
+                [
+                    'idEmployeeSup' => 9,
+                    'idEmployeeSub' => 1
+                ],
+                [
+                    'idEmployeeSup' => 9,
+                    'idEmployeeSub' => 2
+                ],
+            ]);
+        }
     }
 }

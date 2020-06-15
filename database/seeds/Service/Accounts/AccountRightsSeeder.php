@@ -12,12 +12,35 @@ class AccountRightsSeeder extends Seeder
      */
     public function run()
     {
-        $accountRights = [];
+        if (DB::table(\App\Core\Config\ListDatabaseTable::TABLE_ACCOUNT_RIGHTS)->count() === 0) {
+            $accountRights = [];
 
-        foreach (DataSeeder::$employees as $employee) {
+            foreach (DataSeeder::$employees as $employee) {
+                $accountRights[] = [
+                    'idAccount' => $employee['idEmployee'],
+                    'idSubSystem' => \App\Core\Constants\ListSubSystemConstants::Tickets,
+                    'isAccess' => True,
+                    'isViewAny' => True,
+                    'isView' => True,
+                    'isCreate' => True,
+                    'isUpdate' => True,
+                    'isDelete' => True
+                ];
+                $accountRights[] = [
+                    'idAccount' => $employee['idEmployee'],
+                    'idSubSystem' => \App\Core\Constants\ListSubSystemConstants::Storage,
+                    'isAccess' => True,
+                    'isViewAny' => True,
+                    'isView' => True,
+                    'isCreate' => True,
+                    'isUpdate' => True,
+                    'isDelete' => True
+                ];
+            }
+
             $accountRights[] = [
-                'idAccount' => $employee['idEmployee'],
-                'idSubSystem' => \App\Core\Constants\ListSubSystemConstants::Tickets,
+                'idAccount' => DataSeeder::$employees[0]['idEmployee'],
+                'idSubSystem' => \App\Core\Constants\ListSubSystemConstants::IPS,
                 'isAccess' => True,
                 'isViewAny' => True,
                 'isView' => True,
@@ -25,29 +48,8 @@ class AccountRightsSeeder extends Seeder
                 'isUpdate' => True,
                 'isDelete' => True
             ];
-            $accountRights[] = [
-                'idAccount' => $employee['idEmployee'],
-                'idSubSystem' => \App\Core\Constants\ListSubSystemConstants::Storage,
-                'isAccess' => True,
-                'isViewAny' => True,
-                'isView' => True,
-                'isCreate' => True,
-                'isUpdate' => True,
-                'isDelete' => True
-            ];
+
+            DB::table(\App\Core\Config\ListDatabaseTable::TABLE_ACCOUNT_RIGHTS)->insert($accountRights);
         }
-
-        $accountRights[] = [
-            'idAccount' => DataSeeder::$employees[0]['idEmployee'],
-            'idSubSystem' => \App\Core\Constants\ListSubSystemConstants::IPS,
-            'isAccess' => True,
-            'isViewAny' => True,
-            'isView' => True,
-            'isCreate' => True,
-            'isUpdate' => True,
-            'isDelete' => True
-        ];
-
-        DB::table(\App\Core\Config\ListDatabaseTable::TABLE_ACCOUNT_RIGHTS)->insert($accountRights);
     }
 }

@@ -12,27 +12,29 @@ class ListTeacherPostSeeder extends Seeder
      */
     public function run()
     {
-        DB::table(\App\Core\Config\ListDatabaseTable::TABLE_LIST_TEACHER_POST)->insert([
-            [
-                'idTeacherPost' => 1,
-                'caption' => 'Ассистент'
-            ],
-            [
-                'idTeacherPost' => 2,
-                'caption' => 'Преподаватель'
-            ],
-            [
-                'idTeacherPost' => 3,
-                'caption' => 'Старший преподаватель'
-            ],
-            [
-                'idTeacherPost' => 4,
-                'caption' => 'Доцент'
-            ],
-            [
-                'idTeacherPost' => 5,
-                'caption' => 'Профессор'
-            ],
-        ]);
+        if (DB::table(\App\Core\Config\ListDatabaseTable::TABLE_LIST_TEACHER_POST)->count() === 0) {
+            DB::table(\App\Core\Config\ListDatabaseTable::TABLE_LIST_TEACHER_POST)->insert([
+                [
+                    'idTeacherPost' => 1,
+                    'caption' => 'Ассистент'
+                ],
+                [
+                    'idTeacherPost' => 2,
+                    'caption' => 'Преподаватель'
+                ],
+                [
+                    'idTeacherPost' => 3,
+                    'caption' => 'Старший преподаватель'
+                ],
+                [
+                    'idTeacherPost' => 4,
+                    'caption' => 'Доцент'
+                ],
+                [
+                    'idTeacherPost' => 5,
+                    'caption' => 'Профессор'
+                ],
+            ]);
+        }
     }
 }

@@ -12,43 +12,45 @@ class ListEmployeePostSeeder extends Seeder
      */
     public function run()
     {
-        DB::table(\App\Core\Config\ListDatabaseTable::TABLE_LIST_EMPLOYEE_POST)->insert([
-            [
-                'idEmployeePost' => 1,
-                'caption' => 'Преподаватель'
-            ],
-            [
-                'idEmployeePost' => 2,
-                'caption' => 'Оператор ЭВМ'
-            ],
-            [
-                'idEmployeePost' => 3,
-                'caption' => 'Зам. по учебной работе'
-            ],
-            [
-                'idEmployeePost' => 4,
-                'caption' => 'Зам. по научной работе'
-            ],
-            [
-                'idEmployeePost' => 5,
-                'caption' => 'Зам. по учебно-методической работе'
-            ],
-            [
-                'idEmployeePost' => 6,
-                'caption' => 'Отвественный за МТО'
-            ],
-            [
-                'idEmployeePost' => 7,
-                'caption' => 'Ответственный за работу со студентами'
-            ],
-            [
-                'idEmployeePost' => 8,
-                'caption' => 'Учёный секретарь'
-            ],
-            [
-                'idEmployeePost' => 9,
-                'caption' => 'Зав. кафедрой'
-            ]
-        ]);
+        if (DB::table(\App\Core\Config\ListDatabaseTable::TABLE_LIST_EMPLOYEE_POST)->count() === 0) {
+            DB::table(\App\Core\Config\ListDatabaseTable::TABLE_LIST_EMPLOYEE_POST)->insert([
+                [
+                    'idEmployeePost' => 1,
+                    'caption' => 'Преподаватель'
+                ],
+                [
+                    'idEmployeePost' => 2,
+                    'caption' => 'Оператор ЭВМ'
+                ],
+                [
+                    'idEmployeePost' => 3,
+                    'caption' => 'Зам. по учебной работе'
+                ],
+                [
+                    'idEmployeePost' => 4,
+                    'caption' => 'Зам. по научной работе'
+                ],
+                [
+                    'idEmployeePost' => 5,
+                    'caption' => 'Зам. по учебно-методической работе'
+                ],
+                [
+                    'idEmployeePost' => 6,
+                    'caption' => 'Отвественный за МТО'
+                ],
+                [
+                    'idEmployeePost' => 7,
+                    'caption' => 'Ответственный за работу со студентами'
+                ],
+                [
+                    'idEmployeePost' => 8,
+                    'caption' => 'Учёный секретарь'
+                ],
+                [
+                    'idEmployeePost' => 9,
+                    'caption' => 'Зав. кафедрой'
+                ]
+            ]);
+        }
     }
 }

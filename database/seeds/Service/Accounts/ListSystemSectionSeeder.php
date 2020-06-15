@@ -12,31 +12,33 @@ class ListSystemSectionSeeder extends Seeder
      */
     public function run()
     {
-        DB::table(\App\Core\Config\ListDatabaseTable::TABLE_LIST_SYSTEM_SECTION)->insert([
-            [
-                'idSystemSection' => 1,
-                'caption' => 'Учебная работа'
-            ],
-            [
-                'idSystemSection' => 2,
-                'caption' => 'Научная работа'
-            ],
-            [
-                'idSystemSection' => 3,
-                'caption' => 'Учебно-методическая работа'
-            ],
-            [
-                'idSystemSection' => 4,
-                'caption' => 'МТО'
-            ],
-            [
-                'idSystemSection' => 5,
-                'caption' => 'Работа со студентами'
-            ],
-            [
-                'idSystemSection' => 6,
-                'caption' => 'Общие'
-            ]
-        ]);
+        if (DB::table(\App\Core\Config\ListDatabaseTable::TABLE_LIST_SYSTEM_SECTION)->count() === 0) {
+            DB::table(\App\Core\Config\ListDatabaseTable::TABLE_LIST_SYSTEM_SECTION)->insert([
+                [
+                    'idSystemSection' => 1,
+                    'caption' => 'Учебная работа'
+                ],
+                [
+                    'idSystemSection' => 2,
+                    'caption' => 'Научная работа'
+                ],
+                [
+                    'idSystemSection' => 3,
+                    'caption' => 'Учебно-методическая работа'
+                ],
+                [
+                    'idSystemSection' => 4,
+                    'caption' => 'МТО'
+                ],
+                [
+                    'idSystemSection' => 5,
+                    'caption' => 'Работа со студентами'
+                ],
+                [
+                    'idSystemSection' => 6,
+                    'caption' => 'Общие'
+                ]
+            ]);
+        }
     }
 }

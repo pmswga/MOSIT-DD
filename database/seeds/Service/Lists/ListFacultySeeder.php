@@ -12,12 +12,14 @@ class ListFacultySeeder extends Seeder
      */
     public function run()
     {
-        DB::table(\App\Core\Config\ListDatabaseTable::TABLE_LIST_FACULTY)->insert([
-            [
-                'idFaculty' => 1,
-                'idInstitute' => 1,
-                'caption' => 'МОСИТ'
-            ],
-        ]);
+        if (DB::table(\App\Core\Config\ListDatabaseTable::TABLE_LIST_SYSTEM_SECTION)->count() === 0) {
+            DB::table(\App\Core\Config\ListDatabaseTable::TABLE_LIST_SYSTEM_SECTION)->insert([
+                [
+                    'idFaculty' => 1,
+                    'idInstitute' => 1,
+                    'caption' => 'МОСИТ'
+                ],
+            ]);
+        }
     }
 }

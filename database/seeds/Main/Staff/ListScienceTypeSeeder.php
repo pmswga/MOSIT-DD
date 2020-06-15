@@ -12,15 +12,17 @@ class ListScienceTypeSeeder extends Seeder
      */
     public function run()
     {
-        DB::table(\App\Core\Config\ListDatabaseTable::TABLE_LIST_SCIENCE_TYPE)->insert([
-            [
-                'idScienceType' => 1,
-                'caption' => 'Технические науки'
-            ],
-            [
-                'idDegree' => 2,
-                'caption' => 'Физико-математические науки'
-            ]
-        ]);
+        if (DB::table(\App\Core\Config\ListDatabaseTable::TABLE_LIST_SCIENCE_TYPE)->count() === 0) {
+            DB::table(\App\Core\Config\ListDatabaseTable::TABLE_LIST_SCIENCE_TYPE)->insert([
+                [
+                    'idScienceType' => 1,
+                    'caption' => 'Технические науки'
+                ],
+                [
+                    'idDegree' => 2,
+                    'caption' => 'Физико-математические науки'
+                ]
+            ]);
+        }
     }
 }
