@@ -53,12 +53,12 @@ class ListWorksSeeder extends Seeder
                 [
                     'idWorkType' => \App\Core\Constants\ListWorkTypeConstants::ORG_WORK,
                     'workCaption' => 'Организационно-методическая работа по заданиям',
-                    'subCaption' => 'Минобрнауки России',
+                    'subCaption' => 'ректората',
                     'maxHours' => 150,
                 ],
                 [
                     'idWorkType' => \App\Core\Constants\ListWorkTypeConstants::ORG_WORK,
-                    'workCaption' => 'ректората',
+                    'workCaption' => 'Организационно-методическая работа по заданиям',
                     'subCaption' => 'директоров институтов и заведующих кафедрами',
                     'maxHours' => 100,
                 ],
