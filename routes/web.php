@@ -38,12 +38,22 @@ Route::prefix('help')->group(function () {
 });
 
 
+Route::get('/test', function () {
+    return \App\Models\Main\Storage\ListFileTagModel::all()->toJson();
+});
+
 
 /**
  * Маршруты связанные с подсистемами
  */
 Route::resource('/ips', 'Main\IP\IPResourceController');
 Route::get('/ips/download/{ip}', 'Main\IP\IPResourceController@downloadIP')->name('ips.download');
+Route::get('/ips/works/orgWorks', function () {
+    return \App\Models\Main\IP\ListWorks::all()->sortBy('workCaption')->toJson();
+    #return \App\Models\Main\IP\ListWorks::all()->sortBy('workCaption')->groupBy('workCaption')->toJson();
+});
+
+
 
 Route::resource('/files', 'Main\Storage\EmployeeFileResourceController');
 Route::get('/files/download/{file}', 'Main\Storage\EmployeeFileResourceController@downloadFile')->name('files.downloadFile');

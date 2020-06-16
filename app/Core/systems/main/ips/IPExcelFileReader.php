@@ -47,13 +47,12 @@ class IPExcelFileReader extends IPExcelFileStreamer
             ],
             3 => [
                 'work' => '24',
+                'columns' => ['A', 'B', 'D', 'E', 'G', 'N', 'T'],
                 'sum' => 'Y29'
             ],
             4 => [
-                'work' => '4'
-            ],
-            5 => [
-                'work' => '3'
+                'work' => '4',
+                'columns' => ['A', 'B', 'C', 'D', 'E', 'F']
             ],
             6 => [
                 'workSum1' => 0,
@@ -124,18 +123,18 @@ class IPExcelFileReader extends IPExcelFileStreamer
     {
         $this->excelFile->setActiveSheetIndex(1);
 
-        $value = '';
-        $cell = '6';
+        $highestRow = $this->excelFile->getActiveSheet()->getHighestRow('A');
 
-        while (!preg_match('/ИТОГО/i', $value)) {
-            $value = $this->excelFile->getActiveSheet()->getCellByColumnAndRow(1, $cell)->getValue();
-            if (!empty($value) && $value != 'ИТОГО ЗА ОСЕННИЙ СЕМЕСТР') {
-                $this->streamData[1]['subjects'][] = $value;
+        $subjects = [];
+        for ($row = $this->cellCoordinates[1]['subjects']; $row < $highestRow-1; $row++) {
+            $value = $this->excelFile->getActiveSheet()->getCell('A' . $row)->getValue();
+
+            if ($value) {
+                $subjects[] = $value;
             }
-
-            $cell += 2;
         }
 
+        $this->streamData[1]['subjects'] = $subjects;
     }
 
     /**
@@ -146,18 +145,18 @@ class IPExcelFileReader extends IPExcelFileStreamer
     public function streamSheet3()
     {
         $this->excelFile->setActiveSheetIndex(2);
+        $highestRow = $this->excelFile->getActiveSheet()->getHighestRow('A');
 
-        $value = '';
-        $cell = '5';
+        $subjects = [];
+        for ($row = $this->cellCoordinates[2]['subjects']; $row < $highestRow-1; $row++) {
+            $value = $this->excelFile->getActiveSheet()->getCell('A' . $row)->getValue();
 
-        while (!preg_match('/ИТОГО/i', $value)) {
-            $value = $this->excelFile->getActiveSheet()->getCellByColumnAndRow(1, $cell)->getValue();
-            if (!empty($value) && $value != 'ИТОГО ЗА ВЕСЕННИЙ СЕМЕСТР') {
-                $this->streamData[2]['subjects'][] = $value;
+            if ($value) {
+                $subjects[] = $value;
             }
-
-            $cell += 2;
         }
+
+        $this->streamData[2]['subjects'] = $subjects;
     }
 
     /**
@@ -168,32 +167,31 @@ class IPExcelFileReader extends IPExcelFileStreamer
     public function streamSheet4()
     {
         $this->excelFile->setActiveSheetIndex(3);
-
         $highestRow = $this->excelFile->getActiveSheet()->getHighestRow('A');
 
         $works = [];
-        for ($row = 24, $column = $row; $row <= $highestRow; $row++, $column++) {
+        for ($row = $this->cellCoordinates[3]['work'], $column = $row; $row < $highestRow; $row++, $column++) {
             $work = [];
 
-            $work['num'] = $this->excelFile->getActiveSheet()->getCellByColumnAndRow(1, $column)->getValue();
-            $work['caption'] = $this->excelFile->getActiveSheet()->getCellByColumnAndRow(2, $column)->getValue();
+            $work['num'] = $this->excelFile->getActiveSheet()->getCell('A' . $column)->getValue();
+            $work['caption'] = $this->excelFile->getActiveSheet()->getCell('B' . $column)->getValue();
             $work['plan'] = $this->excelFile->getActiveSheet()->getCell('D' . $column)->getValue();
             $work['real'] = $this->excelFile->getActiveSheet()->getCell('E' . $column)->getValue();
             $work['finish'] = $this->excelFile->getActiveSheet()->getCell('G' . $column)->getValue();
             $work['finishDatePlan'] = $this->excelFile->getActiveSheet()->getCell('N' . $column)->getFormattedValue();
             $work['finishDateReal'] = $this->excelFile->getActiveSheet()->getCell('T' . $column)->getFormattedValue();
 
-
-            if ($work['caption']) {
+            if (
+                $work['caption'] and
+                $work['plan'] and
+                $work['finish']
+            ) {
                 $works[] = $work;
-            }
-
-            if (preg_match('/ИТОГО/i', $work['num'])) {
-                $this->streamData[3]['eduMetWorkSum'] = $this->excelFile->getActiveSheet()->getCell('D' . $column)->getCalculatedValue();
             }
         }
 
-        $this->streamData[3]['eduWorkSum'] = $this->excelFile->getActiveSheet()->getCell('Y19')->getCalculatedValue();
+        $this->streamData[3]['eduWorkSum'] = $this->excelFile->getActiveSheet()->getCell('Y19')->getCalculatedValue() ?? 0;
+        $this->streamData[3]['eduMetWorkSum'] = $this->excelFile->getActiveSheet()->getCell('D' . $highestRow)->getCalculatedValue() ?? 0;
         $this->streamData[3]['work'] = $works;
     }
 
@@ -208,34 +206,61 @@ class IPExcelFileReader extends IPExcelFileStreamer
 
         $highestRow = $this->excelFile->getActiveSheet()->getHighestRow('A');
 
-        $works = [];
-        for ($row = 4, $column = $row, $i = 0; $row < $highestRow; $row++, $column++) {
+        $sciWorks = [];
+        $orgWorks = [];
+        $isOrgWork = false;
+        $checkWork = function ($work) {
+            return
+                (is_int($work['num']) or empty($work['num'])) and
+                $work['caption'] and
+                $work['plan'];
+        };
+
+        for ($row = $this->cellCoordinates[4]['work'], $column = $row, $i = 0; $row < $highestRow; $row++, $column++) {
             $work = [];
 
-            $work['num'] = $this->excelFile->getActiveSheet()->getCellByColumnAndRow(1, $column)->getValue();
-            $work['caption'] = $this->excelFile->getActiveSheet()->getCellByColumnAndRow(2, $column)->getValue();
+            $work['num'] = $this->excelFile->getActiveSheet()->getCell('A' . $column)->getValue();
+            $work['caption'] = $this->excelFile->getActiveSheet()->getCell('B' . $column)->getValue();
             $work['plan'] = $this->excelFile->getActiveSheet()->getCell('C' . $column)->getValue();
             $work['real'] = $this->excelFile->getActiveSheet()->getCell('D' . $column)->getValue();
             $work['finishDatePlan'] = $this->excelFile->getActiveSheet()->getCell('E' . $column)->getFormattedValue();
             $work['finishDateReal'] = $this->excelFile->getActiveSheet()->getCell('F' . $column)->getFormattedValue();
 
-
-            if (preg_match('/\d/i', $work['num']) and $work['caption']) {
-                $works[] = $work;
+            if (preg_match('/Раздел IV/i', $work['num'])) {
+                $isOrgWork = true;
             }
 
-            if (preg_match('/ИТОГО/i', $work['num']) and $i < 2) {
-                if ($i == 0) {
-                    $this->streamData[4]['sciWorkSum'] = $this->excelFile->getActiveSheet()->getCell('C' . $column)->getCalculatedValue();
-                } else {
-                    $this->streamData[4]['orgWorkSum'] = $this->excelFile->getActiveSheet()->getCell('C' . $column)->getCalculatedValue();
+            if ($isOrgWork) {
+                if ($checkWork($work)) {
+                    $orgWorks[] = $work;
                 }
-                $this->streamData[4]['work_'.($i+1)] = $works;
-                $i++;
-                $works = [];
+            } else {
+                if ($checkWork($work)) {
+                    $sciWorks[] = $work;
+                }
             }
         }
 
+        $reCounter = function ($array) {
+            $i = 1;
+            foreach ($array as &$item) {
+                if (empty($item['num'])) {
+                    $item['num'] = $i;
+                }
+
+                $i++;
+            }
+
+            return $array;
+        };
+
+        $sciWorks = $reCounter($sciWorks);
+        $orgWorks = $reCounter($orgWorks);
+
+        $this->streamData[4]['work_1'] = $sciWorks;
+        $this->streamData[4]['work_2'] = $orgWorks;
+        $this->streamData[4]['sciWorkSum'] = 0;
+        $this->streamData[4]['orgWorkSum'] = 0;
     }
 
     /**

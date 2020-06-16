@@ -12,19 +12,21 @@ class ListDegreeSeeder extends Seeder
      */
     public function run()
     {
-        DB::table(\App\Core\Config\ListDatabaseTable::TABLE_LIST_DEGREE)->insert([
-            [
-                'idDegree' => 1,
-                'caption' => 'Кандидат наук'
-            ],
-            [
-                'idDegree' => 2,
-                'caption' => 'Доктор наук'
-            ],
-            [
-                'idDegree' => 3,
-                'caption' => 'Старший научный сотрудник'
-            ],
-        ]);
+        if (DB::table(\App\Core\Config\ListDatabaseTable::TABLE_LIST_DEGREE)->count() === 0) {
+            DB::table(\App\Core\Config\ListDatabaseTable::TABLE_LIST_DEGREE)->insert([
+                [
+                    'idDegree' => 1,
+                    'caption' => 'Кандидат наук'
+                ],
+                [
+                    'idDegree' => 2,
+                    'caption' => 'Доктор наук'
+                ],
+                [
+                    'idDegree' => 3,
+                    'caption' => 'Старший научный сотрудник'
+                ],
+            ]);
+        }
     }
 }

@@ -12,47 +12,49 @@ class ListAccountTypeSeeder extends Seeder
      */
     public function run()
     {
-        DB::table(\App\Core\Config\ListDatabaseTable::TABLE_LIST_ACCOUNT_TYPE)->insert([
-            [
-                'idAccountType' => 1,
-                'caption' => 'Преподаватель'
-            ],
-            [
-                'idAccountType' => 2,
-                'caption' => 'Методист'
-            ],
-            [
-                'idAccountType' => 3,
-                'caption' => 'Зам. по учебной работе'
-            ],
-            [
-                'idAccountType' => 4,
-                'caption' => 'Зам. по научной работе'
-            ],
-            [
-                'idAccountType' => 5,
-                'caption' => 'Зам. по учебно-методической работе'
-            ],
-            [
-                'idAccountType' => 6,
-                'caption' => 'Отвественный за МТО'
-            ],
-            [
-                'idAccountType' => 7,
-                'caption' => 'Ответственный за работу со студентами'
-            ],
-            [
-                'idAccountType' => 8,
-                'caption' => 'Учёный секретарь'
-            ],
-            [
-                'idAccountType' => 9,
-                'caption' => 'Зав. кафедрой'
-            ],
-            [
-                'idAccountType' => 10,
-                'caption' => 'Администратор'
-            ]
-        ]);
+        if (DB::table(\App\Core\Config\ListDatabaseTable::TABLE_LIST_ACCOUNT_TYPE)->count() === 0) {
+            DB::table(\App\Core\Config\ListDatabaseTable::TABLE_LIST_ACCOUNT_TYPE)->insert([
+                [
+                    'idAccountType' => 1,
+                    'caption' => 'Преподаватель'
+                ],
+                [
+                    'idAccountType' => 2,
+                    'caption' => 'Методист'
+                ],
+                [
+                    'idAccountType' => 3,
+                    'caption' => 'Зам. по учебной работе'
+                ],
+                [
+                    'idAccountType' => 4,
+                    'caption' => 'Зам. по научной работе'
+                ],
+                [
+                    'idAccountType' => 5,
+                    'caption' => 'Зам. по учебно-методической работе'
+                ],
+                [
+                    'idAccountType' => 6,
+                    'caption' => 'Отвественный за МТО'
+                ],
+                [
+                    'idAccountType' => 7,
+                    'caption' => 'Ответственный за работу со студентами'
+                ],
+                [
+                    'idAccountType' => 8,
+                    'caption' => 'Учёный секретарь'
+                ],
+                [
+                    'idAccountType' => 9,
+                    'caption' => 'Зав. кафедрой'
+                ],
+                [
+                    'idAccountType' => 10,
+                    'caption' => 'Администратор'
+                ]
+            ]);
+        }
     }
 }

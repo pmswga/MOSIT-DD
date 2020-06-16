@@ -12,19 +12,21 @@ class ListRateTypeSeeder extends Seeder
      */
     public function run()
     {
-        DB::table(\App\Core\Config\ListDatabaseTable::TABLE_LIST_RATE_TYPE)->insert([
-            [
-                'idRateType' => 1,
-                'caption' => 'Штатная',
-            ],
-            [
-                'idRateType' => 2,
-                'caption' => 'Внутренний совместитель',
-            ],
-            [
-                'idRateType' => 3,
-                'caption' => 'Внешний совместитель',
-            ]
-        ]);
+        if (DB::table(\App\Core\Config\ListDatabaseTable::TABLE_LIST_RATE_TYPE)->count() === 0) {
+            DB::table(\App\Core\Config\ListDatabaseTable::TABLE_LIST_RATE_TYPE)->insert([
+                [
+                    'idRateType' => 1,
+                    'caption' => 'Штатная',
+                ],
+                [
+                    'idRateType' => 2,
+                    'caption' => 'Внутренний совместитель',
+                ],
+                [
+                    'idRateType' => 3,
+                    'caption' => 'Внешний совместитель',
+                ]
+            ]);
+        }
     }
 }

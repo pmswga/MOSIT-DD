@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Main\Tickets;
 
+use App\Core\Config\ListMessageCode;
 use App\Core\Constants\ListTicketHistoryTypeConstants;
 use App\Core\Constants\ListTicketStatusConstants;
 use App\Http\Controllers\Controller;
@@ -20,11 +21,15 @@ use Illuminate\Support\Facades\Storage;
 class TicketResourceController extends Controller
 {
     private $ticketsPath;
+    private const TICKET_PATH = 'tickets' . DIRECTORY_SEPARATOR;
 
     public function __construct()
     {
         $this->middleware('auth');
-        $this->ticketsPath = 'tickets/';
+    }
+
+    public function getTicketFolder(int $id) {
+        return self::TICKET_PATH . 'ticket_' . $id;
     }
 
     public function downloadFile(TicketFileModel $file) {
@@ -34,7 +39,7 @@ class TicketResourceController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index()
     {
@@ -81,7 +86,7 @@ class TicketResourceController extends Controller
     public function store(Request $request)
     {
         $ticket = new TicketModel();
-        $ticket->idAuthor = Auth::user()->idEmployee;
+        $ticket->idAuthor = Auth::id();
         $ticket->idTicketType = $request->ticketType;
         $ticket->caption = $request->ticketCaption;
         $ticket->description = $request->ticketDescription;
@@ -89,10 +94,10 @@ class TicketResourceController extends Controller
         $ticket->endDate = date_format( date_create( $request->ticketEndDate . $request->ticketEndTime ), 'Y.m.d H:i:s');
         $ticket->idTicketStatus = ListTicketStatusConstants::CREATE;
 
-        DB::beginTransaction();
-
         try
         {
+            DB::beginTransaction();
+
             if (!$ticket->save()) {
                 throw new \Exception();
             }
@@ -101,13 +106,9 @@ class TicketResourceController extends Controller
                 throw new \Exception();
             }
 
-            if (count($request->ticketEmployees) > 0) {
+            if ($request->ticketEmployees and count($request->ticketEmployees) > 0) {
                 foreach ($request->ticketEmployees as $employee) {
-                    $ticketEmployee = new EmployeeTicketModel();
-                    $ticketEmployee->idEmployee = $employee;
-                    $ticketEmployee->idTicket = $ticket->idTicket;
-
-                    if (!$ticketEmployee->save()) {
+                    if (!$ticket->assignEmployee($employee)) {
                         throw new \Exception();
                     }
                 }
@@ -122,7 +123,11 @@ class TicketResourceController extends Controller
                         $file->getClientOriginalName()
                     );
 
-                    if (!$ticket->attachFile(Auth::id(), $path, $file->extension())) {
+                    if (Storage::exists($path)) {
+                        if (!$ticket->attachFile(Auth::id(), $path, $file->extension())) {
+                            throw new \Exception();
+                        }
+                    } else {
                         throw new \Exception();
                     }
                 }
@@ -148,15 +153,15 @@ class TicketResourceController extends Controller
      * Display the specified resource.
      *
      * @param  \App\Models\Main\Tickets\TicketModel  $ticketModel
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function show(TicketModel $ticket)
     {
-        $employeeTicket = $ticket->hasOne(EmployeeTicketModel::class, 'idTicket', 'idTicket')
-            ->where('idEmployee', '=', Auth::user()->getEmployee()->idEmployee)
-            ->first();
-
         try {
+            $employeeTicket = $ticket->hasOne(EmployeeTicketModel::class, 'idTicket', 'idTicket')
+                ->where('idEmployee', '=', Auth::user()->getEmployee()->idEmployee)
+                ->first();
+
             if ($employeeTicket) {
                 DB::beginTransaction();
 
@@ -191,8 +196,8 @@ class TicketResourceController extends Controller
 
     public function addComment(Request $request, TicketModel $ticket)
     {
-        DB::beginTransaction();
         try {
+            DB::beginTransaction();
 
             if (!$ticket->addComment(Auth::id(), $request->comment)) {
                 throw new \Exception();
@@ -216,16 +221,31 @@ class TicketResourceController extends Controller
 
     public function attachFile(Request $request, TicketModel $ticket)
     {
-        $file = $request->file('attachedFile');
-        $path = Storage::putFileAs(
-            $this->ticketsPath . 'ticket_'.$ticket->idTicket,
-            $file,
-            $file->getClientOriginalName()
-        );
-
-        DB::beginTransaction();
         try
         {
+            if (!$request->file('attachedFile')) {
+                throw new \Exception();
+            }
+
+            $file = $request->file('attachedFile');
+
+            if ($ticket->getAttachedFiles()->contains('filename', '=', $file->getClientOriginalName())) {
+                throw new \Exception('Такой файл уже прикреплён', ListMessageCode::WARNING);
+            }
+
+            $path = Storage::putFileAs(
+                $this->getTicketFolder($ticket->idTicket),
+                $file,
+                $file->getClientOriginalName()
+            );
+
+
+            if (!Storage::exists($path)) {
+                throw new \Exception('Не удалось прикрепить файл', ListMessageCode::ERROR);
+            }
+
+            DB::beginTransaction();
+
             if (!$ticket->attachFile(Auth::id(), $path, $file->extension())) {
                 throw new \Exception();
             }
@@ -240,10 +260,10 @@ class TicketResourceController extends Controller
             return back();
         } catch (\Exception $e) {
             DB::rollBack();
-        }
 
-        Session::flash('message', ['type' => 'error', 'message' => 'Не удалось прикрепить новый файл']);
-        return back();
+            Session::flash('message', ['type' => ListMessageCode::getType($e->getCode()), 'message' => $e->getMessage()]);
+            return back();
+        }
     }
 
     /**
@@ -262,10 +282,29 @@ class TicketResourceController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Main\Tickets\TicketModel  $ticketModel
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(TicketModel $ticket)
     {
-        //
+        $isFilesDelete = true;
+        foreach ($ticket->getAttachedFiles() as $file) {
+            if (Storage::exists($file->getPath())) {
+                $isFilesDelete *= Storage::delete($file->getPath());
+            }
+        }
+
+        if ($isFilesDelete) {
+            if ($this->getTicketFolder($ticket->idTicket)) {
+                Storage::deleteDirectory($this->getTicketFolder($ticket->idTicket));
+            }
+        }
+
+        if ($ticket->delete()) {
+            Session::flash('message', ['type' => 'success', 'message' => 'Поручение удалено']);
+            return back();
+        }
+
+        Session::flash('message', ['type' => 'error', 'message' => 'Не удалось удалить поручение']);
+        return back();
     }
 }

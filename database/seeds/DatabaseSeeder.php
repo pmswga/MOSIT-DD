@@ -34,6 +34,9 @@ class DatabaseSeeder extends Seeder
             ListTicketStatusSeeder::class,
             ListTicketHistoryTypeSeeder::class,
 
+            ListWorkTypeSeeder::class,
+            ListWorksSeeder::class,
+
             EmployeesSeeder::class,
             EmployeeHierarchySeeder::class,
             TeachersSeeder::class,

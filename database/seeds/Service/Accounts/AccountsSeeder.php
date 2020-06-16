@@ -12,22 +12,20 @@ class AccountsSeeder extends Seeder
      */
     public function run()
     {
-        $accounts = [];
+        if (DB::table(\App\Core\Config\ListDatabaseTable::TABLE_ACCOUNTS)->count() === 0) {
+            $accounts = [];
+            foreach (DataSeeder::$employees as $employee) {
+                $accounts[] = [
+                    'idAccount' => $employee['idEmployee'],
+                    'idAccountType' => $employee['idEmployeePost'],
+                    'email' => $employee['personalEmail'],
+                    'email_verified_at' => NULL,
+                    'password' => \Illuminate\Support\Facades\Hash::make('qwerty'),
+                    'remember_token' => NULL
+                ];
+            }
 
-        foreach (DataSeeder::$employees as $employee) {
-            $accounts[] = [
-                'idAccount' => $employee['idEmployee'],
-                'idEmployee' => $employee['idEmployee'],
-                'idAccountType' => $employee['idEmployeePost'],
-                'email' => $employee['personalEmail'],
-                'email_verified_at' => NULL,
-                'password' => \Illuminate\Support\Facades\Hash::make('qwerty'),
-                'remember_token' => NULL,
-                'created_at' => '2020-01-01',
-                'updated_at' => '2020-01-01'
-            ];
+            DB::table(\App\Core\Config\ListDatabaseTable::TABLE_ACCOUNTS)->insert($accounts);
         }
-
-        DB::table(\App\Core\Config\ListDatabaseTable::TABLE_ACCOUNTS)->insert($accounts);
     }
 }

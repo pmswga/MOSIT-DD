@@ -19,6 +19,8 @@ class ListDatabaseTable
     public const TABLE_LIST_INSTITUTE = 'list_institute';
 
     public const TABLE_IPS = 'ips';
+    public const TABLE_LIST_WORKS = 'list_works';
+    public const TABLE_LIST_WORK_TYPE = 'list_work_type';
 
     public const TABLE_EMPLOYEES = 'employees';
     public const TABLE_TEACHERS = 'teachers';

@@ -12,6 +12,16 @@ class AccountRightsModel extends Model
     protected $primaryKey = 'idAccountRight';
     public $timestamps = false;
 
+    public function __construct(array $attributes = [])
+    {
+        parent::__construct($attributes);
+        $this->isAccess = false;
+        $this->isViewAny = false;
+        $this->isCreate = false;
+        $this->isUpdate = false;
+        $this->isDelete = false;
+    }
+
     public function getSubSystem() {
         return $this->hasOne(ListSubSystemModel::class, 'idSubSystem', 'idSubSystem')->first();
     }

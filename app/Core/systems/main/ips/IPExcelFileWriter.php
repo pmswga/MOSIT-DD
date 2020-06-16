@@ -87,6 +87,42 @@ class IPExcelFileWriter extends IPExcelFileStreamer
 
     }
 
+    public function clearSheet5()
+    {
+
+        $columns = ['A', 'B', 'C', 'D', 'E', 'F'];
+        $row = $this->cellCoordinates[4]['sciWork'];
+
+        $num = '';
+        while (!preg_match('/ИТОГО/i', $num)) {
+            $num = $this->excelFile->getActiveSheet()->getCell('A'.$row)->getValue();
+
+            if (!preg_match('/ИТОГО/i', $num)) {
+                foreach ($columns as $column) {
+                    $this->excelFile->getActiveSheet()->setCellValue($column.$row, '');
+                }
+
+                $row++;
+            }
+        }
+
+
+        $num = '';
+        $row += 5;
+        while (!preg_match('/ИТОГО/i', $num)) {
+            $num = $this->excelFile->getActiveSheet()->getCell('A'.$row)->getValue();
+
+            if (!preg_match('/ИТОГО/i', $num)) {
+                foreach ($columns as $column) {
+                    $this->excelFile->getActiveSheet()->setCellValue($column.$row, '');
+                }
+            }
+
+            $row++;
+        }
+
+    }
+
     /**
      * @inheritDoc
      * @throws Exception
@@ -94,6 +130,7 @@ class IPExcelFileWriter extends IPExcelFileStreamer
     public function streamSheet5()
     {
         $this->excelFile->setActiveSheetIndex(4);
+        $this->clearSheet5();
 
         if (count($this->data[4]) > 5) {
             $this->excelFile->getActiveSheet()->insertNewRowBefore(9, count($this->data[4]) - 5);
@@ -129,6 +166,7 @@ class IPExcelFileWriter extends IPExcelFileStreamer
         if (count($this->data[5]) > 6) {
             $this->excelFile->getActiveSheet()->insertNewRowBefore(20, count($this->data[5]) - 6);
         }
+
 
         $column = 0;
         foreach ($this->data[5] as $array) {

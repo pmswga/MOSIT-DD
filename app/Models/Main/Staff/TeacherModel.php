@@ -12,14 +12,14 @@ class TeacherModel extends Model
     protected $primaryKey = 'idTeacher';
     public $timestamps = false;
 
+    public function __construct(array $attributes = [])
+    {
+        parent::__construct($attributes);
+        $this->isNull = true;
+    }
+
     public function getIPS() {
-        $ips = $this->hasOne(IPModel::class,'idTeacher', 'idTeacher')->get();
-
-        if ($ips) {
-            return $ips;
-        }
-
-        return null;
+        return $this->hasOne(IPModel::class,'idTeacher', 'idTeacher')->get();
     }
 
 }

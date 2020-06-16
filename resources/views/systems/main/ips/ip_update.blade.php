@@ -4,6 +4,7 @@
 @section('content')
     <script type="text/javascript" src="{{ asset('js/core/systems/ips/calculator.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/vue.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/core/systems/ips/ip_table_sci_work.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/core/systems/ips/ip_table.js') }}"></script>
 
 
@@ -171,6 +172,11 @@
                 <h3>Научно-исследовательская работа</h3>
             </div>
             <div class="content">
+                <div id="sciWorkTable" class="content">
+                    <sci-work-table v-bind:works='sciWorks'></sci-work-table>
+                </div>
+                {{--
+
                 <table class="ui table">
                     <thead>
                         <tr>
@@ -222,6 +228,7 @@
                         @endforeach
                     </tbody>
                 </table>
+                --}}
             </div>
         </div>
 
@@ -313,19 +320,19 @@
         var app2 = new Vue({
             el: '#orgWorkTable',
             data: {
-                newWork: '',
+                orgWorksCaptions: [],
                 orgWorks: JSON.parse('{{ json_encode($file[4]['work_2']) }}'.replace(/&quot;/ig,'"')),
-                countOfOrgWork: '{{count($file[4]['work_2'])}}'
-            },
-            methods: {
-                addNewWork: function () {
-                    this.works.push({
-                        num: ++this.count,
-                        caption: this.newWork,
-                        plan: 0,
-                        real: 0
-                    });
-                }
+                countOfOrgWork: '{{count($file[4]['work_2'])}}',
+                orgWorkSumPlan: 0
+            }
+        });
+
+        var app3 = new Vue({
+            el: '#sciWorkTable',
+            data: {
+                sciWorks: JSON.parse('{{ json_encode($file[4]['work_1']) }}'.replace(/&quot;/ig,'"')),
+                countOfSciWork: '{{count($file[4]['work_1'])}}',
+                sciWorkSumPlan: 0
             }
         });
 

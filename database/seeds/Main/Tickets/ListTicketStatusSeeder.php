@@ -12,19 +12,21 @@ class ListTicketStatusSeeder extends Seeder
      */
     public function run()
     {
-        DB::table(\App\Core\Config\ListDatabaseTable::TABLE_LIST_TICKET_STATUS)->insert([
-            [
-                'idTicketStatus' => \App\Core\Constants\ListTicketStatusConstants::CREATE,
-                'caption' => 'Создано'
-            ],
-            [
-                'idTicketStatus' => \App\Core\Constants\ListTicketStatusConstants::PROGRESS,
-                'caption' => 'В процессе'
-            ],
-            [
-                'idTicketStatus' => \App\Core\Constants\ListTicketStatusConstants::FINISH,
-                'caption' => 'Исполнено'
-            ]
-        ]);
+        if (DB::table(\App\Core\Config\ListDatabaseTable::TABLE_LIST_TICKET_STATUS)->count() === 0) {
+            DB::table(\App\Core\Config\ListDatabaseTable::TABLE_LIST_TICKET_STATUS)->insert([
+                [
+                    'idTicketStatus' => \App\Core\Constants\ListTicketStatusConstants::CREATE,
+                    'caption' => 'Создано'
+                ],
+                [
+                    'idTicketStatus' => \App\Core\Constants\ListTicketStatusConstants::PROGRESS,
+                    'caption' => 'В процессе'
+                ],
+                [
+                    'idTicketStatus' => \App\Core\Constants\ListTicketStatusConstants::FINISH,
+                    'caption' => 'Исполнено'
+                ]
+            ]);
+        }
     }
 }

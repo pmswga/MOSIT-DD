@@ -12,19 +12,21 @@ class ListFileTagSeeder extends Seeder
      */
     public function run()
     {
-        DB::table(\App\Core\Config\ListDatabaseTable::TABLE_LIST_FILE_TAG)->insert([
-            [
-                'idFileTag' => \App\Core\Constants\ListFileTagConstants::IP,
-                'caption' => 'Индивидуальный план',
-            ],
-            [
-                'idFileTag' => \App\Core\Constants\ListFileTagConstants::ORDER,
-                'caption' => 'Приказ',
-            ],
-            [
-                'idFileTag' => \App\Core\Constants\ListFileTagConstants::PROTOCOL,
-                'caption' => 'Протокол'
-            ]
-        ]);
+        if (DB::table(\App\Core\Config\ListDatabaseTable::TABLE_LIST_FILE_TAG)->count() === 0) {
+            DB::table(\App\Core\Config\ListDatabaseTable::TABLE_LIST_FILE_TAG)->insert([
+                [
+                    'idFileTag' => \App\Core\Constants\ListFileTagConstants::IP,
+                    'caption' => 'Индивидуальный план',
+                ],
+                [
+                    'idFileTag' => \App\Core\Constants\ListFileTagConstants::ORDER,
+                    'caption' => 'Приказ',
+                ],
+                [
+                    'idFileTag' => \App\Core\Constants\ListFileTagConstants::PROTOCOL,
+                    'caption' => 'Протокол'
+                ]
+            ]);
+        }
     }
 }

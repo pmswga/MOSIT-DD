@@ -12,15 +12,17 @@ class ListAcademicTitleSeeder extends Seeder
      */
     public function run()
     {
-        DB::table(\App\Core\Config\ListDatabaseTable::TABLE_LIST_ACADEMIC_TITLE)->insert([
-            [
-                'idAcademicTitle' => 1,
-                'caption' => 'Доцент'
-            ],
-            [
-                'idAcademicTitle' => 2,
-                'caption' => 'Профессор'
-            ],
-        ]);
+        if (DB::table(\App\Core\Config\ListDatabaseTable::TABLE_LIST_ACADEMIC_TITLE)->count() === 0) {
+            DB::table(\App\Core\Config\ListDatabaseTable::TABLE_LIST_ACADEMIC_TITLE)->insert([
+                [
+                    'idAcademicTitle' => 1,
+                    'caption' => 'Доцент'
+                ],
+                [
+                    'idAcademicTitle' => 2,
+                    'caption' => 'Профессор'
+                ],
+            ]);
+        }
     }
 }
