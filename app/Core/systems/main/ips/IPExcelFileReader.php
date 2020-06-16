@@ -226,9 +226,23 @@ class IPExcelFileReader extends IPExcelFileStreamer
             $work['finishDatePlan'] = $this->excelFile->getActiveSheet()->getCell('E' . $column)->getFormattedValue();
             $work['finishDateReal'] = $this->excelFile->getActiveSheet()->getCell('F' . $column)->getFormattedValue();
 
+
+            if (preg_match('/ИТОГО/i', $work['num'])) {
+                if ($isOrgWork) {
+                    if (!isset($this->streamData[4]['orgWorkSum'])) {
+                        $this->streamData[4]['orgWorkSum'] = $this->excelFile->getActiveSheet()->getCell('C' . $row)->getFormattedValue() ?? 0;
+                    }
+                } else {
+                    if (!isset($this->streamData[4]['sciWorkSum'])) {
+                        $this->streamData[4]['sciWorkSum'] = $this->excelFile->getActiveSheet()->getCell('C' . $row)->getFormattedValue() ?? 0;
+                    }
+                }
+            }
+
             if (preg_match('/Раздел IV/i', $work['num'])) {
                 $isOrgWork = true;
             }
+
 
             if ($isOrgWork) {
                 if ($checkWork($work)) {
@@ -259,8 +273,6 @@ class IPExcelFileReader extends IPExcelFileStreamer
 
         $this->streamData[4]['work_1'] = $sciWorks;
         $this->streamData[4]['work_2'] = $orgWorks;
-        $this->streamData[4]['sciWorkSum'] = 0;
-        $this->streamData[4]['orgWorkSum'] = 0;
     }
 
     /**
