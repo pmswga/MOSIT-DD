@@ -9,6 +9,11 @@ use Illuminate\Http\Request;
 class HelpPageController extends Controller
 {
 
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index() {
         return view('systems.service.help.help_index');
     }
