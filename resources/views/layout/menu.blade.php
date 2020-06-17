@@ -51,9 +51,9 @@
                     <a class="item" href="{{ route('files.index') }}">
                         Файлы
                     </a>
-                    <a class="item">
+                    <a class="item" href="{{ route('files.trash') }}">
                         Корзина
-                        <div class="ui grey label">0</div>
+                        <div class="ui grey label">{{ Auth::user()->getEmployee()->getFilesInTrash()->count() }}</div>
                     </a>
                 </div>
             </div>

@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Core\Config;
 
 class ListMessageCode
@@ -9,7 +8,7 @@ class ListMessageCode
     public const INFO = 0;
     public const SUCCESS = 1;
 
-    static public function getType(int $code)
+    static public function getType($code)
     {
         switch ($code)
         {

@@ -10,6 +10,7 @@ use App\Models\Main\IP\IPModel;
 use App\Models\Main\Storage\EmployeeFileModel;
 use App\Models\Main\Storage\ListFileTagModel;
 use Hamcrest\Util;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -124,7 +125,10 @@ class EmployeeFileResourceController extends Controller
             $path = str_replace('/', '\\', $path);
         }
 
-        $files = EmployeeFileModel::all()->where('directory', '=', $path);
+        $files = EmployeeFileModel::all()
+            ->where('directory', '=', $path)
+            ->where('inTrash', '=', false)
+            ->sortBy('filename');
 
         return view('systems.main.storage.files_index', [
             'currentDirectory' => $path,
@@ -267,6 +271,90 @@ class EmployeeFileResourceController extends Controller
     public function update(Request $request, EmployeeFileModel $employeeFileModel)
     {
         //
+    }
+
+
+    public function trashIndex() {
+        $files = EmployeeFileModel::all()
+            ->where('idEmployee', '=', Auth::id())
+            ->where('inTrash', '=', true);
+
+        return view('systems.main.storage.trash', [
+            'files' => $files
+        ]);
+    }
+
+
+    public function moveToTrash(EmployeeFileModel $file)
+    {
+        try
+        {
+            DB::beginTransaction();
+
+            if (!$file->moveToTrash()) {
+                throw new \Exception('Не удалось перемистить файл в корзину', ListMessageCode::ERROR);
+            }
+
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+            Session::flash('message', ['type' => ListMessageCode::getType($e->getCode()), 'message' => $e->getMessage()]);
+            return back();
+        }
+
+        Session::flash('message', ['type' => 'success', 'message' => 'Файл перемещён в корзину']);
+        return back();
+    }
+
+    public function restoreAllFromTrash()
+    {
+        try
+        {
+            $files = EmployeeFileModel::all()
+                ->where('idEmployee', '=', Auth::id())
+                ->where('inTrash', '=', true);
+
+            DB::beginTransaction();
+
+            foreach ($files as $file) {
+                if (!$file->restoreFromTrash()) {
+                    throw new \Exception('Не удалось восстановить файлы из корзины', ListMessageCode::ERROR);
+                }
+            }
+
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+            Session::flash('message', ['type' => ListMessageCode::getType($e->getCode()), 'message' => $e->getMessage()]);
+            return back();
+        }
+
+        Session::flash('message', ['type' => 'success', 'message' => 'Файлы восстановлены из корзины']);
+        return back();
+    }
+
+    public function restoreFromTrash(EmployeeFileModel $file)
+    {
+        try
+        {
+            DB::beginTransaction();
+
+            if (!$file->restoreFromTrash()) {
+                throw new \Exception('Не удалось восстановить файл из корзины', ListMessageCode::ERROR);
+            }
+
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+            Session::flash('message', ['type' => ListMessageCode::getType($e->getCode()), 'message' => $e->getMessage()]);
+            return back();
+        }
+
+        Session::flash('message', ['type' => 'success', 'message' => 'Файл восстановлен из корзины']);
+        return back();
     }
 
     /**

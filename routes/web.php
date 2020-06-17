@@ -29,7 +29,6 @@ Route::get('/login', function () { // #fixme Настроить класс Login
  */
 
 Route::prefix('help')->group(function () {
-
     Route::get('/', 'HelpPageController@index')->name('help.index');
     Route::get('/manual', 'HelpPageController@manual')->name('manual');
 
@@ -59,6 +58,11 @@ Route::resource('/files', 'Main\Storage\EmployeeFileResourceController');
 Route::get('/files/download/{file}', 'Main\Storage\EmployeeFileResourceController@downloadFile')->name('files.downloadFile');
 Route::post('/files_createDirectory', 'Main\Storage\EmployeeFileResourceController@createDirectory')->name('files.createDirectory');
 Route::delete('/files_destroyDirectory', 'Main\Storage\EmployeeFileResourceController@destroyDirectory')->name('files.destroyDirectory');
+Route::get('/trash', 'Main\Storage\EmployeeFileResourceController@trashIndex')->name('files.trash');
+Route::post('/files/trash/move/{file}', 'Main\Storage\EmployeeFileResourceController@moveToTrash')->name('files.moveToTrash');
+Route::post('/files/trash/restore/{file}', 'Main\Storage\EmployeeFileResourceController@restoreFromTrash')->name('files.restoreFromTrash');
+Route::post('/files/trash/restoreAll', 'Main\Storage\EmployeeFileResourceController@restoreAllFromTrash')->name('files.restoreAllFromTrash');
+
 
 Route::resource('/tickets', 'Main\Tickets\TicketResourceController');
 Route::get('/tickets_inbox', 'Main\Tickets\TicketResourceController@inbox')->name('tickets.inbox');
