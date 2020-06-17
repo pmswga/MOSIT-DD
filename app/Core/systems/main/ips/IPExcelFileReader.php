@@ -211,7 +211,7 @@ class IPExcelFileReader extends IPExcelFileStreamer
         $isOrgWork = false;
         $checkWork = function ($work) {
             return
-                (is_int($work['num']) or empty($work['num'])) and
+                ((is_int(intval($work['num'])) and intval($work['num']) !== 0) or empty($work['num'])) and
                 $work['caption'] and
                 $work['plan'];
         };
