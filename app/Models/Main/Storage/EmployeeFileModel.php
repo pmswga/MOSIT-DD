@@ -34,8 +34,8 @@ class EmployeeFileModel extends Model
     }
 
     public function getSize() {
-        if (Storage::exists($this->path)) {
-            return round((Storage::size($this->path)/1024)/1024, 2);
+        if (file_exists($this->path)) {
+            return round((filesize($this->path)/1024)/1024, 2);
         }
 
         return 0;
@@ -53,12 +53,26 @@ class EmployeeFileModel extends Model
         return $this->hasOne(ListFileTagModel::class,'idFileTag', 'idFileTag')->first();
     }
 
+    public function getInTrash() {
+        return $this->inTrash;
+    }
+
     public function getCreatedDate() {
         return $this->created_at->format($this->date_format);
     }
 
     public function getUpdatedDate() {
         return $this->updated_at->format($this->date_format);
+    }
+
+    public function moveToTrash() {
+        $this->inTrash = true;
+        return $this->update();
+    }
+
+    public function restoreFromTrash() {
+        $this->inTrash = false;
+        return $this->update();
     }
 
 }

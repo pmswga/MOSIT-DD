@@ -17,10 +17,11 @@ class CreateEmployeeFiles extends Migration
             $table->bigIncrements('idEmployeeFile');
             $table->unsignedBigInteger('idEmployee');
             $table->unsignedBigInteger('idFileTag');
-            $table->string('path', 255);
-            $table->string('directory', 255);
-            $table->string('filename', 255);
-            $table->string('extension', 10);
+            $table->string('path');
+            $table->string('directory');
+            $table->string('filename');
+            $table->string('extension');
+            $table->boolean('inTrash')->default(false);
             $table->timestamps();
         });
     }

@@ -169,7 +169,15 @@ class EmployeeModel extends Model
     }
 
     public function getFiles() {
-        return $this->hasOne(EmployeeFileModel::class, 'idEmployee', 'idEmployee')->get();
+        return $this->hasOne(EmployeeFileModel::class, 'idEmployee', 'idEmployee')
+            ->where('inTrash', '=', false)
+            ->get();
+    }
+
+    public function getFilesInTrash() {
+        return $this->hasOne(EmployeeFileModel::class, 'idEmployee', 'idEmployee')
+            ->where('inTrash', '=', true)
+            ->get();
     }
 
 }
