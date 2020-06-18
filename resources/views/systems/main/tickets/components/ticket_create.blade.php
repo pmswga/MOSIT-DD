@@ -3,7 +3,7 @@
         Создание нового поручения
     </div>
     <div class="content">
-        <form class="ui form" method="POST" action="{{ route('tickets.store') }}" enctype="multipart/form-data">
+        <form id="createTicketForm" class="ui form" method="POST" action="{{ route('tickets.store') }}" enctype="multipart/form-data">
             @csrf
             <div class="field">
                 <label>Тип поручения</label>
@@ -63,3 +63,24 @@
         </form>
     </div>
 </div>
+
+<script type="text/javascript">
+
+    $('#createTicketForm').on('submit', function () {
+        let startDate = new Date($('[name="ticketStartDate"]').val());
+        let endDate = new Date($('[name="ticketEndDate"]').val());
+
+        if (startDate < endDate) {
+            $('[name="ticketStartDate"]').parent().removeClass('error');
+            $('[name="ticketEndDate"]').parent().removeClass('error');
+
+            return true;
+        }
+
+        $('[name="ticketStartDate"]').parent().addClass('error');
+        $('[name="ticketEndDate"]').parent().addClass('error');
+
+        return false;
+    });
+
+</script>

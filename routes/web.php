@@ -36,12 +36,6 @@ Route::prefix('help')->group(function () {
 
 });
 
-
-Route::get('/test', function () {
-    return \App\Models\Main\Storage\ListFileTagModel::all()->toJson();
-});
-
-
 /**
  * Маршруты связанные с подсистемами
  */
