@@ -29,7 +29,9 @@
         </div>
 
         <script type="text/javascript">
-            $('.ui.dropdown').dropdown();
+            $('.ui.dropdown').dropdown({
+                allowTab: false
+            });
             $('.ui.accordion').accordion();
             $('.menu .item').tab();
         </script>

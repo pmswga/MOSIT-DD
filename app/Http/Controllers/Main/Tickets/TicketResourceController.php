@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Main\Tickets;
 
 use App\Core\Config\ListMessageCode;
+use App\Core\Constants\ListEmployeePostConstants;
 use App\Core\Constants\ListTicketHistoryTypeConstants;
 use App\Core\Constants\ListTicketStatusConstants;
 use App\Http\Controllers\Controller;
+use App\Models\Main\Staff\EmployeeModel;
 use App\Models\Main\Tickets\EmployeeTicketModel;
 use App\Models\Main\Tickets\TicketFileModel;
 use App\Models\Main\Tickets\TicketHistoryModel;
@@ -86,13 +88,15 @@ class TicketResourceController extends Controller
     public function store(Request $request)
     {
         $ticket = new TicketModel();
-        $ticket->idAuthor = Auth::id();
+        $ticket->idAuthor = $request->author;
         $ticket->idTicketType = $request->ticketType;
         $ticket->caption = $request->ticketCaption;
         $ticket->description = $request->ticketDescription;
         $ticket->startDate = date_format( date_create( $request->ticketStartDate . $request->ticketStartTime ), 'Y.m.d H:i:s');
         $ticket->endDate = date_format( date_create( $request->ticketEndDate . $request->ticketEndTime ), 'Y.m.d H:i:s');
         $ticket->idTicketStatus = ListTicketStatusConstants::CREATE;
+
+        $authorEmployee = EmployeeModel::all()->where('idEmployee', '=', $request->author)->first();
 
         try
         {
@@ -113,6 +117,15 @@ class TicketResourceController extends Controller
                     }
                 }
             }
+
+            if (Auth::id() !== intval($request->author)) {
+                if ($authorEmployee and $authorEmployee->getPost()->idEmployeePost === ListEmployeePostConstants::HEAD_DEPARTMENT) {
+                    if (!$ticket->assignEmployee(Auth::id())) {
+                        throw new \Exception();
+                    }
+                }
+            }
+
 
             if ($request->file('files') and count($request->file('files')) > 0) {
 
