@@ -185,7 +185,7 @@ class  DataSeeder {
             'secondName' => 'Смольянинова',
             'firstName' => 'Валерия',
             'patronymic' => 'Аполлоновна',
-            'personalPhone' => 'Аполлоновна',
+            'personalPhone' => '',
             'personalEmail' => 'valerysmol@mail.ru',
             'idFaculty' => 1,
             'idEmployeePost' => 1,

@@ -58,7 +58,7 @@
         </table>
     </fieldset>
 
-    @if(!Auth::user()->getEmployee()->getTeacher()->isNull)
+    @if(Auth::user()->getEmployee()->getTeacher())
         <fieldset class="ui segment">
             <legend><h3>Информация о преподавателе</h3></legend>
             <table class="ui definition table">
@@ -77,7 +77,7 @@
         </fieldset>
     @endif
 
-    @if(!Auth::user()->getEmployee()->getChief()->isNull)
+    @if(Auth::user()->getEmployee()->getChief())
         <fieldset class="ui segment">
             <legend><h3>Информация о начальнике</h3></legend>
             <table class="ui definition table">

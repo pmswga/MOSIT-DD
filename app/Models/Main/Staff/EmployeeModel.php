@@ -20,7 +20,6 @@ class EmployeeModel extends Model
     public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);
-        $this->isNull = true;
     }
 
     public function getSecondName() {
@@ -60,17 +59,17 @@ class EmployeeModel extends Model
     }
 
     public function getTeacher() {
-        return $this->hasOne(TeacherModel::class, 'idEmployee', 'idEmployee')->first() ?? new TeacherModel();
+        return $this->hasOne(TeacherModel::class, 'idEmployee', 'idEmployee')->first();
     }
 
     public function getChief() {
         $chiefId = $this->hasOne(EmployeeHierarchyModel::class, 'idEmployeeSub', 'idEmployee')->get()->first();
 
         if ($chiefId) {
-            return EmployeeModel::all()->where('idEmployee', $chiefId->idEmployeeSup)->first() ?? new EmployeeModel();
+            return EmployeeModel::all()->where('idEmployee', $chiefId->idEmployeeSup)->first();
         }
 
-        return new EmployeeModel();
+        return null;
     }
 
     public function getSubordinateEmployees() {

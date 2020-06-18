@@ -3,8 +3,20 @@
         Создание нового поручения
     </div>
     <div class="content">
-        <form class="ui form" method="POST" action="{{ route('tickets.store') }}" enctype="multipart/form-data">
+        <form id="createTicketForm" class="ui form" method="POST" action="{{ route('tickets.store') }}" enctype="multipart/form-data">
             @csrf
+            <div class="field">
+                <label>Автор</label>
+                <div class="field">
+                    <select class="ui dropdown" name="author">
+                        <option value="{{ Auth::id() }}">{{ Auth::user()->getEmployee()->getFullInitials() }}</option>
+                        @if(Auth::user()->getEmployee()->getChief() and
+                            Auth::user()->getEmployee()->getChief()->getPost()->idEmployeePost === \App\Core\Constants\ListEmployeePostConstants::HEAD_DEPARTMENT)
+                            <option value="{{ Auth::user()->getEmployee()->getChief()->idEmployee }}">{{ Auth::user()->getEmployee()->getChief()->getFullInitials() }}</option>
+                        @endif
+                    </select>
+                </div>
+            </div>
             <div class="field">
                 <label>Тип поручения</label>
                 <select class="ui dropdown" name="ticketType">
@@ -63,3 +75,24 @@
         </form>
     </div>
 </div>
+
+<script type="text/javascript">
+
+    $('#createTicketForm').on('submit', function () {
+        let startDate = new Date($('[name="ticketStartDate"]').val());
+        let endDate = new Date($('[name="ticketEndDate"]').val());
+
+        if (startDate < endDate) {
+            $('[name="ticketStartDate"]').parent().removeClass('error');
+            $('[name="ticketEndDate"]').parent().removeClass('error');
+
+            return true;
+        }
+
+        $('[name="ticketStartDate"]').parent().addClass('error');
+        $('[name="ticketEndDate"]').parent().addClass('error');
+
+        return false;
+    });
+
+</script>
