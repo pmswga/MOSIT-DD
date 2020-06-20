@@ -58,20 +58,37 @@
         </table>
     </fieldset>
 
+    @if(Auth::user()->getEmployee()->getRates())
+        <fieldset class="ui segment">
+            <legend><h3>Информация о ставках</h3></legend>
+            <table class="ui definition table">
+                <col width="35%">
+                <tbody>
+                    @foreach(Auth::user()->getEmployee()->getRates() as $rate)
+                        <tr>
+                            <td>{{ $rate->getRateType()->getCaption() }}</td>
+                            <td>{{ $rate->getRateValue() }}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </fieldset>
+    @endif
+
     @if(Auth::user()->getEmployee()->getTeacher())
         <fieldset class="ui segment">
             <legend><h3>Информация о преподавателе</h3></legend>
             <table class="ui definition table">
                 <col width="35%">
                 <tbody>
-                <tr>
-                    <td>Учёное звание</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>Учёная степень</td>
-                    <td></td>
-                </tr>
+                    <tr>
+                        <td>Учёное звание</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Учёная степень</td>
+                        <td></td>
+                    </tr>
                 </tbody>
             </table>
         </fieldset>
@@ -83,38 +100,38 @@
             <table class="ui definition table">
                 <col width="35%">
                 <tbody>
-                <tr>
-                    <td>Фамилия</td>
-                    <td>{{ Auth::user()->getEmployee()->getChief()->getSecondName() }}</td>
-                </tr>
-                <tr>
-                    <td>Имя</td>
-                    <td>{{ Auth::user()->getEmployee()->getChief()->getFirstName() }}</td>
-                </tr>
-                <tr>
-                    <td>Отчество</td>
-                    <td>{{ Auth::user()->getEmployee()->getChief()->getPatronymic() }}</td>
-                </tr>
-                <tr>
-                    <td>Должность</td>
-                    <td>{{ Auth::user()->getEmployee()->getChief()->getPost()->getCaption() }}</td>
-                </tr>
-                <tr>
-                    <td>Телефон</td>
-                    <td>{{ Auth::user()->getEmployee()->getChief()->getPersonalPhone() }}</td>
-                </tr>
-                <tr>
-                    <td>Почта</td>
-                    <td><a href="mailto:{{ Auth::user()->getEmployee()->getChief()->getPersonalEmail() }}">{{ Auth::user()->getEmployee()->getChief()->getPersonalEmail() }}</a></td>
-                </tr>
-                <tr>
-                    <td>Институт</td>
-                    <td>{{ Auth::user()->getEmployee()->getChief()->getFaculty()->getInstitute()->getCaption() }}</td>
-                </tr>
-                <tr>
-                    <td>Кафедра</td>
-                    <td>{{ Auth::user()->getEmployee()->getChief()->getFaculty()->getCaption() }}</td>
-                </tr>
+                    <tr>
+                        <td>Фамилия</td>
+                        <td>{{ Auth::user()->getEmployee()->getChief()->getSecondName() }}</td>
+                    </tr>
+                    <tr>
+                        <td>Имя</td>
+                        <td>{{ Auth::user()->getEmployee()->getChief()->getFirstName() }}</td>
+                    </tr>
+                    <tr>
+                        <td>Отчество</td>
+                        <td>{{ Auth::user()->getEmployee()->getChief()->getPatronymic() }}</td>
+                    </tr>
+                    <tr>
+                        <td>Должность</td>
+                        <td>{{ Auth::user()->getEmployee()->getChief()->getPost()->getCaption() }}</td>
+                    </tr>
+                    <tr>
+                        <td>Телефон</td>
+                        <td>{{ Auth::user()->getEmployee()->getChief()->getPersonalPhone() }}</td>
+                    </tr>
+                    <tr>
+                        <td>Почта</td>
+                        <td><a href="mailto:{{ Auth::user()->getEmployee()->getChief()->getPersonalEmail() }}">{{ Auth::user()->getEmployee()->getChief()->getPersonalEmail() }}</a></td>
+                    </tr>
+                    <tr>
+                        <td>Институт</td>
+                        <td>{{ Auth::user()->getEmployee()->getChief()->getFaculty()->getInstitute()->getCaption() }}</td>
+                    </tr>
+                    <tr>
+                        <td>Кафедра</td>
+                        <td>{{ Auth::user()->getEmployee()->getChief()->getFaculty()->getCaption() }}</td>
+                    </tr>
                 </tbody>
             </table>
         </fieldset>

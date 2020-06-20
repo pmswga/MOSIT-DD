@@ -2,13 +2,11 @@
 @section('title') Редактирование ИП @endsection
 
 @section('content')
-    <script type="text/javascript" src="{{ asset('js/core/systems/ips/calculator.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/vue.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/core/systems/ips/ip_table_sci_work.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/core/systems/ips/ip_table.js') }}"></script>
 
-
-    <form name="updateIP" novalidate class="ui form" method="POST" action="{{ route('ips.update', $ip) }}">
+    <form id="updateIPForm" class="ui form" method="POST" action="{{ route('ips.update', $ip) }}">
         @method('PUT')
         @csrf
 
@@ -41,11 +39,15 @@
                         </tr>
                         <tr>
                             <td>Вид ставки</td>
-                            <td>{{ $file[0]['rateType'] }}</td>
+                            <td>
+                                <input type="text" readonly id="rateType" value="{{ $file[0]['rateType'] }}">
+                            </td>
                         </tr>
                         <tr>
                             <td>Значение ставки</td>
-                            <td>{{ $file[0]['rateValue'] }}</td>
+                            <td>
+                                <input type="number" readonly id="rateValue"  value="{{ $file[0]['rateValue'] }}">
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -245,6 +247,8 @@
             <legend><h3>Общая годовая нагрузка</h3></legend>
             <table class="ui table">
                 <col width="50%">
+                <col width="25%">
+                <col width="25%">
                 <thead>
                     <tr>
                         <th>Виды работ</th>
@@ -255,27 +259,37 @@
                 <tbody>
                     <tr>
                         <td>Учебная работа</td>
-                        <td id="workSum1Plan">{{ $file[4]['workSum1'] }}</td>
+                        <td>
+                            <input type="number" id="workSum1Plan" readonly value="{{ $file[4]['workSum1'] }}">
+                        </td>
                         <td id="workSum1Real"></td>
                     </tr>
                     <tr>
-                        <td>Учебно методическая работа</td>
-                        <td id="workSum2Plan">{{ $file[4]['workSum2'] }}</td>
+                        <td>Учебно-методическая работа</td>
+                        <td>
+                            <input type="number" id="workSum2Plan" readonly value="{{ $file[4]['workSum2'] }}">
+                        </td>
                         <td id="workSum2Real"></td>
                     </tr>
                     <tr>
                         <td>Научно-исследовательская работа</td>
-                        <td id="workSum3Plan">{{ $file[4]['workSum3'] }}</td>
+                        <td>
+                            <input type="number" id="workSum3Plan" readonly value="{{ $file[4]['workSum3'] }}">
+                        </td>
                         <td id="workSum3Real"></td>
                     </tr>
                     <tr>
                         <td>Организационно-методическая и воспитательная работа</td>
-                        <td id="workSum4Plan">{{ $file[4]['workSum4'] }}</td>
+                        <td>
+                            <input type="number" id="workSum4Plan" readonly value="{{ $file[4]['workSum4'] }}">
+                        </td>
                         <td id="workSum4Real"></td>
                     </tr>
-                    <tr>
+                    <tr id="workSumRow">
                         <td>Итого</td>
-                        <td id="workSumPlan">{{ $file[4]['sum'] }}</td>
+                        <td>
+                            <input type="number" id="workSumPlan" readonly value="{{ $file[4]['sum'] }}">
+                        </td>
                         <td id="workSumReal"></td>
                     </tr>
                 </tbody>
@@ -286,56 +300,113 @@
             <input type="hidden" name="idTeacher" value="{{ $idTeacher }}">
             <input type="submit" class="ui orange fluid button" value="Сохранить">
         </div>
-
     </form>
 
     <script type="text/javascript">
 
-        $(document).ready(function () {
-            $('[type=number]').attr('min', 0);
-            $('[type=number]').attr('step', '0.01');
-        });
+        function calculateSum(array) {
+            let sum = 0;
 
+            array.forEach(function (value, index) {
+                sum += parseFloat(value.plan);
+            }, sum);
 
-        $('[type=number]').on('change', function (element) {
-            let workSum3Plan = IPCalculate.calcualteSum('.workSum3Plan');
-            let workSum3Real = IPCalculate.calcualteSum('.workSum3Real');
-            let workSum4Plan = IPCalculate.calcualteSum('.workSum4Plan');
-            let workSum4Real = IPCalculate.calcualteSum('.workSum4Real');
-            let workSum5Plan = IPCalculate.calcualteSum('.workSum5Plan');
-            let workSum5Real = IPCalculate.calcualteSum('.workSum5Real');
-            let workSumPlan = workSum3Plan + workSum4Plan + workSum5Plan;
-            let workSumReal = workSum3Real + workSum4Real + workSum5Real;
+            return sum;
+        }
 
-            $('#workSum2Plan').text(workSum3Plan.toString());
-            $('#workSum2Real').text(workSum3Real.toString());
-            $('#workSum3Plan').text(workSum4Plan.toString());
-            $('#workSum3Real').text(workSum4Real.toString());
-            $('#workSum4Plan').text(workSum5Plan.toString());
-            $('#workSum4Real').text(workSum5Real.toString());
-            $('#workSumPlan').text(workSumPlan.toString());
-            $('#workSumReal').text(workSumReal.toString());
-        });
-
-        var app2 = new Vue({
+        var orgWorkTable = new Vue({
             el: '#orgWorkTable',
             data: {
                 orgWorksCaptions: [],
                 orgWorks: JSON.parse('{{ json_encode($file[4]['work_2']) }}'.replace(/&quot;/ig,'"')),
                 countOfOrgWork: '{{count($file[4]['work_2'])}}',
                 orgWorkSumPlan: 0
+            },
+            methods: {
+                getSumPlan() {
+                    return calculateSum(this.orgWorks);
+                }
             }
         });
 
-        var app3 = new Vue({
+        var sciWorkTable = new Vue({
             el: '#sciWorkTable',
             data: {
                 sciWorks: JSON.parse('{{ json_encode($file[4]['work_1']) }}'.replace(/&quot;/ig,'"')),
                 countOfSciWork: '{{count($file[4]['work_1'])}}',
                 sciWorkSumPlan: 0
+            },
+            methods: {
+                getSumPlan() {
+                    return calculateSum(this.sciWorks);
+                }
             }
         });
 
+        $(document).ready(function () {
+            $('[type=number]').attr('min', 0);
+            $('[type=number]').attr('step', '0.01');
+        });
+
+        let rateValue = parseFloat($('#rateValue').val());
+        let rateType = $('#rateType').val();
+
+        let times = [
+            {rateValue: 0.1, staff: 150.0, other: 147.0},
+            {rateValue: 0.2, staff: 300.0, other: 294.0},
+            {rateValue: 0.25, staff: 375.0, other: 367.5},
+            {rateValue: 0.3, staff: 449.0, other: 441.0},
+            {rateValue: 0.4, staff: 599.9, other: 588.0},
+            {rateValue: 0.5, staff: 749.9, other: 735.0},
+            {rateValue: 0.6, staff: 899.9, other: 882.0},
+            {rateValue: 0.7, staff: 1049.9, other: 1029.0},
+            {rateValue: 0.8, staff: 1199.8, other: 1176.0},
+            {rateValue: 0.9, staff: 1349.8, other: 1323.0},
+            {rateValue: 1.0, staff: 1499.8, other: 1470.0},
+        ];
+
+        function getTimeLimit(rateValue) {
+            let timeLimit = null;
+
+            times.forEach(function (value, index, array) {
+                if (value.rateValue === rateValue) {
+                    timeLimit = value;
+                }
+            }, timeLimit, rateValue);
+
+            return timeLimit;
+        }
+
+        $('[type=number]').on('change', function (element) {
+
+            let workSum1Plan = parseFloat($('#workSum1Plan').val());
+            let workSum2Plan = parseFloat($('#workSum2Plan').val());
+
+            $('#workSum3Plan').val(sciWorkTable.getSumPlan());
+            $('#workSum4Plan').val(orgWorkTable.getSumPlan());
+            $('#workSumPlan').val(
+                workSum1Plan +
+                workSum2Plan +
+                sciWorkTable.getSumPlan() +
+                orgWorkTable.getSumPlan()
+            );
+        });
+
+        $('#updateIPForm').on('submit', function () {
+
+            let timeLimit = getTimeLimit(rateValue);
+            let sum = parseFloat($('#workSumPlan').val());
+
+            if (sum > timeLimit.other) {
+                $('#workSumRow').addClass('error');
+
+                return false;
+            } else {
+                $('#workSumRow').removeClass('error');
+            }
+
+            return true;
+        });
 
     </script>
 @endsection

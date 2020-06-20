@@ -3,50 +3,57 @@
 use Illuminate\Support\Facades\Route;
 
 /**
+ * ===========================================================
  * Маршруты связанные с аутентификацией/авторизацией и выходом
+ * ===========================================================
  */
 Route::post('/login', '\App\Http\Controllers\Auth\LoginController@login')->name('login');
+Route::get('/login', '\App\Http\Controllers\Auth\LoginController@redirectToIndex');
 Route::post('/logout', '\App\Http\Controllers\Auth\LoginController@logout')->name('logout');
 Route::post('/reset_password', '\App\Http\Controllers\Auth\ResetPasswordController@resetPassword')->name('reset_password');
 
 
 /**
+ * ========================
  * Маршруты главных страниц
+ * ========================
  */
 Route::get('/', 'MainPageController@index')->name('index');
 Route::get('/home', 'AccountPageController@home')->name('home');
 Route::get('/profile','AccountPageController@profile')->name('profile');
 
-Route::get('/login', function () { // #fixme Настроить класс LoginController или иной для автоматического редиректа на главную страницу
-    return redirect()->route('index');
-});
-
-
-
 
 /**
+ * =====================
  * Маршруты справочников
+ * =====================
  */
 
 Route::prefix('help')->group(function () {
     Route::get('/', 'HelpPageController@index')->name('help.index');
     Route::get('/manual', 'HelpPageController@manual')->name('manual');
 
-    Route::get('/employee_list', 'HelpPageController@employeeList')->name('employee_list');
-
 });
 
 /**
+ * =================================
  * Маршруты связанные с подсистемами
+ * =================================
  */
+
+
+/**
+ * Подсистема индивидуальных планов
+ */
+
 Route::resource('/ips', 'Main\IP\IPResourceController');
 Route::get('/ips/download/{ip}', 'Main\IP\IPResourceController@downloadIP')->name('ips.download');
-Route::get('/ips/works/orgWorks', function () {
-    return \App\Models\Main\IP\ListWorks::all()->sortBy('workCaption')->toJson();
-    #return \App\Models\Main\IP\ListWorks::all()->sortBy('workCaption')->groupBy('workCaption')->toJson();
-});
+Route::get('/ips/works/orgWorks', 'Main\IP\WorkResourceController@ajaxGetListOrgWorks');
 
 
+/**
+ * Подсистема хранения материалов
+ */
 
 Route::resource('/files', 'Main\Storage\EmployeeFileResourceController');
 Route::get('/files/download/{file}', 'Main\Storage\EmployeeFileResourceController@downloadFile')->name('files.downloadFile');
@@ -57,6 +64,9 @@ Route::post('/files/trash/move/{file}', 'Main\Storage\EmployeeFileResourceContro
 Route::post('/files/trash/restore/{file}', 'Main\Storage\EmployeeFileResourceController@restoreFromTrash')->name('files.restoreFromTrash');
 Route::post('/files/trash/restoreAll', 'Main\Storage\EmployeeFileResourceController@restoreAllFromTrash')->name('files.restoreAllFromTrash');
 
+/**
+ * Подсистема поручений
+ */
 
 Route::resource('/tickets', 'Main\Tickets\TicketResourceController');
 Route::get('/tickets_inbox', 'Main\Tickets\TicketResourceController@inbox')->name('tickets.inbox');

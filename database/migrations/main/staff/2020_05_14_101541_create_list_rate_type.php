@@ -15,7 +15,7 @@ class CreateListRateType extends Migration
     {
         Schema::create(\App\Core\Config\ListDatabaseTable::TABLE_LIST_RATE_TYPE, function (Blueprint $table) {
             $table->bigIncrements('idRateType');
-            $table->string('caption', 255);
+            $table->string('caption')->unique();
         });
     }
 

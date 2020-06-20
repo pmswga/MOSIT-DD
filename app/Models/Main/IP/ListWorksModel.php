@@ -5,7 +5,7 @@ namespace App\Models\Main\IP;
 use App\Core\Config\ListDatabaseTable;
 use Illuminate\Database\Eloquent\Model;
 
-class ListWorks extends Model
+class ListWorksModel extends Model
 {
     protected $table = ListDatabaseTable::TABLE_LIST_WORKS;
     protected $primaryKey = 'idWork';

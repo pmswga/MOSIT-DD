@@ -95,9 +95,6 @@
                 <a class="item" href="{{ route('manual') }}">
                     Руководство
                 </a>
-                <a class="item" href="{{ route('employee_list') }}">
-                    Список сотрудников
-                </a>
             </div>
         </div>
         <div class="item" style="padding-top: 5px"> <!-- #fixme fix css -->

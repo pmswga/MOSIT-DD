@@ -44,7 +44,8 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-    public function checkUser($email, $password) {
+    public function checkUser($email, $password)
+    {
         $user = AccountModel::all()->where('email', '=', $email)->first();
 
         if ($user) {
@@ -52,6 +53,11 @@ class LoginController extends Controller
         }
 
         return false;
+    }
+
+    public function redirectToIndex()
+    {
+        return redirect()->route('index');
     }
 
     public function login(Request $request)

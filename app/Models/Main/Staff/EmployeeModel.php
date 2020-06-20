@@ -3,6 +3,7 @@
 namespace App\Models\Main\Staff;
 
 use App\Core\Config\ListDatabaseTable;
+use App\Core\Constants\ListRateTypeConstants;
 use App\Models\Main\Storage\EmployeeFileModel;
 use App\Models\Main\Tickets\EmployeeTicketModel;
 use App\Models\Main\Tickets\TicketModel;
@@ -61,6 +62,72 @@ class EmployeeModel extends Model
     public function getTeacher() {
         return $this->hasOne(TeacherModel::class, 'idEmployee', 'idEmployee')->first();
     }
+
+    public function setRate($rateType, $rateValue) {
+        switch ($rateType)
+        {
+            case ListRateTypeConstants::STAFF:
+            {
+                $currentRate = $this->getStaffRate();
+                if ($currentRate) {
+                    $currentRate->rateValue = $rateValue;
+                    return $currentRate->save();
+                }
+            } break;
+            case ListRateTypeConstants::INTERNAL:
+            {
+                $currentRate = $this->getInternalRate();
+                if ($currentRate) {
+                    $currentRate->rateValue = $rateValue;
+                    return $currentRate->save();
+                }
+            } break;
+            case ListRateTypeConstants::EXTERNAL:
+            {
+                $currentRate = $this->getExternalRate();
+                if ($currentRate) {
+                    $currentRate->rateValue = $rateValue;
+                    return $currentRate->save();
+                }
+            } break;
+        }
+
+        $currentRate = new RateModel();
+        $currentRate->idEmployee = $this->idEmployee;
+        $currentRate->idRateType = $rateType;
+        $currentRate->rateValue = $rateValue;
+
+        return $currentRate->save();
+    }
+
+    public function getStaffRate() {
+        return $this->hasOne(RateModel::class, 'idEmployee', 'idEmployee')
+            ->where('idRateType', '=', ListRateTypeConstants::STAFF)
+            ->first();
+    }
+
+    public function getInternalRate() {
+        return $this->hasOne(RateModel::class, 'idEmployee', 'idEmployee')
+            ->where('idRateType', '=', ListRateTypeConstants::INTERNAL)
+            ->first();
+    }
+
+    public function getExternalRate() {
+        return $this->hasOne(RateModel::class, 'idEmployee', 'idEmployee')
+            ->where('idRateType', '=', ListRateTypeConstants::EXTERNAL)
+            ->first();
+    }
+
+    public function getRates() {
+        $rates = $this->hasMany(RateModel::class, 'idEmployee', 'idEmployee')->get();
+
+        if ($rates->isNotEmpty()) {
+            return $rates;
+        }
+
+        return null;
+    }
+
 
     public function getChief() {
         $chiefId = $this->hasOne(EmployeeHierarchyModel::class, 'idEmployeeSub', 'idEmployee')->get()->first();
