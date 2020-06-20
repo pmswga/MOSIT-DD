@@ -5,43 +5,19 @@
 
     <div class="ui fluid styled accordion">
         <div class="title">
-            Test
+            Списки сотрудников
         </div>
         <div class="content">
-            <fieldset class="ui segment">
-                <legend><h3>Руководство кафедры</h3></legend>
-                <div class="ui cards">
-                    @foreach($leadership as $leading)
-                        <div class="card">
-                            <div class="content">
-                                <div class="header">{{ $leading->getFullInitials() }}</div>
-                                <div class="description">{{ $leading->getPost()->getCaption() }}</div>
-                            </div>
-                            <div class="extra content">
-                                <div class="ui list">
-                                    <div class="item">
-                                        <i class="mail icon"></i>
-                                        <div class="content">
-                                            <a href="mailto:{{ $leading->getPersonalEmail() }}">{{ $leading->getPersonalEmail() }}</a>
-                                        </div>
-                                    </div>
-                                    <div class="item">
-                                        <i class="phone icon"></i>
-                                        <div class="content">
-                                            <a href="#call">{{ $leading->getPersonalPhone() }}</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    @endforeach
-                </div>
-            </fieldset>
 
-            <fieldset class="ui segment">
-                <legend><h3>Сотрудники кафедры</h3></legend>
-                <table class="ui table">
-                    <thead>
+            <table class="ui table">
+                <colgroup>
+                    <col width="5%">
+                    <col width="25%">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th colspan="6"><h3>Руководство кафедры</h3></th>
+                    </tr>
                     <tr>
                         <th>№</th>
                         <th>ФИО</th>
@@ -50,8 +26,42 @@
                         <th>Институт / Кафедра</th>
                         <th>Должность</th>
                     </tr>
-                    </thead>
-                    <tbody>
+                </thead>
+                <tbody>
+                    @foreach($leadership as $leading)
+                        <tr>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $leading->getFullInitials() }}</td>
+                            <td>{{ $leading->getPersonalPhone() }}</td>
+                            <td>{{ $leading->getPersonalEmail() }}</td>
+                            <td>{{ $leading->getFaculty()->getInstitute()->getCaption() . ' / ' . $leading->getFaculty()->getCaption() }}</td>
+                            <td>
+                                {{ $leading->getPost()->getCaption() }}
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+
+            <table class="ui table">
+                <colgroup>
+                    <col width="5%">
+                    <col width="25%">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th colspan="6"><h3>Сотрудники кафедры</h3></th>
+                    </tr>
+                    <tr>
+                        <th>№</th>
+                        <th>ФИО</th>
+                        <th>Телефон</th>
+                        <th>Почта</th>
+                        <th>Институт / Кафедра</th>
+                        <th>Должность</th>
+                    </tr>
+                </thead>
+                <tbody>
                     @foreach($employees as $employee)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
@@ -64,9 +74,8 @@
                             </td>
                         </tr>
                     @endforeach
-                    </tbody>
-                </table>
-            </fieldset>
+                </tbody>
+            </table>
         </div>
     </div>
 
