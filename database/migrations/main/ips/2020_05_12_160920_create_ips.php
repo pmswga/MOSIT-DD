@@ -15,11 +15,20 @@ class CreateIps extends Migration
     {
         Schema::create(\App\Core\Config\ListDatabaseTable::TABLE_IPS, function (Blueprint $table) {
             $table->bigIncrements('idIP');
-            $table->integer('idTeacher');
+            $table->unsignedBigInteger('idTeacher')->index();
             $table->string('educationYear', 9);
-            $table->integer('idEmployeeFile');
-            $table->integer('lastEmployee');
+            $table->unsignedBigInteger('idEmployeeFile')->index();
+            $table->unsignedBigInteger('lastEmployee')->index();
             $table->dateTime('lastUpdate');
+            $table->foreign('idTeacher')->references('idTeacher')->on(\App\Core\Config\ListDatabaseTable::TABLE_TEACHERS)
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+            $table->foreign('idEmployeeFile')->references('idEmployeeFile')->on(\App\Core\Config\ListDatabaseTable::TABLE_EMPLOYEE_FILES)
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+            $table->foreign('lastEmployee')->references('idEmployee')->on(\App\Core\Config\ListDatabaseTable::TABLE_EMPLOYEES)
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
         });
     }
 

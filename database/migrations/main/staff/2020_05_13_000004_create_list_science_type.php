@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateListAcademicTitle extends Migration
+class CreateListScienceType extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class CreateListAcademicTitle extends Migration
      */
     public function up()
     {
-        Schema::create(\App\Core\Config\ListDatabaseTable::TABLE_LIST_ACADEMIC_TITLE, function (Blueprint $table) {
-            $table->bigIncrements('idAcademicTitle');
-            $table->string('caption', 255)->unique();
+        Schema::create(\App\Core\Config\ListDatabaseTable::TABLE_LIST_SCIENCE_TYPE, function (Blueprint $table) {
+            $table->bigIncrements('idScienceType');
+            $table->string('caption')->unique();
         });
     }
 
@@ -26,6 +26,6 @@ class CreateListAcademicTitle extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists(\App\Core\Config\ListDatabaseTable::TABLE_LIST_ACADEMIC_TITLE);
+        Schema::dropIfExists(\App\Core\Config\ListDatabaseTable::TABLE_LIST_SCIENCE_TYPE);
     }
 }

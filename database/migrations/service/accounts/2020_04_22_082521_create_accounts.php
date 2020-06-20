@@ -15,13 +15,16 @@ class CreateAccounts extends Migration
     {
         Schema::create(\App\Core\Config\ListDatabaseTable::TABLE_ACCOUNTS, function (Blueprint $table) {
             $table->bigIncrements('idAccount');
-            $table->integer("idAccountType");
+            $table->unsignedBigInteger("idAccountType")->index();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
             $table->foreign('idAccount')->references('idEmployee')->on(\App\Core\Config\ListDatabaseTable::TABLE_EMPLOYEES)
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+            $table->foreign('idAccountType')->references('idAccountType')->on(\App\Core\Config\ListDatabaseTable::TABLE_LIST_ACCOUNT_TYPE)
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
         });

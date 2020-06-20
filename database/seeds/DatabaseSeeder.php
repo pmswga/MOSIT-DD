@@ -42,6 +42,8 @@ class DatabaseSeeder extends Seeder
             EmployeeHierarchySeeder::class,
             TeachersSeeder::class,
 
+            RatesSeeder::class,
+
             AccountsSeeder::class,
             AccountRightsSeeder::class
         ]);

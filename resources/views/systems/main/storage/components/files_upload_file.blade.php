@@ -3,11 +3,11 @@
         Загрузка файла
     </div>
     <div class="content">
-        <form class="ui form" method="POST" onsubmit="$(this).attr('class', 'ui loading form')" enctype="multipart/form-data" action="{{ route('files.store') }}">
+        <form class="ui form" method="POST" onsubmit="$(this).attr('class', 'ui loading form')" enctype="multipart/form-data" action="{{ route('storage.store') }}">
             @csrf
             <div class="field">
                 <label>Файл</label>
-                <input type="file" name="file" required>
+                <input type="file" multiple name="file[]" required>
             </div>
             <div class="field">
                 <label>Тег</label>

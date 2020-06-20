@@ -15,7 +15,7 @@ class CreateListTicketStatus extends Migration
     {
         Schema::create(\App\Core\Config\ListDatabaseTable::TABLE_LIST_TICKET_STATUS, function (Blueprint $table) {
             $table->bigIncrements('idTicketStatus');
-            $table->string('caption', 255)->unique();
+            $table->string('caption')->unique();
         });
     }
 

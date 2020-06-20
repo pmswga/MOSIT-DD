@@ -55,23 +55,24 @@ Route::get('/ips/works/orgWorks', 'Main\IP\WorkResourceController@ajaxGetListOrg
  * Подсистема хранения материалов
  */
 
-Route::resource('/files', 'Main\Storage\EmployeeFileResourceController');
-Route::get('/files/download/{file}', 'Main\Storage\EmployeeFileResourceController@downloadFile')->name('files.downloadFile');
-Route::post('/files_createDirectory', 'Main\Storage\EmployeeFileResourceController@createDirectory')->name('files.createDirectory');
-Route::delete('/files_destroyDirectory', 'Main\Storage\EmployeeFileResourceController@destroyDirectory')->name('files.destroyDirectory');
-Route::get('/trash', 'Main\Storage\EmployeeFileResourceController@trashIndex')->name('files.trash');
-Route::post('/files/trash/move/{file}', 'Main\Storage\EmployeeFileResourceController@moveToTrash')->name('files.moveToTrash');
-Route::post('/files/trash/restore/{file}', 'Main\Storage\EmployeeFileResourceController@restoreFromTrash')->name('files.restoreFromTrash');
-Route::post('/files/trash/restoreAll', 'Main\Storage\EmployeeFileResourceController@restoreAllFromTrash')->name('files.restoreAllFromTrash');
+Route::get('/storage/download/{file}', 'Main\Storage\EmployeeFileResourceController@downloadFile')->name('storage.downloadFile');
+Route::post('/storage/createDirectory', 'Main\Storage\EmployeeFileResourceController@createDirectory')->name('storage.createDirectory');
+Route::delete('/storage/destroyDirectory', 'Main\Storage\EmployeeFileResourceController@destroyDirectory')->name('storage.destroyDirectory');
+Route::get('/storage/trash', 'Main\Storage\EmployeeFileResourceController@trashIndex')->name('storage.trash');
+Route::post('/storage/trash/move/{file}', 'Main\Storage\EmployeeFileResourceController@moveToTrash')->name('storage.moveToTrash');
+Route::post('/storage/trash/restore/{file}', 'Main\Storage\EmployeeFileResourceController@restoreFromTrash')->name('storage.restoreFromTrash');
+Route::post('/storage/trash/restoreAll', 'Main\Storage\EmployeeFileResourceController@restoreAllFromTrash')->name('storage.restoreAllFromTrash');
+
+Route::resource('/storage', 'Main\Storage\EmployeeFileResourceController');
 
 /**
  * Подсистема поручений
  */
 
-Route::resource('/tickets', 'Main\Tickets\TicketResourceController');
-Route::get('/tickets_inbox', 'Main\Tickets\TicketResourceController@inbox')->name('tickets.inbox');
-Route::get('/tickets_expired', 'Main\Tickets\TicketResourceController@expired')->name('tickets.expired');
+Route::get('/tickets/inbox', 'Main\Tickets\TicketResourceController@inbox')->name('tickets.inbox');
+Route::get('/tickets/expired', 'Main\Tickets\TicketResourceController@expired')->name('tickets.expired');
 Route::get('/tickets/download/{file}', 'Main\Tickets\TicketResourceController@downloadFile')->name('tickets.downloadFile');
 Route::match(['patch', 'put'], '/ticket/attachFile/{ticket}', 'Main\Tickets\TicketResourceController@attachFile')->name('tickets.attachFile');
 Route::match(['patch', 'put'], '/ticket/comment/{ticket}', 'Main\Tickets\TicketResourceController@addComment')->name('tickets.addComment');
 
+Route::resource('/tickets', 'Main\Tickets\TicketResourceController');

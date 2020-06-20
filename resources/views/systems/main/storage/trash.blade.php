@@ -3,22 +3,23 @@
 
 @section('content')
 
-    <fieldset class="ui segment">
-        <legend><h3>Панель инструментов</h3></legend>
-        <div class="ui fluid primary buttons">
-            <form class="ui form" style="width: 100%; margin: 0; padding: 0;" method="POST" action="{{ route('files.restoreAllFromTrash') }}">
-                @csrf
-                <button type="submit" class="ui fluid icon button">
-                    <i class="undo icon"></i>
-                    Восстановить все файлы
-                </button>
-            </form>
-        </div>
-    </fieldset>
+    @if($files->isNotEmpty())
+        <fieldset class="ui segment">
+            <legend><h3>Панель инструментов</h3></legend>
+            <div class="ui fluid primary buttons">
+                <form class="ui form" style="width: 100%; margin: 0; padding: 0;" method="POST" action="{{ route('storage.restoreAllFromTrash') }}">
+                    @csrf
+                    <button type="submit" class="ui fluid icon button">
+                        <i class="undo icon"></i>
+                        Восстановить все файлы
+                    </button>
+                </form>
+            </div>
+        </fieldset>
+    @endif
 
-    <fieldset class="ui segment">
-        <legend><h3>Корзина</h3></legend>
-        <table class="ui table">
+    @if($files->isNotEmpty())
+        <table class="ui celled striped table">
             <thead>
                 <tr>
                     <th>Имя</th>
@@ -56,16 +57,16 @@
                         </td>
                         <td>
                             <div class="ui mini basic icon fluid buttons">
-                                <a class="ui icon button" href="{{ route('files.downloadFile', $file) }}">
+                                <a class="ui icon button" href="{{ route('storage.downloadFile', $file) }}">
                                     <i class="download icon"></i>
                                 </a>
-                                <form style="margin: 0; padding: 0;" method="POST" action="{{ route('files.restoreFromTrash', $file) }}">
+                                <form style="margin: 0; padding: 0;" method="POST" action="{{ route('storage.restoreFromTrash', $file) }}">
                                     @csrf
                                     <button type="submit" class="ui basic icon fluid button">
                                         <i class="undo icon"></i>
                                     </button>
                                 </form>
-                                <form style="margin: 0; padding: 0;" method="POST" action="{{ route('files.destroy', $file) }}" onsubmit="return confirm('Удалить файл?')">
+                                <form style="margin: 0; padding: 0;" method="POST" action="{{ route('storage.destroy', $file) }}" onsubmit="return confirm('Удалить файл?')">
                                     @method('DELETE')
                                     @csrf
                                     <button type="submit" class="ui basic icon fluid button">
@@ -78,6 +79,11 @@
                 @endforeach
             </tbody>
         </table>
-    </fieldset>
+    @else
+        <figure class="ui empty-msg center aligned image">
+            <i class="massive trash icon"></i>
+            <figcaption>Корзина пуста</figcaption>
+        </figure>
+    @endif
 
 @endsection

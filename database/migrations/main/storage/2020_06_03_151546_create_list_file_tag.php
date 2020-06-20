@@ -15,7 +15,11 @@ class CreateListFileTag extends Migration
     {
         Schema::create(\App\Core\Config\ListDatabaseTable::TABLE_LIST_FILE_TAG, function (Blueprint $table) {
             $table->bigIncrements('idFileTag');
-            $table->string('caption');
+            $table->unsignedBigInteger('idSubSystem')->index();
+            $table->string('caption')->unique();
+            $table->foreign('idSubSystem')->references('idSubSystem')->on(\App\Core\Config\ListDatabaseTable::TABLE_LIST_SUB_SYSTEM)
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
         });
     }
 

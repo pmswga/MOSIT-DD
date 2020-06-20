@@ -15,7 +15,7 @@ class CreateListDegree extends Migration
     {
         Schema::create(\App\Core\Config\ListDatabaseTable::TABLE_LIST_DEGREE, function (Blueprint $table) {
             $table->bigIncrements('idDegree');
-            $table->string('caption', 255)->unique();
+            $table->string('caption')->unique();
         });
     }
 

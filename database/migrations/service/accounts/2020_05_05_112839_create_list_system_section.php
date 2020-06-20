@@ -15,7 +15,7 @@ class CreateListSystemSection extends Migration
     {
         Schema::create(\App\Core\Config\ListDatabaseTable::TABLE_LIST_SYSTEM_SECTION, function (Blueprint $table) {
             $table->bigIncrements('idSystemSection');
-            $table->string('caption', 255)->unique();
+            $table->string('caption')->unique();
         });
     }
 

@@ -15,10 +15,13 @@ class CreateListWorks extends Migration
     {
         Schema::create(\App\Core\Config\ListDatabaseTable::TABLE_LIST_WORKS, function (Blueprint $table) {
             $table->bigIncrements('idWork');
-            $table->unsignedBigInteger('idWorkType');
+            $table->unsignedBigInteger('idWorkType')->index();
             $table->string('workCaption');
             $table->string('subCaption');
-            $table->integer('maxHours');
+            $table->decimal('maxHours');
+            $table->foreign('idWorkType')->references('idWorkType')->on(\App\Core\Config\ListDatabaseTable::TABLE_LIST_WORK_TYPE)
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
         });
     }
 

@@ -46,7 +46,7 @@ class TicketResourceController extends Controller
     public function index()
     {
         //#fixme Разграничить передаваемые данные в зависимости от типа пользователя
-        return view('systems.main.tickets.ticket_index', [
+        return view('systems.main.tickets.index', [
             'ticketTypes' => ListTicketTypeModel::all(),
             'employees' => Auth::user()->getEmployee()->getSubordinateEmployees(),
             'assignedTickets' => Auth::user()->getEmployee()->getAssignedTickets(),
@@ -56,15 +56,15 @@ class TicketResourceController extends Controller
 
     public function inbox()
     {
-        return view('systems.main.tickets.ticket_inbox ', [
-            'inboxTicketList' => Auth::user()->getEmployee()->getUnseenTickets()
+        return view('systems.main.tickets.inbox ', [
+            'inboxTickets' => Auth::user()->getEmployee()->getInboxTickets()
         ]);
     }
 
     public function expired()
     {
-        return view('systems.main.tickets.ticket_inbox ', [
-            'inboxTicketList' => Auth::user()->getEmployee()->getExpiredTickets()
+        return view('systems.main.tickets.expired ', [
+            'inboxTickets' => Auth::user()->getEmployee()->getExpiredTickets()
         ]);
     }
 

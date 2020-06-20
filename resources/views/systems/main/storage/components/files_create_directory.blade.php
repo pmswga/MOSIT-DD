@@ -3,7 +3,7 @@
         Создание папки
     </div>
     <div class="content">
-        <form class="ui form" method="POST" action="{{ route('files.createDirectory') }}">
+        <form class="ui form" method="POST" action="{{ route('storage.createDirectory') }}">
             @csrf
             <div class="field">
                 <label>Название</label>
