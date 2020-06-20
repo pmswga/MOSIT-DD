@@ -191,7 +191,7 @@ class TicketResourceController extends Controller
             DB::rollBack();
         }
 
-        return view('systems.main.tickets.ticket_show', [
+        return view('systems.main.tickets.show', [
             'ticket' => $ticket
         ]);
     }
