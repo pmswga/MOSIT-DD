@@ -15,7 +15,7 @@ class CreateListAccountType extends Migration
     {
         Schema::create(\App\Core\Config\ListDatabaseTable::TABLE_LIST_ACCOUNT_TYPE, function (Blueprint $table) {
             $table->bigIncrements('idAccountType');
-            $table->string("caption", 255)->unique();
+            $table->string("caption")->unique();
         });
     }
 

@@ -15,15 +15,15 @@ class ListRateTypeSeeder extends Seeder
         if (DB::table(\App\Core\Config\ListDatabaseTable::TABLE_LIST_RATE_TYPE)->count() === 0) {
             DB::table(\App\Core\Config\ListDatabaseTable::TABLE_LIST_RATE_TYPE)->insert([
                 [
-                    'idRateType' => 1,
+                    'idRateType' => \App\Core\Constants\ListRateTypeConstants::STAFF,
                     'caption' => 'Штатная',
                 ],
                 [
-                    'idRateType' => 2,
+                    'idRateType' => \App\Core\Constants\ListRateTypeConstants::INTERNAL,
                     'caption' => 'Внутренний совместитель',
                 ],
                 [
-                    'idRateType' => 3,
+                    'idRateType' => \App\Core\Constants\ListRateTypeConstants::EXTERNAL,
                     'caption' => 'Внешний совместитель',
                 ]
             ]);

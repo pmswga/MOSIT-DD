@@ -15,14 +15,23 @@ class CreateTickets extends Migration
     {
         Schema::create(\App\Core\Config\ListDatabaseTable::TABLE_TICKETS, function (Blueprint $table) {
             $table->bigIncrements('idTicket');
-            $table->integer('idAuthor');
-            $table->integer('idTicketType');
-            $table->string('caption', 255);
+            $table->unsignedBigInteger('idAuthor')->index();
+            $table->unsignedBigInteger('idTicketType')->index();
+            $table->unsignedBigInteger('idTicketStatus')->index();
+            $table->string('caption');
             $table->text('description');
             $table->dateTime('startDate');
             $table->dateTime('endDate');
-            $table->integer('idTicketStatus');
             $table->timestamps();
+            $table->foreign('idAuthor')->references('idEmployee')->on(\App\Core\Config\ListDatabaseTable::TABLE_EMPLOYEES)
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+            $table->foreign('idTicketType')->references('idTicketType')->on(\App\Core\Config\ListDatabaseTable::TABLE_LIST_TICKET_TYPE)
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+            $table->foreign('idTicketStatus')->references('idTicketStatus')->on(\App\Core\Config\ListDatabaseTable::TABLE_LIST_TICKET_STATUS)
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
         });
     }
 

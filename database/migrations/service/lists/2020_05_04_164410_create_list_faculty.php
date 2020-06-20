@@ -15,8 +15,11 @@ class CreateListFaculty extends Migration
     {
         Schema::create(\App\Core\Config\ListDatabaseTable::TABLE_LIST_FACULTY, function (Blueprint $table) {
             $table->bigIncrements('idFaculty');
-            $table->integer('idInstitute');
+            $table->unsignedBigInteger('idInstitute')->index();
             $table->string('caption')->unique();
+            $table->foreign('idInstitute')->references('idInstitute')->on(\App\Core\Config\ListDatabaseTable::TABLE_LIST_INSTITUTE)
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
         });
     }
 

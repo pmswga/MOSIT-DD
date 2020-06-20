@@ -9,14 +9,11 @@ use App\Http\Controllers\Main\IP\IPResourceController;
 use App\Models\Main\IP\IPModel;
 use App\Models\Main\Storage\EmployeeFileModel;
 use App\Models\Main\Storage\ListFileTagModel;
-use Hamcrest\Util;
-use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\Cookie;
 
 class EmployeeFileResourceController extends Controller
 {
@@ -27,12 +24,12 @@ class EmployeeFileResourceController extends Controller
     }
 
     private function getAccountPath() {
-        return 'storage' . DIRECTORY_SEPARATOR . Auth::user()->getEmail();
+        return 'storage' . '/' . Auth::user()->getEmail();
     }
 
     public function downloadFile(EmployeeFileModel $file) {
-        if (file_exists($file->getPath())) {
-            return Storage::download($file->getDownloadPath(), $file->getFilename(true));
+        if (Storage::exists($file->getPath())) {
+            return Storage::download($file->getPath(), $file->getFilename(true));
         }
 
         Session::flash('message', ['type' => 'error', 'message' => 'Не удалось скачать файл']);
@@ -121,19 +118,15 @@ class EmployeeFileResourceController extends Controller
 
         $allDirectories = Storage::directories($path);
 
-        if (PHP_OS === 'WINNT') {
-            $path = str_replace('/', '\\', $path);
-        }
-
         $files = EmployeeFileModel::all()
             ->where('directory', '=', $path)
             ->where('inTrash', '=', false)
             ->sortBy('filename');
 
-        return view('systems.main.storage.files_index', [
+        return view('systems.main.storage.index', [
             'currentDirectory' => $path,
             'parentDirectory'  => $parentPath,
-            'fileTags' => ListFileTagModel::all(),
+            'fileTags' => Auth::user()->getAvailableFileTags(),
             'folders' => $allDirectories ?? [],
             'files' => $files ?? []
         ]);
@@ -157,7 +150,7 @@ class EmployeeFileResourceController extends Controller
      */
     public function store(Request $request)
     {
-        $file = $request->file;
+        $files = $request->file;
         $currentDirectory = $request->currentDirectory;
 
         try
@@ -166,60 +159,49 @@ class EmployeeFileResourceController extends Controller
                 throw new \Exception();
             }
 
-            $path = Storage::putFileAs($currentDirectory, $file, $file->getClientOriginalName());
-
-            if (!Storage::exists($path)) {
-                throw new \Exception();
-            }
-
-            $isExist = EmployeeFileModel::query()
-                ->where('filename', '=', $file->getClientOriginalName())
-                ->where('idEmployee', '=', Auth::id())
-                ->where('directory', '=', $currentDirectory)
-                ->get();
-
-            if (!$isExist->isEmpty()) {
-                throw new \Exception('Такой файл уже существует', ListMessageCode::WARNING);
-            }
-
             DB::beginTransaction();
 
-            $fullPath =
-                storage_path() .
-                DIRECTORY_SEPARATOR .
-                'app' .
-                DIRECTORY_SEPARATOR .
-                $currentDirectory .
-                DIRECTORY_SEPARATOR .
-                ltrim($file->getClientOriginalName());
+            foreach ($files as $file) {
+                $path = Storage::putFileAs($currentDirectory, $file, $file->getClientOriginalName());
 
-            if (PHP_OS === 'WINNT') {
-                $fullPath = str_replace('/', '\\', $fullPath);
-                $currentDirectory = str_replace('/', '\\', $currentDirectory);
-            }
+                if (!Storage::exists($path)) {
+                    throw new \Exception();
+                }
 
-            $fileModel = new EmployeeFileModel([
-                'idEmployee' => Auth::id(),
-                'idFileTag' => $request->fileTag,
-                'directory' => $currentDirectory,
-                'path' => $fullPath,
-                'filename' => $file->getClientOriginalName(),
-                'extension' => $file->getClientOriginalExtension()
-            ]);
+                $isExist = EmployeeFileModel::query()
+                    ->where('filename', '=', $file->getClientOriginalName())
+                    ->where('idEmployee', '=', Auth::id())
+                    ->where('directory', '=', $currentDirectory)
+                    ->get();
 
-            if (!$fileModel->save()) {
-               throw new \Exception('Не удалось загрузить файл', ListMessageCode::ERROR);
-            }
+                if (!$isExist->isEmpty()) {
+                    throw new \Exception('Такой файл уже существует', ListMessageCode::WARNING);
+                }
 
-            if ($request->fileTag) {
-                switch ($request->fileTag)
-                {
-                    case ListFileTagConstants::IP:
+
+                $fileModel = new EmployeeFileModel([
+                    'idEmployee' => Auth::id(),
+                    'idFileTag' => $request->fileTag,
+                    'directory' => $currentDirectory,
+                    'path' => $path,
+                    'filename' => $file->getClientOriginalName(),
+                    'extension' => $file->getClientOriginalExtension()
+                ]);
+
+                if (!$fileModel->save()) {
+                    throw new \Exception('Не удалось загрузить файл', ListMessageCode::ERROR);
+                }
+
+                if ($request->fileTag) {
+                    switch ($request->fileTag)
                     {
-                        if (!IPResourceController::assignFile($fileModel)) {
-                            throw new \Exception('Не удалось связать файл с подсистемой индивидуальных планов', ListMessageCode::ERROR);
-                        }
-                    } break;
+                        case ListFileTagConstants::IP:
+                        {
+                            if (!IPResourceController::assignFile($fileModel)) {
+                                throw new \Exception('Не удалось связать файл с подсистемой индивидуальных планов', ListMessageCode::ERROR);
+                            }
+                        } break;
+                    }
                 }
             }
 
@@ -365,27 +347,44 @@ class EmployeeFileResourceController extends Controller
      */
     public function destroy(EmployeeFileModel $file)
     {
-        if (file_exists($file->getPath())) {
+        try
+        {
+            if (!Storage::exists($file->getPath())) {
+                throw new \Exception();
+            }
+
             switch ($file->idFileTag)
             {
                 case ListFileTagConstants::IP:
                 {
                     $ipFile = IPModel::all()->where('idEmployeeFile', '=', $file->idEmployeeFile)->first();
                     if ($ipFile) {
-                        $ipFile->delete();
+                        if (!$ipFile->delete()) {
+                            throw new \Exception();
+                        }
                     }
                 } break;
             }
 
-            if (unlink($file->getPath())) {
-                if ($file->delete()) {
-                    Session::flash('message', ['type' => 'success', 'message' => 'Файл удалён']);
-                    return back();
-                }
+            if (!Storage::delete($file->getPath())) {
+                throw new \Exception();
             }
+
+            DB::beginTransaction();
+
+            if (!$file->delete()) {
+                throw new \Exception('Не удалось удалить файл', ListMessageCode::ERROR);
+            }
+
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+            Session::flash('message', ['type' => ListMessageCode::getType($e->getCode()), 'message' => $e->getMessage()]);
+            return back();
         }
 
-        Session::flash('message', ['type' => 'error', 'message' => 'Произошла ошибка при удалении файла']);
+        Session::flash('message', ['type' => 'success', 'message' => 'Файл удалён']);
         return back();
     }
 }

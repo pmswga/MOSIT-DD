@@ -15,9 +15,15 @@ class CreateRates extends Migration
     {
         Schema::create(\App\Core\Config\ListDatabaseTable::TABLE_RATES, function (Blueprint $table) {
             $table->bigIncrements('idRate');
-            $table->integer('idEmployee');
-            $table->integer('idRateType');
-            $table->integer('rateValue');
+            $table->unsignedBigInteger('idEmployee');
+            $table->unsignedBigInteger('idRateType');
+            $table->float('rateValue');
+            $table->foreign('idEmployee')->references('idEmployee')->on(\App\Core\Config\ListDatabaseTable::TABLE_EMPLOYEES)
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+            $table->foreign('idRateType')->references('idRateType')->on(\App\Core\Config\ListDatabaseTable::TABLE_LIST_RATE_TYPE)
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
         });
     }
 

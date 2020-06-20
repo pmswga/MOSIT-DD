@@ -65,3 +65,13 @@
 }
 
 
+.empty-msg {
+    margin: 0;
+    width: 100%;
+    text-align: center;
+}
+
+.empty-msg figcaption {
+    margin-top: 10px;
+}
+

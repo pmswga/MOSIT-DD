@@ -15,8 +15,14 @@ class CreateEmployeeHierarchy extends Migration
     {
         Schema::create(\App\Core\Config\ListDatabaseTable::TABLE_EMPLOYEE_HIERARCHY, function (Blueprint $table) {
             $table->bigIncrements('idEmployeeHierarchy');
-            $table->unsignedBigInteger('idEmployeeSup');
-            $table->unsignedBigInteger('idEmployeeSub');
+            $table->unsignedBigInteger('idEmployeeSup')->index();
+            $table->unsignedBigInteger('idEmployeeSub')->index();
+            $table->foreign('idEmployeeSup')->references('idEmployee')->on(\App\Core\Config\ListDatabaseTable::TABLE_EMPLOYEES)
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+            $table->foreign('idEmployeeSub')->references('idEmployee')->on(\App\Core\Config\ListDatabaseTable::TABLE_EMPLOYEES)
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
         });
     }
 

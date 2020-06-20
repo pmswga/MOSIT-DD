@@ -15,9 +15,12 @@ class CreateEmployeeTickets extends Migration
     {
         Schema::create(\App\Core\Config\ListDatabaseTable::TABLE_EMPLOYEE_TICKETS, function (Blueprint $table) {
             $table->bigIncrements('idEmployeeTicket');
-            $table->integer('idEmployee');
-            $table->bigInteger('idTicket')->unsigned();
+            $table->unsignedBigInteger('idEmployee')->index();
+            $table->unsignedBigInteger('idTicket')->index();
             $table->boolean('isSeen')->default(False);
+            $table->foreign('idEmployee')->references('idEmployee')->on(\App\Core\Config\ListDatabaseTable::TABLE_EMPLOYEES)
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
             $table->foreign('idTicket')->references('idTicket')->on(\App\Core\Config\ListDatabaseTable::TABLE_TICKETS)
                 ->onUpdate('cascade')
                 ->onDelete('cascade');

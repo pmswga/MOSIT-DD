@@ -15,15 +15,7 @@ class HelpPageController extends Controller
     }
 
     public function index() {
-        return view('systems.service.help.help_index');
-    }
-
-    public function manual() {
-        return view('manual');
-    }
-
-    public function employeeList() {
-        return view('systems.service.help.employee_list', [
+        return view('systems.service.help.index',  [
             'leadership' => EmployeeModel::all()
                 ->whereNotIn('idEmployeePost', [
                     ListEmployeePostConstants::TEACHER,
@@ -35,6 +27,10 @@ class HelpPageController extends Controller
                     ListEmployeePostConstants::OPERATOR
                 ])
         ]);
+    }
+
+    public function manual() {
+        return view('systems.service.help.manual');
     }
 
 }

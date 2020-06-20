@@ -16,6 +16,19 @@ class AccountRightsSeeder extends Seeder
             $accountRights = [];
 
             foreach (DataSeeder::$employees as $employee) {
+                if ($employee['idEmployeePost'] == \App\Core\Constants\ListEmployeePostConstants::TEACHER) {
+                    $accountRights[] = [
+                        'idAccount' => $employee['idEmployee'],
+                        'idSubSystem' => \App\Core\Constants\ListSubSystemConstants::IPS,
+                        'isAccess' => True,
+                        'isViewAny' => True,
+                        'isView' => True,
+                        'isCreate' => False,
+                        'isUpdate' => False,
+                        'isDelete' => False
+                    ];
+                }
+
                 $accountRights[] = [
                     'idAccount' => $employee['idEmployee'],
                     'idSubSystem' => \App\Core\Constants\ListSubSystemConstants::Tickets,
@@ -26,6 +39,7 @@ class AccountRightsSeeder extends Seeder
                     'isUpdate' => True,
                     'isDelete' => True
                 ];
+
                 $accountRights[] = [
                     'idAccount' => $employee['idEmployee'],
                     'idSubSystem' => \App\Core\Constants\ListSubSystemConstants::Storage,

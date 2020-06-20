@@ -15,14 +15,20 @@ class CreateEmployeeFiles extends Migration
     {
         Schema::create(\App\Core\Config\ListDatabaseTable::TABLE_EMPLOYEE_FILES, function (Blueprint $table) {
             $table->bigIncrements('idEmployeeFile');
-            $table->unsignedBigInteger('idEmployee');
-            $table->unsignedBigInteger('idFileTag');
+            $table->unsignedBigInteger('idEmployee')->index();
+            $table->unsignedBigInteger('idFileTag')->index();
             $table->string('path');
             $table->string('directory');
             $table->string('filename');
             $table->string('extension');
             $table->boolean('inTrash')->default(false);
             $table->timestamps();
+            $table->foreign('idEmployee')->references('idEmployee')->on(\App\Core\Config\ListDatabaseTable::TABLE_EMPLOYEES)
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+            $table->foreign('idFileTag')->references('idFileTag')->on(\App\Core\Config\ListDatabaseTable::TABLE_LIST_FILE_TAG)
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
         });
     }
 

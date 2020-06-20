@@ -25,6 +25,23 @@ class EmployeeFileModel extends Model
         return $this->path;
     }
 
+    public function getNormalizePath() {
+        $fullPath =
+            storage_path() .
+            DIRECTORY_SEPARATOR .
+            'app' .
+            DIRECTORY_SEPARATOR .
+            $this->directory .
+            DIRECTORY_SEPARATOR .
+            $this->filename;
+
+        if (PHP_OS === 'WINNT') {
+            $fullPath = str_replace('/', '\\', $fullPath);
+        }
+
+        return $fullPath;
+    }
+
     public function getFilename(bool $withExtension = false) {
         if ($withExtension) {
             return $this->filename;
@@ -34,8 +51,8 @@ class EmployeeFileModel extends Model
     }
 
     public function getSize() {
-        if (file_exists($this->path)) {
-            return round((filesize($this->path)/1024)/1024, 2);
+        if (Storage::exists($this->path)) {
+            return round((Storage::size($this->path)/1024)/1024, 2);
         }
 
         return 0;
@@ -45,15 +62,11 @@ class EmployeeFileModel extends Model
         return $this->extension;
     }
 
-    public function getDownloadPath() {
-        return $this->directory . DIRECTORY_SEPARATOR . $this->filename;
-    }
-
     public function getFileTag() {
         return $this->hasOne(ListFileTagModel::class,'idFileTag', 'idFileTag')->first();
     }
 
-    public function getInTrash() {
+    public function InTrash() {
         return $this->inTrash;
     }
 

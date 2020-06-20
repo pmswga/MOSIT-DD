@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Main\IP;
 
+use App\Core\Config\ListDatabaseTable;
 use App\Core\Config\ListMessageCode;
 use App\Core\Constants\ListAccountTypeConstants;
 use App\Core\systems\main\ips\IPExcelFileReader;
@@ -10,6 +11,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Main\IP\IPModel;
 use App\Models\Main\Staff\EmployeeModel;
 use App\Models\Main\Storage\EmployeeFileModel;
+use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -29,7 +31,7 @@ class IPResourceController extends Controller
 
     static public function assignFile($file) {
         try {
-            $ipFile = new IPExcelFileReader($file->getPath());
+            $ipFile = new IPExcelFileReader($file->getNormalizePath());
 
             $ipFile = $ipFile->getResult();
 
@@ -66,11 +68,13 @@ class IPResourceController extends Controller
 
     public function downloadIP($ip)
     {
-        $ipFile = IPModel::query()->where('idIP', '=', $ip)->first();
-        $file = EmployeeFileModel::query()->where('idEmployeeFile', '=', $ipFile->idEmployeeFile)->first();
+        $file = IPModel::query()->where('idIP', '=', $ip)->first();
 
-        if (file_exists($file->getPath())) {
-            return Storage::download($file->getDownloadPath(), $file->getFilename(true));
+        if ($file) {
+            $file = $file->getFile();
+            if (Storage::exists($file->getPath())) {
+                return Storage::download($file->getPath(), $file->getFilename(true));
+            }
         }
 
         Session::flash('message', ['type' => 'error', 'message' => 'Не удалось скачать ИП']);
@@ -84,13 +88,13 @@ class IPResourceController extends Controller
      */
     public function index()
     {
-        switch (Auth::user()->getIdAccountType())
+        switch (Auth::user()->idAccountType)
         {
             case ListAccountTypeConstants::TEACHER:
             {
-                $ips = IPModel::all()->where('idTeacher', '=', Auth::user()->getEmployee()->getTeacher()->idTeacher);
+                $ips = IPModel::all()->where('idTeacher', '=', Auth::id());
 
-                return view('systems.main.ips.ip_index', [
+                return view('systems.main.ips.index', [
                     'ips' => $ips
                 ]);
             } break;
@@ -98,7 +102,13 @@ class IPResourceController extends Controller
             {
                 $ips = IPModel::all();
 
-                return view('systems.main.ips.ip_index', [
+                $ips = $ips->reject(function ($value) {
+                    return $value->getFile()->inTrash() === 1;
+                })->map(function ($value){
+                    return $value;
+                });
+
+                return view('systems.main.ips.index', [
                     'ips' => $ips
                 ]);
             } break;
@@ -173,9 +183,26 @@ class IPResourceController extends Controller
      * @param  \App\Models\Main\IP\IPModel  $iP
      * @return \Illuminate\Http\Response
      */
-    public function show(IPModel $iP)
+    public function show(IPModel $ip)
     {
-        //
+        try
+        {
+            $ipExcelFileStreamer = new IPExcelFileReader($ip->getFile()->getNormalizePath());
+            $ipFile = $ipExcelFileStreamer->getResult();
+
+            if (empty($ip)) {
+                throw new \Exception();
+            }
+
+            return view('systems.main.ips.show', [
+                'ip' => $ip,
+                'file' => $ipFile
+            ]);
+        } catch (\Exception $e) {
+
+            Session::flash('message', ['type' => 'error', 'message' => $e->getMessage()]);
+            return Redirect::route('ips.index');
+        }
     }
 
     /**
@@ -190,24 +217,16 @@ class IPResourceController extends Controller
     {
         try
         {
-            $ipExcelFileStreamer = new IPExcelFileReader($ip->getFile()->getPath());
+            $ipExcelFileStreamer = new IPExcelFileReader($ip->getFile()->getNormalizePath());
             $ipFile = $ipExcelFileStreamer->getResult();
-
-            $idTeacher = DB::table('employees as e')
-                ->select('t.idTeacher')
-                ->join('teachers as t', 't.idEmployee', '=','e.idEmployee')
-                ->where('e.secondName', '=', $ipFile[0]['secondName'])
-                ->where('e.firstName', '=', $ipFile[0]['firstName'])
-                ->where('e.patronymic', '=', $ipFile[0]['patronymic'])
-                ->first()->idTeacher;
 
             if (empty($ip)) {
                 throw new \Exception();
             }
 
-            return view('systems.main.ips.ip_update', [
+            return view('systems.main.ips.update', [
                 'ip' => $ip,
-                'idTeacher' => $idTeacher,
+                'idTeacher' => 0,
                 'file' => $ipFile
             ]);
         } catch (\Exception $e) {
@@ -252,7 +271,7 @@ class IPResourceController extends Controller
 
         try
         {
-            $writer = new IPExcelFileWriter($ip->getFile()->getPath(), $data);
+            $writer = new IPExcelFileWriter($ip->getFile()->getNormalizePath(), $data);
             $writer->getResult();
 
             DB::beginTransaction();

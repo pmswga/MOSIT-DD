@@ -118,11 +118,16 @@ Vue.component('org-work-row', {
                 {{ work.num }}
             </td>
             <td>
-                <select class="ui search dropdown" v-model="work.caption" v-bind:name="'orgWork_' + work.num + '[]'">
+                <select v-model="work.caption" v-bind:name="'orgWork_' + work.num + '[]'">
                     <option>{{ work.caption }}</option>
-                    <option v-for="caption in $parent.$parent.orgWorksCaptions">
-                        {{ caption.workCaption + ' (' + caption.subCaption + ')' }}
-                    </option>
+                    <optgroup v-for="(captions, workCaption) in $parent.$parent.orgWorksCaptions" :label="workCaption">
+                        <option v-for="caption in captions" v-if="caption.subCaption !== ''">
+                            {{ caption.subCaption }}
+                        </option>
+                        <option v-else>
+                            {{ caption.workCaption }}
+                        </option>
+                    </optgroup>
                 </select>
             </td>
             <td>

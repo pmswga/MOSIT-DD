@@ -15,12 +15,15 @@ class CreateTicketFiles extends Migration
     {
         Schema::create(\App\Core\Config\ListDatabaseTable::TABLE_TICKET_FILES, function (Blueprint $table) {
             $table->bigIncrements('idTicketFile');
-            $table->unsignedBigInteger('idTicket');
-            $table->unsignedBigInteger('idEmployee');
+            $table->unsignedBigInteger('idEmployee')->index();
+            $table->unsignedBigInteger('idTicket')->index();
             $table->string('path');
             $table->string('filename');
             $table->string('extension');
             $table->timestamps();
+            $table->foreign('idEmployee')->references('idEmployee')->on(\App\Core\Config\ListDatabaseTable::TABLE_EMPLOYEES)
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
             $table->foreign('idTicket')->references('idTicket')->on(\App\Core\Config\ListDatabaseTable::TABLE_TICKETS)
                 ->onUpdate('cascade')
                 ->onDelete('cascade');

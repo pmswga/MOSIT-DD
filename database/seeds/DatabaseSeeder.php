@@ -36,10 +36,13 @@ class DatabaseSeeder extends Seeder
 
             ListWorkTypeSeeder::class,
             ListWorksSeeder::class,
+            ListWorkTimesSeeder::class,
 
             EmployeesSeeder::class,
             EmployeeHierarchySeeder::class,
             TeachersSeeder::class,
+
+            RatesSeeder::class,
 
             AccountsSeeder::class,
             AccountRightsSeeder::class

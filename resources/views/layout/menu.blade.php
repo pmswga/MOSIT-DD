@@ -30,28 +30,28 @@
                 <div class="menu">
                     <a class="item" href="{{ route('tickets.inbox') }}">
                         Входящие
-                        <div class="ui blue label">{{ Auth::user()->getEmployee()->getUnseenTicketsCount() }}</div>
+                        <div class="ui blue label">{{ Auth::user()->getEmployee()->getInboxTickets()->count() }}</div>
                     </a>
                     <a class="item" href="{{ route('tickets.expired') }}">
                         Просроченные
-                        <div class="ui red label">{{ Auth::user()->getEmployee()->getExpiredTicketsCount()  }}</div>
+                        <div class="ui red label">{{ Auth::user()->getEmployee()->getExpiredTickets()->count()  }}</div>
                     </a>
                     <a class="item" href="{{ route('tickets.index') }}">
                         Все поручения
-                        <div class="ui grey label">{{ Auth::user()->getEmployee()->getAssignedTicketsCount()  }}</div>
+                        <div class="ui grey label">{{ Auth::user()->getEmployee()->getAssignedTickets()->count()  }}</div>
                     </a>
                 </div>
             </div>
         @endif
 
-        @if(\Illuminate\Support\Facades\Auth::user()->getAccountRightsOn(\App\Core\Constants\ListSubSystemConstants::Storage)->isAccess())
+        @if(Auth::user()->getAccountRightsOn(\App\Core\Constants\ListSubSystemConstants::Storage)->isAccess())
             <div class="item">
-                <b>Мои файлы</b>
+                <b>Хранилище</b>
                 <div class="menu">
-                    <a class="item" href="{{ route('files.index') }}">
+                    <a class="item" href="{{ route('storage.index') }}">
                         Файлы
                     </a>
-                    <a class="item" href="{{ route('files.trash') }}">
+                    <a class="item" href="{{ route('storage.trash') }}">
                         Корзина
                         <div class="ui grey label">{{ Auth::user()->getEmployee()->getFilesInTrash()->count() }}</div>
                     </a>
@@ -59,7 +59,7 @@
             </div>
         @endif
 
-        @php $rights = \Illuminate\Support\Facades\Auth::user()->getAccountRights() @endphp
+        @php $rights = Auth::user()->getAccountRights() @endphp
         @if($rights)
             @foreach($rights as $section => $menu)
                 <div class="item">
@@ -94,9 +94,6 @@
                 </a>
                 <a class="item" href="{{ route('manual') }}">
                     Руководство
-                </a>
-                <a class="item" href="{{ route('employee_list') }}">
-                    Список сотрудников
                 </a>
             </div>
         </div>

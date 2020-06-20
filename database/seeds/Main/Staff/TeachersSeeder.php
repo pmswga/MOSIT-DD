@@ -16,10 +16,16 @@ class TeachersSeeder extends Seeder
             $teachers = [];
 
             foreach (DataSeeder::$employees as $employee) {
-                if ($employee['idEmployeePost'] == 1) { // не учитывает заместителей, заведующего и учёного секретаря
+                if (
+                    $employee['idEmployeePost'] == \App\Core\Constants\ListEmployeePostConstants::TEACHER or
+                    $employee['idEmployeePost'] == \App\Core\Constants\ListEmployeePostConstants::HEAD_DEPARTMENT or
+                    $employee['idEmployeePost'] == \App\Core\Constants\ListEmployeePostConstants::DEPUTY_MET_WORK or
+                    $employee['idEmployeePost'] == \App\Core\Constants\ListEmployeePostConstants::DEPUTY_SCI_WORK or
+                    $employee['idEmployeePost'] == \App\Core\Constants\ListEmployeePostConstants::DEPUTY_MTO or
+                    $employee['idEmployeePost'] == \App\Core\Constants\ListEmployeePostConstants::SCIENCE_SECRETARY
+                ) {
                     $teachers[] = [
                         'idTeacher' => $employee['idEmployee'],
-                        'idEmployee' => $employee['idEmployee'],
                         'idDegree' => 0,
                         'idAcademicTitle' => 0,
                         'idScienceType' => 0,

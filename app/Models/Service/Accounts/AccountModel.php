@@ -4,6 +4,7 @@ namespace App;
 
 use App\Core\Config\ListDatabaseTable;
 use App\Core\Constants\ListSubSystemConstants;
+use App\Models\Main\Storage\ListFileTagModel;
 use App\Models\Service\Accounts\AccountRightsModel;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -54,10 +55,6 @@ class AccountModel extends Authenticatable
         return $this->hasOne('App\Models\Service\Accounts\ListAccountTypeModel', 'idAccountType', 'idAccountType')->first();
     }
 
-    public function getIdAccountType() {
-        return $this->idAccountType;
-    }
-
     public function getAccountRights() {
         $rights = $this->hasMany(AccountRightsModel::class, 'idAccount', 'idAccount')
             ->where('isAccess', '=', 1)
@@ -89,6 +86,23 @@ class AccountModel extends Authenticatable
         }
 
         return new AccountRightsModel();
+    }
+
+
+    public function getAvailableFileTags() {
+        $rights = $this->hasMany(AccountRightsModel::class, 'idAccount', 'idAccount')
+            ->where('isAccess', '=', true)
+            ->where('isCreate', '=', true)
+            ->get();
+
+        $fileTags = $rights->map(function ($value) {
+                return ListFileTagModel::all()->where('idSubSystem', '=', $value->idSubSystem)->first();
+            })->reject(function ($value) {
+            return $value === null;
+        })->sortBy('caption');
+
+
+        return $fileTags;
     }
 
 }

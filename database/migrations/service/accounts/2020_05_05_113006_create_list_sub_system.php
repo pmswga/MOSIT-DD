@@ -15,9 +15,12 @@ class CreateListSubSystem extends Migration
     {
         Schema::create(\App\Core\Config\ListDatabaseTable::TABLE_LIST_SUB_SYSTEM, function (Blueprint $table) {
             $table->bigIncrements('idSubSystem');
-            $table->integer('idSystemSection');
-            $table->string('caption', 255)->unique();
-            $table->string('route', 255);
+            $table->unsignedBigInteger('idSystemSection')->index();
+            $table->string('caption')->unique();
+            $table->string('route');
+            $table->foreign('idSystemSection')->references('idSystemSection')->on(\App\Core\Config\ListDatabaseTable::TABLE_LIST_SYSTEM_SECTION)
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
         });
     }
 
