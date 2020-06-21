@@ -49,6 +49,7 @@ Route::prefix('help')->group(function () {
 Route::resource('/ips', 'Main\IP\IPResourceController');
 Route::get('/ips/download/{ip}', 'Main\IP\IPResourceController@downloadIP')->name('ips.download');
 Route::get('/ips/works/orgWorks', 'Main\IP\WorkResourceController@ajaxGetListOrgWorks');
+Route::get('/ips/works/sciWorks', 'Main\IP\WorkResourceController@ajaxGetListSciWorks');
 
 
 /**
@@ -71,7 +72,10 @@ Route::resource('/storage', 'Main\Storage\EmployeeFileResourceController');
 
 Route::get('/tickets/inbox', 'Main\Tickets\TicketResourceController@inbox')->name('tickets.inbox');
 Route::get('/tickets/expired', 'Main\Tickets\TicketResourceController@expired')->name('tickets.expired');
+Route::get('/tickets/closed', 'Main\Tickets\TicketResourceController@closed')->name('tickets.closed');
 Route::get('/tickets/download/{file}', 'Main\Tickets\TicketResourceController@downloadFile')->name('tickets.downloadFile');
+Route::post('/tickets/complete/{ticket}', 'Main\Tickets\TicketResourceController@markAsComplete')->name('tickets.markAsComplete');
+Route::post('/tickets/close/{ticket}', 'Main\Tickets\TicketResourceController@markAsClosed')->name('tickets.markAsClosed');
 Route::match(['patch', 'put'], '/ticket/attachFile/{ticket}', 'Main\Tickets\TicketResourceController@attachFile')->name('tickets.attachFile');
 Route::match(['patch', 'put'], '/ticket/comment/{ticket}', 'Main\Tickets\TicketResourceController@addComment')->name('tickets.addComment');
 

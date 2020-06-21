@@ -18,11 +18,12 @@ class TeachersSeeder extends Seeder
             foreach (DataSeeder::$employees as $employee) {
                 if (
                     $employee['idEmployeePost'] == \App\Core\Constants\ListEmployeePostConstants::TEACHER or
-                    $employee['idEmployeePost'] == \App\Core\Constants\ListEmployeePostConstants::HEAD_DEPARTMENT or
+                    $employee['idEmployeePost'] == \App\Core\Constants\ListEmployeePostConstants::DEPUTY_EDU_WORK or
                     $employee['idEmployeePost'] == \App\Core\Constants\ListEmployeePostConstants::DEPUTY_MET_WORK or
                     $employee['idEmployeePost'] == \App\Core\Constants\ListEmployeePostConstants::DEPUTY_SCI_WORK or
                     $employee['idEmployeePost'] == \App\Core\Constants\ListEmployeePostConstants::DEPUTY_MTO or
-                    $employee['idEmployeePost'] == \App\Core\Constants\ListEmployeePostConstants::SCIENCE_SECRETARY
+                    $employee['idEmployeePost'] == \App\Core\Constants\ListEmployeePostConstants::SCIENCE_SECRETARY or
+                    $employee['idEmployeePost'] == \App\Core\Constants\ListEmployeePostConstants::HEAD_DEPARTMENT
                 ) {
                     $teachers[] = [
                         'idTeacher' => $employee['idEmployee'],

@@ -9,6 +9,7 @@ use App\Core\systems\main\ips\IPExcelFileReader;
 use App\Core\Systems\Main\IPS\IPExcelFileWriter;
 use App\Http\Controllers\Controller;
 use App\Models\Main\IP\IPModel;
+use App\Models\Main\IP\ListWorkTimesModel;
 use App\Models\Main\Staff\EmployeeModel;
 use App\Models\Main\Storage\EmployeeFileModel;
 use Illuminate\Database\Schema\Blueprint;
@@ -227,7 +228,8 @@ class IPResourceController extends Controller
             return view('systems.main.ips.update', [
                 'ip' => $ip,
                 'idTeacher' => 0,
-                'file' => $ipFile
+                'file' => $ipFile,
+                'workTimeLimits' => ListWorkTimesModel::all()
             ]);
         } catch (\Exception $e) {
 
@@ -266,8 +268,6 @@ class IPResourceController extends Controller
         $data['3'] = $metWorks;
         $data['4'] = $sciWorks;
         $data['5'] = $orgWorks;
-
-
 
         try
         {

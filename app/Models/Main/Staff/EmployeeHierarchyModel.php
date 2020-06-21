@@ -12,11 +12,11 @@ class EmployeeHierarchyModel extends Model
     protected $primaryKey = 'idEmployeeHierarchy';
 
     public function getEmployeeSup() {
-        return $this->hasOne(EmployeeModel::class, 'idEmployee', 'idEmployeeSub')->first() ?? new EmployeeModel();
+        return $this->hasOne(EmployeeModel::class, 'idEmployee', 'idEmployeeSup')->first();
     }
 
     public function getEmployeeSub() {
-        return $this->hasOne(EmployeeModel::class, 'idEmployee', 'idEmployeeSup')->first() ?? new EmployeeModel();
+        return $this->hasOne(EmployeeModel::class, 'idEmployee', 'idEmployeeSub')->first();
     }
 
 }

@@ -17,5 +17,6 @@ class ListTicketHistoryTypeConstants
     public const ATTACH_FILE = 3;  ///< Прикрепление файлов
     public const DELETE = 4;       ///< Удаление
     public const CLOSE = 5;        ///< Закрытие
+    public const COMPLETE = 6;     ///< Отметка "Выполненное"
 
 }

@@ -4,7 +4,7 @@
 @section('content')
     <script type="text/javascript" src="{{ asset('js/vue.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/core/systems/ips/ip_table_sci_work.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/core/systems/ips/ip_table.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/core/systems/ips/ip_table_org_work.js') }}"></script>
 
     <form id="updateIPForm" class="ui form" method="POST" action="{{ route('ips.update', $ip) }}">
         @method('PUT')
@@ -177,60 +177,6 @@
                 <div id="sciWorkTable" class="content">
                     <sci-work-table v-bind:works='sciWorks'></sci-work-table>
                 </div>
-                {{--
-
-                <table class="ui table">
-                    <thead>
-                        <tr>
-                            <th rowspan="2">№</th>
-                            <th rowspan="2">Наименование и вид работ</th>
-                            <th colspan="2">Трудоёмкость (час)</th>
-                            <th colspan="2">Срок выполнения (даты)</th>
-                        </tr>
-                        <tr>
-                            <th>Планируемая</th>
-                            <th>Фактическая</th>
-                            <th>Планируемая</th>
-                            <th>Фактическая</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($file[4]['work_1'] as $work)
-                            <tr>
-                                <td>
-                                    <input type="hidden" name="sciWork_{{ $loop->iteration }}[]" value="{{ $loop->iteration }}">
-                                    {{ $loop->iteration }}
-                                </td>
-                                <td>
-                                    <select name="sciWork_{{ $loop->iteration }}[]">
-                                        <option>{{ $work['caption'] }}</option>
-                                    </select>
-                                </td>
-                                <td class="ui form">
-                                    <div class="field">
-                                        <input name="sciWork_{{ $loop->iteration }}[]" class="workSum4Plan" type="number" value="{{ $work['plan'] }}">
-                                    </div>
-                                </td>
-                                <td class="ui form">
-                                    <div class="field">
-                                        <input name="sciWork_{{ $loop->iteration }}[]" class="workSum4Real" type="number" value="{{ $work['real'] }}">
-                                    </div>
-                                </td>
-                                <td class="ui form">
-                                    <div class="field">
-                                        <input name="sciWork_{{ $loop->iteration }}[]" type="date" value="{{ $work['finishDatePlan'] }}">
-                                    </div>
-                                </td>
-                                <td class="ui form">
-                                    <div class="field">
-                                        <input name="sciWork_{{ $loop->iteration }}[]" type="date" value="{{ $work['finishDateReal'] }}">
-                                    </div>
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-                --}}
             </div>
         </div>
 
@@ -314,6 +260,23 @@
             return sum;
         }
 
+
+        var sciWorkTable = new Vue({
+            el: '#sciWorkTable',
+            data: {
+                sciWorksCaptions: [],
+                sciWorks: JSON.parse('{{ json_encode($file[4]['work_1']) }}'.replace(/&quot;/ig,'"')),
+                countOfSciWork: '{{count($file[4]['work_1'])}}',
+                sciWorkSumPlan: 0
+            },
+            methods: {
+                getSumPlan() {
+                    return calculateSum(this.sciWorks);
+                }
+            }
+        });
+
+
         var orgWorkTable = new Vue({
             el: '#orgWorkTable',
             data: {
@@ -329,20 +292,6 @@
             }
         });
 
-        var sciWorkTable = new Vue({
-            el: '#sciWorkTable',
-            data: {
-                sciWorks: JSON.parse('{{ json_encode($file[4]['work_1']) }}'.replace(/&quot;/ig,'"')),
-                countOfSciWork: '{{count($file[4]['work_1'])}}',
-                sciWorkSumPlan: 0
-            },
-            methods: {
-                getSumPlan() {
-                    return calculateSum(this.sciWorks);
-                }
-            }
-        });
-
         $(document).ready(function () {
             $('[type=number]').attr('min', 0);
             $('[type=number]').attr('step', '0.01');
@@ -351,19 +300,7 @@
         let rateValue = parseFloat($('#rateValue').val());
         let rateType = $('#rateType').val();
 
-        let times = [
-            {rateValue: 0.1, staff: 150.0, other: 147.0},
-            {rateValue: 0.2, staff: 300.0, other: 294.0},
-            {rateValue: 0.25, staff: 375.0, other: 367.5},
-            {rateValue: 0.3, staff: 449.0, other: 441.0},
-            {rateValue: 0.4, staff: 599.9, other: 588.0},
-            {rateValue: 0.5, staff: 749.9, other: 735.0},
-            {rateValue: 0.6, staff: 899.9, other: 882.0},
-            {rateValue: 0.7, staff: 1049.9, other: 1029.0},
-            {rateValue: 0.8, staff: 1199.8, other: 1176.0},
-            {rateValue: 0.9, staff: 1349.8, other: 1323.0},
-            {rateValue: 1.0, staff: 1499.8, other: 1470.0},
-        ];
+        let times = JSON.parse('{{ $workTimeLimits }}'.replace(/&quot;/ig,'"'));
 
         function getTimeLimit(rateValue) {
             let timeLimit = null;
@@ -393,17 +330,33 @@
         });
 
         $('#updateIPForm').on('submit', function () {
-
             let timeLimit = getTimeLimit(rateValue);
             let sum = parseFloat($('#workSumPlan').val());
 
-            if (sum > timeLimit.other) {
-                $('#workSumRow').addClass('error');
+            switch(rateType)
+            {
+                case 'штатный':
+                {
+                    if (sum > timeLimit.staff) {
+                        $('#workSumRow').addClass('error');
 
-                return false;
-            } else {
-                $('#workSumRow').removeClass('error');
+                        return false;
+                    } else {
+                        $('#workSumRow').removeClass('error');
+                    }
+                } break;
+                default:
+                {
+                    if (sum > timeLimit.other) {
+                        $('#workSumRow').addClass('error');
+
+                        return false;
+                    } else {
+                        $('#workSumRow').removeClass('error');
+                    }
+                } break;
             }
+
 
             return true;
         });

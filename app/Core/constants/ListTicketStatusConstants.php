@@ -12,7 +12,7 @@ namespace App\Core\Constants;
  */
 class ListTicketStatusConstants
 {
-    public const CREATE = 1;   ///< Создано
+    public const OPENED = 1;   ///< Открыто
     public const PROGRESS = 2; ///< В процессе исполнения
-    public const FINISH = 3;   ///< Закрыто
+    public const CLOSED = 3;   ///< Закрыто
 }

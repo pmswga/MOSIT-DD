@@ -97,33 +97,51 @@
         </div>
     </fieldset>
 
-    <fieldset class="ui segment">
-        <legend><h3>Работа с поручением</h3></legend>
-        <div class="ui form">
-            <div class="three fields">
-                <div class="field">
-                    <a class="ui primary icon fluid button" onclick="$('#attachFileModal').modal('show')">
-                        <i class="upload icon"></i>
-                        Загрузить файл
-                    </a>
-                    @include('systems.main.tickets.components.ticket_attach_file')
-                </div>
-                <div class="field">
-                    <a class="ui primary fluid button" onclick="$('#addCommentModal').modal('show')">
-                        <i class="comment icon"></i>
-                        Оставить комментарий
-                    </a>
-                    @include('systems.main.tickets.components.ticket_add_comment')
-                </div>
-                <div class="field">
-                    <a class="ui green fluid button">
-                        <i class="check icon"></i>
-                        Отметить как выполненное
-                    </a>
+    @if(!$ticket->isClosed())
+        <fieldset class="ui segment">
+            <legend><h3>Работа с поручением</h3></legend>
+            <div class="ui form">
+                <div class="three fields">
+                    <div class="field">
+                        <a class="ui primary icon fluid button" onclick="$('#attachFileModal').modal('show')">
+                            <i class="upload icon"></i>
+                            Загрузить файл
+                        </a>
+                        @include('systems.main.tickets.components.ticket_attach_file')
+                    </div>
+                    <div class="field">
+                        <a class="ui primary fluid button" onclick="$('#addCommentModal').modal('show')">
+                            <i class="comment icon"></i>
+                            Оставить комментарий
+                        </a>
+                        @include('systems.main.tickets.components.ticket_add_comment')
+                    </div>
+
+                    @if(Auth::id() !== $ticket->getAuthor()->idEmployee)
+                        <div class="field">
+                            <form style="margin: 0; padding: 0;" method="POST" action="{{ route('tickets.markAsComplete', $ticket) }}">
+                                @csrf
+                                <button class="ui green fluid button">
+                                    <i class="check icon"></i>
+                                    Отметить как выполненное
+                                </button>
+                            </form>
+                        </div>
+                    @else
+                        <div class="field">
+                            <form style="margin: 0; padding: 0;" onsubmit="return confirm('Работа над поручением прекратится. Вы уверены?')" method="POST" action="{{ route('tickets.markAsClosed', $ticket) }}">
+                                @csrf
+                                <button class="ui red fluid button">
+                                    <i class="check icon"></i>
+                                    Закрыть поручение
+                                </button>
+                            </form>
+                        </div>
+                    @endif
                 </div>
             </div>
-        </div>
-    </fieldset>
+        </fieldset>
+    @endif
 
     <fieldset class="ui segment">
         <legend><h3>История поручения</h3></legend>
@@ -145,8 +163,11 @@
                         @case(\App\Core\Constants\ListTicketHistoryTypeConstants::DELETE)
                             <i class="delete icon"></i>
                         @break
-                        @case(\App\Core\Constants\ListTicketHistoryTypeConstants::COMMENT)
-                            <i class="close icon"></i>
+                        @case(\App\Core\Constants\ListTicketHistoryTypeConstants::CLOSE)
+                            <i class="red close icon"></i>
+                        @break
+                        @case(\App\Core\Constants\ListTicketHistoryTypeConstants::COMPLETE)
+                        <i class="green check icon"></i>
                         @break
                     @endswitch
                     </div>

@@ -36,9 +36,14 @@
                         Просроченные
                         <div class="ui red label">{{ Auth::user()->getEmployee()->getExpiredTickets()->count()  }}</div>
                     </a>
-                    <a class="item" href="{{ route('tickets.index') }}">
-                        Все поручения
-                        <div class="ui grey label">{{ Auth::user()->getEmployee()->getAssignedTickets()->count()  }}</div>
+                    @if(Auth::user()->getAccountRightsOn(\App\Core\Constants\ListSubSystemConstants::Tickets)->isCreate())
+                        <a class="item" href="{{ route('tickets.index') }}">
+                            Мои поручения
+                            <div class="ui grey label">{{ Auth::user()->getEmployee()->getCreatedTickets()->count()  }}</div>
+                        </a>
+                    @endif
+                    <a class="item" href="{{ route('tickets.closed') }}">
+                        Закрытые поручения
                     </a>
                 </div>
             </div>
