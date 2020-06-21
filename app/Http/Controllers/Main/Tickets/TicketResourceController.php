@@ -56,7 +56,6 @@ class TicketResourceController extends Controller
     public function inbox()
     {
         return view('systems.main.tickets.inbox', [
-            'inboxTickets' => Auth::user()->getEmployee()->getInboxTickets(),
             'assignedTickets' => Auth::user()->getEmployee()->getAssignedTickets(),
         ]);
     }
@@ -133,7 +132,6 @@ class TicketResourceController extends Controller
                 }
             }
 
-
             if ($request->file('files') and count($request->file('files')) > 0) {
 
                 foreach ($request->file('files') as $file) {
@@ -144,7 +142,7 @@ class TicketResourceController extends Controller
                     );
 
                     if (Storage::exists($path)) {
-                        if (!$ticket->attachFile(Auth::id(), $path, $file->extension())) {
+                        if (!$ticket->attachFile(Auth::id(), $path, $file->clientExtension())) {
                             throw new \Exception();
                         }
                     } else {

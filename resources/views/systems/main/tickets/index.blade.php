@@ -18,7 +18,6 @@
         </fieldset>
     @endif
 
-
     @if( count($createdTickets) > 0)
         <fieldset class="ui segment">
             <legend><h3>Назначенные мною</h3></legend>
@@ -59,6 +58,11 @@
                 </tbody>
             </table>
         </fieldset>
+    @else
+        <figure class="ui empty-msg center aligned image">
+            <i class="massive inbox icon"></i>
+            <figcaption>Нет созданных вами поручений</figcaption>
+        </figure>
     @endif
 
 @endsection

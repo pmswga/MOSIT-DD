@@ -166,7 +166,7 @@ class EmployeeModel extends Model
             ->where('isSeen', '0')
             ->get();
 
-        $inboxTickets = $inboxTickets->map(function ($value) {
+        $inboxTickets = $inboxTickets->mapToGroups(function ($value) {
             return $value->getTicket();
         });
 
@@ -195,8 +195,8 @@ class EmployeeModel extends Model
             ->where(ListDatabaseTable::TABLE_TICKETS.'.idTicketStatus', '=', ListTicketStatusConstants::OPENED)
             ->get();
 
-        $assignedTickets = $assignedTickets->map(function ($value) {
-            return $value->getTicket();
+        $assignedTickets = $assignedTickets->mapToGroups(function ($value) {
+            return [$value->isSeen => $value->getTicket()];
         });
 
         return $assignedTickets;
