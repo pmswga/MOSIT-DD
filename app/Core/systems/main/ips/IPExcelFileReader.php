@@ -92,7 +92,7 @@ class IPExcelFileReader extends IPExcelFileStreamer
             $this->streamData[0]['teacherPost'] = $matches[0];
         }
 
-        preg_match('/штатный|внешний/', $post, $matches);
+        preg_match('/штатный|внешний|внутренний/', $post, $matches);
         if ($matches) {
             $this->streamData[0]['rateType'] = $matches[0];
         }

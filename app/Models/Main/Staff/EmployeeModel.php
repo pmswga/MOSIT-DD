@@ -4,6 +4,7 @@ namespace App\Models\Main\Staff;
 
 use App\Core\Config\ListDatabaseTable;
 use App\Core\Constants\ListRateTypeConstants;
+use App\Core\Constants\ListTicketStatusConstants;
 use App\Models\Main\Storage\EmployeeFileModel;
 use App\Models\Main\Tickets\EmployeeTicketModel;
 use App\Models\Main\Tickets\TicketModel;
@@ -58,6 +59,10 @@ class EmployeeModel extends Model
 
     public function getTeacher() {
         return $this->hasOne(TeacherModel::class, 'idTeacher', 'idEmployee')->first();
+    }
+
+    public function getEmployeePost() {
+        return $this->hasOne(ListEmployeePostModel::class, 'idEmployeePost', 'idEmployeePost')->first();
     }
 
     public function setRate($rateType, $rateValue) {
@@ -137,10 +142,10 @@ class EmployeeModel extends Model
     }
 
     public function getSubordinateEmployees() {
-        $employeeList = $this->hasMany(EmployeeHierarchyModel::class, 'idEmployeeSup', 'idEmployee')->get();
+        $employeeList = $this->hasOne(EmployeeHierarchyModel::class, 'idEmployeeSup', 'idEmployee')->get();
 
         $employeeList = $employeeList->map(function ($value) {
-            return $value->getEmployeeSup();
+            return $value->getEmployeeSub();
         });
 
         return $employeeList;
@@ -182,7 +187,29 @@ class EmployeeModel extends Model
     }
 
     public function getAssignedTickets() {
-        $assignedTickets = $this->hasOne(EmployeeTicketModel::class,'idEmployee', 'idEmployee')->get();
+        $assignedTickets = $this->hasOne(EmployeeTicketModel::class,'idEmployee', 'idEmployee')
+            ->join(ListDatabaseTable::TABLE_TICKETS,
+                ListDatabaseTable::TABLE_TICKETS.'.idTicket',
+                '=',
+                ListDatabaseTable::TABLE_EMPLOYEE_TICKETS.'.idTicket')
+            ->where(ListDatabaseTable::TABLE_TICKETS.'.idTicketStatus', '=', ListTicketStatusConstants::OPENED)
+            ->get();
+
+        $assignedTickets = $assignedTickets->map(function ($value) {
+            return $value->getTicket();
+        });
+
+        return $assignedTickets;
+    }
+
+    public function getClosedTickets() {
+        $assignedTickets = $this->hasOne(EmployeeTicketModel::class,'idEmployee', 'idEmployee')
+            ->join(ListDatabaseTable::TABLE_TICKETS,
+                ListDatabaseTable::TABLE_TICKETS.'.idTicket',
+                '=',
+                ListDatabaseTable::TABLE_EMPLOYEE_TICKETS.'.idTicket')
+            ->where(ListDatabaseTable::TABLE_TICKETS.'.idTicketStatus', '=', ListTicketStatusConstants::CLOSED)
+            ->get();
 
         $assignedTickets = $assignedTickets->map(function ($value) {
             return $value->getTicket();

@@ -25,20 +25,12 @@ Vue.component('org-work-table', {
 
             this.$parent.orgWorksCaptions = JSON.parse(data);
 
-            console.log(this.$parent.orgWorksCaptions);
-
-
-            for (caption in this.$parent.orgWorksCaptions) {
-                console.log(caption);
-            }
-
             this.$parent.orgWorks.push({
                 num: ++this.$parent.countOfOrgWork,
                 caption: '',
                 plan: 0,
                 real: 0
             });
-
 
             this.sumOrgWorkPlan();
         },

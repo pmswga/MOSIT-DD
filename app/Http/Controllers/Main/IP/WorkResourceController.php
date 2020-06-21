@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Main\IP;
 
+use App\Core\Constants\ListAccountTypeConstants;
 use App\Core\Constants\ListWorkTypeConstants;
 use App\Http\Controllers\Controller;
 use App\Models\Main\IP\ListWorksModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class WorkResourceController extends Controller
 {
@@ -15,12 +17,35 @@ class WorkResourceController extends Controller
         $this->middleware('auth');
     }
 
-    public function ajaxGetListOrgWorks() {
+    public function ajaxGetListSciWorks() {
         return \App\Models\Main\IP\ListWorksModel::all()
-            ->where('idWorkType', '=', ListWorkTypeConstants::ORG_WORK)
+            ->where('idWorkType', '=', ListWorkTypeConstants::SIC_WORK)
             ->sortBy('workCaption')
             ->groupBy('workCaption')
             ->toJson();
+    }
+
+    public function ajaxGetListOrgWorks() {
+        switch (Auth::user()->idAccountType)
+        {
+            case ListAccountTypeConstants::HEAD_DEPARTMENT:
+            {
+                return \App\Models\Main\IP\ListWorksModel::all()
+                    ->where('idWorkType', '=', ListWorkTypeConstants::ORG_WORK)
+                    ->sortBy('workCaption')
+                    ->groupBy('workCaption')
+                    ->toJson();
+            } break;
+            default:
+            {
+                return \App\Models\Main\IP\ListWorksModel::all()
+                    ->where('idWorkType', '=', ListWorkTypeConstants::ORG_WORK)
+                    ->whereNotIn('workCaption', ['Руководство кафедрой'])
+                    ->sortBy('workCaption')
+                    ->groupBy('workCaption')
+                    ->toJson();
+            } break;
+        }
     }
 
     /**

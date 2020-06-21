@@ -39,6 +39,11 @@ class ListTicketHistoryTypeSeeder extends Seeder
                     'caption' => 'Закрытие',
                     'message' => 'закрыл(а) поручение'
                 ],
+                [
+                    'idTicketHistoryType' => \App\Core\Constants\ListTicketHistoryTypeConstants::COMPLETE,
+                    'caption' => 'Выполненно',
+                    'message' => 'выполнил(а) поручение'
+                ],
             ]);
         }
     }

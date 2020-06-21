@@ -13,7 +13,8 @@ class EmployeeHierarchySeeder extends Seeder
     public function run()
     {
         if (DB::table(\App\Core\Config\ListDatabaseTable::TABLE_EMPLOYEE_HIERARCHY)->count() == 0) {
-            DB::table(\App\Core\Config\ListDatabaseTable::TABLE_EMPLOYEE_HIERARCHY)->insert([
+
+            $rights = [
                 [
                     'idEmployeeSup' => 7,
                     'idEmployeeSub' => 9
@@ -38,7 +39,27 @@ class EmployeeHierarchySeeder extends Seeder
                     'idEmployeeSup' => 9,
                     'idEmployeeSub' => 2
                 ],
-            ]);
+            ];
+
+            foreach (DataSeeder::$employees as $employee) {
+
+                if ($employee['idEmployeePost'] === \App\Core\Constants\ListEmployeePostConstants::TEACHER) {
+                    $rights[] = [
+                        'idEmployeeSup' => 7,
+                        'idEmployeeSub' => $employee['idEmployee']
+                    ];
+                    $rights[] = [
+                        'idEmployeeSup' => 9,
+                        'idEmployeeSub' => $employee['idEmployee']
+                    ];
+                    $rights[] = [
+                        'idEmployeeSup' => 16,
+                        'idEmployeeSub' => $employee['idEmployee']
+                    ];
+                }
+            }
+
+            DB::table(\App\Core\Config\ListDatabaseTable::TABLE_EMPLOYEE_HIERARCHY)->insert($rights);
         }
     }
 }

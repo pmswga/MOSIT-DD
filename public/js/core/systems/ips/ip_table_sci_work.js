@@ -17,6 +17,15 @@ Vue.component('sci-work-table', {
         },
         addSciWork: function () {
 
+
+            data = $.ajax({
+                url: "/ips/works/sciWorks",
+                type: 'GET',
+                async: false
+            }).responseText;
+
+            this.$parent.sciWorksCaptions = JSON.parse(data);
+
             this.$parent.sciWorks.push({
                 num: ++this.$parent.countOfSciWork,
                 caption: '',
@@ -102,7 +111,14 @@ Vue.component('sci-work-row', {
             <td>
                 <select v-model="work.caption" v-bind:name="'sciWork_' + work.num + '[]'">
                     <option>{{ work.caption }}</option>
-                    <option>Другая работа</option>
+                    <optgroup v-for="(captions, workCaption) in $parent.$parent.sciWorksCaptions" :label="workCaption">
+                        <option v-for="caption in captions" v-if="caption.subCaption !== ''">
+                            {{ caption.subCaption }}
+                        </option>
+                        <option v-else>
+                            {{ caption.workCaption }}
+                        </option>
+                    </optgroup>
                 </select>
             </td>
             <td>

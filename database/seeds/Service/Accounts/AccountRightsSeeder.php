@@ -29,27 +29,55 @@ class AccountRightsSeeder extends Seeder
                     ];
                 }
 
-                $accountRights[] = [
-                    'idAccount' => $employee['idEmployee'],
-                    'idSubSystem' => \App\Core\Constants\ListSubSystemConstants::Tickets,
-                    'isAccess' => True,
-                    'isViewAny' => True,
-                    'isView' => True,
-                    'isCreate' => True,
-                    'isUpdate' => True,
-                    'isDelete' => True
-                ];
+                if (
+                    $employee['idEmployeePost'] == \App\Core\Constants\ListEmployeePostConstants::TEACHER or
+                    $employee['idEmployeePost'] == \App\Core\Constants\ListEmployeePostConstants::OPERATOR
+                ) {
+                    $accountRights[] = [
+                        'idAccount' => $employee['idEmployee'],
+                        'idSubSystem' => \App\Core\Constants\ListSubSystemConstants::Tickets,
+                        'isAccess' => True,
+                        'isViewAny' => True,
+                        'isView' => True,
+                        'isCreate' => False,
+                        'isUpdate' => False,
+                        'isDelete' => False
+                    ];
 
-                $accountRights[] = [
-                    'idAccount' => $employee['idEmployee'],
-                    'idSubSystem' => \App\Core\Constants\ListSubSystemConstants::Storage,
-                    'isAccess' => True,
-                    'isViewAny' => True,
-                    'isView' => True,
-                    'isCreate' => True,
-                    'isUpdate' => True,
-                    'isDelete' => True
-                ];
+                    $accountRights[] = [
+                        'idAccount' => $employee['idEmployee'],
+                        'idSubSystem' => \App\Core\Constants\ListSubSystemConstants::Storage,
+                        'isAccess' => True,
+                        'isViewAny' => True,
+                        'isView' => True,
+                        'isCreate' => True,
+                        'isUpdate' => True,
+                        'isDelete' => True
+                    ];
+                } else {
+                    $accountRights[] = [
+                        'idAccount' => $employee['idEmployee'],
+                        'idSubSystem' => \App\Core\Constants\ListSubSystemConstants::Tickets,
+                        'isAccess' => True,
+                        'isViewAny' => True,
+                        'isView' => True,
+                        'isCreate' => True,
+                        'isUpdate' => True,
+                        'isDelete' => True
+                    ];
+
+                    $accountRights[] = [
+                        'idAccount' => $employee['idEmployee'],
+                        'idSubSystem' => \App\Core\Constants\ListSubSystemConstants::Storage,
+                        'isAccess' => True,
+                        'isViewAny' => True,
+                        'isView' => True,
+                        'isCreate' => True,
+                        'isUpdate' => True,
+                        'isDelete' => True
+                    ];
+                }
+
             }
 
             $accountRights[] = [

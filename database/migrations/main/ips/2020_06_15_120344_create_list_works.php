@@ -17,7 +17,8 @@ class CreateListWorks extends Migration
             $table->bigIncrements('idWork');
             $table->unsignedBigInteger('idWorkType')->index();
             $table->string('workCaption');
-            $table->string('subCaption');
+            $table->string('subCaption')->nullable();
+            $table->string('comment')->nullable();
             $table->decimal('maxHours');
             $table->foreign('idWorkType')->references('idWorkType')->on(\App\Core\Config\ListDatabaseTable::TABLE_LIST_WORK_TYPE)
                 ->onUpdate('cascade')

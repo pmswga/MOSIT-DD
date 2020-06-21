@@ -30,6 +30,39 @@
             </thead>
             <tbody>
             @foreach($inboxTickets as $ticket)
+                @if($ticket->is)
+
+                @endif
+                <tr>
+                    <td>{{ $ticket->idTicket }}</td>
+                    <td><a href="{{ route('tickets.show', $ticket) }}">{{ $ticket->getTicketType()->caption }}</a></td>
+                    <td>{{ $ticket->caption }}</td>
+                    <td>{{ $ticket->getStartDate() }}</td>
+                    <td>{{ $ticket->getEndDate() }}</td>
+                    <td>{{ $ticket->getCreatedDate() }}</td>
+                    <td>{{ $ticket->getUpdatedDate() }}</td>
+                </tr>
+            @endforeach
+            </tbody>
+        </table>
+    @endif
+
+
+    @if($assignedTickets->isNotEmpty())
+        <table class="ui table">
+            <thead>
+            <tr>
+                <th>№</th>
+                <th>Тип</th>
+                <th>Название</th>
+                <th>Дата начала</th>
+                <th>Дата окончания</th>
+                <th>Дата создания</th>
+                <th>Последнее обновление</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach($assignedTickets as $ticket)
                 <tr>
                     <td>{{ $ticket->idTicket }}</td>
                     <td><a href="{{ route('tickets.show', $ticket) }}">{{ $ticket->getTicketType()->caption }}</a></td>
@@ -45,7 +78,7 @@
     @else
         <figure class="ui empty-msg center aligned image">
             <i class="massive inbox icon"></i>
-            <figcaption>Нет входящих поручений</figcaption>
+            <figcaption>Нет назначенных вам поручений</figcaption>
         </figure>
     @endif
 

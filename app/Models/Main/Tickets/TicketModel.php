@@ -3,6 +3,7 @@
 namespace App\Models\Main\Tickets;
 
 use App\Core\Config\ListDatabaseTable;
+use App\Core\Constants\ListTicketStatusConstants;
 use App\Models\Main\Staff\EmployeeModel;
 use App\Models\Service\Lists\ListTicketStatusModel;
 use App\Models\Service\Lists\ListTicketTypeModel;
@@ -70,6 +71,14 @@ class TicketModel extends Model
         return Carbon::today() >= Carbon::createFromTimeString($this->endDate);
     }
 
+    public function isOpen() {
+        return $this->idTicketStatus === ListTicketStatusConstants::OPENED;
+    }
+
+    public function isClosed() {
+        return $this->idTicketStatus === ListTicketStatusConstants::CLOSED;
+    }
+
     public function assignEmployee(int $employeeId) {
         $ticketEmployee = new EmployeeTicketModel();
         $ticketEmployee->idEmployee = $employeeId;
@@ -116,6 +125,18 @@ class TicketModel extends Model
             ->orderByDesc('created_at')
             ->orderByDesc('idTicketHistory')
             ->get();
+    }
+
+    public function changeStatus($status) {
+        $this->idTicketStatus = $status;
+
+        return $this->save();
+    }
+
+    public function closeTicket() {
+        $this->idTicketStatus = ListTicketStatusConstants::CLOSED;
+
+        return $this->save();
     }
 
 }

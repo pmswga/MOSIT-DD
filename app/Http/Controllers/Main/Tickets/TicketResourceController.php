@@ -49,22 +49,29 @@ class TicketResourceController extends Controller
         return view('systems.main.tickets.index', [
             'ticketTypes' => ListTicketTypeModel::all(),
             'employees' => Auth::user()->getEmployee()->getSubordinateEmployees(),
-            'assignedTickets' => Auth::user()->getEmployee()->getAssignedTickets(),
             'createdTickets' => Auth::user()->getEmployee()->getCreatedTickets()
         ]);
     }
 
     public function inbox()
     {
-        return view('systems.main.tickets.inbox ', [
-            'inboxTickets' => Auth::user()->getEmployee()->getInboxTickets()
+        return view('systems.main.tickets.inbox', [
+            'inboxTickets' => Auth::user()->getEmployee()->getInboxTickets(),
+            'assignedTickets' => Auth::user()->getEmployee()->getAssignedTickets(),
         ]);
     }
 
     public function expired()
     {
-        return view('systems.main.tickets.expired ', [
+        return view('systems.main.tickets.expired', [
             'inboxTickets' => Auth::user()->getEmployee()->getExpiredTickets()
+        ]);
+    }
+
+    public function closed()
+    {
+        return view('systems.main.tickets.closed', [
+            'closedTickets' => Auth::user()->getEmployee()->getClosedTickets()
         ]);
     }
 
@@ -94,7 +101,7 @@ class TicketResourceController extends Controller
         $ticket->description = $request->ticketDescription;
         $ticket->startDate = date_format( date_create( $request->ticketStartDate . $request->ticketStartTime ), 'Y.m.d H:i:s');
         $ticket->endDate = date_format( date_create( $request->ticketEndDate . $request->ticketEndTime ), 'Y.m.d H:i:s');
-        $ticket->idTicketStatus = ListTicketStatusConstants::CREATE;
+        $ticket->idTicketStatus = ListTicketStatusConstants::OPENED;
 
         $authorEmployee = EmployeeModel::all()->where('idEmployee', '=', $request->author)->first();
 
@@ -106,7 +113,7 @@ class TicketResourceController extends Controller
                 throw new \Exception();
             }
 
-            if (!$ticket->addHistoryEvent(Auth::id(), ListTicketStatusConstants::CREATE)) {
+            if (!$ticket->addHistoryEvent(Auth::id(), ListTicketHistoryTypeConstants::CREATE)) {
                 throw new \Exception();
             }
 
@@ -207,13 +214,61 @@ class TicketResourceController extends Controller
         //
     }
 
+    public function markAsClosed(TicketModel $ticket)
+    {
+        try
+        {
+            DB::beginTransaction();
+
+            if (!$ticket->closeTicket()) {
+                throw new \Exception('Не удалось закрыть поручение', ListMessageCode::ERROR);
+            }
+
+            if (!$ticket->addHistoryEvent(Auth::id(), ListTicketHistoryTypeConstants::CLOSE)) {
+                throw new \Exception();
+            }
+
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+            Session::flash('message', ['type' => ListMessageCode::getType($e->getCode()), 'message' => $e->getMessage()]);
+            return back();
+        }
+
+        Session::flash('message', ['type' => 'success', 'message' => 'Поручение закрыто']);
+        return back();
+    }
+
+    public function markAsComplete(TicketModel $ticket)
+    {
+        try
+        {
+            DB::beginTransaction();
+
+            if (!$ticket->addHistoryEvent(Auth::id(), ListTicketHistoryTypeConstants::COMPLETE)) {
+                throw new \Exception('Не удалось отметить как выполненное', ListMessageCode::ERROR);
+            }
+
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+            Session::flash('message', ['type' => ListMessageCode::getType($e->getCode()), 'message' => $e->getMessage()]);
+            return back();
+        }
+
+        Session::flash('message', ['type' => 'success', 'message' => 'Поручение отмечено как выполненное']);
+        return back();
+    }
+
     public function addComment(Request $request, TicketModel $ticket)
     {
         try {
             DB::beginTransaction();
 
             if (!$ticket->addComment(Auth::id(), $request->comment)) {
-                throw new \Exception();
+                throw new \Exception('Не удалось прикрепить комментарий', ListMessageCode::ERROR);
             }
 
             if (!$ticket->addHistoryEvent(Auth::id(), ListTicketHistoryTypeConstants::COMMENT)) {
@@ -221,14 +276,14 @@ class TicketResourceController extends Controller
             }
 
             DB::commit();
-
-            Session::flash('message', ['type' => 'success', 'message' => 'Комментарий прикреплён']);
-            return back();
         } catch (\Exception $e) {
             DB::rollBack();
+
+            Session::flash('message', ['type' => ListMessageCode::getType($e->getCode()), 'message' => $e->getMessage()]);
+            return back();
         }
 
-        Session::flash('message', ['type' => 'error', 'message' => 'Не удалось прикрепить комментарий']);
+        Session::flash('message', ['type' => 'success', 'message' => 'Комментарий прикреплён']);
         return back();
     }
 
