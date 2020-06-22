@@ -110,7 +110,7 @@ Vue.component('org-work-row', {
                 {{ work.num }}
             </td>
             <td>
-                <select v-model="work.caption" v-bind:name="'orgWork_' + work.num + '[]'">
+                <select v-model="work.caption" v-bind:name="'orgWork_' + work.num + '[]'" :required="1">
                     <option>{{ work.caption }}</option>
                     <optgroup v-for="(captions, workCaption) in $parent.$parent.orgWorksCaptions" :label="workCaption">
                         <option v-for="caption in captions" v-if="caption.subCaption !== ''">
