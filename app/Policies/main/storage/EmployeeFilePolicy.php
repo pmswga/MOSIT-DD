@@ -46,7 +46,9 @@ class EmployeeFilePolicy
      */
     public function create(AccountModel $user)
     {
-        return $user->getAccountRightsOn(\App\Core\Constants\ListSubSystemConstants::Storage)->isCreate();
+        return $user->getAccountRightsOn(\App\Core\Constants\ListSubSystemConstants::Storage)->isCreate()
+            ? Response::allow()
+            : Response::deny('Недостаточно прав');
     }
 
     /**
@@ -58,7 +60,9 @@ class EmployeeFilePolicy
      */
     public function update(AccountModel $user, EmployeeFileModel $employeeFileModel)
     {
-        return $user->getAccountRightsOn(\App\Core\Constants\ListSubSystemConstants::Storage)->isUpdate();
+        return $user->getAccountRightsOn(\App\Core\Constants\ListSubSystemConstants::Storage)->isUpdate()
+            ? Response::allow()
+            : Response::deny('Недостаточно прав');
     }
 
     /**
@@ -70,7 +74,9 @@ class EmployeeFilePolicy
      */
     public function delete(AccountModel $user, EmployeeFileModel $employeeFileModel)
     {
-        return $user->getAccountRightsOn(\App\Core\Constants\ListSubSystemConstants::Storage)->isDelete();
+        return $user->getAccountRightsOn(\App\Core\Constants\ListSubSystemConstants::Storage)->isDelete()
+            ? Response::allow()
+            : Response::deny('Недостаточно прав');
     }
 
     /**

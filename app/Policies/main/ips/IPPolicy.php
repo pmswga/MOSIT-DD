@@ -33,7 +33,9 @@ class IPPolicy
      */
     public function view(AccountModel $user, IPModel $iP)
     {
-        return $user->getAccountRightsOn(\App\Core\Constants\ListSubSystemConstants::IPS)->isView();
+        return $user->getAccountRightsOn(\App\Core\Constants\ListSubSystemConstants::IPS)->isView()
+            ? Response::allow()
+            : Response::deny('Недостаточно прав');
     }
 
     /**
@@ -44,7 +46,9 @@ class IPPolicy
      */
     public function create(AccountModel $user)
     {
-        return $user->getAccountRightsOn(\App\Core\Constants\ListSubSystemConstants::IPS)->isCreate();
+        return $user->getAccountRightsOn(\App\Core\Constants\ListSubSystemConstants::IPS)->isCreate()
+            ? Response::allow()
+            : Response::deny('Недостаточно прав');
     }
 
     /**
@@ -70,7 +74,9 @@ class IPPolicy
      */
     public function delete(AccountModel $user, IPModel $iP)
     {
-        return $user->getAccountRightsOn(\App\Core\Constants\ListSubSystemConstants::IPS)->isDelete();
+        return $user->getAccountRightsOn(\App\Core\Constants\ListSubSystemConstants::IPS)->isDelete()
+            ? Response::allow()
+            : Response::deny('Недостаточно прав');
     }
 
     /**
