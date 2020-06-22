@@ -311,14 +311,15 @@ class IPResourceController extends Controller
             }
 
             DB::commit();
-
-            #Session::flash('successMessage', 'ИП больше не отслеживается');
-            return back();
         } catch (\Exception $e) {
             DB::rollBack();
 
             #Session::flash('errorMessage', 'Ошибка удаления');
             return Redirect::route('ips.index');
         }
+
+
+        Session::flash('message', ['type' => 'error', 'message' => 'Не удалось удалить ИП']);
+        return back();
     }
 }

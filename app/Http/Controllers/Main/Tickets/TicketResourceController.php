@@ -23,7 +23,7 @@ use Illuminate\Support\Facades\Storage;
 class TicketResourceController extends Controller
 {
     private $ticketsPath;
-    private const TICKET_PATH = 'tickets' . DIRECTORY_SEPARATOR;
+    private const TICKET_PATH = 'tickets/';
 
     public function __construct()
     {
@@ -35,7 +35,12 @@ class TicketResourceController extends Controller
     }
 
     public function downloadFile(TicketFileModel $file) {
-        return Storage::download($file->getPath());
+        if (Storage::exists($file->getPath())) {
+            return Storage::download($file->getPath());
+        }
+
+        Session::flash('message', ['type' => 'error', 'message' => 'Не удалось скачать файл']);
+        return back();
     }
 
     /**

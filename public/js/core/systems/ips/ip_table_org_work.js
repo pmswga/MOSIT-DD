@@ -53,12 +53,12 @@ Vue.component('org-work-table', {
     },
     template: `
         <table class="ui table">
-            <col width="10%">
+            <col width="2%">
             <thead>
                 <tr>
                     <th class="ui form">
                         <div class="field">
-                            <label>Всего работ:</label>
+                            <label>Всего:</label>
                             <input type="text" class="disabled field" v-model="works.length">
                         </div>
                     </th>
@@ -135,11 +135,11 @@ Vue.component('org-work-row', {
             </td>
             <td>
                 <select v-model="work.finishDateReal" v-bind:name="'orgWork_' + work.num + '[]'">
-                    <option></option>
+                    <option>в течении года</option>
                 </select>
             </td>
             <td>
-                <a class="ui red button" v-on:click="$parent.removeOrgWork(work.num)">
+                <a class="ui red basic icon fluid button" v-on:click="$parent.removeOrgWork(work.num)">
                     <i class="delete icon"></i>
                 </a>
             </td>

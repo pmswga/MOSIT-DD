@@ -54,6 +54,7 @@ Vue.component('sci-work-table', {
     },
     template: `
         <table class="ui table">
+            <col width="2%">
             <thead>
                 <tr>
                     <th class="ui form">
@@ -80,12 +81,14 @@ Vue.component('sci-work-table', {
                     <th rowspan="2">Наименование и вид работ</th>
                     <th colspan="2">Трудоёмкость (час)</th>
                     <th colspan="2">Срок выполнения (даты)</th>
+                    <th></th>
                 </tr>
                 <tr>
                     <th>Планируемая</th>
                     <th>Фактическая</th>
                     <th>Планируемая</th>
                     <th>Фактическая</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -134,7 +137,7 @@ Vue.component('sci-work-row', {
                 <input type="date" v-model="work.finishDateReal" v-bind:name="'sciWork_' + work.num + '[]'">
             </td>
             <td>
-                <a class="ui red button" v-on:click="$parent.removeSciWork(work.num)">
+                <a class="ui red basic icon button" v-on:click="$parent.removeSciWork(work.num)">
                     <i class="delete icon"></i>
                 </a>
             </td>

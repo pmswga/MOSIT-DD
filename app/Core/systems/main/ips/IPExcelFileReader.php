@@ -213,7 +213,7 @@ class IPExcelFileReader extends IPExcelFileStreamer
             return
                 ((is_int(intval($work['num'])) and intval($work['num']) !== 0) or empty($work['num'])) and
                 $work['caption'] and
-                $work['plan'];
+                ((is_int(intval($work['plan'])) or intval($work['plan']) === 0));
         };
 
         for ($row = $this->cellCoordinates[4]['work'], $column = $row, $i = 0; $row < $highestRow; $row++, $column++) {
@@ -222,10 +222,12 @@ class IPExcelFileReader extends IPExcelFileStreamer
             $work['num'] = $this->excelFile->getActiveSheet()->getCell('A' . $column)->getValue();
             $work['caption'] = $this->excelFile->getActiveSheet()->getCell('B' . $column)->getValue();
             $work['plan'] = $this->excelFile->getActiveSheet()->getCell('C' . $column)->getValue();
-            $work['real'] = $this->excelFile->getActiveSheet()->getCell('D' . $column)->getValue();
-            $work['finishDatePlan'] = $this->excelFile->getActiveSheet()->getCell('E' . $column)->getFormattedValue();
-            $work['finishDateReal'] = $this->excelFile->getActiveSheet()->getCell('F' . $column)->getFormattedValue();
-
+            $work['real'] = $this->excelFile->getActiveSheet()->getCell('D' . $column)->getValue() ?? 0;
+            $work['finishDatePlan'] = $this->excelFile->getActiveSheet()->getCell('E' . $column)->getFormattedValue()
+                ? $this->excelFile->getActiveSheet()->getCell('E' . $column)->getFormattedValue() : '-';
+            $work['finishDateReal'] =
+                $this->excelFile->getActiveSheet()->getCell('F' . $column)->getFormattedValue()
+                ? $this->excelFile->getActiveSheet()->getCell('F' . $column)->getFormattedValue() : '-';
 
             if (preg_match('/ИТОГО/i', $work['num'])) {
                 if ($isOrgWork) {
@@ -242,7 +244,6 @@ class IPExcelFileReader extends IPExcelFileStreamer
             if (preg_match('/Раздел IV/i', $work['num'])) {
                 $isOrgWork = true;
             }
-
 
             if ($isOrgWork) {
                 if ($checkWork($work)) {
