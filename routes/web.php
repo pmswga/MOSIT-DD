@@ -56,12 +56,12 @@ Route::get('/ips/works/sciWorks', 'Main\IP\WorkResourceController@ajaxGetListSci
  * Подсистема хранения материалов
  */
 
-Route::get('/storage/download/{file}', 'Main\Storage\EmployeeFileResourceController@downloadFile')->name('storage.downloadFile');
+Route::get('/storage/download/{storage}', 'Main\Storage\EmployeeFileResourceController@downloadFile')->name('storage.downloadFile');
 Route::post('/storage/createDirectory', 'Main\Storage\EmployeeFileResourceController@createDirectory')->name('storage.createDirectory');
 Route::delete('/storage/destroyDirectory', 'Main\Storage\EmployeeFileResourceController@destroyDirectory')->name('storage.destroyDirectory');
 Route::get('/storage/trash', 'Main\Storage\EmployeeFileResourceController@trashIndex')->name('storage.trash');
-Route::post('/storage/trash/move/{file}', 'Main\Storage\EmployeeFileResourceController@moveToTrash')->name('storage.moveToTrash');
-Route::post('/storage/trash/restore/{file}', 'Main\Storage\EmployeeFileResourceController@restoreFromTrash')->name('storage.restoreFromTrash');
+Route::post('/storage/trash/move/{storage}', 'Main\Storage\EmployeeFileResourceController@moveToTrash')->name('storage.moveToTrash');
+Route::post('/storage/trash/restore/{storage}', 'Main\Storage\EmployeeFileResourceController@restoreFromTrash')->name('storage.restoreFromTrash');
 Route::post('/storage/trash/restoreAll', 'Main\Storage\EmployeeFileResourceController@restoreAllFromTrash')->name('storage.restoreAllFromTrash');
 
 Route::resource('/storage', 'Main\Storage\EmployeeFileResourceController');
