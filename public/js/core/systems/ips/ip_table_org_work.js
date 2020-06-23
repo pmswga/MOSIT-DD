@@ -114,7 +114,7 @@ Vue.component('org-work-row', {
                     <option>{{ work.caption }}</option>
                     <optgroup v-for="(captions, workCaption) in $parent.$parent.orgWorksCaptions" :label="workCaption">
                         <option v-for="caption in captions" v-if="caption.subCaption !== ''">
-                            {{ caption.subCaption }}
+                            {{ caption.workCaption + ' ' +  caption.subCaption }}
                         </option>
                         <option v-else>
                             {{ caption.workCaption }}
