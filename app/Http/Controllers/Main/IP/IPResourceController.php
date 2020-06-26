@@ -95,6 +95,12 @@ class IPResourceController extends Controller
             {
                 $ips = IPModel::all()->where('idTeacher', '=', Auth::id());
 
+                $ips = $ips->reject(function ($value) {
+                    return $value->getFile()->inTrash() === 1;
+                })->map(function ($value){
+                    return $value;
+                });
+
                 return view('systems.main.ips.index', [
                     'ips' => $ips
                 ]);
@@ -113,7 +119,22 @@ class IPResourceController extends Controller
                     'ips' => $ips
                 ]);
             } break;
+            case ListAccountTypeConstants::DEPUTY_EDU_WORK:
+            {
+                $ips = IPModel::all();
+
+                $ips = $ips->reject(function ($value) {
+                    return $value->getFile()->inTrash() === 1;
+                })->map(function ($value){
+                    return $value;
+                });
+
+                return view('systems.main.ips.index', [
+                    'ips' => $ips
+                ]);
+            }
         }
+
 
     }
 

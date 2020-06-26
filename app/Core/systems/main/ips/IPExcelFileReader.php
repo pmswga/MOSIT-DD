@@ -99,7 +99,7 @@ class IPExcelFileReader extends IPExcelFileStreamer
 
         preg_match('/[0|1][,|.][0-9][0|5]/', $post, $matches);
         if ($matches) {
-            $this->streamData[0]['rateValue'] = $matches[0];
+            $this->streamData[0]['rateValue'] = str_replace(',', '.', $matches[0]);
         }
 
         $initials = $this->excelFile->getActiveSheet()->getCell('A29')->getValue();

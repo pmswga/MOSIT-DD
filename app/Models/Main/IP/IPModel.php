@@ -15,7 +15,7 @@ class IPModel extends Model
     public $timestamps = false;
     protected $date_format = 'd.m.Y / H:i';
 
-    public function getFIle() {
+    public function getFile() {
         return $this->hasOne(EmployeeFileModel::class, 'idEmployeeFile', 'idEmployeeFile')->first();
     }
 

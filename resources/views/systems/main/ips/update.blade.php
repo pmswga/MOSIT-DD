@@ -40,13 +40,15 @@
                         <tr>
                             <td>Вид ставки</td>
                             <td>
-                                <input type="text" readonly id="rateType" value="{{ $file[0]['rateType'] }}">
+                                <input type="hidden" id="rateType" value="{{ $file[0]['rateType'] }}">
+                                {{ $file[0]['rateType'] }}
                             </td>
                         </tr>
                         <tr>
                             <td>Значение ставки</td>
                             <td>
-                                <input type="number" readonly id="rateValue"  value="{{ $file[0]['rateValue'] }}">
+                                <input type="hidden" id="rateValue" value="{{ $file[0]['rateValue'] }}">
+                                {{ $file[0]['rateValue'] }}
                             </td>
                         </tr>
                     </tbody>
