@@ -300,7 +300,6 @@
             }
         });
 
-
         var orgWorkTable = new Vue({
             el: '#orgWorkTable',
             data: {
