@@ -67,7 +67,7 @@ Vue.component('sci-work-table', {
                     <th>
                         <div class="field">
                             <label>Всего часов:</label>
-                            <input type="text" class="disabled field">
+                            <input type="text" class="disabled field" v-model="this.$parent.sciWorkSumPlan">
                         </div>
                     </th>
                     <th colspan="6">
@@ -128,7 +128,7 @@ Vue.component('sci-work-row', {
                 <input type="number" v-on:change="$parent.$parent.getSumPlan" v-bind:name="'sciWork_' + work.num + '[]'" v-model="work.plan" step="0.01" min="0">
             </td>
             <td>
-                <input type="number" v-bind:name="'sciWork_' + work.num + '[]'" v-model="work.real" step="0.01" min="0">
+                <input type="number" v-on:change="$parent.$parent.getSumReal" v-bind:name="'sciWork_' + work.num + '[]'" v-model="work.real" step="0.01" min="0">
             </td>
             <td>
                 <input type="date" v-model="work.finishDatePlan" v-bind:name="'sciWork_' + work.num + '[]'">

@@ -125,10 +125,10 @@ Vue.component('org-work-row', {
                 </select>
             </td>
             <td>
-                <input type="number" v-on:change="$parent.$parent.getSumPlan" v-bind:name="'orgWork_' + work.num + '[]'" v-model="work.plan" step="0.01" min="0">
+                <input type="number" :required="1" v-on:change="$parent.$parent.getSumPlan" v-bind:name="'orgWork_' + work.num + '[]'" v-model="work.plan" step="0.01" min="0">
             </td>
             <td>
-                <input type="number" v-bind:name="'orgWork_' + work.num + '[]'" v-model="work.real" step="0.01" min="0">
+                <input type="number" v-on:change="$parent.$parent.getSumReal" v-bind:name="'orgWork_' + work.num + '[]'" v-model="work.real" step="0.01" min="0">
             </td>
             <td>
                 <select v-model="work.finishDatePlan" v-bind:name="'orgWork_' + work.num + '[]'">

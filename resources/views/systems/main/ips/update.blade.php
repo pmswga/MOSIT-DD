@@ -217,21 +217,27 @@
                         <td>
                             <input type="number" id="workSum2Plan" readonly value="{{ $file[4]['workSum2'] }}">
                         </td>
-                        <td id="workSum2Real"></td>
+                        <td>
+                            <input type="number" id="workSum2Real" readonly value="0">
+                        </td>
                     </tr>
                     <tr>
                         <td>Научно-исследовательская работа</td>
                         <td>
                             <input type="number" id="workSum3Plan" readonly value="{{ $file[4]['workSum3'] }}">
                         </td>
-                        <td id="workSum3Real"></td>
+                        <td>
+                            <input type="number" id="workSum3Real" readonly value="0">
+                        </td>
                     </tr>
                     <tr>
                         <td>Организационно-методическая и воспитательная работа</td>
                         <td>
                             <input type="number" id="workSum4Plan" readonly value="{{ $file[4]['workSum4'] }}">
                         </td>
-                        <td id="workSum4Real"></td>
+                        <td>
+                            <input type="number" id="workSum4Real" readonly value="0">
+                        </td>
                     </tr>
                     <tr id="workSumRow">
                         <td>Итого</td>
@@ -252,11 +258,19 @@
 
     <script type="text/javascript">
 
-        function calculateSum(array) {
+        function calculateSum(array, type) {
             let sum = 0;
 
             array.forEach(function (value, index) {
-                sum += parseFloat(value.plan);
+
+                if (type === 'plan') {
+                    sum += parseFloat(value.plan);
+                }
+
+                if (type === 'real') {
+                    sum += parseFloat(value.real);
+                }
+
             }, sum);
 
             return sum;
@@ -269,11 +283,19 @@
                 sciWorksCaptions: [],
                 sciWorks: JSON.parse('{{ json_encode($file[4]['work_1']) }}'.replace(/&quot;/ig,'"')),
                 countOfSciWork: '{{count($file[4]['work_1'])}}',
-                sciWorkSumPlan: 0
+                sciWorkSumPlan: 0,
+                sciWorkSumReal: 0
             },
             methods: {
                 getSumPlan() {
-                    $('#workSum3Plan').val(calculateSum(this.sciWorks));
+                    this.sciWorkSumPlan = calculateSum(this.sciWorks, 'plan');
+                    $('#workSum3Plan').val(this.sciWorkSumPlan);
+                    getSumPlan();
+                },
+                getSumReal() {
+                    this.sciWorkSumReal = calculateSum(this.sciWorks, 'real');
+                    $('#workSum3Real').val(this.sciWorkSumReal);
+                    getSumPlan();
                 }
             }
         });
@@ -285,11 +307,19 @@
                 orgWorksCaptions: [],
                 orgWorks: JSON.parse('{{ json_encode($file[4]['work_2']) }}'.replace(/&quot;/ig,'"')),
                 countOfOrgWork: '{{count($file[4]['work_2'])}}',
-                orgWorkSumPlan: 0
+                orgWorkSumPlan: 0,
+                orgWorkSumReal: 0
             },
             methods: {
                 getSumPlan() {
-                    $('#workSum4Plan').val(calculateSum(this.orgWorks));
+                    this.orgWorkSumPlan = calculateSum(this.orgWorks, 'plan');
+                    $('#workSum4Plan').val(this.orgWorkSumPlan);
+                    getSumPlan();
+                },
+                getSumReal() {
+                    this.orgWorkSumReal = calculateSum(this.orgWorks, 'real');
+                    $('#workSum4Real').val(this.orgWorkSumReal);
+                    getSumPlan();
                 }
             }
         });
@@ -316,20 +346,19 @@
             return timeLimit;
         }
 
-        $('[type=number]').on('change', function (element) {
-
+        function getSumPlan() {
             let workSum1Plan = parseFloat($('#workSum1Plan').val());
             let workSum2Plan = parseFloat($('#workSum2Plan').val());
 
-            $('#workSum3Plan').val(sciWorkTable.getSumPlan());
-            $('#workSum4Plan').val(orgWorkTable.getSumPlan());
+            console.log(workSum2Plan);
+
             $('#workSumPlan').val(
                 workSum1Plan +
                 workSum2Plan +
-                sciWorkTable.getSumPlan() +
-                orgWorkTable.getSumPlan()
+                sciWorkTable.sciWorkSumPlan +
+                orgWorkTable.orgWorkSumPlan
             );
-        });
+        };
 
         $('#updateIPForm').on('submit', function () {
             let timeLimit = getTimeLimit(rateValue);
