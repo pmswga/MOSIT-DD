@@ -15,19 +15,22 @@ class AccountRightsSeeder extends Seeder
         if (DB::table(\App\Core\Config\ListDatabaseTable::TABLE_ACCOUNT_RIGHTS)->count() === 0) {
             $accountRights = [];
 
-            foreach (DataSeeder::$employees as $employee) {
-                if ($employee['idEmployeePost'] == \App\Core\Constants\ListEmployeePostConstants::TEACHER) {
+            foreach (DataSeeder::$teachers as $teacher) {
+                if ($teacher['idTeacher']) {
                     $accountRights[] = [
-                        'idAccount' => $employee['idEmployee'],
+                        'idAccount' => $teacher['idTeacher'],
                         'idSubSystem' => \App\Core\Constants\ListSubSystemConstants::IPS,
                         'isAccess' => True,
                         'isViewAny' => True,
                         'isView' => True,
-                        'isCreate' => False,
-                        'isUpdate' => False,
+                        'isCreate' => True,
+                        'isUpdate' => True,
                         'isDelete' => False
                     ];
                 }
+            }
+
+            foreach (DataSeeder::$employees as $employee) {
 
                 if (
                     $employee['idEmployeePost'] == \App\Core\Constants\ListEmployeePostConstants::TEACHER or
@@ -81,7 +84,7 @@ class AccountRightsSeeder extends Seeder
             }
 
             $accountRights[] = [
-                'idAccount' => DataSeeder::$employees[0]['idEmployee'],
+                'idAccount' => DataSeeder::$employees[0]['idEmployee'], /// Доступ для Евгении Михайловой
                 'idSubSystem' => \App\Core\Constants\ListSubSystemConstants::IPS,
                 'isAccess' => True,
                 'isViewAny' => True,
