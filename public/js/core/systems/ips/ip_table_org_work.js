@@ -9,6 +9,8 @@ Vue.component('org-work-table', {
             this.$parent.orgWorks.forEach(function (value, index) {
                 this.$parent.orgWorkSumPlan += parseFloat(value.plan);
             }, this);
+
+            console.log(this.$parent.orgWorkSumPlan);
         },
         reCount: function () {
             this.$parent.orgWorks.forEach(function (value, index) {
@@ -123,7 +125,7 @@ Vue.component('org-work-row', {
                 </select>
             </td>
             <td>
-                <input type="number" v-bind:name="'orgWork_' + work.num + '[]'" v-model="work.plan" step="0.01" min="0">
+                <input type="number" v-on:change="$parent.$parent.getSumPlan" v-bind:name="'orgWork_' + work.num + '[]'" v-model="work.plan" step="0.01" min="0">
             </td>
             <td>
                 <input type="number" v-bind:name="'orgWork_' + work.num + '[]'" v-model="work.real" step="0.01" min="0">

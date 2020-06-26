@@ -273,7 +273,7 @@
             },
             methods: {
                 getSumPlan() {
-                    return calculateSum(this.sciWorks);
+                    $('#workSum3Plan').val(calculateSum(this.sciWorks));
                 }
             }
         });
@@ -289,7 +289,7 @@
             },
             methods: {
                 getSumPlan() {
-                    return calculateSum(this.orgWorks);
+                    $('#workSum4Plan').val(calculateSum(this.orgWorks));
                 }
             }
         });
