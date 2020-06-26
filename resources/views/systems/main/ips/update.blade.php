@@ -283,7 +283,7 @@
                 sciWorksCaptions: [],
                 sciWorks: JSON.parse('{{ json_encode($file[4]['work_1']) }}'.replace(/&quot;/ig,'"')),
                 countOfSciWork: '{{count($file[4]['work_1'])}}',
-                sciWorkSumPlan: 0,
+                sciWorkSumPlan: {{ $file[4]['workSum3'] }},
                 sciWorkSumReal: 0
             },
             methods: {
@@ -307,7 +307,7 @@
                 orgWorksCaptions: [],
                 orgWorks: JSON.parse('{{ json_encode($file[4]['work_2']) }}'.replace(/&quot;/ig,'"')),
                 countOfOrgWork: '{{count($file[4]['work_2'])}}',
-                orgWorkSumPlan: 0,
+                orgWorkSumPlan: {{ $file[4]['workSum4'] }},
                 orgWorkSumReal: 0
             },
             methods: {
