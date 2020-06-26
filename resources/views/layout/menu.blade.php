@@ -7,10 +7,6 @@
             Главная
             <i class="compass icon"></i>
         </a>
-        <a class="item" href="{{ route('manual') }}">
-            Руководство
-            <i class="book icon"></i>
-        </a>
         <a class="item" onclick="$('#loginModal').modal('show')">
             Войти
             <i class="sign-in icon"></i>
