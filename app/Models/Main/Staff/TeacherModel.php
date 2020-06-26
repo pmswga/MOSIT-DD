@@ -18,8 +18,12 @@ class TeacherModel extends Model
         $this->isNull = true;
     }
 
+    public function getPost() {
+        return $this->hasOne(ListTeacherPostModel::class, 'idTeacherPost', 'idTeacherPost')->first();
+    }
+
     public function getIPS() {
-        return $this->hasOne(IPModel::class,'idTeacher', 'idTeacher')->get();
+        return $this->hasMany(IPModel::class,'idTeacher', 'idTeacher')->get();
     }
 
 }
