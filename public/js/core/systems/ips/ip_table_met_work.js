@@ -112,6 +112,7 @@ Vue.component('met-work-row', {
             <td>
                 <select v-model="work.caption" v-bind:name="'metWork_' + work.num + '[]'">
                     <option>{{ work.caption }}</option>
+                    <option>Другая работа</option>
                 </select>
             </td>
             <td>
@@ -123,6 +124,7 @@ Vue.component('met-work-row', {
             <td>
                 <select v-model="work.finish" v-bind:name="'metWork_' + work.num + '[]'">
                     <option>{{ work.finish }}</option>
+                    <option>Другая работа</option>
                 </select>
             </td>
             <td>
