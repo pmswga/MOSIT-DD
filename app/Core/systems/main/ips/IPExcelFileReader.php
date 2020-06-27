@@ -176,8 +176,8 @@ class IPExcelFileReader extends IPExcelFileStreamer
 
             $work['num'] = $this->excelFile->getActiveSheet()->getCell('A' . $column)->getValue();
             $work['caption'] = str_replace('"', "'", $this->excelFile->getActiveSheet()->getCell('B' . $column)->getValue());
-            $work['plan'] = $this->excelFile->getActiveSheet()->getCell('D' . $column)->getValue();
-            $work['real'] = $this->excelFile->getActiveSheet()->getCell('E' . $column)->getValue();
+            $work['plan'] = $this->excelFile->getActiveSheet()->getCell('D' . $column)->getValue() ?? 0;
+            $work['real'] = $this->excelFile->getActiveSheet()->getCell('E' . $column)->getValue() ?? 0;
             $work['finish'] = str_replace('"', "'", $this->excelFile->getActiveSheet()->getCell('G' . $column)->getValue());
             $work['finishDatePlan'] = $this->excelFile->getActiveSheet()->getCell('N' . $column)->getFormattedValue();
             $work['finishDateReal'] = $this->excelFile->getActiveSheet()->getCell('T' . $column)->getFormattedValue();

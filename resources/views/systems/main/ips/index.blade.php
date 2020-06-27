@@ -36,13 +36,17 @@
                     </td>
                     <td>
                         {{ $ip->getLastUpdate() . ', ' . $ip->getLastEmployee()->getFullInitials() }}
-
                     </td>
-                    <td colspan="2" style="text-align: center">
+                    <td colspan="2">
                         <div class="ui basic fluid icon buttons">
                             <a class="ui button" href="{{ route('ips.download', $ip) }}">
                                 <i class="ui download icon"></i>
                             </a>
+                            @if(Auth::user()->getAccountRightsOn(\App\Core\Constants\ListSubSystemConstants::IPS)->isFullAccess())
+                                <a class="ui button">
+                                    <i class="unlock icon"></i>
+                                </a>
+                            @endif
                             @can('update', $ip)
                                 <a class="ui button" href="{{ route('ips.edit', $ip) }}">
                                     <i class="orange edit icon"></i>

@@ -57,7 +57,7 @@ Vue.component('sci-work-table', {
                 <tr>
                     <th class="ui form">
                         <div class="field">
-                            <label>Всего работ:</label>
+                            <label>Всего:</label>
                             <input type="text" class="disabled field" v-model="works.length">
                         </div>
                     </th>
@@ -102,7 +102,9 @@ Vue.component('sci-work-table', {
 
 
 Vue.component('sci-work-row', {
-    props: ['work'],
+    props: {
+        work: Object
+    },
     template:`
         <tr>
             <td>
@@ -110,17 +112,12 @@ Vue.component('sci-work-row', {
                 {{ work.num }}
             </td>
             <td>
-                <select v-model="work.caption" v-bind:name="'sciWork_' + work.num + '[]'" :required="1">
-                    <option>{{ work.caption }}</option>
-                    <optgroup v-for="(captions, workCaption) in $parent.$parent.sciWorksCaptions" :label="workCaption">
-                        <option v-for="caption in captions" v-if="caption.subCaption !== ''">
-                            {{ caption.subCaption }}
-                        </option>
-                        <option v-else>
-                            {{ caption.workCaption }}
-                        </option>
-                    </optgroup>
-                </select>
+                <input list="works" v-model="work.caption" v-bind:name="'sciWork_' + work.num + '[]'" :required="1">
+                <datalist id="works">
+                    <option v-for="caption in $parent.$parent.sciWorksCaptions"">
+                        {{ caption.workCaption + ' ' + caption.subCaption }}
+                    </option>
+                </datalist>
             </td>
             <td>
                 <input type="number" v-on:change="$parent.$parent.getSumPlan" v-bind:name="'sciWork_' + work.num + '[]'" v-model="work.plan" step="0.01" min="0">

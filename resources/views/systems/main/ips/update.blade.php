@@ -237,7 +237,7 @@
                 metWorkCaptions: [],
                 metWorks: {!! json_encode($file[3]['work']) !!},
                 countOfMetWork: {{ count($file[3]['work']) }},
-                metWorkSumPlan: 0,
+                metWorkSumPlan: {{ $file[4]['workSum2'] }},
                 metWorkSumReal: 0
             },
             methods: {
@@ -259,7 +259,7 @@
             data: {
                 sciWorksCaptions: [],
                 sciWorks: {!! json_encode($file[4]['work_1']) !!},
-                countOfSciWork: '{{count($file[4]['work_1'])}}',
+                countOfSciWork: {{count($file[4]['work_1'])}},
                 sciWorkSumPlan: {{ $file[4]['workSum3'] }},
                 sciWorkSumReal: 0
             },
@@ -281,8 +281,8 @@
             el: '#orgWorkTable',
             data: {
                 orgWorksCaptions: [],
-                orgWorks: JSON.parse('{{ json_encode($file[4]['work_2']) }}'.replace(/&quot;/ig,'"')),
-                countOfOrgWork: '{{count($file[4]['work_2'])}}',
+                orgWorks: {!! json_encode($file[4]['work_2']) !!},
+                countOfOrgWork: {{count($file[4]['work_2'])}},
                 orgWorkSumPlan: {{ $file[4]['workSum4'] }},
                 orgWorkSumReal: 0
             },

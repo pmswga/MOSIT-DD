@@ -46,6 +46,16 @@ class IPResourceController extends Controller
                 throw new \Exception();
             }
 
+            switch (Auth::user()->idAccountType)
+            {
+                case ListAccountTypeConstants::TEACHER:
+                {
+                    if ($teacher->getTeacher()->idTeacher !== Auth::id()) {
+                        throw new \Exception('Загрузите свой индивидуальный план', ListMessageCode::ERROR);
+                    }
+                } break;
+            }
+
             DB::beginTransaction();
 
             $ip = new IPModel();
@@ -63,8 +73,9 @@ class IPResourceController extends Controller
             return true;
         } catch (\Exception $e) {
             DB::rollBack();
-            return false;
         }
+
+        return false;
     }
 
     public function downloadIP($ip)

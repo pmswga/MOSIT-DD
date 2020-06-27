@@ -17,11 +17,18 @@ class WorkResourceController extends Controller
         $this->middleware('auth');
     }
 
+    public function ajaxGetListMetWorks() {
+        return \App\Models\Main\IP\ListWorksModel::all()
+            ->where('idWorkType', '=', ListWorkTypeConstants::MET_WORK)
+            ->sortBy('workCaption')
+            ->groupBy('workCaption')
+            ->toJson();
+    }
+
     public function ajaxGetListSciWorks() {
         return \App\Models\Main\IP\ListWorksModel::all()
             ->where('idWorkType', '=', ListWorkTypeConstants::SIC_WORK)
             ->sortBy('workCaption')
-            ->groupBy('workCaption')
             ->toJson();
     }
 

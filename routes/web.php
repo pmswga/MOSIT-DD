@@ -48,8 +48,9 @@ Route::prefix('help')->group(function () {
 
 Route::resource('/ips', 'Main\IP\IPResourceController');
 Route::get('/ips/download/{ip}', 'Main\IP\IPResourceController@downloadIP')->name('ips.download');
-Route::get('/ips/works/orgWorks', 'Main\IP\WorkResourceController@ajaxGetListOrgWorks');
+Route::get('/ips/works/metWorks', 'Main\IP\WorkResourceController@ajaxGetListMetWorks');
 Route::get('/ips/works/sciWorks', 'Main\IP\WorkResourceController@ajaxGetListSciWorks');
+Route::get('/ips/works/orgWorks', 'Main\IP\WorkResourceController@ajaxGetListOrgWorks');
 
 
 /**

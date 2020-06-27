@@ -112,7 +112,14 @@ Vue.component('met-work-row', {
             <td>
                 <select v-model="work.caption" v-bind:name="'metWork_' + work.num + '[]'">
                     <option>{{ work.caption }}</option>
-                    <option>Другая работа</option>
+                    <optgroup v-for="(captions, workCaption) in $parent.$parent.metWorksCaptions" :label="workCaption">
+                        <option v-for="caption in captions" v-if="caption.subCaption !== ''">
+                            {{ caption.workCaption + ' ' +  caption.subCaption }}
+                        </option>
+                        <option v-else>
+                            {{ caption.workCaption }}
+                        </option>
+                    </optgroup>
                 </select>
             </td>
             <td>

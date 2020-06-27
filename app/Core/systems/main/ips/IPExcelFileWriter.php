@@ -63,17 +63,20 @@ class IPExcelFileWriter extends IPExcelFileStreamer
     {
         $this->excelFile->setActiveSheetIndex(3);
 
-        $highestRow = $this->excelFile->getActiveSheet()->getHighestRow()-1;
+        $highestRow = $this->excelFile->getActiveSheet()->getHighestRow('A');
 
-        for ($row = $this->cellCoordinates[3]['work']; $row <= $highestRow; $row++) {
-            $this->excelFile->getActiveSheet()->setCellValue('A'.$row, '');
-            $this->excelFile->getActiveSheet()->setCellValue('B'.$row, '');
-            $this->excelFile->getActiveSheet()->setCellValue('C'.$row, '');
-            $this->excelFile->getActiveSheet()->setCellValue('D'.$row, '');
-            $this->excelFile->getActiveSheet()->setCellValue('E'.$row, '');
-            $this->excelFile->getActiveSheet()->setCellValue('G'.$row, '');
-            $this->excelFile->getActiveSheet()->setCellValue('N'.$row, '');
-            $this->excelFile->getActiveSheet()->setCellValue('T'.$row, '');
+        for ($row = $this->cellCoordinates[3]['work']; $row < $highestRow; $row++) {
+            $work['num'] = $this->excelFile->getActiveSheet()->getCell('A'.$row)->getValue();
+            if (!preg_match('/ИТОГО/i', $work['num'])) {
+                $this->excelFile->getActiveSheet()->setCellValue('A'.$row, '');
+                $this->excelFile->getActiveSheet()->setCellValue('B'.$row, '');
+                $this->excelFile->getActiveSheet()->setCellValue('C'.$row, '');
+                $this->excelFile->getActiveSheet()->setCellValue('D'.$row, '');
+                $this->excelFile->getActiveSheet()->setCellValue('E'.$row, '');
+                $this->excelFile->getActiveSheet()->setCellValue('G'.$row, '');
+                $this->excelFile->getActiveSheet()->setCellValue('N'.$row, '');
+                $this->excelFile->getActiveSheet()->setCellValue('T'.$row, '');
+            }
         }
 
     }

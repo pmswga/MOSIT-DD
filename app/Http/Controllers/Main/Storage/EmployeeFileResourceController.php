@@ -178,7 +178,6 @@ class EmployeeFileResourceController extends Controller
                     throw new \Exception('Такой файл уже существует', ListMessageCode::WARNING);
                 }
 
-
                 $fileModel = new EmployeeFileModel([
                     'idEmployee' => Auth::id(),
                     'idFileTag' => $request->fileTag,

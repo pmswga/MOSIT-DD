@@ -50,4 +50,13 @@ class AccountRightsModel extends Model
         return $this->isDelete;
     }
 
+    public function isFullAccess() {
+        return $this->isAccess &&
+            $this->isViewAny &&
+            $this->isView &&
+            $this->isCreate &&
+            $this->isUpdate &&
+            $this->isDelete;
+    }
+
 }
