@@ -3,6 +3,7 @@
 
 @section('content')
     <script type="text/javascript" src="{{ asset('js/vue.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/core/systems/ips/ip_table_met_work.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/core/systems/ips/ip_table_sci_work.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/core/systems/ips/ip_table_org_work.js') }}"></script>
 
@@ -119,55 +120,9 @@
                 <h3>Учебно-методическая работа</h3>
             </div>
             <div class="content">
-                <table class="ui table">
-                    <thead>
-                        <tr>
-                            <th rowspan="2">№</th>
-                            <th rowspan="2">Наименование и вид работ</th>
-                            <th colspan="2">Трудоёмкость (час)</th>
-                            <th rowspan="2">Форма завершения работ</th>
-                            <th colspan="2">Срок выполнения (даты)</th>
-                        </tr>
-                        <tr>
-                            <th>Планируемая</th>
-                            <th>Фактическая</th>
-                            <th>Планируемая</th>
-                            <th>Фактическая</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($file[3]['work'] as $work)
-                            <tr>
-                                <td>
-                                    <input type="hidden" name="metWork_{{ $loop->iteration }}[]" value="{{ $loop->iteration }}">
-                                    {{ $loop->iteration }}
-                                </td>
-                                <td>
-                                    <select name="metWork_{{ $loop->iteration }}[]">
-                                        <option>{{ $work['caption'] }}</option>
-                                    </select>
-                                </td>
-                                <td>
-                                    <input name="metWork_{{ $loop->iteration }}[]" class="workSum3Plan" type="number" value="{{ $work['plan'] }}">
-                                </td>
-                                <td>
-                                    <input name="metWork_{{ $loop->iteration }}[]" class="workSum3Real" type="number" value="{{ $work['real'] }}">
-                                </td>
-                                <td>
-                                    <select name="metWork_{{ $loop->iteration }}[]">
-                                        <option>{{ $work['finish'] }}</option>
-                                    </select>
-                                </td>
-                                <td>
-                                    <input name="metWork_{{ $loop->iteration }}[]" type="date" value="{{ $work['finishDatePlan'] }}">
-                                </td>
-                                <td>
-                                    <input name="metWork_{{ $loop->iteration }}[]" type="date" value="{{ $work['finishDateReal'] }}">
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                <div id="metWorkTable" class="content">
+                    <met-work-table v-bind:works='metWorks'></met-work-table>
+                </div>
             </div>
         </div>
 
@@ -276,12 +231,34 @@
             return sum;
         }
 
+        var metWorkTable = new Vue({
+            el: '#metWorkTable',
+            data: {
+                metWorkCaptions: [],
+                metWorks: {!! json_encode($file[3]['work']) !!},
+                countOfMetWork: {{ count($file[3]['work']) }},
+                metWorkSumPlan: 0,
+                metWorkSumReal: 0
+            },
+            methods: {
+                getSumPlan() {
+                    this.metWorkSumPlan = calculateSum(this.metWorks, 'plan');
+                    $('#workSum2Plan').val(this.metWorkSumPlan);
+                    getSumPlan();
+                },
+                getSumReal() {
+                    this.metWorkSumReal = calculateSum(this.metWorks, 'real');
+                    $('#workSum2Real').val(this.metWorkSumReal);
+                    getSumPlan();
+                }
+            }
+        });
 
         var sciWorkTable = new Vue({
             el: '#sciWorkTable',
             data: {
                 sciWorksCaptions: [],
-                sciWorks: JSON.parse('{{ json_encode($file[4]['work_1']) }}'.replace(/&quot;/ig,'"')),
+                sciWorks: {!! json_encode($file[4]['work_1']) !!},
                 countOfSciWork: '{{count($file[4]['work_1'])}}',
                 sciWorkSumPlan: {{ $file[4]['workSum3'] }},
                 sciWorkSumReal: 0
