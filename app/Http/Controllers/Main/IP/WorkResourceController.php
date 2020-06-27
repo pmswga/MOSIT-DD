@@ -21,7 +21,6 @@ class WorkResourceController extends Controller
         return \App\Models\Main\IP\ListWorksModel::all()
             ->where('idWorkType', '=', ListWorkTypeConstants::MET_WORK)
             ->sortBy('workCaption')
-            ->groupBy('workCaption')
             ->toJson();
     }
 
@@ -40,7 +39,6 @@ class WorkResourceController extends Controller
                 return \App\Models\Main\IP\ListWorksModel::all()
                     ->where('idWorkType', '=', ListWorkTypeConstants::ORG_WORK)
                     ->sortBy('workCaption')
-                    ->groupBy('workCaption')
                     ->toJson();
             } break;
             default:
@@ -49,7 +47,6 @@ class WorkResourceController extends Controller
                     ->where('idWorkType', '=', ListWorkTypeConstants::ORG_WORK)
                     ->whereNotIn('workCaption', ['Руководство кафедрой'])
                     ->sortBy('workCaption')
-                    ->groupBy('workCaption')
                     ->toJson();
             } break;
         }

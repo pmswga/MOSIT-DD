@@ -56,6 +56,7 @@ Vue.component('org-work-table', {
     template: `
         <table class="ui table">
             <col width="2%">
+            <col width="30%">
             <thead>
                 <tr>
                     <th class="ui form">
@@ -112,17 +113,12 @@ Vue.component('org-work-row', {
                 {{ work.num }}
             </td>
             <td>
-                <select v-model="work.caption" v-bind:name="'orgWork_' + work.num + '[]'" :required="1">
-                    <option>{{ work.caption }}</option>
-                    <optgroup v-for="(captions, workCaption) in $parent.$parent.orgWorksCaptions" :label="workCaption">
-                        <option v-for="caption in captions" v-if="caption.subCaption !== ''">
-                            {{ caption.workCaption + ' ' +  caption.subCaption }}
-                        </option>
-                        <option v-else>
-                            {{ caption.workCaption }}
-                        </option>
-                    </optgroup>
-                </select>
+                <input :list="'orgWork_' + work.num + '[]'" v-model="work.caption" v-bind:name="'orgWork_' + work.num + '[]'" :required="1">
+                <datalist :id="'orgWork_' + work.num + '[]'">
+                    <option v-for="caption in $parent.$parent.orgWorksCaptions"">
+                        {{ caption.workCaption + ' ' + caption.subCaption }}
+                    </option>
+                </datalist>
             </td>
             <td>
                 <input type="number" :required="1" v-on:change="$parent.$parent.getSumPlan" v-bind:name="'orgWork_' + work.num + '[]'" v-model="work.plan" step="0.01" min="0">

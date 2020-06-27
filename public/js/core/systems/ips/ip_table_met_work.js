@@ -53,6 +53,7 @@ Vue.component('met-work-table', {
     template: `
         <table class="ui table">
             <col width="2%">
+            <col width="30%">
             <thead>
                 <tr>
                     <th class="ui form">
@@ -110,17 +111,12 @@ Vue.component('met-work-row', {
                 {{ work.num }}
             </td>
             <td>
-                <select v-model="work.caption" v-bind:name="'metWork_' + work.num + '[]'">
-                    <option>{{ work.caption }}</option>
-                    <optgroup v-for="(captions, workCaption) in $parent.$parent.metWorksCaptions" :label="workCaption">
-                        <option v-for="caption in captions" v-if="caption.subCaption !== ''">
-                            {{ caption.workCaption + ' ' +  caption.subCaption }}
-                        </option>
-                        <option v-else>
-                            {{ caption.workCaption }}
-                        </option>
-                    </optgroup>
-                </select>
+                <input :list="'metWork_' + work.num + '[]'" v-model="work.caption" v-bind:name="'metWork_' + work.num + '[]'" :required="1">
+                <datalist :id="'metWork_' + work.num + '[]'">
+                    <option v-for="caption in $parent.$parent.metWorksCaptions"">
+                        {{ caption.workCaption + ' ' + caption.subCaption }}
+                    </option>
+                </datalist>
             </td>
             <td>
                 <input type="number" v-on:change="$parent.$parent.getSumPlan" v-bind:name="'metWork_' + work.num + '[]'" v-model="work.plan" step="0.01" min="0">

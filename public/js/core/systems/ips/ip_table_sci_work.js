@@ -53,6 +53,7 @@ Vue.component('sci-work-table', {
     template: `
         <table class="ui table">
             <col width="2%">
+            <col width="30%">
             <thead>
                 <tr>
                     <th class="ui form">
@@ -112,8 +113,8 @@ Vue.component('sci-work-row', {
                 {{ work.num }}
             </td>
             <td>
-                <input list="works" v-model="work.caption" v-bind:name="'sciWork_' + work.num + '[]'" :required="1">
-                <datalist id="works">
+                <input :list="'sciWork_' + work.num + '[]'" v-model="work.caption" v-bind:name="'sciWork_' + work.num + '[]'" :required="1">
+                <datalist :id="'sciWork_' + work.num + '[]'">
                     <option v-for="caption in $parent.$parent.sciWorksCaptions"">
                         {{ caption.workCaption + ' ' + caption.subCaption }}
                     </option>
