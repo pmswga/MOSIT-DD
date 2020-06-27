@@ -59,12 +59,32 @@ class IPExcelFileWriter extends IPExcelFileStreamer
 
     }
 
+    public function clearSheet4()
+    {
+        $this->excelFile->setActiveSheetIndex(3);
+
+        $highestRow = $this->excelFile->getActiveSheet()->getHighestRow()-1;
+
+        for ($row = $this->cellCoordinates[3]['work']; $row <= $highestRow; $row++) {
+            $this->excelFile->getActiveSheet()->setCellValue('A'.$row, '');
+            $this->excelFile->getActiveSheet()->setCellValue('B'.$row, '');
+            $this->excelFile->getActiveSheet()->setCellValue('C'.$row, '');
+            $this->excelFile->getActiveSheet()->setCellValue('D'.$row, '');
+            $this->excelFile->getActiveSheet()->setCellValue('E'.$row, '');
+            $this->excelFile->getActiveSheet()->setCellValue('G'.$row, '');
+            $this->excelFile->getActiveSheet()->setCellValue('N'.$row, '');
+            $this->excelFile->getActiveSheet()->setCellValue('T'.$row, '');
+        }
+
+    }
+
     /**
      * @inheritDoc
      */
     public function streamSheet4()
     {
         $this->excelFile->setActiveSheetIndex(3);
+        $this->clearSheet4();
 
         $columns = ['A', 'B', 'D', 'E', 'G', 'N', 'T'];
         $row = $this->cellCoordinates[3]['work'];
@@ -89,6 +109,7 @@ class IPExcelFileWriter extends IPExcelFileStreamer
 
     public function clearSheet5()
     {
+        $this->excelFile->setActiveSheetIndex(4);
         $columns = ['A', 'B', 'C', 'D', 'E', 'F'];
         $row = $this->cellCoordinates[4]['sciWork'];
 
