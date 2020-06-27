@@ -20,16 +20,16 @@ class EmployeeFileResourceController extends Controller
 
     public function __construct()
     {
-        $this->authorizeResource(EmployeeFileModel::class, 'file');
+        $this->authorizeResource(EmployeeFileModel::class, 'storage');
     }
 
     private function getAccountPath() {
         return 'storage' . '/' . Auth::user()->getEmail();
     }
 
-    public function downloadFile(EmployeeFileModel $file) {
-        if (Storage::exists($file->getPath())) {
-            return Storage::download($file->getPath(), $file->getFilename(true));
+    public function downloadFile(EmployeeFileModel $storage) {
+        if (Storage::exists($storage->getPath())) {
+            return Storage::download($storage->getPath(), $storage->getFilename(true));
         }
 
         Session::flash('message', ['type' => 'error', 'message' => 'Не удалось скачать файл']);
@@ -178,7 +178,6 @@ class EmployeeFileResourceController extends Controller
                     throw new \Exception('Такой файл уже существует', ListMessageCode::WARNING);
                 }
 
-
                 $fileModel = new EmployeeFileModel([
                     'idEmployee' => Auth::id(),
                     'idFileTag' => $request->fileTag,
@@ -227,7 +226,7 @@ class EmployeeFileResourceController extends Controller
      * @param  \App\Models\Main\Storage\EmployeeFileModel  $employeeFileModel
      * @return \Illuminate\Http\Response
      */
-    public function show(EmployeeFileModel $employeeFileModel)
+    public function show(EmployeeFileModel $storage)
     {
         //
     }
@@ -238,7 +237,7 @@ class EmployeeFileResourceController extends Controller
      * @param  \App\Models\Main\Storage\EmployeeFileModel  $employeeFileModel
      * @return \Illuminate\Http\Response
      */
-    public function edit(EmployeeFileModel $employeeFileModel)
+    public function edit(EmployeeFileModel $storage)
     {
         //
     }
@@ -250,7 +249,7 @@ class EmployeeFileResourceController extends Controller
      * @param  \App\Models\Main\Storage\EmployeeFileModel  $employeeFileModel
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, EmployeeFileModel $employeeFileModel)
+    public function update(Request $request, EmployeeFileModel $storage)
     {
         //
     }
@@ -267,13 +266,13 @@ class EmployeeFileResourceController extends Controller
     }
 
 
-    public function moveToTrash(EmployeeFileModel $file)
+    public function moveToTrash(EmployeeFileModel $storage)
     {
         try
         {
             DB::beginTransaction();
 
-            if (!$file->moveToTrash()) {
+            if (!$storage->moveToTrash()) {
                 throw new \Exception('Не удалось перемистить файл в корзину', ListMessageCode::ERROR);
             }
 
@@ -317,13 +316,13 @@ class EmployeeFileResourceController extends Controller
         return back();
     }
 
-    public function restoreFromTrash(EmployeeFileModel $file)
+    public function restoreFromTrash(EmployeeFileModel $storage)
     {
         try
         {
             DB::beginTransaction();
 
-            if (!$file->restoreFromTrash()) {
+            if (!$storage->restoreFromTrash()) {
                 throw new \Exception('Не удалось восстановить файл из корзины', ListMessageCode::ERROR);
             }
 
@@ -345,19 +344,19 @@ class EmployeeFileResourceController extends Controller
      * @param  \App\Models\Main\Storage\EmployeeFileModel  $employeeFileModel
      * @return \Illuminate\Http\Response
      */
-    public function destroy(EmployeeFileModel $file)
+    public function destroy(EmployeeFileModel $storage)
     {
         try
         {
-            if (!Storage::exists($file->getPath())) {
+            if (!Storage::exists($storage->getPath())) {
                 throw new \Exception();
             }
 
-            switch ($file->idFileTag)
+            switch ($storage->idFileTag)
             {
                 case ListFileTagConstants::IP:
                 {
-                    $ipFile = IPModel::all()->where('idEmployeeFile', '=', $file->idEmployeeFile)->first();
+                    $ipFile = IPModel::all()->where('idEmployeeFile', '=', $storage->idEmployeeFile)->first();
                     if ($ipFile) {
                         if (!$ipFile->delete()) {
                             throw new \Exception();
@@ -366,13 +365,13 @@ class EmployeeFileResourceController extends Controller
                 } break;
             }
 
-            if (!Storage::delete($file->getPath())) {
+            if (!Storage::delete($storage->getPath())) {
                 throw new \Exception();
             }
 
             DB::beginTransaction();
 
-            if (!$file->delete()) {
+            if (!$storage->delete()) {
                 throw new \Exception('Не удалось удалить файл', ListMessageCode::ERROR);
             }
 

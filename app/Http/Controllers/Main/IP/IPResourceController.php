@@ -46,6 +46,16 @@ class IPResourceController extends Controller
                 throw new \Exception();
             }
 
+            switch (Auth::user()->idAccountType)
+            {
+                case ListAccountTypeConstants::TEACHER:
+                {
+                    if ($teacher->getTeacher()->idTeacher !== Auth::id()) {
+                        throw new \Exception('Загрузите свой индивидуальный план', ListMessageCode::ERROR);
+                    }
+                } break;
+            }
+
             DB::beginTransaction();
 
             $ip = new IPModel();
@@ -63,8 +73,9 @@ class IPResourceController extends Controller
             return true;
         } catch (\Exception $e) {
             DB::rollBack();
-            return false;
         }
+
+        return false;
     }
 
     public function downloadIP($ip)
@@ -95,6 +106,12 @@ class IPResourceController extends Controller
             {
                 $ips = IPModel::all()->where('idTeacher', '=', Auth::id());
 
+                $ips = $ips->reject(function ($value) {
+                    return $value->getFile()->inTrash() === 1;
+                })->map(function ($value){
+                    return $value;
+                });
+
                 return view('systems.main.ips.index', [
                     'ips' => $ips
                 ]);
@@ -113,7 +130,22 @@ class IPResourceController extends Controller
                     'ips' => $ips
                 ]);
             } break;
+            case ListAccountTypeConstants::DEPUTY_EDU_WORK:
+            {
+                $ips = IPModel::all();
+
+                $ips = $ips->reject(function ($value) {
+                    return $value->getFile()->inTrash() === 1;
+                })->map(function ($value){
+                    return $value;
+                });
+
+                return view('systems.main.ips.index', [
+                    'ips' => $ips
+                ]);
+            }
         }
+
 
     }
 
@@ -311,14 +343,15 @@ class IPResourceController extends Controller
             }
 
             DB::commit();
-
-            #Session::flash('successMessage', 'ИП больше не отслеживается');
-            return back();
         } catch (\Exception $e) {
             DB::rollBack();
 
             #Session::flash('errorMessage', 'Ошибка удаления');
             return Redirect::route('ips.index');
         }
+
+
+        Session::flash('message', ['type' => 'error', 'message' => 'Не удалось удалить ИП']);
+        return back();
     }
 }

@@ -1,53 +1,53 @@
 
-Vue.component('sci-work-table', {
+Vue.component('met-work-table', {
     props: {
         works: Array
     },
     methods: {
-        sumSciWorkPlan: function() {
-            this.$parent.sciWorkSumPlan = 0;
-            this.$parent.sciWorks.forEach(function (value, index) {
-                this.$parent.sciWorkSumPlan += parseFloat(value.plan);
+        sumMetWorkPlan: function() {
+            this.$parent.metWorkSumPlan = 0;
+            this.$parent.metWorks.forEach(function (value, index) {
+                this.$parent.metWorkSumPlan += parseFloat(value.plan);
             }, this);
         },
         reCount: function () {
-            this.$parent.sciWorks.forEach(function (value, index) {
+            this.$parent.metWorks.forEach(function (value, index) {
                 value.num = index+1;
             });
         },
-        addSciWork: function () {
+        addMetWork: function () {
             data = $.ajax({
-                url: "/ips/works/sciWorks",
+                url: "/ips/works/metWorks",
                 type: 'GET',
                 async: false
             }).responseText;
 
-            this.$parent.sciWorksCaptions = JSON.parse(data);
+            this.$parent.metWorksCaptions = JSON.parse(data);
 
-            this.$parent.sciWorks.push({
-                num: ++this.$parent.countOfSciWork,
+            this.$parent.metWorks.push({
+                num: ++this.$parent.countOfMetWork,
                 caption: '',
                 plan: 0,
                 real: 0
             });
 
-            this.sumSciWorkPlan();
+            this.sumMetWorkPlan();
         },
-        removeSciWork: function (num) {
+        removeMetWork: function (num) {
             idx = 0;
-            this.$parent.sciWorks.forEach(function (value, index) {
+            this.$parent.metWorks.forEach(function (value, index) {
                 if (value.num === num) {
                     idx = index;
                 }
             }, idx);
 
-            if (idx < this.$parent.sciWorks.length) {
-                this.$parent.sciWorks.splice(idx, 1);
-                this.$parent.countOfSciWork--;
+            if (idx < this.$parent.metWorks.length) {
+                this.$parent.metWorks.splice(idx, 1);
+                this.$parent.countOfMetWork--;
             }
 
             this.reCount();
-            this.sumSciWorkPlan();
+            this.sumMetWorkPlan();
         }
     },
     template: `
@@ -58,7 +58,7 @@ Vue.component('sci-work-table', {
                 <tr>
                     <th class="ui form">
                         <div class="field">
-                            <label>Всего:</label>
+                            <label>Всего работ:</label>
                             <input type="text" class="disabled field" v-model="works.length">
                         </div>
                     </th>
@@ -66,11 +66,11 @@ Vue.component('sci-work-table', {
                     <th>
                         <div class="field">
                             <label>Всего часов:</label>
-                            <input type="text" class="disabled field" v-model="this.$parent.sciWorkSumPlan">
+                            <input type="text" class="disabled field" v-model="this.$parent.metWorkSumPlan">
                         </div>
                     </th>
                     <th colspan="6">
-                        <button type="button" v-on:click='addSciWork' class="ui right floated small primary labeled icon button">
+                        <button type="button" v-on:click='addMetWork' class="ui right floated small primary labeled icon button">
                             <i class="plus icon"></i> Добавить
                         </button>
                     </th>
@@ -79,64 +79,69 @@ Vue.component('sci-work-table', {
                     <th rowspan="2">№</th>
                     <th rowspan="2">Наименование и вид работ</th>
                     <th colspan="2">Трудоёмкость (час)</th>
+                    <th rowspan="2">Форма завершения работ</th>
                     <th colspan="2">Срок выполнения (даты)</th>
-                    <th></th>
                 </tr>
                 <tr>
                     <th>Планируемая</th>
                     <th>Фактическая</th>
                     <th>Планируемая</th>
                     <th>Фактическая</th>
-                    <th></th>
                 </tr>
             </thead>
             <tbody>
-                <sci-work-row
+                <met-work-row
                     v-for='work in works'
                     v-bind:work='work'
                     v-bind:key='work.num'
-                ></sci-work-row>
+                ></met-work-row>
             </tbody>
         </table>
     `
 });
 
-
-Vue.component('sci-work-row', {
+Vue.component('met-work-row', {
     props: {
         work: Object
     },
-    template:`
+    template: `
         <tr>
             <td>
-                <input type="hidden" v-bind:name="'sciWork_' + work.num + '[]'" v-bind:value="work.num">
+                <input type="hidden" v-bind:name="'metWork_' + work.num + '[]'" v-bind:value="work.num">
                 {{ work.num }}
             </td>
             <td>
-                <input :list="'sciWork_' + work.num + '[]'" v-model="work.caption" v-bind:name="'sciWork_' + work.num + '[]'" :required="1">
-                <datalist :id="'sciWork_' + work.num + '[]'">
-                    <option v-for="caption in $parent.$parent.sciWorksCaptions"">
+                <input :list="'metWork_' + work.num + '[]'" v-model="work.caption" v-bind:name="'metWork_' + work.num + '[]'" :required="1">
+                <datalist :id="'metWork_' + work.num + '[]'">
+                    <option v-for="caption in $parent.$parent.metWorksCaptions"">
                         {{ caption.workCaption + ' ' + caption.subCaption }}
                     </option>
                 </datalist>
             </td>
             <td>
-                <input type="number" v-on:change="$parent.$parent.getSumPlan" v-bind:name="'sciWork_' + work.num + '[]'" v-model="work.plan" step="0.01" min="0">
+                <input type="number" v-on:change="$parent.$parent.getSumPlan" v-bind:name="'metWork_' + work.num + '[]'" v-model="work.plan" step="0.01" min="0">
             </td>
             <td>
-                <input type="number" v-on:change="$parent.$parent.getSumReal" v-bind:name="'sciWork_' + work.num + '[]'" v-model="work.real" step="0.01" min="0">
+                <input type="number" v-on:change="$parent.$parent.getSumReal" v-bind:name="'metWork_' + work.num + '[]'" v-model="work.real" step="0.01" min="0">
             </td>
             <td>
-                <input type="date" v-model="work.finishDatePlan" v-bind:name="'sciWork_' + work.num + '[]'">
+                <select v-model="work.finish" v-bind:name="'metWork_' + work.num + '[]'">
+                    <option>{{ work.finish }}</option>
+                    <option>Другая работа</option>
+                </select>
             </td>
             <td>
-                <input type="date" v-model="work.finishDateReal" v-bind:name="'sciWork_' + work.num + '[]'">
+                <input type="date" v-model="work.finishDatePlan" v-bind:name="'metWork_' + work.num + '[]'">
             </td>
             <td>
-                <a class="ui red basic icon button" v-on:click="$parent.removeSciWork(work.num)">
+                <input type="date" v-model="work.finishDateReal" v-bind:name="'metWork_' + work.num + '[]'">
+            </td>
+            <td>
+                <a class="ui red basic icon button" v-on:click="$parent.removeMetWork(work.num)">
                     <i class="delete icon"></i>
                 </a>
             </td>
         </tr>
     `
 });
+

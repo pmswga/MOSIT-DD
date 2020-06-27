@@ -3,6 +3,7 @@
 
 @section('content')
     <script type="text/javascript" src="{{ asset('js/vue.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/core/systems/ips/ip_table_met_work.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/core/systems/ips/ip_table_sci_work.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/core/systems/ips/ip_table_org_work.js') }}"></script>
 
@@ -40,13 +41,15 @@
                         <tr>
                             <td>Вид ставки</td>
                             <td>
-                                <input type="text" readonly id="rateType" value="{{ $file[0]['rateType'] }}">
+                                <input type="hidden" id="rateType" value="{{ $file[0]['rateType'] }}">
+                                {{ $file[0]['rateType'] }}
                             </td>
                         </tr>
                         <tr>
                             <td>Значение ставки</td>
                             <td>
-                                <input type="number" readonly id="rateValue"  value="{{ $file[0]['rateValue'] }}">
+                                <input type="hidden" id="rateValue" value="{{ $file[0]['rateValue'] }}">
+                                {{ $file[0]['rateValue'] }}
                             </td>
                         </tr>
                     </tbody>
@@ -117,55 +120,9 @@
                 <h3>Учебно-методическая работа</h3>
             </div>
             <div class="content">
-                <table class="ui table">
-                    <thead>
-                        <tr>
-                            <th rowspan="2">№</th>
-                            <th rowspan="2">Наименование и вид работ</th>
-                            <th colspan="2">Трудоёмкость (час)</th>
-                            <th rowspan="2">Форма завершения работ</th>
-                            <th colspan="2">Срок выполнения (даты)</th>
-                        </tr>
-                        <tr>
-                            <th>Планируемая</th>
-                            <th>Фактическая</th>
-                            <th>Планируемая</th>
-                            <th>Фактическая</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($file[3]['work'] as $work)
-                            <tr>
-                                <td>
-                                    <input type="hidden" name="metWork_{{ $loop->iteration }}[]" value="{{ $loop->iteration }}">
-                                    {{ $loop->iteration }}
-                                </td>
-                                <td>
-                                    <select name="metWork_{{ $loop->iteration }}[]">
-                                        <option>{{ $work['caption'] }}</option>
-                                    </select>
-                                </td>
-                                <td>
-                                    <input name="metWork_{{ $loop->iteration }}[]" class="workSum3Plan" type="number" value="{{ $work['plan'] }}">
-                                </td>
-                                <td>
-                                    <input name="metWork_{{ $loop->iteration }}[]" class="workSum3Real" type="number" value="{{ $work['real'] }}">
-                                </td>
-                                <td>
-                                    <select name="metWork_{{ $loop->iteration }}[]">
-                                        <option>{{ $work['finish'] }}</option>
-                                    </select>
-                                </td>
-                                <td>
-                                    <input name="metWork_{{ $loop->iteration }}[]" type="date" value="{{ $work['finishDatePlan'] }}">
-                                </td>
-                                <td>
-                                    <input name="metWork_{{ $loop->iteration }}[]" type="date" value="{{ $work['finishDateReal'] }}">
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                <div id="metWorkTable" class="content">
+                    <met-work-table v-bind:works='metWorks'></met-work-table>
+                </div>
             </div>
         </div>
 
@@ -215,21 +172,27 @@
                         <td>
                             <input type="number" id="workSum2Plan" readonly value="{{ $file[4]['workSum2'] }}">
                         </td>
-                        <td id="workSum2Real"></td>
+                        <td>
+                            <input type="number" id="workSum2Real" readonly value="0">
+                        </td>
                     </tr>
                     <tr>
                         <td>Научно-исследовательская работа</td>
                         <td>
                             <input type="number" id="workSum3Plan" readonly value="{{ $file[4]['workSum3'] }}">
                         </td>
-                        <td id="workSum3Real"></td>
+                        <td>
+                            <input type="number" id="workSum3Real" readonly value="0">
+                        </td>
                     </tr>
                     <tr>
                         <td>Организационно-методическая и воспитательная работа</td>
                         <td>
                             <input type="number" id="workSum4Plan" readonly value="{{ $file[4]['workSum4'] }}">
                         </td>
-                        <td id="workSum4Real"></td>
+                        <td>
+                            <input type="number" id="workSum4Real" readonly value="0">
+                        </td>
                     </tr>
                     <tr id="workSumRow">
                         <td>Итого</td>
@@ -250,44 +213,89 @@
 
     <script type="text/javascript">
 
-        function calculateSum(array) {
+        function calculateSum(array, type) {
             let sum = 0;
 
             array.forEach(function (value, index) {
-                sum += parseFloat(value.plan);
+
+                if (type === 'plan') {
+                    sum += parseFloat(value.plan);
+                }
+
+                if (type === 'real') {
+                    sum += parseFloat(value.real);
+                }
+
             }, sum);
 
             return sum;
         }
 
+        var metWorkTable = new Vue({
+            el: '#metWorkTable',
+            data: {
+                metWorkCaptions: [],
+                metWorks: {!! json_encode($file[3]['work']) !!},
+                countOfMetWork: {{ count($file[3]['work']) }},
+                metWorkSumPlan: {{ $file[4]['workSum2'] }},
+                metWorkSumReal: 0
+            },
+            methods: {
+                getSumPlan() {
+                    this.metWorkSumPlan = calculateSum(this.metWorks, 'plan');
+                    $('#workSum2Plan').val(this.metWorkSumPlan);
+                    getSumPlan();
+                },
+                getSumReal() {
+                    this.metWorkSumReal = calculateSum(this.metWorks, 'real');
+                    $('#workSum2Real').val(this.metWorkSumReal);
+                    getSumPlan();
+                }
+            }
+        });
 
         var sciWorkTable = new Vue({
             el: '#sciWorkTable',
             data: {
                 sciWorksCaptions: [],
-                sciWorks: JSON.parse('{{ json_encode($file[4]['work_1']) }}'.replace(/&quot;/ig,'"')),
-                countOfSciWork: '{{count($file[4]['work_1'])}}',
-                sciWorkSumPlan: 0
+                sciWorks: {!! json_encode($file[4]['work_1']) !!},
+                countOfSciWork: {{count($file[4]['work_1'])}},
+                sciWorkSumPlan: {{ $file[4]['workSum3'] }},
+                sciWorkSumReal: 0
             },
             methods: {
                 getSumPlan() {
-                    return calculateSum(this.sciWorks);
+                    this.sciWorkSumPlan = calculateSum(this.sciWorks, 'plan');
+                    $('#workSum3Plan').val(this.sciWorkSumPlan);
+                    getSumPlan();
+                },
+                getSumReal() {
+                    this.sciWorkSumReal = calculateSum(this.sciWorks, 'real');
+                    $('#workSum3Real').val(this.sciWorkSumReal);
+                    getSumPlan();
                 }
             }
         });
-
 
         var orgWorkTable = new Vue({
             el: '#orgWorkTable',
             data: {
                 orgWorksCaptions: [],
-                orgWorks: JSON.parse('{{ json_encode($file[4]['work_2']) }}'.replace(/&quot;/ig,'"')),
-                countOfOrgWork: '{{count($file[4]['work_2'])}}',
-                orgWorkSumPlan: 0
+                orgWorks: {!! json_encode($file[4]['work_2']) !!},
+                countOfOrgWork: {{count($file[4]['work_2'])}},
+                orgWorkSumPlan: {{ $file[4]['workSum4'] }},
+                orgWorkSumReal: 0
             },
             methods: {
                 getSumPlan() {
-                    return calculateSum(this.orgWorks);
+                    this.orgWorkSumPlan = calculateSum(this.orgWorks, 'plan');
+                    $('#workSum4Plan').val(this.orgWorkSumPlan);
+                    getSumPlan();
+                },
+                getSumReal() {
+                    this.orgWorkSumReal = calculateSum(this.orgWorks, 'real');
+                    $('#workSum4Real').val(this.orgWorkSumReal);
+                    getSumPlan();
                 }
             }
         });
@@ -314,20 +322,19 @@
             return timeLimit;
         }
 
-        $('[type=number]').on('change', function (element) {
-
+        function getSumPlan() {
             let workSum1Plan = parseFloat($('#workSum1Plan').val());
             let workSum2Plan = parseFloat($('#workSum2Plan').val());
 
-            $('#workSum3Plan').val(sciWorkTable.getSumPlan());
-            $('#workSum4Plan').val(orgWorkTable.getSumPlan());
+            console.log(workSum2Plan);
+
             $('#workSumPlan').val(
                 workSum1Plan +
                 workSum2Plan +
-                sciWorkTable.getSumPlan() +
-                orgWorkTable.getSumPlan()
+                sciWorkTable.sciWorkSumPlan +
+                orgWorkTable.orgWorkSumPlan
             );
-        });
+        };
 
         $('#updateIPForm').on('submit', function () {
             let timeLimit = getTimeLimit(rateValue);

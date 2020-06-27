@@ -9,6 +9,8 @@ Vue.component('org-work-table', {
             this.$parent.orgWorks.forEach(function (value, index) {
                 this.$parent.orgWorkSumPlan += parseFloat(value.plan);
             }, this);
+
+            console.log(this.$parent.orgWorkSumPlan);
         },
         reCount: function () {
             this.$parent.orgWorks.forEach(function (value, index) {
@@ -53,12 +55,13 @@ Vue.component('org-work-table', {
     },
     template: `
         <table class="ui table">
-            <col width="10%">
+            <col width="2%">
+            <col width="30%">
             <thead>
                 <tr>
                     <th class="ui form">
                         <div class="field">
-                            <label>Всего работ:</label>
+                            <label>Всего:</label>
                             <input type="text" class="disabled field" v-model="works.length">
                         </div>
                     </th>
@@ -110,23 +113,18 @@ Vue.component('org-work-row', {
                 {{ work.num }}
             </td>
             <td>
-                <select v-model="work.caption" v-bind:name="'orgWork_' + work.num + '[]'">
-                    <option>{{ work.caption }}</option>
-                    <optgroup v-for="(captions, workCaption) in $parent.$parent.orgWorksCaptions" :label="workCaption">
-                        <option v-for="caption in captions" v-if="caption.subCaption !== ''">
-                            {{ caption.subCaption }}
-                        </option>
-                        <option v-else>
-                            {{ caption.workCaption }}
-                        </option>
-                    </optgroup>
-                </select>
+                <input :list="'orgWork_' + work.num + '[]'" v-model="work.caption" v-bind:name="'orgWork_' + work.num + '[]'" :required="1">
+                <datalist :id="'orgWork_' + work.num + '[]'">
+                    <option v-for="caption in $parent.$parent.orgWorksCaptions"">
+                        {{ caption.workCaption + ' ' + caption.subCaption }}
+                    </option>
+                </datalist>
             </td>
             <td>
-                <input type="number" v-bind:name="'orgWork_' + work.num + '[]'" v-model="work.plan" step="0.01" min="0">
+                <input type="number" :required="1" v-on:change="$parent.$parent.getSumPlan" v-bind:name="'orgWork_' + work.num + '[]'" v-model="work.plan" step="0.01" min="0">
             </td>
             <td>
-                <input type="number" v-bind:name="'orgWork_' + work.num + '[]'" v-model="work.real" step="0.01" min="0">
+                <input type="number" v-on:change="$parent.$parent.getSumReal" v-bind:name="'orgWork_' + work.num + '[]'" v-model="work.real" step="0.01" min="0">
             </td>
             <td>
                 <select v-model="work.finishDatePlan" v-bind:name="'orgWork_' + work.num + '[]'">
@@ -135,11 +133,11 @@ Vue.component('org-work-row', {
             </td>
             <td>
                 <select v-model="work.finishDateReal" v-bind:name="'orgWork_' + work.num + '[]'">
-                    <option></option>
+                    <option>в течении года</option>
                 </select>
             </td>
             <td>
-                <a class="ui red button" v-on:click="$parent.removeOrgWork(work.num)">
+                <a class="ui red basic icon fluid button" v-on:click="$parent.removeOrgWork(work.num)">
                     <i class="delete icon"></i>
                 </a>
             </td>

@@ -4,6 +4,7 @@ namespace App\Core\Systems\Main\IPS;
 
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Exception;
+use function MongoDB\BSON\toJSON;
 
 /**
  * @class IPExcelFileReader
@@ -99,7 +100,7 @@ class IPExcelFileReader extends IPExcelFileStreamer
 
         preg_match('/[0|1][,|.][0-9][0|5]/', $post, $matches);
         if ($matches) {
-            $this->streamData[0]['rateValue'] = $matches[0];
+            $this->streamData[0]['rateValue'] = str_replace(',', '.', $matches[0]);
         }
 
         $initials = $this->excelFile->getActiveSheet()->getCell('A29')->getValue();
@@ -174,10 +175,10 @@ class IPExcelFileReader extends IPExcelFileStreamer
             $work = [];
 
             $work['num'] = $this->excelFile->getActiveSheet()->getCell('A' . $column)->getValue();
-            $work['caption'] = $this->excelFile->getActiveSheet()->getCell('B' . $column)->getValue();
-            $work['plan'] = $this->excelFile->getActiveSheet()->getCell('D' . $column)->getValue();
-            $work['real'] = $this->excelFile->getActiveSheet()->getCell('E' . $column)->getValue();
-            $work['finish'] = $this->excelFile->getActiveSheet()->getCell('G' . $column)->getValue();
+            $work['caption'] = str_replace('"', "'", $this->excelFile->getActiveSheet()->getCell('B' . $column)->getValue());
+            $work['plan'] = $this->excelFile->getActiveSheet()->getCell('D' . $column)->getValue() ?? 0;
+            $work['real'] = $this->excelFile->getActiveSheet()->getCell('E' . $column)->getValue() ?? 0;
+            $work['finish'] = str_replace('"', "'", $this->excelFile->getActiveSheet()->getCell('G' . $column)->getValue());
             $work['finishDatePlan'] = $this->excelFile->getActiveSheet()->getCell('N' . $column)->getFormattedValue();
             $work['finishDateReal'] = $this->excelFile->getActiveSheet()->getCell('T' . $column)->getFormattedValue();
 
@@ -213,7 +214,7 @@ class IPExcelFileReader extends IPExcelFileStreamer
             return
                 ((is_int(intval($work['num'])) and intval($work['num']) !== 0) or empty($work['num'])) and
                 $work['caption'] and
-                $work['plan'];
+                ((is_int(intval($work['plan'])) or intval($work['plan']) === 0));
         };
 
         for ($row = $this->cellCoordinates[4]['work'], $column = $row, $i = 0; $row < $highestRow; $row++, $column++) {
@@ -222,10 +223,12 @@ class IPExcelFileReader extends IPExcelFileStreamer
             $work['num'] = $this->excelFile->getActiveSheet()->getCell('A' . $column)->getValue();
             $work['caption'] = $this->excelFile->getActiveSheet()->getCell('B' . $column)->getValue();
             $work['plan'] = $this->excelFile->getActiveSheet()->getCell('C' . $column)->getValue();
-            $work['real'] = $this->excelFile->getActiveSheet()->getCell('D' . $column)->getValue();
-            $work['finishDatePlan'] = $this->excelFile->getActiveSheet()->getCell('E' . $column)->getFormattedValue();
-            $work['finishDateReal'] = $this->excelFile->getActiveSheet()->getCell('F' . $column)->getFormattedValue();
-
+            $work['real'] = $this->excelFile->getActiveSheet()->getCell('D' . $column)->getValue() ?? 0;
+            $work['finishDatePlan'] = $this->excelFile->getActiveSheet()->getCell('E' . $column)->getFormattedValue()
+                ? $this->excelFile->getActiveSheet()->getCell('E' . $column)->getFormattedValue() : '-';
+            $work['finishDateReal'] =
+                $this->excelFile->getActiveSheet()->getCell('F' . $column)->getFormattedValue()
+                ? $this->excelFile->getActiveSheet()->getCell('F' . $column)->getFormattedValue() : '-';
 
             if (preg_match('/ИТОГО/i', $work['num'])) {
                 if ($isOrgWork) {
@@ -242,7 +245,6 @@ class IPExcelFileReader extends IPExcelFileStreamer
             if (preg_match('/Раздел IV/i', $work['num'])) {
                 $isOrgWork = true;
             }
-
 
             if ($isOrgWork) {
                 if ($checkWork($work)) {

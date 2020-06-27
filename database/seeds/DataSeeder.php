@@ -7,7 +7,7 @@ use Illuminate\Database\Seeder;
 
 class  DataSeeder {
 
-    public static $employees = [
+    static public $employees = [
         //Учебно-вспомогательный персонал
         [
             'idEmployee' => 1,
@@ -279,6 +279,184 @@ class  DataSeeder {
             'personalEmail' => 'mikalovtch@gmail.com',
             'idFaculty' => 1,
             'idEmployeePost' => 1,
+        ]
+    ];
+
+    static public $teachers = [
+        [
+            'idTeacher' => 3,
+            'idDegree' => 0,
+            'idAcademicTitle' => 0,
+            'idScienceType' => 0,
+            'idTeacherPost' => \App\Core\Constants\ListTeacherPostConstants::HIGHER_TEACHER
+        ],
+        [
+            'idTeacher' => 4,
+            'idDegree' => 0,
+            'idAcademicTitle' => 0,
+            'idScienceType' => 0,
+            'idTeacherPost' => \App\Core\Constants\ListTeacherPostConstants::DOCENT
+        ],
+        [
+            'idTeacher' => 5,
+            'idDegree' => 0,
+            'idAcademicTitle' => 0,
+            'idScienceType' => 0,
+            'idTeacherPost' => \App\Core\Constants\ListTeacherPostConstants::DOCENT
+        ],
+        [
+            'idTeacher' => 6,
+            'idDegree' => 0,
+            'idAcademicTitle' => 0,
+            'idScienceType' => 0,
+            'idTeacherPost' => \App\Core\Constants\ListTeacherPostConstants::ASSISTANT
+        ],
+        [
+            'idTeacher' => 7,
+            'idDegree' => 0,
+            'idAcademicTitle' => 0,
+            'idScienceType' => 0,
+            'idTeacherPost' => \App\Core\Constants\ListTeacherPostConstants::HEAD_DEPARTMENT
+        ],
+        [
+            'idTeacher' => 8,
+            'idDegree' => 0,
+            'idAcademicTitle' => 0,
+            'idScienceType' => 0,
+            'idTeacherPost' => \App\Core\Constants\ListTeacherPostConstants::DOCENT
+        ],
+        [
+            'idTeacher' => 9,
+            'idDegree' => 0,
+            'idAcademicTitle' => 0,
+            'idScienceType' => 0,
+            'idTeacherPost' => \App\Core\Constants\ListTeacherPostConstants::HIGHER_TEACHER
+        ],
+        [
+            'idTeacher' => 10,
+            'idDegree' => 0,
+            'idAcademicTitle' => 0,
+            'idScienceType' => 0,
+            'idTeacherPost' => \App\Core\Constants\ListTeacherPostConstants::PROFESSOR
+        ],
+        [
+            'idTeacher' => 11,
+            'idDegree' => 0,
+            'idAcademicTitle' => 0,
+            'idScienceType' => 0,
+            'idTeacherPost' => \App\Core\Constants\ListTeacherPostConstants::PROFESSOR
+        ],
+        [
+            'idTeacher' => 12,
+            'idDegree' => 0,
+            'idAcademicTitle' => 0,
+            'idScienceType' => 0,
+            'idTeacherPost' => \App\Core\Constants\ListTeacherPostConstants::PROFESSOR
+        ],
+        [
+            'idTeacher' => 13,
+            'idDegree' => 0,
+            'idAcademicTitle' => 0,
+            'idScienceType' => 0,
+            'idTeacherPost' => \App\Core\Constants\ListTeacherPostConstants::PROFESSOR
+        ],
+        [
+            'idTeacher' => 14,
+            'idDegree' => 0,
+            'idAcademicTitle' => 0,
+            'idScienceType' => 0,
+            'idTeacherPost' => \App\Core\Constants\ListTeacherPostConstants::DOCENT
+        ],
+        [
+            'idTeacher' => 15,
+            'idDegree' => 0,
+            'idAcademicTitle' => 0,
+            'idScienceType' => 0,
+            'idTeacherPost' => \App\Core\Constants\ListTeacherPostConstants::TEACHER
+        ],
+        [
+            'idTeacher' => 16,
+            'idDegree' => 0,
+            'idAcademicTitle' => 0,
+            'idScienceType' => 0,
+            'idTeacherPost' => \App\Core\Constants\ListTeacherPostConstants::DOCENT
+        ],
+        [
+            'idTeacher' => 17,
+            'idDegree' => 0,
+            'idAcademicTitle' => 0,
+            'idScienceType' => 0,
+            'idTeacherPost' => \App\Core\Constants\ListTeacherPostConstants::HIGHER_TEACHER
+        ],
+        [
+            'idTeacher' => 18,
+            'idDegree' => 0,
+            'idAcademicTitle' => 0,
+            'idScienceType' => 0,
+            'idTeacherPost' => \App\Core\Constants\ListTeacherPostConstants::DOCENT
+        ],
+        [
+            'idTeacher' => 19,
+            'idDegree' => 0,
+            'idAcademicTitle' => 0,
+            'idScienceType' => 0,
+            'idTeacherPost' => \App\Core\Constants\ListTeacherPostConstants::DOCENT
+        ],
+        [
+            'idTeacher' => 20,
+            'idDegree' => 0,
+            'idAcademicTitle' => 0,
+            'idScienceType' => 0,
+            'idTeacherPost' => \App\Core\Constants\ListTeacherPostConstants::DOCENT
+        ],
+        [
+            'idTeacher' => 21,
+            'idDegree' => 0,
+            'idAcademicTitle' => 0,
+            'idScienceType' => 0,
+            'idTeacherPost' => \App\Core\Constants\ListTeacherPostConstants::DOCENT
+        ],
+        [
+            'idTeacher' => 22,
+            'idDegree' => 0,
+            'idAcademicTitle' => 0,
+            'idScienceType' => 0,
+            'idTeacherPost' => \App\Core\Constants\ListTeacherPostConstants::DOCENT
+        ],
+        [
+            'idTeacher' => 23,
+            'idDegree' => 0,
+            'idAcademicTitle' => 0,
+            'idScienceType' => 0,
+            'idTeacherPost' => \App\Core\Constants\ListTeacherPostConstants::ASSISTANT
+        ],
+        [
+            'idTeacher' => 24,
+            'idDegree' => 0,
+            'idAcademicTitle' => 0,
+            'idScienceType' => 0,
+            'idTeacherPost' => \App\Core\Constants\ListTeacherPostConstants::ASSISTANT
+        ],
+        [
+            'idTeacher' => 25,
+            'idDegree' => 0,
+            'idAcademicTitle' => 0,
+            'idScienceType' => 0,
+            'idTeacherPost' => \App\Core\Constants\ListTeacherPostConstants::HIGHER_TEACHER
+        ],
+        [
+            'idTeacher' => 26,
+            'idDegree' => 0,
+            'idAcademicTitle' => 0,
+            'idScienceType' => 0,
+            'idTeacherPost' => \App\Core\Constants\ListTeacherPostConstants::HIGHER_TEACHER
+        ],
+        [
+            'idTeacher' => 27,
+            'idDegree' => 0,
+            'idAcademicTitle' => 0,
+            'idScienceType' => 0,
+            'idTeacherPost' => \App\Core\Constants\ListTeacherPostConstants::ASSISTANT
         ]
     ];
 

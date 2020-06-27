@@ -82,6 +82,10 @@
                 <col width="35%">
                 <tbody>
                     <tr>
+                        <td>Должность</td>
+                        <td>{{ Auth::user()->getEmployee()->getTeacher()->getPost()->getCaption() }}</td>
+                    </tr>
+                    <tr>
                         <td>Учёное звание</td>
                         <td></td>
                     </tr>

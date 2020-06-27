@@ -59,12 +59,35 @@ class IPExcelFileWriter extends IPExcelFileStreamer
 
     }
 
+    public function clearSheet4()
+    {
+        $this->excelFile->setActiveSheetIndex(3);
+
+        $highestRow = $this->excelFile->getActiveSheet()->getHighestRow('A');
+
+        for ($row = $this->cellCoordinates[3]['work']; $row < $highestRow; $row++) {
+            $work['num'] = $this->excelFile->getActiveSheet()->getCell('A'.$row)->getValue();
+            if (!preg_match('/ИТОГО/i', $work['num'])) {
+                $this->excelFile->getActiveSheet()->setCellValue('A'.$row, '');
+                $this->excelFile->getActiveSheet()->setCellValue('B'.$row, '');
+                $this->excelFile->getActiveSheet()->setCellValue('C'.$row, '');
+                $this->excelFile->getActiveSheet()->setCellValue('D'.$row, '');
+                $this->excelFile->getActiveSheet()->setCellValue('E'.$row, '');
+                $this->excelFile->getActiveSheet()->setCellValue('G'.$row, '');
+                $this->excelFile->getActiveSheet()->setCellValue('N'.$row, '');
+                $this->excelFile->getActiveSheet()->setCellValue('T'.$row, '');
+            }
+        }
+
+    }
+
     /**
      * @inheritDoc
      */
     public function streamSheet4()
     {
         $this->excelFile->setActiveSheetIndex(3);
+        $this->clearSheet4();
 
         $columns = ['A', 'B', 'D', 'E', 'G', 'N', 'T'];
         $row = $this->cellCoordinates[3]['work'];
@@ -89,10 +112,13 @@ class IPExcelFileWriter extends IPExcelFileStreamer
 
     public function clearSheet5()
     {
-
+        $this->excelFile->setActiveSheetIndex(4);
         $columns = ['A', 'B', 'C', 'D', 'E', 'F'];
         $row = $this->cellCoordinates[4]['sciWork'];
 
+        $countOfSciWorkCell = 0;
+        $countOfOrgWorkCell = 0;
+
         $num = '';
         while (!preg_match('/ИТОГО/i', $num)) {
             $num = $this->excelFile->getActiveSheet()->getCell('A'.$row)->getValue();
@@ -102,25 +128,29 @@ class IPExcelFileWriter extends IPExcelFileStreamer
                     $this->excelFile->getActiveSheet()->setCellValue($column.$row, '');
                 }
 
-                $row++;
-            }
-        }
-
-
-        $num = '';
-        $row += 5;
-        while (!preg_match('/ИТОГО/i', $num)) {
-            $num = $this->excelFile->getActiveSheet()->getCell('A'.$row)->getValue();
-
-            if (!preg_match('/ИТОГО/i', $num)) {
-                foreach ($columns as $column) {
-                    $this->excelFile->getActiveSheet()->setCellValue($column.$row, '');
-                }
+                $countOfSciWorkCell++;
             }
 
             $row++;
         }
 
+        $num = '';
+        $row += 4;
+        while (!preg_match('/ИТОГО/i', $num)) {
+            $num = $this->excelFile->getActiveSheet()->getCell('A'.$row)->getValue();
+
+            if (!preg_match('/ИТОГО/i', $num)) {
+                foreach ($columns as $column) {
+                    $this->excelFile->getActiveSheet()->setCellValue($column.$row, '');
+                }
+
+                $countOfOrgWorkCell++;
+            }
+
+            $row++;
+        }
+
+        return ['sciWorks' => $countOfSciWorkCell, 'orgWorks' => $countOfOrgWorkCell];
     }
 
     /**
@@ -130,68 +160,82 @@ class IPExcelFileWriter extends IPExcelFileStreamer
     public function streamSheet5()
     {
         $this->excelFile->setActiveSheetIndex(4);
-        $this->clearSheet5();
+        $counts = $this->clearSheet5();
 
-        if (count($this->data[4]) > 5) {
-            $this->excelFile->getActiveSheet()->insertNewRowBefore(9, count($this->data[4]) - 5);
+
+        $highestRow = $this->excelFile->getActiveSheet()->getHighestRow();
+
+        $isOrgWork = false;
+
+        $countOfSciWorks = count($this->data[4]);
+        $countOfOrgWorks = count($this->data[5]);
+
+        $needAddSciWorks = 0;
+        if ($countOfSciWorks > $counts['sciWorks']) {
+            $needAddSciWorks = $countOfSciWorks - $counts['sciWorks'];
         }
 
+        $needAddOrgWorks = 0;
+        if ($countOfOrgWorks > $counts['orgWorks']) {
+            $needAddOrgWorks = $countOfOrgWorks - $counts['orgWorks'];
+        }
 
-        $columns = ['A', 'B', 'C', 'D', 'E', 'F'];
-        $row = $this->cellCoordinates[4]['sciWork'];
-        $column = 0;
-        foreach ($this->data[4] as $array) {
+        for ($row = $this->cellCoordinates[4]['sciWork'], $column = $row; $row < $highestRow; $row++, $column++) {
             $work['num'] = $this->excelFile->getActiveSheet()->getCellByColumnAndRow(1, $column)->getValue();
-            if (!preg_match('/ИТОГО/i', $work['num'])) {
-                foreach ($array as $value) {
-                    $this->excelFile->getActiveSheet()->setCellValue($columns[$column].$row, $value);
 
-                    #print_r($value."-> Coords: ".$columns[$column].$row."<br>");
-
-                    $column++;
-                }
+            if (preg_match('/Раздел IV/i', $work['num'])) {
+                $isOrgWork = true;
+                $row += 3;
             }
 
-            $column = 0;
-            $row++;
-        }
+            $work = $isOrgWork ? current($this->data[5]) : current($this->data[4]);
 
-        if ( count($this->data[4]) > 5 ) {
-            $row = $this->cellCoordinates[4]['sciWork'] + count($this->data[4]) + 5;
-        } else {
-            $row = $this->cellCoordinates[4]['orgWork'];
-        }
+            if ($work) {
 
+                if ($isOrgWork) {
+                    if ($needAddOrgWorks > 0) {
+                        $this->excelFile->getActiveSheet()->insertNewRowBefore($row, 1);
+                        $needAddOrgWorks--;
+                    }
 
-        if (count($this->data[5]) > 6) {
-            $this->excelFile->getActiveSheet()->insertNewRowBefore(20, count($this->data[5]) - 6);
-        }
+                } else {
+                    if ($needAddSciWorks > 0) {
+                        $this->excelFile->getActiveSheet()->insertNewRowBefore($row, 1);
+                        $needAddSciWorks--;
+                    }
 
-
-        $column = 0;
-        foreach ($this->data[5] as $array) {
-            $work['num'] = $this->excelFile->getActiveSheet()->getCellByColumnAndRow(1, $column)->getValue();
-            if (!preg_match('/ИТОГО/i', $work['num'])) {
-                foreach ($array as $value) {
-                    $this->excelFile->getActiveSheet()->setCellValue($columns[$column].$row, $value);
-
-                    #print_r($value."-> Coords: ".$columns[$column].$row."<br>");
-
-                    $column++;
                 }
+
+                if (array_key_exists(0, $work)) {
+                    $this->excelFile->getActiveSheet()->setCellValue('A'.$row, $work[0]);
+                }
+                if (array_key_exists(1, $work)) {
+                    $this->excelFile->getActiveSheet()->setCellValue('B'.$row, $work[1]);
+                }
+                if (array_key_exists(2, $work)) {
+                    $this->excelFile->getActiveSheet()->setCellValue('C'.$row, $work[2]);
+                }
+                if (array_key_exists(3, $work)) {
+                    $this->excelFile->getActiveSheet()->setCellValue('D'.$row, $work[3]);
+                }
+                if (array_key_exists(4, $work)) {
+                    $this->excelFile->getActiveSheet()->setCellValue('E'.$row, $work[4]);
+                }
+                if (array_key_exists(5, $work)) {
+                    $this->excelFile->getActiveSheet()->setCellValue('F'.$row, $work[5]);
+                }
+
             }
 
-            $column = 0;
-            $row++;
+            $isOrgWork ? next($this->data[5]) : next($this->data[4]);
         }
 
-
-        #dd([]);
     }
 
     /**
      * @inheritDoc
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
+     * @throws Exception
      */
     public function getResult()
     {
