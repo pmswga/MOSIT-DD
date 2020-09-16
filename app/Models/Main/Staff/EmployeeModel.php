@@ -6,6 +6,7 @@ use App\Core\Config\ListDatabaseTable;
 use App\Core\Constants\ListRateTypeConstants;
 use App\Core\Constants\ListTicketStatusConstants;
 use App\Models\Main\Storage\EmployeeFileModel;
+use App\Models\Main\Storage\ListFileTagModel;
 use App\Models\Main\Tickets\EmployeeTicketModel;
 use App\Models\Main\Tickets\TicketModel;
 use App\Models\Service\Accounts\AccountRightsModel;
@@ -15,56 +16,115 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use phpDocumentor\Reflection\Types\Null_;
 
+/**
+ * @class EmployeeModel
+ * @brief Модель сотрудника
+ *
+ * @package App\Models\Main\Staff
+ */
 class EmployeeModel extends Model
 {
-    protected $table = ListDatabaseTable::TABLE_EMPLOYEES;
-    protected $primaryKey = "idEmployee";
+    protected $table = ListDatabaseTable::TABLE_EMPLOYEES; ///< Соответствующая таблица в базе данных
+    protected $primaryKey = "idEmployee"; ///< Первичный ключ
 
     public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);
     }
 
+    /**
+     * Возвращает фамилию сотрудника
+     * @return string
+     */
     public function getSecondName() {
         return $this->secondName;
     }
 
+    /**
+     * Возвращает имя сотрудника
+     * @return string
+     */
     public function getFirstName() {
         return $this->firstName;
     }
 
+    /**
+     * Возвращает отчество сотрудника
+     * @return string
+     */
     public function getPatronymic() {
         return $this->patronymic;
     }
 
+    /**
+     * Возвращает инициалы сотрудника
+     * Например, Иванов Иван Иваныч
+     * @return string
+     */
     public function getFullInitials() {
         return $this->secondName.' '.$this->firstName.' '.$this->patronymic;
     }
 
+    /**
+     * Возвращает персоналный телефон сотрудника
+     * @return string
+     */
     public function getPersonalPhone() {
         return $this->personalPhone;
     }
 
+    /**
+     * Возвращает персональный электронный адрес сотрудника
+     * @return string
+     */
     public function getPersonalEmail() {
         return $this->personalEmail;
     }
 
+    /**
+     * Возвращает кафедру, к которой прикреплён сотрудник
+     * @return ListFacultyModel
+     */
     public function getFaculty() {
         return $this->hasOne(ListFacultyModel::class, 'idFaculty', 'idFaculty')->first();
     }
 
+    /**
+     * Возвращает должность сотрудника
+     * @return ListEmployeePostModel
+     */
     public function getPost() {
         return $this->hasOne(ListEmployeePostModel::class, 'idEmployeePost', 'idEmployeePost')->first();
     }
 
+    /**
+     * Возвращает информацию о преподавателе
+     * @return TeacherModel
+     */
     public function getTeacher() {
         return $this->hasOne(TeacherModel::class, 'idTeacher', 'idEmployee')->first();
     }
 
+    /**
+     * Возвращает должность сотрудника
+     * @return ListEmployeePostModel
+     */
     public function getEmployeePost() {
         return $this->hasOne(ListEmployeePostModel::class, 'idEmployeePost', 'idEmployeePost')->first();
     }
 
+    /**
+     * Задаёт значение ставки для указанного типа.
+     *
+     * Например:
+     * \code{.php}
+     *  $employee->setRate(ListRateTypeConstants::STAFF, 0.5);
+     * \endcode
+     *
+     * @param $rateType - тип ставки
+     * @param $rateValue - значение ставки
+     * @return bool
+     */
     public function setRate($rateType, $rateValue) {
         switch ($rateType)
         {
@@ -102,35 +162,48 @@ class EmployeeModel extends Model
         return $currentRate->save();
     }
 
+    /**
+     * Возвращает штатную ставку сотрудника
+     * @return RateModel
+     */
     public function getStaffRate() {
         return $this->hasOne(RateModel::class, 'idEmployee', 'idEmployee')
             ->where('idRateType', '=', ListRateTypeConstants::STAFF)
             ->first();
     }
 
+    /**
+     * Возвращает внутреннюю ставку сотрудника
+     * @return RateModel
+     */
     public function getInternalRate() {
         return $this->hasOne(RateModel::class, 'idEmployee', 'idEmployee')
             ->where('idRateType', '=', ListRateTypeConstants::INTERNAL)
             ->first();
     }
 
+    /**
+     * Возвращает внешнюю ставку сотрудника
+     * @return RateModel
+     */
     public function getExternalRate() {
         return $this->hasOne(RateModel::class, 'idEmployee', 'idEmployee')
             ->where('idRateType', '=', ListRateTypeConstants::EXTERNAL)
             ->first();
     }
 
+    /**
+     * Возвращает все ставки сотрудника. Всего ставок может быть три.
+     * @return RateModel[]
+     */
     public function getRates() {
-        $rates = $this->hasMany(RateModel::class, 'idEmployee', 'idEmployee')->get();
-
-        if ($rates->isNotEmpty()) {
-            return $rates;
-        }
-
-        return null;
+        return $this->hasMany(RateModel::class, 'idEmployee', 'idEmployee')->get();
     }
 
-
+    /**
+     * Возвращает информацию о начальнике сотрудника
+     * @return EmployeeModel
+     */
     public function getChief() {
         $chiefId = $this->hasOne(EmployeeHierarchyModel::class, 'idEmployeeSub', 'idEmployee')->get()->first();
 
@@ -141,6 +214,10 @@ class EmployeeModel extends Model
         return null;
     }
 
+    /**
+     * Возвращает список подчинённых сотрудников
+     * @return EmployeeModel[]
+     */
     public function getSubordinateEmployees() {
         $employeeList = $this->hasOne(EmployeeHierarchyModel::class, 'idEmployeeSup', 'idEmployee')->get();
 
@@ -151,6 +228,10 @@ class EmployeeModel extends Model
         return $employeeList;
     }
 
+    /**
+     * Возвращет список созданных сотрудником поручений
+     * @return TicketModel[]
+     */
     public function getCreatedTickets() {
         $createdTicketList = $this->hasOne(TicketModel::class, 'idAuthor', 'idEmployee')->get();
 
@@ -161,6 +242,10 @@ class EmployeeModel extends Model
         return null;
     }
 
+    /**
+     * Возвращает список входящих (непросмотренных) поручений
+     * @return TicketModel[]
+     */
     public function getInboxTickets() {
         $inboxTickets = $this->hasOne(EmployeeTicketModel::class,'idEmployee', 'idEmployee')
             ->where('isSeen', '0')
@@ -173,6 +258,10 @@ class EmployeeModel extends Model
         return $inboxTickets;
     }
 
+    /**
+     * Возвращает список просроченных поручений, назначенных сотруднику
+     * @return TicketModel[]
+     */
     public function getExpiredTickets() {
         $expiredTickets = $this->hasOne(EmployeeTicketModel::class,'idEmployee', 'idEmployee')
             ->join('tickets as t', 't.idTicket', '=', 'employee_tickets.idTicket')
@@ -186,6 +275,10 @@ class EmployeeModel extends Model
         return $expiredTickets;
     }
 
+    /**
+     * Возвращает список всех поручений, назначенных сотруднику
+     * @return TicketModel[]
+     */
     public function getAssignedTickets() {
         $assignedTickets = $this->hasOne(EmployeeTicketModel::class,'idEmployee', 'idEmployee')
             ->join(ListDatabaseTable::TABLE_TICKETS,
@@ -202,6 +295,10 @@ class EmployeeModel extends Model
         return $assignedTickets;
     }
 
+    /**
+     * Возвращает список закрытых поручений, назначенных сотруднику
+     * @return TicketModel[]
+     */
     public function getClosedTickets() {
         $assignedTickets = $this->hasOne(EmployeeTicketModel::class,'idEmployee', 'idEmployee')
             ->join(ListDatabaseTable::TABLE_TICKETS,
@@ -218,18 +315,31 @@ class EmployeeModel extends Model
         return $assignedTickets;
     }
 
+    /**
+     * Возвращает записи о загруженных файлах сотрудником по указанному тегу
+     * @param int $fileTag - идентификатор метки файла. Принимает значения, перечисленные в ListFileTagModel
+     * @return EmployeeFileModel[]
+     */
     public function getFilesByTag(int $fileTag) {
         return $this->hasOne(EmployeeFileModel::class, 'idEmployee', 'idEmployee')
             ->where('idFileTag', '=', $fileTag)
             ->get();
     }
 
+    /**
+     * Возвращает список всех записей о загруженных файлов сотрудником
+     * @return
+     */
     public function getFiles() {
         return $this->hasOne(EmployeeFileModel::class, 'idEmployee', 'idEmployee')
             ->where('inTrash', '=', false)
             ->get();
     }
 
+    /**
+     * Возвращает список записей о файлах, перенесённых в коризну
+     * @return EmployeeFileModel[]
+     */
     public function getFilesInTrash() {
         return $this->hasOne(EmployeeFileModel::class, 'idEmployee', 'idEmployee')
             ->where('inTrash', '=', true)
