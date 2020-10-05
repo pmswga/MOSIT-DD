@@ -4,17 +4,25 @@ namespace App;
 
 use App\Core\Config\ListDatabaseTable;
 use App\Core\Constants\ListSubSystemConstants;
+use App\Models\Main\Staff\EmployeeModel;
 use App\Models\Main\Storage\ListFileTagModel;
 use App\Models\Service\Accounts\AccountRightsModel;
+use App\Models\Service\Accounts\ListAccountTypeModel;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
+/**
+ * @class AccountModel
+ * @brief Модель аккаунта пользователя
+ *
+ * @package App\Models;
+ */
 class AccountModel extends Authenticatable
 {
     use Notifiable;
 
-    protected $table = ListDatabaseTable::TABLE_ACCOUNTS;
-    protected $primaryKey = "idAccount";
+    protected $table = ListDatabaseTable::TABLE_ACCOUNTS; ///< Соответствующая таблица в базе данных
+    protected $primaryKey = "idAccount"; ///< Первичный ключ
 
     /**
      * The attributes that are mass assignable.
@@ -43,18 +51,34 @@ class AccountModel extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    /**
+     * Возвращает почту аккаунта
+     * @return string
+     */
     public function getEmail() {
         return $this->email;
     }
 
+    /**
+     * Возвращает информацию о сотруднике
+     * @return EmployeeModel
+     */
     public function getEmployee() {
         return $this->hasOne('App\Models\Main\Staff\EmployeeModel', 'idEmployee', 'idAccount')->first();
     }
 
+    /**
+     * Возвращает тип аккаунта
+     * @return ListAccountTypeModel
+     */
     public function getAccountType() {
         return $this->hasOne('App\Models\Service\Accounts\ListAccountTypeModel', 'idAccountType', 'idAccountType')->first();
     }
 
+    /**
+     * Возвращает доступные прова доступа
+     * @return array
+     */
     public function getAccountRights() {
         $rights = $this->hasMany(AccountRightsModel::class, 'idAccount', 'idAccount')
             ->where('isAccess', '=', 1)
@@ -76,6 +100,11 @@ class AccountModel extends Authenticatable
         return $groupRights;
     }
 
+    /**
+     * Возвращает права доступа к подсистеме
+     * @param int $systemId - идентификатор подсистемы
+     * @return AccountRightsModel
+     */
     public function getAccountRightsOn(int $systemId) {
         $accountRight =  $this->hasOne(AccountRightsModel::class, 'idAccount', 'idAccount')
             ->where('idSubSystem', '=', $systemId)
@@ -88,7 +117,10 @@ class AccountModel extends Authenticatable
         return new AccountRightsModel();
     }
 
-
+    /**
+     * Возвращает Список доступных тегов для пометки загружаемых файлов
+     * @return ListFileTagModel
+     */
     public function getAvailableFileTags() {
         $rights = $this->hasMany(AccountRightsModel::class, 'idAccount', 'idAccount')
             ->where('isAccess', '=', true)
